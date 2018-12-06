@@ -1,5 +1,5 @@
 ---
-title: "Introduction to using regression"
+title: "Linear Algebra Examples"
 teaching: 0
 exercises: 0
 questions:
