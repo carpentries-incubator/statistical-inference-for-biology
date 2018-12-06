@@ -35,7 +35,14 @@ Now we are ready to see how matrix algebra can be useful when analyzing data. We
 
 #### The average
 
-To compute the sample average and variance of our data, we use these formulas <i>\bar{Y}=\frac{1}{N} Y_i</i> and <i>\mbox{var}(Y)=\frac{1}{N} \sum_{i=1}^N (Y_i - \bar{Y})^2</i>. We can represent these with matrix multiplication. First, define this <i>N \times 1</i> matrix made just of 1s:
+To compute the sample average and variance of our data, we use these formulas 
+<i>\oline{Y}=\frac{1}{N} Y_i</i> 
+
+and 
+
+<i>\mbox{var}(Y)=\frac{1}{N} \sum_{i=1}^N (Y_i - \oline{Y})^2</i>.
+
+We can represent these with matrix multiplication. First, define this <i>N \times 1</i> matrix made just of 1s:
 
 <i>
 A=\begin{pmatrix}
@@ -59,7 +66,7 @@ Y_2\\
 Y_N
 \end{pmatrix}=
 \frac{1}{N} \sum_{i=1}^N Y_i
-= \bar{Y}
+= \oline{Y}
 </i>
 
 Note that we are multiplying by the scalar <i>1/N</i>. In R, we multiply matrix using `%*%`:
@@ -90,12 +97,12 @@ For the variance, we note that if:
 
 <i>
 \mathbf{r}\equiv \begin{pmatrix}
-Y_1 - \bar{Y}\\
+Y_1 - \oline{Y}\\
 \vdots\\
-Y_N - \bar{Y}
+Y_N - \oline{Y}
 \end{pmatrix}, \,\,
 \frac{1}{N} \mathbf{r}^\top\mathbf{r} = 
-\frac{1}{N}\sum_{i=1}^N (Y_i - \bar{Y})^2
+\frac{1}{N}\sum_{i=1}^N (Y_i - \oline{Y})^2
 </i>
 
 In R, if you only send one matrix into `crossprod`, it computes: <i>r^\top r</i> so we can simply type:
