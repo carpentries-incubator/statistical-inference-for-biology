@@ -35,12 +35,7 @@ Now we are ready to see how matrix algebra can be useful when analyzing data. We
 
 #### The average
 
-To compute the sample average and variance of our data, we use these formulas 
-<i>\oline{Y}=\frac{1}{N} Y_i</i> 
-
-and 
-
-<i>\mbox{var}(Y)=\frac{1}{N} \sum_{i=1}^N (Y_i - \oline{Y})^2</i>.
+To compute the sample average and variance of our data, we use these formulas ![](../fig/05-ybar-one-over-N.png) and ![](../fig/05-varY-sigma.png).
 
 We can represent these with matrix multiplication. First, define this <i>N \times 1</i> matrix made just of 1s:
 
