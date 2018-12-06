@@ -34,20 +34,20 @@ Now we are ready to see how matrix algebra can be useful when analyzing data. We
 
 #### The average
 
-To compute the sample average and variance of our data, we use these formulas $\bar{Y}=\frac{1}{N} Y_i$ and $\mbox{var}(Y)=\frac{1}{N} \sum_{i=1}^N (Y_i - \bar{Y})^2$. We can represent these with matrix multiplication. First, define this $N \times 1$ matrix made just of 1s:
+To compute the sample average and variance of our data, we use these formulas <i>\bar{Y}=\frac{1}{N} Y_i</i> and <i>\mbox{var}(Y)=\frac{1}{N} \sum_{i=1}^N (Y_i - \bar{Y})^2</i>. We can represent these with matrix multiplication. First, define this <i>N \times 1</i> matrix made just of 1s:
 
-$$
+<i>
 A=\begin{pmatrix}
 1\\
 1\\
 \vdots\\
 1
 \end{pmatrix}
-$$
+</i>
 
 This implies that:
 
-$$
+<i>
 \frac{1}{N}
 \mathbf{A}^\top Y = \frac{1}{N}
 \begin{pmatrix}1&1&\dots&1\end{pmatrix}
@@ -59,9 +59,9 @@ Y_N
 \end{pmatrix}=
 \frac{1}{N} \sum_{i=1}^N Y_i
 = \bar{Y}
-$$
+</i>
 
-Note that we are multiplying by the scalar $1/N$. In R, we multiply matrix using `%*%`:
+Note that we are multiplying by the scalar <i>1/N</i>. In R, we multiply matrix using `%*%`:
 
 
 ~~~
@@ -119,7 +119,7 @@ print(barY)
 
 For the variance, we note that if:
 
-$$
+<i>
 \mathbf{r}\equiv \begin{pmatrix}
 Y_1 - \bar{Y}\\
 \vdots\\
@@ -127,9 +127,9 @@ Y_N - \bar{Y}
 \end{pmatrix}, \,\,
 \frac{1}{N} \mathbf{r}^\top\mathbf{r} = 
 \frac{1}{N}\sum_{i=1}^N (Y_i - \bar{Y})^2
-$$
+</i>
 
-In R, if you only send one matrix into `crossprod`, it computes: $r^\top r$ so we can simply type:
+In R, if you only send one matrix into `crossprod`, it computes: <i>r^\top r</i> so we can simply type:
 
 
 ~~~
@@ -202,7 +202,7 @@ popvar(y)
 
 Now we are ready to put all this to use. Let's start with Galton's example. If we define these matrices:
  
-$$
+<i>
 \mathbf{Y} = \begin{pmatrix}
 Y_1\\
 Y_2\\
@@ -227,20 +227,20 @@ Y_N
 \vdots\\
 \varepsilon_N
 \end{pmatrix}
-$$
+</i>
 
 
 
 Then we can write the model:
 
-$$ 
+<i>
 Y_i = \beta_0 + \beta_1 x_i + \varepsilon_i, i=1,\dots,N 
-$$
+</i>
 
 as: 
 
 
-$$
+<i>
 \,
 \begin{pmatrix}
 Y_1\\
@@ -264,46 +264,46 @@ Y_N
 \vdots\\
 \varepsilon_N
 \end{pmatrix}
-$$
+</i>
 
 or simply: 
 
-$$
+<i>
 \mathbf{Y}=\mathbf{X}\boldsymbol{\beta}+\boldsymbol{\varepsilon}
-$$
+</i>
 
 which is a much simpler way to write it. 
 
 
 The least squares equation becomes simpler as well since it is the following cross-product:
 
-$$
+<i>
 (\mathbf{Y}-\mathbf{X}\boldsymbol{\beta})^\top
 (\mathbf{Y}-\mathbf{X}\boldsymbol{\beta})
-$$
+</i>
 
-So now we are ready to determine which values of $\beta$ minimize the above, which we  can do  using calculus to find the minimum. 
+So now we are ready to determine which values of <i>\beta</i> minimize the above, which we  can do  using calculus to find the minimum. 
 
 #### Advanced: Finding the minimum using calculus
 
-There are a series of rules that permit us to compute partial derivative equations in matrix notation. By equating the derivative to 0 and solving for the $\beta$, we will have our solution. The only one we need here tells us that the derivative of the above equation is:
+There are a series of rules that permit us to compute partial derivative equations in matrix notation. By equating the derivative to 0 and solving for the <i>\beta</i>, we will have our solution. The only one we need here tells us that the derivative of the above equation is:
 
-$$
+<i>
 2 \mathbf{X}^\top (\mathbf{Y} - \mathbf{X} \boldsymbol{\hat{\beta}})=0
-$$
+</i>
 
-$$
+<i>
 \mathbf{X}^\top \mathbf{X} \boldsymbol{\hat{\beta}} = \mathbf{X}^\top \mathbf{Y}   
-$$
+</i>
 
 
-$$
+<i>
 \boldsymbol{\hat{\beta}} = (\mathbf{X}^\top \mathbf{X})^{-1} \mathbf{X}^\top \mathbf{Y}   
-$$
+</i>
 
-and we have our solution. We usually put a hat on the $\beta$ that solves this, $\hat{\beta}$ , as it is an estimate of the "real" $\beta$ that generated the data.
+and we have our solution. We usually put a hat on the <i>\beta</i> that solves this, <i>\hat{\beta}</i> , as it is an estimate of the "real" <i>\beta</i> that generated the data.
 
-Remember that the least squares are like a square (multiply something by itself) and that this formula is similar to the derivative of $f(x)^2$ being $2f(x)f\prime (x)$. 
+Remember that the least squares are like a square (multiply something by itself) and that this formula is similar to the derivative of <i>f(x)^2</i> being <i>2f(x)f\prime (x)</i>. 
 
 
 #### Finding LSE in R
@@ -323,7 +323,7 @@ betahat <- solve( crossprod(X) ) %*% crossprod( X, y )
 {: .language-r}
 
 
-Now we can see the results of this by computing the estimated $\hat{\beta}_0+\hat{\beta}_1 x$ for any value of $x$:
+Now we can see the results of this by computing the estimated <i>\hat{\beta}_0+\hat{\beta}_1 x</i> for any value of <i>x</i>:
 
 
 ~~~
@@ -337,7 +337,7 @@ lines(newx,fitted,col=2)
 
 <img src="../fig/rmd-05-galton_regression_line-1.png" title="Galton's data with fitted regression line." alt="Galton's data with fitted regression line." width="612" style="display: block; margin: auto;" />
 
-This $\hat{\boldsymbol{\beta}}=(\mathbf{X}^\top \mathbf{X})^{-1} \mathbf{X}^\top \mathbf{Y}$ is one of the most widely used results in data analysis. One of the advantages of this approach is that we can use it in many different situations.  For example, in our falling object problem: 
+This <i>\hat{\boldsymbol{\beta}}=(\mathbf{X}^\top \mathbf{X})^{-1} \mathbf{X}^\top \mathbf{Y}</i> is one of the most widely used results in data analysis. One of the advantages of this approach is that we can use it in many different situations.  For example, in our falling object problem: 
  
 
 ~~~
@@ -427,4 +427,4 @@ Note that we obtain the same values as above.
 
 #### Summary
 
-We have shown how to write linear models using linear algebra. We are going to do this for several examples, many of which are related to designed experiments. We also demonstrated how to obtain least squares estimates. Nevertheless, it is important to remember that because $y$ is a random variable, these estimates are random as well. In a later section, we will learn how to compute standard error for these estimates and use this to perform inference.
+We have shown how to write linear models using linear algebra. We are going to do this for several examples, many of which are related to designed experiments. We also demonstrated how to obtain least squares estimates. Nevertheless, it is important to remember that because <i>y</i> is a random variable, these estimates are random as well. In a later section, we will learn how to compute standard error for these estimates and use this to perform inference.
