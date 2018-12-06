@@ -34,36 +34,19 @@ Now we are ready to see how matrix algebra can be useful when analyzing data. We
 
 #### The average
 
-To compute the sample average and variance of our data, we use these formulas ![](../fig/05-ybar-one-over-N.png) and ![](../fig/05-varY-sigma.png).
+To compute the sample average and variance of our data, we use these formulas ![](../fig/05-ybar-one-over-N.png) and ![](../fig/05-varY-sigma.png)
 
-We can represent these with matrix multiplication. First, define this <i>N \times 1</i> matrix made just of 1s:
+We can represent these with matrix multiplication. First, define this ![](../fig/05-N-times-one.png) matrix made just of 1s:
 
-<i>
-A=\begin{pmatrix}
-1\\
-1\\
-\vdots\\
-1
-\end{pmatrix}
-</i>
+![](../fig/05-A-matrix.png)
 
 This implies that:
 
-<i>
-\frac{1}{N}
-\mathbf{A}^\top Y = \frac{1}{N}
-\begin{pmatrix}1&1&\dots&1\end{pmatrix}
-\begin{pmatrix}
-Y_1\\
-Y_2\\
-\vdots\\
-Y_N
-\end{pmatrix}=
-\frac{1}{N} \sum_{i=1}^N Y_i
-= \oline{Y}
-</i>
+![](../fig/05-A-transpose-equals-varY.png)
 
-Note that we are multiplying by the scalar <i>1/N</i>. In R, we multiply matrix using `%*%`:
+Note that we are multiplying by the scalar ![](../fig/05-one-over-N.png)
+
+In R, we multiply matrix using `%*%`:
 
 
 ~~~
@@ -121,17 +104,10 @@ print(barY)
 
 For the variance, we note that if:
 
-<i>
-\mathbf{r}\equiv \begin{pmatrix}
-Y_1 - \oline{Y}\\
-\vdots\\
-Y_N - \oline{Y}
-\end{pmatrix}, \,\,
-\frac{1}{N} \mathbf{r}^\top\mathbf{r} = 
-\frac{1}{N}\sum_{i=1}^N (Y_i - \oline{Y})^2
-</i>
+![](../fig/05-r-equals-y-matrix.png)
 
-In R, if you only send one matrix into `crossprod`, it computes: <i>r^\top r</i> so we can simply type:
+In R, if you only send one matrix into `crossprod`, it computes:
+![](../fig/05-r-transpose-r.png) so we can simply type:
 
 
 ~~~
@@ -204,108 +180,41 @@ popvar(y)
 
 Now we are ready to put all this to use. Let's start with Galton's example. If we define these matrices:
  
-<i>
-\mathbf{Y} = \begin{pmatrix}
-Y_1\\
-Y_2\\
-\vdots\\
-Y_N
-\end{pmatrix}
-,
-\mathbf{X} = \begin{pmatrix}
-1&x_1\\
-1&x_2\\
-\vdots\\
-1&x_N
-\end{pmatrix}
-,
-\mathbf{\beta} = \begin{pmatrix}
-\beta_0\\
-\beta_1
-\end{pmatrix} \mbox{ and }
-\mathbf{\varepsilon} = \begin{pmatrix}
-\varepsilon_1\\
-\varepsilon_2\\
-\vdots\\
-\varepsilon_N
-\end{pmatrix}
-</i>
-
-
+![](../fig/05-Ymatrix-Xmatrix-beta-epsilon.png)
 
 Then we can write the model:
 
-<i>
-Y_i = \beta_0 + \beta_1 x_i + \varepsilon_i, i=1,\dots,N 
-</i>
+![](../fig/05-Ysubi-equals-betazero-plus.png)
 
 as: 
 
-
-<i>
-\,
-\begin{pmatrix}
-Y_1\\
-Y_2\\
-\vdots\\
-Y_N
-\end{pmatrix} = 
-\begin{pmatrix}
-1&x_1\\
-1&x_2\\
-\vdots\\
-1&x_N
-\end{pmatrix}
-\begin{pmatrix}
-\beta_0\\
-\beta_1
-\end{pmatrix} +
-\begin{pmatrix}
-\varepsilon_1\\
-\varepsilon_2\\
-\vdots\\
-\varepsilon_N
-\end{pmatrix}
-</i>
+![](../fig/05-Ymatrix-equals-1xmatrix-beta-plus-e.png)
 
 or simply: 
 
-<i>
-\mathbf{Y}=\mathbf{X}\boldsymbol{\beta}+\boldsymbol{\varepsilon}
-</i>
+![](../fig/05-Ystrong-equals-XstrongBeta-plus-Estrong.png)
 
 which is a much simpler way to write it. 
 
-
 The least squares equation becomes simpler as well since it is the following cross-product:
 
-<i>
-(\mathbf{Y}-\mathbf{X}\boldsymbol{\beta})^\top
-(\mathbf{Y}-\mathbf{X}\boldsymbol{\beta})
-</i>
+![](../fig/05-Ystrong-minus-XstrongBeta-transpose.png)
 
-So now we are ready to determine which values of <i>\beta</i> minimize the above, which we  can do  using calculus to find the minimum. 
+So now we are ready to determine which values of <i>&beta;</i> minimize the above, which we  can do  using calculus to find the minimum. 
 
 #### Advanced: Finding the minimum using calculus
 
-There are a series of rules that permit us to compute partial derivative equations in matrix notation. By equating the derivative to 0 and solving for the <i>\beta</i>, we will have our solution. The only one we need here tells us that the derivative of the above equation is:
+There are a series of rules that permit us to compute partial derivative equations in matrix notation. By equating the derivative to 0 and solving for the <i>&beta;</i>, we will have our solution. The only one we need here tells us that the derivative of the above equation is:
 
-<i>
-2 \mathbf{X}^\top (\mathbf{Y} - \mathbf{X} \boldsymbol{\hat{\beta}})=0
-</i>
+![](../fig/05-twoXstrong-transpose.png)
 
-<i>
-\mathbf{X}^\top \mathbf{X} \boldsymbol{\hat{\beta}} = \mathbf{X}^\top \mathbf{Y}   
-</i>
+![](../fig/05-Xstrong-transpose-XstrongBeta-hat.png)
 
+![](../fig/05-beta-hat-equals.png)
 
-<i>
-\boldsymbol{\hat{\beta}} = (\mathbf{X}^\top \mathbf{X})^{-1} \mathbf{X}^\top \mathbf{Y}   
-</i>
+and we have our solution. We usually put a hat on the <i>&beta;</i> that solves this, ![](../fig/05-beta-hat.png) as it is an estimate of the "real" <i>&beta;</i> that generated the data.
 
-and we have our solution. We usually put a hat on the <i>\beta</i> that solves this, <i>\hat{\beta}</i> , as it is an estimate of the "real" <i>\beta</i> that generated the data.
-
-Remember that the least squares are like a square (multiply something by itself) and that this formula is similar to the derivative of <i>f(x)^2</i> being <i>2f(x)f\prime (x)</i>. 
+Remember that the least squares are like a square (multiply something by itself) and that this formula is similar to the derivative of <i>f(x)&sup2;</i> being <i>2f(x)f&prime;(x)</i>. 
 
 
 #### Finding LSE in R
@@ -325,7 +234,7 @@ betahat <- solve( crossprod(X) ) %*% crossprod( X, y )
 {: .language-r}
 
 
-Now we can see the results of this by computing the estimated <i>\hat{\beta}_0+\hat{\beta}_1 x</i> for any value of <i>x</i>:
+Now we can see the results of this by computing the estimated ![](../fig/05-betazerohat-plus-betaonehatx.png) for any value of <i>x</i>:
 
 
 ~~~
@@ -339,7 +248,7 @@ lines(newx,fitted,col=2)
 
 <img src="../fig/rmd-05-galton_regression_line-1.png" title="Galton's data with fitted regression line." alt="Galton's data with fitted regression line." width="612" style="display: block; margin: auto;" />
 
-This <i>\hat{\boldsymbol{\beta}}=(\mathbf{X}^\top \mathbf{X})^{-1} \mathbf{X}^\top \mathbf{Y}</i> is one of the most widely used results in data analysis. One of the advantages of this approach is that we can use it in many different situations.  For example, in our falling object problem: 
+This ![](../fig/05-betahatstrong-equals-xtransposex.png) is one of the most widely used results in data analysis. One of the advantages of this approach is that we can use it in many different situations.  For example, in our falling object problem: 
  
 
 ~~~
@@ -352,7 +261,6 @@ d <- 56.67  - 0.5*g*tt^2 + rnorm(n,sd=1)
 {: .language-r}
 
 Notice that we are using almost the same exact code:
-
 
 
 ~~~
