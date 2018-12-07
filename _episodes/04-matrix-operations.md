@@ -180,55 +180,25 @@ We can see that `c(3,2,1)` is not a solution as the answer here is not the requi
 
 To get the solution, we will need to invert the matrix on the left, a concept we learn about below.
 
-Here is the general definition of matrix multiplication of matrices $A$ and $X$:
+Here is the general definition of matrix multiplication of matrices &Alpha; and &Chi;:
 
 ![](../fig/04-AX-matrix.png)
 ![](../fig/04-equals-sigma-ax-matrix.png)
 
-You can only take the product if the number of columns of the first matrix $A$ equals the number of rows of the second one $X$. Also, the final matrix has the same row numbers as the first $A$ and the same column numbers as the second $X$. 
+You can only take the product if the number of columns of the first matrix &Alpha; equals the number of rows of the second one &Chi;. Also, the final matrix has the same row numbers as the first &Alpha; and the same column numbers as the second &Chi;. 
 After you study the example below, you may want to come back and re-read the sections above.
 
 #### The identity matrix
 
 The identity matrix is analogous to the number 1: if you multiply the identity matrix by another matrix, you get the same matrix. For this to happen, we need it to be like this:
 
-$$
-\mathbf{I} = \begin{pmatrix}
-1&0&0&\dots&0&0\\
-0&1&0&\dots&0&0\\
-0&0&1&\dots&0&0\\
-\vdots &\vdots & \vdots&\ddots&\vdots&\vdots\\
-0&0&0&\dots&1&0\\
-0&0&0&\dots&0&1
-\end{pmatrix}
-$$
+![](../fig/04-identity-matrix.png)
 
 By this definition, the identity always has to have the same number of rows as columns or be what we call a square matrix.
 
 If you follow the matrix multiplication rule above, you notice this works out:
 
-$$
-\mathbf{XI} = 
-\begin{pmatrix}
-   x_{1,1} & \dots &  x_{1,p}\\
-  & \vdots & \\
-   x_{N,1} & \dots &   x_{N,p}
-\end{pmatrix}
-\begin{pmatrix}
-1&0&0&\dots&0&0\\
-0&1&0&\dots&0&0\\
-0&0&1&\dots&0&0\\
- & & &\vdots& &\\
-0&0&0&\dots&1&0\\
-0&0&0&\dots&0&1
-\end{pmatrix} = 
-\begin{pmatrix}
-   x_{1,1} & \dots &  x_{1,p}\\
-  & \vdots & \\
-   x_{N,1} & \dots & x_{N,p}
-\end{pmatrix}
-$$
-
+![](../fig/04-X-times-identity-matrix.png)
 
 In R you can form an identity matrix this way:
 
@@ -252,7 +222,7 @@ diag(n)
 
 #### The inverse
 
-The inverse of matrix $X$, denoted with $X^{-1}$, has the property that, when multiplied, gives you the identity $X^{-1}X=I$. Of course, not all matrices have inverses. For example, a $2\times 2$ matrix with 1s in all its entries does not have an inverse. 
+The inverse of matrix &Chi;, denoted with &Chi;<sup>-1</sup>  $X^{-1}$, has the property that, when multiplied, gives you the identity &Chi;<sup>-1</sup>&Chi;= I. $X^{-1}X=I$. Of course, not all matrices have inverses. For example, a <i>2 x 2</i> matrix with 1s in all its entries does not have an inverse. 
 
 As we will see when we get to the section on applications to linear models, being able to compute the inverse of a matrix is quite useful. A very convenient aspect of R is that it includes a predefined function `solve` to do this. Here is how we would use it to solve the linear of equations:
 
