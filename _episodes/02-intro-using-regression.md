@@ -33,20 +33,6 @@ In this book we try to minimize mathematical notation as much as possible. Furth
 We will describe three examples from the life sciences: one from physics, one related to genetics, and one from a mouse experiment. They are very different, yet we end up using the same statistical technique: fitting linear models. Linear models are typically taught and described in the language of matrix algebra. 
 
 
-~~~
-
-Attaching package: 'rafalib'
-~~~
-{: .output}
-
-
-
-~~~
-The following object is masked from 'package:remotes':
-
-    install_bioc
-~~~
-{: .output}
 
 ## Motivating Examples
 
@@ -155,8 +141,6 @@ The standard approach in science is to find the values that minimize the distanc
 
 Once we find the minimum, we will call the values the least squares estimates (LSE) and denote them with ![](../fig/05-beta-hat.png)
 The quantity obtained when evaluating the least squares equation at the estimates is called the residual sum of squares (RSS). Since all these quantities depend on <i>&Upsilon;</i>, *they are random variables*. The ![](../fig/05-beta-hat.png)s are random variables and we will eventually perform inference on them.
-
-&betacirc;
 
 #### Falling object example revisited
 Thanks to my high school physics teacher, I know that the equation for the trajectory of a falling object is: 

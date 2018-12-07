@@ -222,7 +222,7 @@ diag(n)
 
 #### The inverse
 
-The inverse of matrix &Chi;, denoted with &Chi;<sup>-1</sup>  $X^{-1}$, has the property that, when multiplied, gives you the identity &Chi;<sup>-1</sup>&Chi;= I. $X^{-1}X=I$. Of course, not all matrices have inverses. For example, a <i>2 x 2</i> matrix with 1s in all its entries does not have an inverse. 
+The inverse of matrix &Chi;, denoted with &Chi;<sup>-1</sup>, has the property that, when multiplied, gives you the identity &Chi;<sup>-1</sup>&Chi;= I. Of course, not all matrices have inverses. For example, a <i>2 x 2</i> matrix with 1s in all its entries does not have an inverse. 
 
 As we will see when we get to the section on applications to linear models, being able to compute the inverse of a matrix is quite useful. A very convenient aspect of R is that it includes a predefined function `solve` to do this. Here is how we would use it to solve the linear of equations:
 
