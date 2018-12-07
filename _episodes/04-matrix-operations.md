@@ -30,75 +30,19 @@ source: Rmd
 
 In a previous section, we motivated the use of matrix algebra with this system of equations:
 
-
-$$
-\begin{align*}
-a + b + c &= 6\\
-3a - 2b + c &= 2\\
-2a + b  - c &= 1
-\end{align*}
-$$
+![](../fig/03-system-linear-equations.png)
 
 We described how this system can be rewritten and solved using matrix algebra:
 
-$$
-\,
-\begin{pmatrix}
-1&1&1\\
-3&-2&1\\
-2&1&-1
-\end{pmatrix}
-\begin{pmatrix}
-a\\
-b\\
-c
-\end{pmatrix} =
-\begin{pmatrix}
-6\\
-2\\
-1
-\end{pmatrix}
-\implies
-\begin{pmatrix}
-a\\
-b\\
-c
-\end{pmatrix}=
-\begin{pmatrix}
-1&1&1\\
-3&-2&1\\
-2&1&-1
-\end{pmatrix}^{-1}
-\begin{pmatrix}
-6\\
-2\\
-1
-\end{pmatrix}
-$$
+![](../fig/03-matrix-alg-notation.png)
 
 Having described matrix notation, we will explain the operation we perform with them. For example, above we have matrix multiplication and we also have a symbol representing the inverse of a matrix. The importance of these operations and others will become clear once we present specific examples related to data analysis.
- 
 
 #### Multiplying by a scalar
 
-We start with one of the simplest operations: scalar multiplication. If $a$ is scalar and $\mathbf{X}$ is a matrix, then:
+We start with one of the simplest operations: scalar multiplication. If <i>a</i> is scalar and &Chi; is a matrix, then:
 
-
-$$
-\mathbf{X} = \begin{pmatrix}
-  x_{1,1}&\dots & x_{1,p} \\
-  x_{2,1}&\dots & x_{2,p} \\
-   & \vdots & \\
-  x_{N,1}&\dots & x_{N,p} 
-  \end{pmatrix} \implies
-a \mathbf{X} = 
-\begin{pmatrix}
-  a x_{1,1} & \dots & a x_{1,p}\\
-  a x_{2,1}&\dots & a x_{2,p} \\
-  & \vdots & \\
-  a x_{N,1} & \dots & a  x_{N,p}
-\end{pmatrix}
-$$
+![](../fig/04-multiply-matrix-by-scalar.png)
 
 R automatically follows this rule when we multiply a number by a matrix using `*`:
 
@@ -142,23 +86,9 @@ print(a*X)
 
 #### The transpose
 
-The transpose is an operation that simply changes columns to rows. We use a $\top$ to denote a transpose. The technical definition is as follows: if X is as we defined it above, here is the transpose which will be $p\times N$:
+The transpose is an operation that simply changes columns to rows. We use a &Tau; to denote a transpose. The technical definition is as follows: if &Chi; is as we defined it above, here is the transpose which will be <i>p x N</i>:
 
-
-$$
-\mathbf{X} = \begin{pmatrix}
-  x_{1,1}&\dots & x_{1,p} \\
-  x_{2,1}&\dots & x_{2,p} \\
-   & \vdots & \\
-  x_{N,1}&\dots & x_{N,p} 
-  \end{pmatrix} \implies
-\mathbf{X}^\top = \begin{pmatrix}
-  x_{1,1}&\dots & x_{p,1} \\
-  x_{1,2}&\dots & x_{p,2} \\
-   & \vdots & \\
-  x_{1,N}&\dots & x_{p,N} 
-  \end{pmatrix}
-$$
+![](../fig/04-transpose-matrix.png)
 
 In R we simply use `t`:
 
@@ -201,34 +131,11 @@ t(X)
 
 We start by describing the matrix multiplication shown in the original system of equations example:
 
-$$
-\begin{align*}
-a + b + c &=6\\
-3a - 2b + c &= 2\\
-2a + b  - c &= 1
-\end{align*}
-$$
+![](../fig/03-system-linear-equations.png)
 
 What we are doing is multiplying the rows of the first matrix by the columns of the second. Since the second matrix only has one column, we perform this multiplication by doing the following:
 
-$$
-\,
-\begin{pmatrix}
-1&1&1\\
-3&-2&1\\
-2&1&-1
-\end{pmatrix}
-\begin{pmatrix}
-a\\
-b\\
-c
-\end{pmatrix}=
-\begin{pmatrix}
-a + b + c \\
-3a - 2b + c \\
-2a + b  - c 
-\end{pmatrix}
-$$
+![](../fig/04-matrix-multiplication.png)
 
 Here is a simple example. We can check to see if `abc=c(3,2,1)` is a solution:
 
@@ -275,27 +182,8 @@ To get the solution, we will need to invert the matrix on the left, a concept we
 
 Here is the general definition of matrix multiplication of matrices $A$ and $X$:
 
-$$
-\mathbf{AX} = \begin{pmatrix}
-  a_{1,1} & a_{1,2} & \dots & a_{1,N}\\
-  a_{2,1} & a_{2,2} & \dots & a_{2,N}\\
-  & & \vdots & \\
-  a_{M,1} & a_{M,2} & \dots & a_{M,N}
-\end{pmatrix}
-\begin{pmatrix}
-  x_{1,1}&\dots & x_{1,p} \\
-  x_{2,1}&\dots & x_{2,p} \\
-   & \vdots & \\
-  x_{N,1}&\dots & x_{N,p} 
-  \end{pmatrix}
-$$
-  
-$$  = \begin{pmatrix}
-  \sum_{i=1}^N a_{1,i} x_{i,1} & \dots & \sum_{i=1}^N a_{1,i} x_{i,p}\\
-  & \vdots & \\
-  \sum_{i=1}^N a_{M,i} x_{i,1} & \dots & \sum_{i=1}^N a_{M,i} x_{i,p}
-\end{pmatrix}
-$$
+![](../fig/04-AX-matrix.png)
+![](../fig/04-equals-sigma-ax-matrix.png)
 
 You can only take the product if the number of columns of the first matrix $A$ equals the number of rows of the second one $X$. Also, the final matrix has the same row numbers as the first $A$ and the same column numbers as the second $X$. 
 After you study the example below, you may want to come back and re-read the sections above.
