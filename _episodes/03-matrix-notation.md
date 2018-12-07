@@ -42,61 +42,15 @@ Linear algebra was created by mathematicians to solve systems of linear equation
 
 ![](../fig/03-system-linear-equations.png)
 
-
-
-$$
-\begin{align*}
-a + b + c &= 6\\
-3a - 2b + c &= 2\\
-2a + b  - c &= 1
-\end{align*}
-$$
-
 It provides very useful machinery to solve these problems generally. We will learn how we can write and solve this system using matrix algebra notation:
 
 ![](../fig/03-matrix-alg-notation.png)
-
-
-$$ 
-\,
-\begin{pmatrix}
-1&1&1\\
-3&-2&1\\
-2&1&-1
-\end{pmatrix}
-\begin{pmatrix}
-a\\
-b\\
-c
-\end{pmatrix} =
-\begin{pmatrix}
-6\\
-2\\
-1
-\end{pmatrix}
-\implies
-\begin{pmatrix}
-a\\
-b\\
-c
-\end{pmatrix} =
-\begin{pmatrix}
-1&1&1\\
-3&-2&1\\
-2&1&-1
-\end{pmatrix}^{-1}
-\begin{pmatrix}
-6\\
-2\\
-1
-\end{pmatrix}
-$$
 
 This section explains the notation used above. It turns out that we can borrow this notation for linear models in statistics as well.
 
 ## Vectors, Matrices, and Scalars
 
-In the falling object, father-son heights, and mouse weight examples, the random variables associated with the data were represented by <i>&Upsilon;<sub>i</sub>, ...,<i>&Upsilon;<sub>n</sub></i>. We can think of this as a vector. In fact, in R we are already doing this:
+In the falling object, father-son heights, and mouse weight examples, the random variables associated with the data were represented by <i>&Upsilon;<sub>i</sub>,...,<i>&Upsilon;<sub>n</sub></i>. We can think of this as a vector. In fact, in R we are already doing this:
 
 
 ~~~
@@ -124,20 +78,11 @@ Similarly, we can use math notation to represent the covariates or predictors. I
 
 ![](../fig/03-two-bold-X-predictors.png)
 
-Note that for the falling object example <i>x<sub>1,1</sub> = t<sub>i</sub></i> and <i>x<sub>i,1</sub> = t<sub>i</sub>i &sup2;</i> with <i>t<sub>i</sub></i> the time of the <i>i</i>-th observation. Also, keep in mind that vectors can be thought of as <i>N x 1</i> matrices.
+Note that for the falling object example <i>x<sub>1,1</sub> = t<sub>i</sub></i> and <i>x<sub>i,1</sub> = t<sub>i</sub> &sup2;</i> with <i>t<sub>i</sub></i> the time of the <i>i</i>-th observation. Also, keep in mind that vectors can be thought of as <i>N x 1</i> matrices.
 
 For reasons that will soon become apparent, it is convenient to represent these in matrices:
 
 ![](../fig/03-N-times-2-matrix-of-Xes.png)
-
-
-$$ 
-\mathbf{X} = [ \mathbf{X}_1 \mathbf{X}_2 ] = \begin{pmatrix}
-x_{1,1}&x_{1,2}\\
-\vdots\\
-x_{N,1}&x_{N,2}
-\end{pmatrix}
-$$
 
 This matrix has dimension <i>N x 2</i>. We can create this matrix in R this way:
 
@@ -180,16 +125,6 @@ dim(X)
 We can also use this notation to denote an arbitrary number of covariates with the following <i>N x p</i> matrix:
 
 ![](../fig/03-N-times-p-matrix-of-Xes.png)
-
-
-$$
-\mathbf{X} = \begin{pmatrix}
-  x_{1,1}&\dots & x_{1,p} \\
-  x_{2,1}&\dots & x_{2,p} \\
-   & \vdots & \\
-  x_{N,1}&\dots & x_{N,p} 
-  \end{pmatrix}
-$$
 
 Just as an example, we show you how to make one in R now using `matrix` instead of `cbind`:
 
