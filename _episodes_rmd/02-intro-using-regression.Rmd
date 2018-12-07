@@ -60,7 +60,7 @@ plot(tt, d, ylab="Distance in meters", xlab="Time in seconds")
 
 He does not know the exact equation, but by looking at the plot above he deduces that the position should follow a parabola. So he models the data with:
 
-<i>&Upsilon;<sub>i</sub> = &beta;<sub>0</sub> + &beta;<sub>1</sub>x<sub>i</sub> + &beta;<sub>2</sub>x &sup2;<sub>i</sub></i> + &epsilon;<sub>i</sub>, i = 1, ..., n</i>
+<i>&Upsilon;<sub>i</sub> = &beta;<sub>0</sub> + &beta;<sub>1</sub>x<sub>i</sub> + &beta;<sub>2</sub>x &sup2;<sub>i</sub> + &epsilon;<sub>i</sub>, i = 1, ..., n</i>
 
 With <i>&Upsilon;<sub>i</sub></i> representing location, <i>x<sub>i</sub></i> representing the time, and <i>&epsilon;</i> accounting for measurement error. This is a linear model because it is a linear combination of known quantities (the <i>x</i>'s) referred to as predictors or covariates and unknown parameters (the <i>&beta;</i>'s).
 
@@ -125,19 +125,20 @@ Note that we have a general number of predictors <i>p</i>. Matrix algebra provid
 
 #### Estimating parameters
 
-For the models above to be useful we have to estimate the unknown <i>&beta;</i> s. In the first example, we want to describe a physical process for which we can't have unknown parameters. In the second example, we better understand inheritance by estimating how much, on average, the father's height affects the son's height. In the final example, we want to determine if there is in fact a difference: if <i>&beta;<sub>1</sub></i>&ne;0</i>. 
+For the models above to be useful we have to estimate the unknown <i>&beta;</i>s. In the first example, we want to describe a physical process for which we can't have unknown parameters. In the second example, we better understand inheritance by estimating how much, on average, the father's height affects the son's height. In the final example, we want to determine if there is in fact a difference: if <i>&beta;<sub>1</sub>&ne;0</i>. 
 
 The standard approach in science is to find the values that minimize the distance of the fitted model to the data. The following is called the least squares (LS) equation and we will see it often in this chapter:
 
 ![](../fig/02-sigma-one-to-n-brace.png)
 
-Once we find the minimum, we will call the values the least squares estimates (LSE) and denote them with ![](../fig/05-beta-hat.png). The quantity obtained when evaluating the least squares equation at the estimates is called the residual sum of squares (RSS). Since all these quantities depend on <i>&Upsilon;</i>, *they are random variables*. The ![](../fig/05-beta-hat.png) s are random variables and we will eventually perform inference on them.
+Once we find the minimum, we will call the values the least squares estimates (LSE) and denote them with ![](../fig/05-beta-hat.png)
+The quantity obtained when evaluating the least squares equation at the estimates is called the residual sum of squares (RSS). Since all these quantities depend on <i>&Upsilon;</i>, *they are random variables*. The ![](../fig/05-beta-hat.png)s are random variables and we will eventually perform inference on them.
 
 #### Falling object example revisited
 Thanks to my high school physics teacher, I know that the equation for the trajectory of a falling object is: 
-<i>d = <i>h<sub>0</sub> + <i>v<sub>0</sub> t - 0.5 x 9.8 t &sup2;</i>
+<i>d = <i>h<sub>0</sub> + <i>v<sub>0</sub> t - 0.5 x 9.8t&sup2;</i>
 
-with <i>h<sub>0</sub></i> and <i>v<sub>0</sub></i> the starting height and velocity respectively. The data we simulated above followed this equation and added measurement error to simulate `n` observations for dropping the ball <i>v<sub>0</sub> = 0</i> from the tower of Pisa <i>h<sub>0</sub> = 56.67</i>. This is why we used this code to simulate data:
+with <i>h<sub>0</sub></i> and <i>v<sub>0</sub></i> the starting height and velocity respectively. The data we simulated above followed this equation and added measurement error to simulate `n` observations for dropping the ball <i>v<sub>0</sub> = 0</i> from the tower of Pisa <i>h<sub>0</sub></i> = 56.67. This is why we used this code to simulate data:
 
 ```{r simulate_drop_data}
 g <- 9.8 ##meters per second
@@ -156,7 +157,7 @@ lines(tt,f,col=2)
 
 But we were pretending to be Galileo and so we don't know the parameters in the model. The data does suggest it is a parabola, so we model it as such:
 
-$$ Y_i = \beta_0 + \beta_1 x_i + \beta_2 x_i^2 + \varepsilon_i, i=1,\dots,n $$
+<i>&Upsilon;<sub>i</sub> = &beta;<sub>0</sub> + &beta;<sub>1</sub>x<sub>i</sub> + &beta;<sub>2</sub>x &sup2;<sub>i</sub> + &epsilon;<sub>i</sub>, i = 1, ..., n</i>
 
 How do we find the LSE?
 
@@ -176,7 +177,7 @@ Part of what we do in this section is to explain the mathematics behind this fun
 
 #### The least squares estimate (LSE)
 
-Let's write a function that computes the RSS for any vector $\beta$:
+Let's write a function that computes the RSS for any vector <i>&beta;</i>:
 ```{r}
 rss <- function(Beta0,Beta1,Beta2){
   r <- y - (Beta0+Beta1*tt+Beta2*tt^2)
@@ -184,7 +185,7 @@ rss <- function(Beta0,Beta1,Beta2){
 }
 ```
 
-So for any three dimensional vector we get an RSS. Here is a plot of the RSS as a function of $\beta_2$ when we keep the other two fixed:
+So for any three dimensional vector we get an RSS. Here is a plot of the RSS as a function of <i>&beta;<sub>2</sub></i> when we keep the other two fixed:
 
 ```{r rss_versus_estimate, fig.cap="Residual sum of squares obtained for several values of the parameters."}
 Beta2s<- seq(-10,0,len=100)
@@ -204,23 +205,19 @@ When studying the father-son data, Galton made a fascinating discovery using exp
 
 ![Galton's plot.](http://upload.wikimedia.org/wikipedia/commons/b/b2/Galton's_correlation_diagram_1875.jpg) 
 
-He noted that if he tabulated the number of father-son height pairs and followed all the x,y values having the same totals in the table, they formed an ellipse. In the plot above, made by Galton, you see the ellipse formed by the pairs having 3 cases. This then led to modeling this data as correlated bivariate normal which we described earlier: 
+He noted that if he tabulated the number of father-son height pairs and followed all the x, y values having the same totals in the table, they formed an ellipse. In the plot above, made by Galton, you see the ellipse formed by the pairs having 3 cases. This then led to modeling this data as correlated bivariate normal which we described earlier: 
 
-$$ 
-Pr(X<a,Y<b) =
-$$
+![](../fig/02-prob-xlta-yltb.png)
+
+![](../fig/02-double-integral.png)
 
 
-$$
-\int_{-\infty}^{a} \int_{-\infty}^{b} \frac{1}{2\pi\sigma_x\sigma_y\sqrt{1-\rho^2}}
-\exp{ \left\{
-\frac{1}{2(1-\rho^2)}
-\left[\left(\frac{x-\mu_x}{\sigma_x}\right)^2 -  
-2\rho\left(\frac{x-\mu_x}{\sigma_x}\right)\left(\frac{y-\mu_y}{\sigma_y}\right)+
-\left(\frac{y-\mu_y}{\sigma_y}\right)^2
-\right]
-\right\}
-}
-$$
+We described how we can use math to show that if you keep <i>X</i> fixed (condition to be <i>x</i>) the distribution of <i>&Upsilon;</i> is normally distributed with mean: 
 
-We described how we can use math to show that if you keep $X$ fixed (condition to be $x$) the distribution of $Y$ is normally distributed with mean: $\mu_x +\sigma_y \rho \left(\frac{x-\mu_x}{\sigma_x}\right)$ and standard deviation $\sigma_y \sqrt{1-\rho^2}$. Note that $\rho$ is the correlation between $Y$ and $X$, which implies that if we fix $X=x$, $Y$ does in fact follow a linear model. The $\beta_0$ and $\beta_1$ parameters in our simple linear model can be expressed in terms of $\mu_x,\mu_y,\sigma_x,\sigma_y$, and $\rho$.
+![](../fig/02-musubx-plus-rhosubyp.png)
+
+and standard deviation 
+
+![](../fig/02-sigmasuby-sqrtoneminusrhosq.png) 
+
+Note that <i>&rho;</i> is the correlation between <i>&Upsilon;</i> and <i>X</i>, which implies that if we fix <i>X=x</i>, <i>&Upsilon;</i> does in fact follow a linear model. The <i>&beta;<sub>0</sub></i> and <i>&beta;<sub>1</sub></i> parameters in our simple linear model can be expressed in terms of <i>&mu;<sub>x</sub></i>, <i>&mu;<sub>y</sub></i>, <i>&sigma;<sub>x</sub></i>, <i>&sigma;<sub>y</sub></i>, and <i>&rho;</i>.
