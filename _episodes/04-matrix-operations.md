@@ -5,7 +5,7 @@ title: "Matrix Operations"
 teaching: 0
 exercises: 0
 questions:
-- "?"
+- "What are matrix operations?"
 - "?"
 - "?"
 objectives:
