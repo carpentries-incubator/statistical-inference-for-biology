@@ -1,25 +1,25 @@
 ---
 title: "Matrix Operations"
+keypoints:
+- '.'
+- '.'
+- '.'
+- '.'
+objectives:
+- ''
+- ''
+- ''
+- ''
+- ''
+- ''
+- ''
+questions:
+- What are matrix operations?
+- '?'
+- '?'
+source: Rmd
 teaching: 0
 exercises: 0
-questions:
-- "?"
-- "?"
-- "?"
-objectives:
-- ""
-- ""
-- ""
-- ""
-- ""
-- ""
-- ""
-keypoints:
-- "."
-- "."
-- "."
-- "."
-source: Rmd
 ---
 
 ```{r, include=FALSE}
