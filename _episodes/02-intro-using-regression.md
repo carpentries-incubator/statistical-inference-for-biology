@@ -5,7 +5,7 @@ title: "Introduction to Linear Models"
 teaching: 0
 exercises: 0
 questions:
-- "?"
+- "what is a linear model?"
 - "?"
 - "?"
 objectives:
