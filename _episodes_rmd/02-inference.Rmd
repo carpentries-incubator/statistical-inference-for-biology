@@ -334,22 +334,23 @@ Throughout this book, we use random number generators. This implies that many of
 ```
 
 
-## Populations, Samples and Estimates 
+## Populations and Sample Estimates 
+We can never know the true mean or variance of an entire population. Why not? Because we can't feasibly measure every member of a population. We can never know the true mean blood pressure of all mice, for example, even if all are from one strain, because we can't afford to buy them all or even find them all. We can never know the true mean blood pressure of all people on a Western diet, for example, because we can't possible measure the entire population that's on a Western diet. If we could measure all people on a Western diet, we really are interested in the difference in means between people on a Western vs. non high fat high sugar diet because we want to know what effect the diet has on people. If there is no difference in means, we can say that there is no effect of diet. If there is a difference in means, we can say that the diet has an effect. 
+The question we are asking is can be expressed as:
 
-Now that we have introduced the idea of a random variable, a null distribution, and a p-value, we are ready to describe the mathematical theory that permits us to compute p-values in practice. We will also learn about confidence intervals and power calculations. 
+Is
 
-#### Population parameters
+$$\mu_Y - \mu_X = 0?$$
 
-A first step in statistical inference is to understand what population
-you are interested in. In the mouse weight example, we have two
-populations: female mice on control diets and female mice on high fat
-diets, with weight being the outcome of interest. We consider this
-population to be fixed, and the randomness comes from the
-sampling. One reason we have been using this dataset as an example is
-because we happen to have the weights of all the mice of this
-type. We download [this](https://raw.githubusercontent.com/genomicsclass/dagdata/master/inst/extdata/mice_pheno.csv) file to our working directory and read in to R:
+[example of normal curves]("https://www.varsitytutors.com/assets/vt-hotmath-legacy/hotmath_help/topics/normal-distribution-of-data/normal-distribution-1.gif")
 
-```{r,message=FALSE,echo=FALSE}
+We also want to know the variance from the mean, so that we have a sense of the spread of measurement around the mean.
+
+In reality we use sample estimates of population parameters. The true population parameters that we are interested in are mean and standard deviation. Here we learn how to taking a sample permits us to answer our questions about differences between groups. This is the essence of statistical inference.
+
+Now that we have introduced the idea of a random variable, a null distribution, and a p-value, we are ready to describe the mathematical theory that permits us to compute p-values in practice. We will also learn about confidence intervals and power calculations.
+
+```{r echo=FALSE}
 library(downloader)
 dir <- "https://raw.githubusercontent.com/genomicsclass/dagdata/master/inst/extdata/"
 filename <- "mice_pheno.csv"
@@ -386,6 +387,17 @@ The mean:
 
 $$\mu_X = \frac{1}{m}\sum_{i=1}^m x_i \mbox{ and } \mu_Y = \frac{1}{n} \sum_{i=1}^n y_i$$
 
+```{r}
+# X is the control population
+sum(controlPopulation$weight) # sum of the xsubi's
+length(controlPopulation$weight) # this equals m
+sum(controlPopulation$weight)/length(controlPopulation$weight) # this equals mu sub x
+
+
+# Y is the high fat diet population
+sum(hfPopulation$weight) # sum of the ysubi's
+sum(hfPopulation$weight)/length(hfPopulation$weight) # this equals mu sub y
+```
 The variance:
 
 $$\sigma_X^2 = \frac{1}{m}\sum_{i=1}^m (x_i-\mu_X)^2 \mbox{ and } \sigma_Y^2 = \frac{1}{n} \sum_{i=1}^n (y_i-\mu_Y)^2$$
@@ -395,37 +407,9 @@ with the standard deviation being the square root of the variance. We refer to s
 Although in our illustration we have all the values and can check if this is true, in practice we do not. For example, in practice it would be prohibitively expensive to buy all the mice in a population. Here we learn how taking a _sample_ permits us to answer our questions. This is the essence of statistical inference.
 
 #### Sample estimates
-
-In the previous chapter, we obtained samples of 12 mice from each
-population. We represent data from samples with capital letters to
-indicate that they are random. This is common practice in statistics,
-although it is not always followed. So the samples are $X_1,\dots,X_M$
-and $Y_1,\dots,Y_N$ and, in this case, $N=M=12$. In contrast and as we
-saw above, when we list out the values of the population, which are
-set and not random, we use lower-case letters.
-
-Since we want to know if $\mu_Y - \mu_X$ is 0, we consider the sample version: $\bar{Y}-\bar{X}$  with: 
-
-$$
-\bar{X}=\frac{1}{M} \sum_{i=1}^M X_i 
-\mbox{ and }\bar{Y}=\frac{1}{N} \sum_{i=1}^N Y_i.
-$$
-
-Note that this difference of averages is also a random
-variable. Previously, we learned about the behavior of random variables
-with an exercise that involved repeatedly sampling from the original
-distribution. Of course, this is not an exercise that we can execute
-in practice. In this particular case it would involve buying 24 mice
-over and over again. Here we described the mathematical theory that
-mathematically relates $\bar{X}$ to $\mu_X$ and $\bar{Y}$ to $\mu_Y$,
-that will in turn help us understand the relationship between
-$\bar{Y}-\bar{X}$  and $\mu_Y - \mu_X$. Specifically, we will describe
-how the Central Limit Theorem permits us to use an approximation to
-answer this question, as well as motivate the widely used t-distribution.
+Note that this difference of averages is also a random variable.
 
 ## Central Limit Theorem and t-distribution
-
-
 Below we will discuss the Central Limit Theorem (CLT) and the t-distribution, both of which help us make important calculations related to probabilities. Both are frequently used in science to test statistical hypotheses. To use these, we have to make different assumptions from those for the CLT and the t-distribution. However, if the assumptions are true, then we are able to calculate the exact probabilities of events through the use of mathematical formula.
 
 #### Central Limit Theorem 

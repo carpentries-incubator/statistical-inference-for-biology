@@ -120,39 +120,14 @@ If we repeat the experiment, we obtain 24 new mice from The Jackson Laboratory a
 Let's explore random variables further. Imagine that we actually have the weight of all control female mice and can upload them to R. In Statistics, we refer to this as *the population*. These are all the control mice available from which we sampled 24. Note that in practice we do not have access to the population. We have a special dataset that we are using here to illustrate concepts. 
 
 
-```
-## Warning in download.file(url, method = method, ...): URL 'https://
-## raw.githubusercontent.com/genomicsclass/dagdata/master/inst/extdata/
-## femaleControlsPopulation.csv': status was 'Couldn't resolve host name'
-```
-
-```
-## Error in download.file(url, method = method, ...): cannot open URL 'https://raw.githubusercontent.com/genomicsclass/dagdata/master/inst/extdata/femaleControlsPopulation.csv'
-```
 
 The first step is to download the data from [here](https://raw.githubusercontent.com/genomicsclass/dagdata/master/inst/extdata/femaleControlsPopulation.csv) into your working directory and then read it into R: 
 
 
 ```r
 population <- read.csv("femaleControlsPopulation.csv")
-```
-
-```
-## Warning in file(file, "rt"): cannot open file
-## 'femaleControlsPopulation.csv': No such file or directory
-```
-
-```
-## Error in file(file, "rt"): cannot open the connection
-```
-
-```r
 ##use unlist to turn it into a numeric vector
 population <- unlist(population) 
-```
-
-```
-## Error in unlist(population): object 'population' not found
 ```
 
 Now let's sample 12 mice three times and see how the average changes.
@@ -160,13 +135,6 @@ Now let's sample 12 mice three times and see how the average changes.
 
 ```r
 control <- sample(population,12)
-```
-
-```
-## Error in sample(population, 12): object 'population' not found
-```
-
-```r
 mean(control)
 ```
 
@@ -176,34 +144,20 @@ mean(control)
 
 ```r
 control <- sample(population,12)
-```
-
-```
-## Error in sample(population, 12): object 'population' not found
-```
-
-```r
 mean(control)
 ```
 
 ```
-## [1] 23.81333
+## [1] 23.77083
 ```
 
 ```r
 control <- sample(population,12)
-```
-
-```
-## Error in sample(population, 12): object 'population' not found
-```
-
-```r
 mean(control)
 ```
 
 ```
-## [1] 23.81333
+## [1] 24.18667
 ```
 
 Note how the average varies. We can continue to do this repeatedly and start learning something about the distribution of this random variable.
@@ -231,27 +185,13 @@ written in R code:
 ```r
 ##12 control mice
 control <- sample(population,12)
-```
-
-```
-## Error in sample(population, 12): object 'population' not found
-```
-
-```r
 ##another 12 control mice that we act as if they were not
 treatment <- sample(population,12)
-```
-
-```
-## Error in sample(population, 12): object 'population' not found
-```
-
-```r
 print(mean(treatment) - mean(control))
 ```
 
 ```
-## [1] 3.020833
+## [1] 0.6375
 ```
 
 Now let's do it 10,000 times. We will use a "for-loop", an operation
@@ -268,10 +208,6 @@ for (i in 1:n) {
 }
 ```
 
-```
-## Error in sample(population, 12): object 'population' not found
-```
-
 The values in `null` form what we call the *null distribution*. We will define this more formally below.
 
 So what percent of the 10,000 are bigger than `obsdiff`?
@@ -282,7 +218,7 @@ mean(null >= obsdiff)
 ```
 
 ```
-## [1] 0
+## [1] 0.0151
 ```
 
 Only a small percent of the 10,000 simulations. As skeptics what do
@@ -311,7 +247,7 @@ round(sample(x,10),1)
 ```
 
 ```
-##  [1] 70.6 70.2 71.0 67.4 62.0 70.5 69.9 67.2 64.6 69.0
+##  [1] 66.4 67.4 64.9 62.9 69.2 71.4 69.2 65.9 65.3 70.2
 ```
 
 #### Cumulative Distribution Function
@@ -419,7 +355,7 @@ approximation works very well here:
 ```
 
 ```
-## [1] 0
+## [1] 0.01468484
 ```
 
 Later, we will learn that there is a mathematical explanation for this. A very useful characteristic of this approximation is that one only needs to know $\mu$ and $\sigma$ to describe the entire distribution. From this, we can compute the proportion of values in any interval. 
@@ -455,44 +391,27 @@ Throughout this book, we use random number generators. This implies that many of
 ```
 
 
-## Populations, Samples and Estimates 
+## Populations and Sample Estimates 
+We can never know the true mean or variance of an entire population. Why not? Because we can't feasibly measure every member of a population. We can never know the true mean blood pressure of all mice, for example, even if all are from one strain, because we can't afford to buy them all or even find them all. We can never know the true mean blood pressure of all people on a Western diet, for example, because we can't possible measure the entire population that's on a Western diet. If we could measure all people on a Western diet, we really are interested in the difference in means between people on a Western vs. non high fat high sugar diet because we want to know what effect the diet has on people. If there is no difference in means, we can say that there is no effect of diet. If there is a difference in means, we can say that the diet has an effect. 
+The question we are asking is can be expressed as:
 
-Now that we have introduced the idea of a random variable, a null distribution, and a p-value, we are ready to describe the mathematical theory that permits us to compute p-values in practice. We will also learn about confidence intervals and power calculations. 
+Is
 
-#### Population parameters
+$$\mu_Y - \mu_X = 0?$$
 
-A first step in statistical inference is to understand what population
-you are interested in. In the mouse weight example, we have two
-populations: female mice on control diets and female mice on high fat
-diets, with weight being the outcome of interest. We consider this
-population to be fixed, and the randomness comes from the
-sampling. One reason we have been using this dataset as an example is
-because we happen to have the weights of all the mice of this
-type. We download [this](https://raw.githubusercontent.com/genomicsclass/dagdata/master/inst/extdata/mice_pheno.csv) file to our working directory and read in to R:
+[example of normal curves]("https://www.varsitytutors.com/assets/vt-hotmath-legacy/hotmath_help/topics/normal-distribution-of-data/normal-distribution-1.gif")
+
+We also want to know the variance from the mean, so that we have a sense of the spread of measurement around the mean.
+
+In reality we use sample estimates of population parameters. The true population parameters that we are interested in are mean and standard deviation. Here we learn how to taking a sample permits us to answer our questions about differences between groups. This is the essence of statistical inference.
+
+Now that we have introduced the idea of a random variable, a null distribution, and a p-value, we are ready to describe the mathematical theory that permits us to compute p-values in practice. We will also learn about confidence intervals and power calculations.
 
 
-```
-## Warning in download.file(url, method = method, ...): URL 'https://
-## raw.githubusercontent.com/genomicsclass/dagdata/master/inst/extdata/
-## mice_pheno.csv': status was 'Couldn't resolve host name'
-```
-
-```
-## Error in download.file(url, method = method, ...): cannot open URL 'https://raw.githubusercontent.com/genomicsclass/dagdata/master/inst/extdata/mice_pheno.csv'
-```
 
 
 ```r
 dat <- read.csv("mice_pheno.csv")
-```
-
-```
-## Warning in file(file, "rt"): cannot open file 'mice_pheno.csv': No such
-## file or directory
-```
-
-```
-## Error in file(file, "rt"): cannot open the connection
 ```
 
 We can then access the population values and determine, for example, how many we have. Here we compute the size of the control population:
@@ -502,18 +421,11 @@ We can then access the population values and determine, for example, how many we
 library(dplyr)
 controlPopulation <- filter(dat,Sex == "F" & Diet == "chow") %>% 
   select(Bodyweight) %>% unlist
-```
-
-```
-## Error in filter_impl(.data, quo): Evaluation error: object 'Sex' not found.
-```
-
-```r
 length(controlPopulation)
 ```
 
 ```
-## Error in eval(expr, envir, enclos): object 'controlPopulation' not found
+## [1] 225
 ```
 
 We usually denote these values as $x_1,\dots,x_m$. In this case, $m$ is the number computed above. We can do the same for the high fat diet population:
@@ -522,18 +434,11 @@ We usually denote these values as $x_1,\dots,x_m$. In this case, $m$ is the numb
 ```r
 hfPopulation <- filter(dat,Sex == "F" & Diet == "hf") %>%  
   select(Bodyweight) %>% unlist
-```
-
-```
-## Error in filter_impl(.data, quo): Evaluation error: object 'Sex' not found.
-```
-
-```r
 length(hfPopulation)
 ```
 
 ```
-## Error in eval(expr, envir, enclos): object 'hfPopulation' not found
+## [1] 200
 ```
 
 and denote with $y_1,\dots,y_n$.
@@ -544,6 +449,48 @@ The mean:
 
 $$\mu_X = \frac{1}{m}\sum_{i=1}^m x_i \mbox{ and } \mu_Y = \frac{1}{n} \sum_{i=1}^n y_i$$
 
+
+```r
+# X is the control population
+sum(controlPopulation$weight) # sum of the xsubi's
+```
+
+```
+## Error in controlPopulation$weight: $ operator is invalid for atomic vectors
+```
+
+```r
+length(controlPopulation$weight) # this equals m
+```
+
+```
+## Error in controlPopulation$weight: $ operator is invalid for atomic vectors
+```
+
+```r
+sum(controlPopulation$weight)/length(controlPopulation$weight) # this equals mu sub x
+```
+
+```
+## Error in controlPopulation$weight: $ operator is invalid for atomic vectors
+```
+
+```r
+# Y is the high fat diet population
+sum(hfPopulation$weight) # sum of the ysubi's
+```
+
+```
+## Error in hfPopulation$weight: $ operator is invalid for atomic vectors
+```
+
+```r
+sum(hfPopulation$weight)/length(hfPopulation$weight) # this equals mu sub y
+```
+
+```
+## Error in hfPopulation$weight: $ operator is invalid for atomic vectors
+```
 The variance:
 
 $$\sigma_X^2 = \frac{1}{m}\sum_{i=1}^m (x_i-\mu_X)^2 \mbox{ and } \sigma_Y^2 = \frac{1}{n} \sum_{i=1}^n (y_i-\mu_Y)^2$$
@@ -553,37 +500,9 @@ with the standard deviation being the square root of the variance. We refer to s
 Although in our illustration we have all the values and can check if this is true, in practice we do not. For example, in practice it would be prohibitively expensive to buy all the mice in a population. Here we learn how taking a _sample_ permits us to answer our questions. This is the essence of statistical inference.
 
 #### Sample estimates
-
-In the previous chapter, we obtained samples of 12 mice from each
-population. We represent data from samples with capital letters to
-indicate that they are random. This is common practice in statistics,
-although it is not always followed. So the samples are $X_1,\dots,X_M$
-and $Y_1,\dots,Y_N$ and, in this case, $N=M=12$. In contrast and as we
-saw above, when we list out the values of the population, which are
-set and not random, we use lower-case letters.
-
-Since we want to know if $\mu_Y - \mu_X$ is 0, we consider the sample version: $\bar{Y}-\bar{X}$  with: 
-
-$$
-\bar{X}=\frac{1}{M} \sum_{i=1}^M X_i 
-\mbox{ and }\bar{Y}=\frac{1}{N} \sum_{i=1}^N Y_i.
-$$
-
-Note that this difference of averages is also a random
-variable. Previously, we learned about the behavior of random variables
-with an exercise that involved repeatedly sampling from the original
-distribution. Of course, this is not an exercise that we can execute
-in practice. In this particular case it would involve buying 24 mice
-over and over again. Here we described the mathematical theory that
-mathematically relates $\bar{X}$ to $\mu_X$ and $\bar{Y}$ to $\mu_Y$,
-that will in turn help us understand the relationship between
-$\bar{Y}-\bar{X}$  and $\mu_Y - \mu_X$. Specifically, we will describe
-how the Central Limit Theorem permits us to use an approximation to
-answer this question, as well as motivate the widely used t-distribution.
+Note that this difference of averages is also a random variable.
 
 ## Central Limit Theorem and t-distribution
-
-
 Below we will discuss the Central Limit Theorem (CLT) and the t-distribution, both of which help us make important calculations related to probabilities. Both are frequently used in science to test statistical hypotheses. To use these, we have to make different assumptions from those for the CLT and the t-distribution. However, if the assumptions are true, then we are able to calculate the exact probabilities of events through the use of mathematical formula.
 
 #### Central Limit Theorem 
@@ -849,32 +768,11 @@ simple code that one would use to actually compute a t-test:
 
 
 
-```
-## Warning in download.file(url, method = method, ...): URL 'https://
-## raw.githubusercontent.com/genomicsclass/dagdata/master/inst/extdata/
-## mice_pheno.csv': status was 'Couldn't resolve host name'
-```
-
-```
-## Error in download.file(url, method = method, ...): cannot open URL 'https://raw.githubusercontent.com/genomicsclass/dagdata/master/inst/extdata/mice_pheno.csv'
-```
 
 
 ```r
 library(dplyr)
 dat <- read.csv("mice_pheno.csv")
-```
-
-```
-## Warning in file(file, "rt"): cannot open file 'mice_pheno.csv': No such
-## file or directory
-```
-
-```
-## Error in file(file, "rt"): cannot open the connection
-```
-
-```r
 control <- filter(dat,Diet=="chow") %>% select(Bodyweight) 
 treatment <- filter(dat,Diet=="hf") %>% select(Bodyweight) 
 t.test(treatment,control)
@@ -885,13 +783,13 @@ t.test(treatment,control)
 ## 	Welch Two Sample t-test
 ## 
 ## data:  treatment and control
-## t = 2.0552, df = 20.236, p-value = 0.053
+## t = 7.1932, df = 735.02, p-value = 1.563e-12
 ## alternative hypothesis: true difference in means is not equal to 0
 ## 95 percent confidence interval:
-##  -0.04296563  6.08463229
+##  2.231533 3.906857
 ## sample estimates:
 ## mean of x mean of y 
-##  26.83417  23.81333
+##  30.48201  27.41281
 ```
 
 The arguments to `t.test` can be of type *data.frame* and thus we do not need to unlist them into numeric objects.
@@ -929,31 +827,10 @@ confidence intervals in the simple case.
 We start by reading in the data and selecting the appropriate rows:
 
 
-```
-## Warning in download.file(url, method = method, ...): URL 'https://
-## raw.githubusercontent.com/genomicsclass/dagdata/master/inst/extdata/
-## mice_pheno.csv': status was 'Couldn't resolve host name'
-```
-
-```
-## Error in download.file(url, method = method, ...): cannot open URL 'https://raw.githubusercontent.com/genomicsclass/dagdata/master/inst/extdata/mice_pheno.csv'
-```
 
 
 ```r
 dat <- read.csv("mice_pheno.csv")
-```
-
-```
-## Warning in file(file, "rt"): cannot open file 'mice_pheno.csv': No such
-## file or directory
-```
-
-```
-## Error in file(file, "rt"): cannot open the connection
-```
-
-```r
 chowPopulation <- dat[dat$Sex=="F" & dat$Diet=="chow",3]
 ```
 
@@ -962,19 +839,11 @@ The population average $\mu_X$ is our parameter of interest here:
 
 ```r
 mu_chow <- mean(chowPopulation)
-```
-
-```
-## Warning in mean.default(chowPopulation): argument is not numeric or
-## logical: returning NA
-```
-
-```r
 print(mu_chow)
 ```
 
 ```
-## [1] NA
+## [1] 23.89338
 ```
 
 We are interested in estimating this parameter. In practice, we do not get to see the entire population so, as we did for p-values, we demonstrate how we can use samples to do this. Let's start with a sample of size 30:
@@ -983,18 +852,11 @@ We are interested in estimating this parameter. In practice, we do not get to se
 ```r
 N <- 30
 chow <- sample(chowPopulation,N)
-```
-
-```
-## Error in sample.int(length(x), size, replace, prob): invalid first argument
-```
-
-```r
 print(mean(chow))
 ```
 
 ```
-## Error in mean(chow): object 'chow' not found
+## [1] 23.351
 ```
 
 We know this is a random variable, so the sample average will not be a perfect estimate. In fact, because in this illustrative example we know the value of the parameter, we can see that they are not exactly the same. A confidence interval is a statistical way of reporting our finding, the sample average, in a way that explicitly summarizes the variability of our random variable.
@@ -1004,18 +866,11 @@ With a sample size of 30, we will use the CLT. The CLT tells us that $\bar{X}$ o
 
 ```r
 se <- sd(chow)/sqrt(N)
-```
-
-```
-## Error in is.data.frame(x): object 'chow' not found
-```
-
-```r
 print(se)
 ```
 
 ```
-## [1] 1.469867
+## [1] 0.4781652
 ```
 
 <a name="interval"></a>
@@ -1071,18 +926,11 @@ interval with R relatively easily:
 ```r
 Q <- qnorm(1- 0.05/2)
 interval <- c(mean(chow)-Q*se, mean(chow)+Q*se )
-```
-
-```
-## Error in mean(chow): object 'chow' not found
-```
-
-```r
 interval
 ```
 
 ```
-## Error in eval(expr, envir, enclos): object 'interval' not found
+## [1] 22.41381 24.28819
 ```
 
 ```r
@@ -1090,7 +938,7 @@ interval[1] < mu_chow & interval[2] > mu_chow
 ```
 
 ```
-## Error in eval(expr, envir, enclos): object 'interval' not found
+## [1] TRUE
 ```
 
 which happens to cover $\mu_X$ or `mean(chowPopulation)`. However, we can take another sample and we might not be as lucky. In fact, the theory tells us that we will cover $\mu_X$ 95% of the time. Because we have access to the population data, we can confirm this by taking several new samples:
@@ -1102,37 +950,7 @@ B <- 250
 mypar()
 plot(mean(chowPopulation)+c(-7,7),c(1,1),type="n",
      xlab="weight",ylab="interval",ylim=c(1,B))
-```
-
-```
-## Warning in mean.default(chowPopulation): argument is not numeric or
-## logical: returning NA
-```
-
-```
-## Warning in min(x): no non-missing arguments to min; returning Inf
-```
-
-```
-## Warning in max(x): no non-missing arguments to max; returning -Inf
-```
-
-```
-## Error in plot.window(...): need finite 'xlim' values
-```
-
-![We show 250 random realizations of 95% confidence intervals. The color denotes if the interval fell on the parameter or not.](figure/02-inference-confidence_interval_n30-1.png)
-
-```r
 abline(v=mean(chowPopulation))
-```
-
-```
-## Warning in mean.default(chowPopulation): argument is not numeric or
-## logical: returning NA
-```
-
-```r
 for (i in 1:B) {
   chow <- sample(chowPopulation,N)
   se <- sd(chow)/sqrt(N)
@@ -1144,9 +962,7 @@ for (i in 1:B) {
 }
 ```
 
-```
-## Error in sample.int(length(x), size, replace, prob): invalid first argument
-```
+![We show 250 random realizations of 95% confidence intervals. The color denotes if the interval fell on the parameter or not.](figure/02-inference-confidence_interval_n30-1.png)
 
 You can run this repeatedly to see what happens. You will see that in about 5% of the cases, we fail to cover $\mu_X$.
 
@@ -1162,37 +978,7 @@ For $N=30$, the CLT works very well. However, if $N=5$, do these confidence inte
 mypar()
 plot(mean(chowPopulation)+c(-7,7),c(1,1),type="n",
      xlab="weight",ylab="interval",ylim=c(1,B))
-```
-
-```
-## Warning in mean.default(chowPopulation): argument is not numeric or
-## logical: returning NA
-```
-
-```
-## Warning in min(x): no non-missing arguments to min; returning Inf
-```
-
-```
-## Warning in max(x): no non-missing arguments to max; returning -Inf
-```
-
-```
-## Error in plot.window(...): need finite 'xlim' values
-```
-
-![We show 250 random realizations of 95% confidence intervals, but now for a smaller sample size. The confidence interval is based on the CLT approximation. The color denotes if the interval fell on the parameter or not.](figure/02-inference-confidence_interval_n5-1.png)
-
-```r
 abline(v=mean(chowPopulation))
-```
-
-```
-## Warning in mean.default(chowPopulation): argument is not numeric or
-## logical: returning NA
-```
-
-```r
 Q <- qnorm(1- 0.05/2)
 N <- 5
 for (i in 1:B) {
@@ -1205,9 +991,7 @@ for (i in 1:B) {
 }
 ```
 
-```
-## Error in sample.int(length(x), size, replace, prob): invalid first argument
-```
+![We show 250 random realizations of 95% confidence intervals, but now for a smaller sample size. The confidence interval is based on the CLT approximation. The color denotes if the interval fell on the parameter or not.](figure/02-inference-confidence_interval_n5-1.png)
 
 Despite the intervals being larger (we are dividing by $\sqrt{5}$
 instead of $\sqrt{30}$ ), we see many more intervals not covering
@@ -1221,37 +1005,7 @@ $\pm \infty$). This mistake affects us in the calculation of `Q`, which assumes 
 mypar()
 plot(mean(chowPopulation) + c(-7,7), c(1,1), type="n",
      xlab="weight", ylab="interval", ylim=c(1,B))
-```
-
-```
-## Warning in mean.default(chowPopulation): argument is not numeric or
-## logical: returning NA
-```
-
-```
-## Warning in min(x): no non-missing arguments to min; returning Inf
-```
-
-```
-## Warning in max(x): no non-missing arguments to max; returning -Inf
-```
-
-```
-## Error in plot.window(...): need finite 'xlim' values
-```
-
-![We show 250 random realizations of 95% confidence intervals, but now for a smaller sample size. The confidence is now based on the t-distribution approximation. The color denotes if the interval fell on the parameter or not.](figure/02-inference-confidence_interval_tdist_n5-1.png)
-
-```r
 abline(v=mean(chowPopulation))
-```
-
-```
-## Warning in mean.default(chowPopulation): argument is not numeric or
-## logical: returning NA
-```
-
-```r
 ##Q <- qnorm(1- 0.05/2) ##no longer normal so use:
 Q <- qt(1- 0.05/2, df=4)
 N <- 5
@@ -1265,9 +1019,7 @@ for (i in 1:B) {
 }
 ```
 
-```
-## Error in sample.int(length(x), size, replace, prob): invalid first argument
-```
+![We show 250 random realizations of 95% confidence intervals, but now for a smaller sample size. The confidence is now based on the t-distribution approximation. The color denotes if the interval fell on the parameter or not.](figure/02-inference-confidence_interval_tdist_n5-1.png)
 
 Now the intervals are made bigger. This is because the t-distribution has fatter tails and therefore:
 
