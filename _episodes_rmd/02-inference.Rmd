@@ -1,12 +1,32 @@
 ---
 title: "Inference"
-layout: page
+teaching: 0
+exercises: 0
+questions:
+- "what does inference mean?"
+- "?"
+- "?"
+objectives:
+- ""
+- ""
+- ""
+- ""
+- ""
+- ""
+- ""
+keypoints:
+- "."
+- "."
+- "."
+- "."
+source: Rmd
 ---
 
-```{r options, echo=FALSE}
-library(knitr)
-opts_chunk$set(fig.path=paste0("figure/", sub("(.*).Rmd","\\1",basename(knitr:::knit_concord$get('infile'))), "-"))
+```{r, include=FALSE}
+source("../bin/chunk-options.R")
+knitr_fig_path("02-")
 ```
+
 
 <a name="introduction"></a>
 

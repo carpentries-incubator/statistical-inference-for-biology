@@ -1,0 +1,139 @@
+---
+title: "Matrix Operations"
+keypoints:
+- '.'
+- '.'
+- '.'
+- '.'
+objectives:
+- ''
+- ''
+- ''
+- ''
+- ''
+- ''
+- ''
+questions:
+- What are matrix operations?
+- '?'
+- '?'
+source: Rmd
+teaching: 0
+exercises: 0
+---
+
+```{r, include=FALSE}
+source("../bin/chunk-options.R")
+knitr_fig_path("05-")
+```
+
+## Matrix Operations
+
+In a previous section, we motivated the use of matrix algebra with this system of equations:
+
+![](../fig/03-system-linear-equations.png)
+
+We described how this system can be rewritten and solved using matrix algebra:
+
+![](../fig/03-matrix-alg-notation.png)
+
+Having described matrix notation, we will explain the operation we perform with them. For example, above we have matrix multiplication and we also have a symbol representing the inverse of a matrix. The importance of these operations and others will become clear once we present specific examples related to data analysis.
+
+#### Multiplying by a scalar
+
+We start with one of the simplest operations: scalar multiplication. If <i>a</i> is scalar and &Chi; is a matrix, then:
+
+![](../fig/04-multiply-matrix-by-scalar.png)
+
+R automatically follows this rule when we multiply a number by a matrix using `*`:
+
+```{r}
+X <- matrix(1:12,4,3)
+print(X)
+a <- 2
+print(a*X)
+```
+
+
+#### The transpose
+
+The transpose is an operation that simply changes columns to rows. We use a &Tau; to denote a transpose. The technical definition is as follows: if &Chi; is as we defined it above, here is the transpose which will be <i>p x N</i>:
+
+![](../fig/04-transpose-matrix.png)
+
+In R we simply use `t`:
+
+```{r}
+X <- matrix(1:12,4,3)
+X
+t(X)
+```
+
+#### Matrix multiplication
+
+We start by describing the matrix multiplication shown in the original system of equations example:
+
+![](../fig/03-system-linear-equations.png)
+
+What we are doing is multiplying the rows of the first matrix by the columns of the second. Since the second matrix only has one column, we perform this multiplication by doing the following:
+
+![](../fig/04-matrix-multiplication.png)
+
+Here is a simple example. We can check to see if `abc=c(3,2,1)` is a solution:
+
+```{r}
+X  <- matrix(c(1,3,2,1,-2,1,1,1,-1),3,3)
+abc <- c(3,2,1) #use as an example
+rbind( sum(X[1,]*abc), sum(X[2,]*abc), sum(X[3,]*abc))
+```
+
+We can use the `%*%` to perform the matrix multiplication and make this much more compact:
+
+```{r}
+X%*%abc
+```
+
+
+We can see that `c(3,2,1)` is not a solution as the answer here is not the required `c(6,2,1)`.
+
+To get the solution, we will need to invert the matrix on the left, a concept we learn about below.
+
+Here is the general definition of matrix multiplication of matrices &Alpha; and &Chi;:
+
+![](../fig/04-AX-matrix.png)
+![](../fig/04-equals-sigma-ax-matrix.png)
+
+You can only take the product if the number of columns of the first matrix &Alpha; equals the number of rows of the second one &Chi;. Also, the final matrix has the same row numbers as the first &Alpha; and the same column numbers as the second &Chi;. 
+After you study the example below, you may want to come back and re-read the sections above.
+
+#### The identity matrix
+
+The identity matrix is analogous to the number 1: if you multiply the identity matrix by another matrix, you get the same matrix. For this to happen, we need it to be like this:
+
+![](../fig/04-identity-matrix.png)
+
+By this definition, the identity always has to have the same number of rows as columns or be what we call a square matrix.
+
+If you follow the matrix multiplication rule above, you notice this works out:
+
+![](../fig/04-X-times-identity-matrix.png)
+
+In R you can form an identity matrix this way:
+```{r}
+n <- 5 #pick dimensions
+diag(n)
+```
+
+#### The inverse
+
+The inverse of matrix &Chi;, denoted with &Chi;<sup>-1</sup>, has the property that, when multiplied, gives you the identity &Chi;<sup>-1</sup>&Chi;= I. Of course, not all matrices have inverses. For example, a <i>2 x 2</i> matrix with 1s in all its entries does not have an inverse. 
+
+As we will see when we get to the section on applications to linear models, being able to compute the inverse of a matrix is quite useful. A very convenient aspect of R is that it includes a predefined function `solve` to do this. Here is how we would use it to solve the linear of equations:
+
+```{r}
+X <- matrix(c(1,3,2,1,-2,1,1,1,-1),3,3)
+y <- matrix(c(6,2,1),3,1)
+solve(X)%*%y #equivalent to solve(X,y)
+```
+
+Please note that `solve` is a function that should be used with caution as it is not generally numerically stable. We explain this in much more detail in the QR factorization section. 

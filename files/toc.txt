@@ -1,0 +1,224 @@
+Georgi's 7-8 places where understanding is crucial: CLT, confidence intervals & algebra involved (Georgi needed to explain to self to understand because book not clear; needs graphics or mathematical steps to go along with formula;  will e-mail other topics)
+
+
+Contents
+Acknowledgements
+. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+i
+Introduction
+. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+1
+What Does This Book Cover?
+. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .   1
+How Is This Book Different?
+. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .   2
+Getting Started
+. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+4
+Installing R
+. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .   4
+Installing RStudio
+. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .   4
+Learn R Basics
+. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .   5
+Installing Packages
+. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .   6
+Importing Data into R
+. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .   6
+Brief Introduction to
+dplyr
+. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .  10
+Mathematical Notation
+. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .  13
+Inference
+. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+18
+Introduction
+. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .  18
+Random Variables
+. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .  20
+The Null Hypothesis
+. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .  21
+Distributions
+. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .  22
+Probability Distribution
+. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .  25
+Normal Distribution
+. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .  28
+Populations, Samples and Estimates
+. . . . . . . . . . . . . . . . . . . . . . . . . . . . .  31
+Central Limit Theorem and t-distribution
+. . . . . . . . . . . . . . . . . . . . . . . . . .  34
+Central Limit Theorem in Practice
+. . . . . . . . . . . . . . . . . . . . . . . . . . . . . .  41
+t-tests in Practice
+. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .  48
+The t-distribution in Practice
+. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .  50
+Confidence Intervals
+. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .  53
+Power Calculations
+. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .  62
+Monte Carlo Simulation
+. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .  74
+Parametric Simulations for the Observations
+. . . . . . . . . . . . . . . . . . . . . . . . .  79
+Permutation Tests
+. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .  82
+Association Tests
+. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .  86
+CONTENTS
+Exploratory Data Analysis
+. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+92
+Quantile Quantile Plots
+. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .  92
+Boxplots
+. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .  96
+Scatterplots And Correlation
+. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .  98
+Stratification
+. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .  99
+Bi-variate Normal Distribution
+. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 100
+Plots To Avoid
+. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 104
+Misunderstanding Correlation (Advanced)
+. . . . . . . . . . . . . . . . . . . . . . . . . . 123
+Robust Summaries
+. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 126
+Wilcoxon Rank Sum Test
+. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 132
+Matrix Algebra
+. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+138
+Motivating Examples
+. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 138
+Matrix Notation
+. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 147
+Solving System of Equations
+. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 147
+Vectors, Matrices and Scalars
+. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 148
+Matrix Operations
+. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 151
+Examples
+. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 157
+Linear Models
+. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+166
+The Design Matrix
+. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 168
+The Mathematics Behind lm()
+. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 180
+Standard Errors
+. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 184
+Interactions and Contrasts
+. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 194
+Linear Model with Interactions
+. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 210
+Analysis of variance
+. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 216
+Co-linearity
+. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 226
+Rank
+. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 229
+Removing Confounding
+. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 229
+The QR Factorization (Advanced)
+. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 232
+Going Further
+. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 237
+Inference For High Dimensional Data
+. . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+240
+Introduction
+. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 240
+Inference in Practice
+. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 244
+Procedures
+. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 249
+Error Rates
+. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 250
+The Bonferroni Correction
+. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 253
+False Discovery Rate
+. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 256
+Direct Approach to FDR and q-values (Advanced)
+. . . . . . . . . . . . . . . . . . . . . . 265
+Basic Exploratory Data Analysis
+. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 271
+Statistical Models
+. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+281
+The Binomial Distribution
+. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 281
+CONTENTS
+The Poisson Distribution
+. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 282
+Maximum Likelihood Estimation
+. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 287
+Distributions for Positive Continuous Values
+. . . . . . . . . . . . . . . . . . . . . . . . . 290
+Bayesian Statistics
+. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 301
+Hierarchical Models
+. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 309
+Distance and Dimension Reduction
+. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+317
+Introduction
+. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 317
+Euclidean Distance
+. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 319
+Distance in High Dimensions
+. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 319
+Dimension Reduction Motivation
+. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 323
+Singular Value Decomposition
+. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 330
+Projections
+. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 340
+Rotations
+. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 346
+Multi-Dimensional Scaling Plots
+. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 349
+Principal Component Analysis
+. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 358
+Basic Machine Learning
+. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+365
+Clustering
+. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 365
+Conditional Probabilities and Expectations
+. . . . . . . . . . . . . . . . . . . . . . . . . . 376
+Smoothing
+. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 380
+Bin Smoothing
+. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 382
+Loess
+. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 385
+Class Prediction
+. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 390
+Cross-validation
+. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 399
+Batch Effects
+. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+409
+Confounding
+. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 412
+Confounding: High-throughput Example
+. . . . . . . . . . . . . . . . . . . . . . . . . . . 417
+Discovering Batch Effects with EDA
+. . . . . . . . . . . . . . . . . . . . . . . . . . . . . 420
+Gene Expression Data
+. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 421
+Motivation for Statistical Approaches
+. . . . . . . . . . . . . . . . . . . . . . . . . . . . 433
+Adjusting for Batch Effects with Linear Models
+. . . . . . . . . . . . . . . . . . . . . . . 436
+Factor Analysis
+. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 443
+Modeling Batch Effects with Factor Analysis
+. . . . . . . . . . . . . . . . . . . . . . . . 449
+
