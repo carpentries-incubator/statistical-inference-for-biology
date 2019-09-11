@@ -103,7 +103,7 @@ averages. So let's look at the average of each group:
 
 
 ~~~
-control <- filter(dat,Diet=="chow") %>% select(Bodyweight) %>% unlist
+control <- filter(dat, Diet=="chow") %>% select(Bodyweight) %>% unlist
 ~~~
 {: .language-r}
 
@@ -117,7 +117,7 @@ Error in filter(dat, Diet == "chow"): object 'dat' not found
 
 
 ~~~
-treatment <- filter(dat,Diet=="hf") %>% select(Bodyweight) %>% unlist
+treatment <- filter(dat, Diet=="hf") %>% select(Bodyweight) %>% unlist
 ~~~
 {: .language-r}
 
@@ -160809,6 +160809,27 @@ the difference in mean.
 ~~~
 library(dplyr)
 dat <- read.csv("femaleMiceWeights.csv") #previously downloaded
+~~~
+{: .language-r}
+
+
+
+~~~
+Warning in file(file, "rt"): cannot open file 'femaleMiceWeights.csv': No
+such file or directory
+~~~
+{: .error}
+
+
+
+~~~
+Error in file(file, "rt"): cannot open the connection
+~~~
+{: .error}
+
+
+
+~~~
 control <- filter(dat,Diet=="chow") %>% select(Bodyweight) %>% unlist
 treatment <- filter(dat,Diet=="hf") %>% select(Bodyweight) %>% unlist
 diff <- mean(treatment) - mean(control)
@@ -160819,7 +160840,7 @@ print(diff)
 
 
 ~~~
-[1] 3.020833
+[1] NA
 ~~~
 {: .output}
 
@@ -160841,7 +160862,7 @@ sd(control)/sqrt(length(control))
 
 
 ~~~
-[1] 0.8725323
+[1] NA
 ~~~
 {: .output}
 
@@ -160891,7 +160912,7 @@ print(pval)
 
 
 ~~~
-[1] 0.0398622
+[1] NA
 ~~~
 {: .output}
 
@@ -160969,13 +160990,13 @@ t.test(treatment, control)
 	Welch Two Sample t-test
 
 data:  treatment and control
-t = 2.0552, df = 20.236, p-value = 0.053
+t = 7.1932, df = 735.02, p-value = 1.563e-12
 alternative hypothesis: true difference in means is not equal to 0
 95 percent confidence interval:
- -0.04296563  6.08463229
+ 2.231533 3.906857
 sample estimates:
 mean of x mean of y 
- 26.83417  23.81333 
+ 30.48201  27.41281 
 ~~~
 {: .output}
 
@@ -160991,7 +161012,7 @@ result$p.value
 
 
 ~~~
-[1] 0.05299888
+[1] 1.562941e-12
 ~~~
 {: .output}
 

@@ -22,7 +22,7 @@ keypoints:
 source: Rmd
 ---
 
-```{r, include=FALSE}
+```{r load_libraries, include=FALSE}
 source("../bin/chunk-options.R")
 knitr_fig_path("02-")
 library(UsingR)
@@ -35,7 +35,7 @@ library(tidyverse)
 
 ## Introduction 
 
-```{r,results=FALSE,echo=FALSE}
+```{r set_seed,vresults=FALSE, echo=FALSE}
 set.seed(1) #so that we get same results
 ```
 
@@ -73,7 +73,7 @@ mice from The Jackson Lab and randomly assigning either chow or high
 fat (hf) diet. After several weeks, the scientists weighed each mouse
 and obtained this data (`head` just shows us the first 6 rows):
 
-```{r}
+```{r load_weight_data}
 dat <- read_csv("data/femaleMiceWeights.csv")
 head(dat) 
 ``` 
@@ -84,9 +84,9 @@ the hf diet. Just from looking at the data, we see there is
 *variability*. Claims such as the one above usually refer to the
 averages. So let's look at the average of each group: 
 
-```{r,message=FALSE}
-control <- filter(dat,Diet=="chow") %>% select(Bodyweight) %>% unlist
-treatment <- filter(dat,Diet=="hf") %>% select(Bodyweight) %>% unlist
+```{r control_treatment, message=FALSE}
+control <- filter(dat, Diet=="chow") %>% select(Bodyweight) %>% unlist
+treatment <- filter(dat, Diet=="hf") %>% select(Bodyweight) %>% unlist
 print( mean(treatment) )
 print( mean(control) )
 obsdiff <- mean(treatment) - mean(control)
@@ -105,7 +105,7 @@ Let's explore random variables further. Imagine that we actually have the weight
 
 Now let's sample 12 mice three times and see how the average changes.
 
-```{r}
+```{r control_population}
 population < read_csv(file = "data/femaleControlsPopulation.csv")
 population <- unlist(population) # turn into numeric
 
@@ -140,7 +140,7 @@ giving them the same diet, and then recording the difference in mean
 between two randomly split groups of 12 and 12. Here is this process
 written in R code:
 
-```{r}
+```{r control_sample}
 
 ##12 control mice
 control <- sample(population,12)
@@ -152,7 +152,7 @@ print(mean(treatment) - mean(control))
 Now let's do it 10,000 times. We will use a "for-loop", an operation
 that lets us automate this (a simpler approach that, we will learn later, is to use `replicate`).
 
-```{r}
+```{r replicate_samples}
 n <- 10000
 null <- vector("numeric",n)
 for (i in 1:n) {
@@ -166,7 +166,7 @@ The values in `null` form what we call the *null distribution*. We will define t
 
 So what percent of the 10,000 are bigger than `obsdiff`?
 
-```{r}
+```{r mean_null}
 mean(null >= obsdiff)
 ```
 
