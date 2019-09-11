@@ -68,4 +68,6 @@ download(url = "https://raw.githubusercontent.com/genomicsclass/dagdata/master/i
 
 download(url = "https://raw.githubusercontent.com/genomicsclass/dagdata/master/inst/extdata/femaleControlsPopulation.csv", destfile = "data/femaleControlsPopulation.csv")
  
+download(url = "https://raw.githubusercontent.com/genomicsclass/dagdata/master/inst/extdata/mice_pheno.csv", destfile = "data/mice_pheno.csv")
+
 {% include links.md %}

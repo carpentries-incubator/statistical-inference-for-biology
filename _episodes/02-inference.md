@@ -70,16 +70,20 @@ and obtained this data (`head` just shows us the first 6 rows):
 
 
 ~~~
-dat <- read_csv("data/femaleMiceWeights.csv")
+dat <- read_csv("../data/femaleMiceWeights.csv")
 ~~~
 {: .language-r}
 
 
 
 ~~~
-Error: 'data/femaleMiceWeights.csv' does not exist in current working directory ('/Users/smc/Projects/Lessons/dals-chaps4-10/_episodes_rmd').
+Parsed with column specification:
+cols(
+  Diet = col_character(),
+  Bodyweight = col_double()
+)
 ~~~
-{: .error}
+{: .output}
 
 
 
@@ -91,9 +95,17 @@ head(dat)
 
 
 ~~~
-Error in head(dat): object 'dat' not found
+# A tibble: 6 x 2
+  Diet  Bodyweight
+  <chr>      <dbl>
+1 chow        21.5
+2 chow        28.1
+3 chow        24.0
+4 chow        23.4
+5 chow        23.7
+6 chow        19.8
 ~~~
-{: .error}
+{: .output}
 
 So are the hf mice heavier? Mouse 24 at 20.73 grams is one of the
 lightest mice, while Mouse 21 at 34.02 grams is one of the heaviest. Both are on
@@ -104,33 +116,7 @@ averages. So let's look at the average of each group:
 
 ~~~
 control <- filter(dat, Diet=="chow") %>% select(Bodyweight) %>% unlist
-~~~
-{: .language-r}
-
-
-
-~~~
-Error in filter(dat, Diet == "chow"): object 'dat' not found
-~~~
-{: .error}
-
-
-
-~~~
 treatment <- filter(dat, Diet=="hf") %>% select(Bodyweight) %>% unlist
-~~~
-{: .language-r}
-
-
-
-~~~
-Error in filter(dat, Diet == "hf"): object 'dat' not found
-~~~
-{: .error}
-
-
-
-~~~
 print( mean(treatment) )
 ~~~
 {: .language-r}
@@ -138,9 +124,9 @@ print( mean(treatment) )
 
 
 ~~~
-Error in mean(treatment): object 'treatment' not found
+[1] 26.83417
 ~~~
-{: .error}
+{: .output}
 
 
 
@@ -152,27 +138,14 @@ print( mean(control) )
 
 
 ~~~
-Error in mean(control): object 'control' not found
+[1] 23.81333
 ~~~
-{: .error}
+{: .output}
 
 
 
 ~~~
 obsdiff <- mean(treatment) - mean(control)
-~~~
-{: .language-r}
-
-
-
-~~~
-Error in mean(treatment): object 'treatment' not found
-~~~
-{: .error}
-
-
-
-~~~
 print(obsdiff)
 ~~~
 {: .language-r}
@@ -180,9 +153,9 @@ print(obsdiff)
 
 
 ~~~
-Error in print(obsdiff): object 'obsdiff' not found
+[1] 3.020833
 ~~~
-{: .error}
+{: .output}
 
 So the hf diet mice are about 10% heavier. Are we done? Why do we need p-values and confidence intervals? The reason is that these averages are random variables. They can take many values. 
 
@@ -198,14 +171,24 @@ Now let's sample 12 mice three times and see how the average changes.
 
 
 ~~~
-population < read_csv(file = "data/femaleControlsPopulation.csv")
+population < read_csv(file = "../data/femaleControlsPopulation.csv")
 ~~~
 {: .language-r}
 
 
 
 ~~~
-Error: 'data/femaleControlsPopulation.csv' does not exist in current working directory ('/Users/smc/Projects/Lessons/dals-chaps4-10/_episodes_rmd').
+Parsed with column specification:
+cols(
+  Bodyweight = col_double()
+)
+~~~
+{: .output}
+
+
+
+~~~
+Error in Ops.data.frame(population, read_csv(file = "../data/femaleControlsPopulation.csv")): '<' only defined for equally-sized data frames
 ~~~
 {: .error}
 
@@ -160362,9 +160345,9 @@ mean(null >= obsdiff)
 
 
 ~~~
-Error in mean(null >= obsdiff): object 'obsdiff' not found
+[1] NA
 ~~~
-{: .error}
+{: .output}
 
 Only a small percent of the 10,000 simulations. As skeptics what do
 we conclude? When there is no diet effect, we see a difference as big
@@ -160380,7 +160363,7 @@ The simplest way to think of a *distribution* is as a compact description of man
 
 
 ~~~
-data(father.son,package="UsingR")
+data(father.son, package="UsingR")
 x <- father.son$fheight
 ~~~
 {: .language-r}
@@ -160389,7 +160372,7 @@ One approach to summarizing these numbers is to simply list them all out for the
 
 
 ~~~
-round(sample(x,10),1)
+round(sample(x, 10), 1)
 ~~~
 {: .language-r}
 
@@ -160404,18 +160387,18 @@ round(sample(x,10),1)
 
 Scanning through these numbers, we start to get a rough idea of what the entire list looks like, but it is certainly inefficient. We can quickly improve on this approach by defining and visualizing a _distribution_. To define a distribution we compute, for all possible values of $a$, the proportion of numbers in our list that are below $a$. We use the following notation:
 
-$$ F(a) \equiv \mbox{Pr}(x \leq a) $$
+
+![](../fig/02-cum-dist-function.png)
 
 This is called the cumulative distribution function (CDF). When the CDF is derived from data, as opposed to theoretically, we also call it the empirical CDF (ECDF). The ECDF for the height data looks like this:
 
-<img src="../fig/rmd-02-ecdf-1.png" title="Empirical cummulative distribution function for height." alt="Empirical cummulative distribution function for height." width="612" style="display: block; margin: auto;" />
+<img src="../fig/rmd-02-ecdf-1.png" title="Empirical cumulative distribution function for height." alt="Empirical cumulative distribution function for height." width="612" style="display: block; margin: auto;" />
 
 #### Histograms
 
-Although the empirical CDF concept is widely discussed in statistics textbooks, the plot is actually not very popular in practice. The reason is that histograms give us the same information and are easier to interpret. Histograms show us the
-proportion of values in intervals: 
+Although the empirical CDF concept is widely discussed in statistics textbooks, the plot is actually not very popular in practice. The reason is that histograms give us the same information and are easier to interpret. Histograms show us the proportion of values in intervals: 
 
-$$ \mbox{Pr}(a \leq x \leq b) = F(b) - F(a) $$
+![](../fig/02-proba-lessthan-b.png)
 
 Plotting these heights as bars is what we call a _histogram_. It is a
 more useful plot because we are usually more interested in intervals,
@@ -160425,14 +160408,7 @@ of heights:
 
 
 ~~~
-hist(x)
-~~~
-{: .language-r}
-
-We can add better labels in the following way:
-
-~~~
-hist(x,xlab="Height (in inches)",main="Adult men heights")
+hist(x, xlab="Height (in inches)", main="Adult men heights")
 ~~~
 {: .language-r}
 
@@ -160445,11 +160421,10 @@ Showing this plot to the alien is much more informative than showing numbers. Wi
 
 Summarizing lists of numbers is one powerful use of distribution. An
 even more important use is describing the possible outcomes of a
-random variable. Unlike a fixed list of numbers, we don't actually observe all possible outcomes of random variables, so instead of describing proportions, we describe
-probabilities. For instance, if we pick a random height from our list,
+random variable. Unlike a fixed list of numbers, we don't actually observe all possible outcomes of random variables, so instead of describing proportions, we describe probabilities. For instance, if we pick a random height from our list,
 then the probability of it falling between $a$ and $b$ is denoted with: 
 
-$$ \mbox{Pr}(a \leq X \leq b) = F(b) - F(a) $$
+![](..fig/02-proba-lt-random.png)
 
 Note that the $X$ is now capitalized to distinguish it as a random
 variable and that the equation above defines the probability
@@ -160490,7 +160465,7 @@ abline(v=obsdiff, col="red", lwd=2)
 
 
 ~~~
-Error in int_abline(a = a, b = b, h = h, v = v, untf = untf, ...): object 'obsdiff' not found
+Error in int_abline(a = a, b = b, h = h, v = v, untf = untf, ...): plot.new has not been called yet
 ~~~
 {: .error}
 
@@ -160502,9 +160477,7 @@ An important point to keep in mind here is that while we defined $\mbox{Pr}(a)$ 
 
 The probability distribution we see above approximates one that is very common in nature: the bell curve, also known as the normal distribution or Gaussian distribution. When the histogram of a list of numbers approximates the normal distribution, we can use a convenient mathematical formula to approximate the proportion of values or outcomes in any given interval:
 
-$$
-\mbox{Pr}(a < x < b) = \int_a^b \frac{1}{\sqrt{2\pi\sigma^2}} \exp{\left( \frac{-(x-\mu)^2}{2 \sigma^2} \right)} \, dx
-$$
+![](../fig/02-normal-dist-hist.png)
 
 While the formula may look intimidating, don't worry, you will never
 actually have to type it out, as it is stored in a more convenient
@@ -160522,16 +160495,16 @@ approximation works very well here:
 
 
 ~~~
-1 - pnorm(obsdiff,mean(null),sd(null)) 
+1 - pnorm(obsdiff, mean(null), sd(null)) 
 ~~~
 {: .language-r}
 
 
 
 ~~~
-Error in pnorm(obsdiff, mean(null), sd(null)): object 'obsdiff' not found
+[1] NA
 ~~~
-{: .error}
+{: .output}
 
 Later, we will learn that there is a mathematical explanation for this. A very useful characteristic of this approximation is that one only needs to know $\mu$ and $\sigma$ to describe the entire distribution. From this, we can compute the proportion of values in any interval. 
 
@@ -160574,7 +160547,7 @@ The question we are asking is can be expressed as:
 
 Is
 
-$$\mu_Y - \mu_X = 0?$$
+![](../fig/02-muy-mux-eq-zero.png)
 
 [example of normal curves]("https://www.varsitytutors.com/assets/vt-hotmath-legacy/hotmath_help/topics/normal-distribution-of-data/normal-distribution-1.gif")
 
@@ -160585,20 +160558,30 @@ In reality we use sample estimates of population parameters. The true population
 Now that we have introduced the idea of a random variable, a null distribution, and a p-value, we are ready to describe the mathematical theory that permits us to compute p-values in practice. We will also learn about confidence intervals and power calculations.
 
 
-
-
 ~~~
-dat <- read.csv("mice_pheno.csv")
+pheno <- read_csv(file = "../data/mice_pheno.csv")
 ~~~
 {: .language-r}
+
+
+
+~~~
+Parsed with column specification:
+cols(
+  Sex = col_character(),
+  Diet = col_character(),
+  Bodyweight = col_double()
+)
+~~~
+{: .output}
 
 We can then access the population values and determine, for example, how many we have. Here we compute the size of the control population:
 
 
 ~~~
-library(dplyr)
-controlPopulation <- filter(dat,Sex == "F" & Diet == "chow") %>% 
-  select(Bodyweight) %>% unlist
+controlPopulation <- filter(pheno, Sex == "F" & Diet == "chow") %>%
+  select(Bodyweight) %>%
+  unlist
 length(controlPopulation)
 ~~~
 {: .language-r}
@@ -160614,8 +160597,9 @@ We usually denote these values as $x_1,\dots,x_m$. In this case, $m$ is the numb
 
 
 ~~~
-hfPopulation <- filter(dat,Sex == "F" & Diet == "hf") %>%  
-  select(Bodyweight) %>% unlist
+hfPopulation <- filter(pheno, Sex == "F" & Diet == "hf") %>%  
+  select(Bodyweight) %>%
+  unlist
 length(hfPopulation)
 ~~~
 {: .language-r}
@@ -160633,7 +160617,8 @@ We can then define summaries of interest for these populations, such as the mean
 
 The mean:
 
-$$\mu_X = \frac{1}{m}\sum_{i=1}^m x_i \mbox{ and } \mu_Y = \frac{1}{n} \sum_{i=1}^n y_i$$
+![](../fig/02-mux-and-muy.png)
+
 
 
 ~~~
@@ -160705,12 +160690,12 @@ sum(hfPopulation$weight)/length(hfPopulation$weight) # this equals mu sub y
 Error in hfPopulation$weight: $ operator is invalid for atomic vectors
 ~~~
 {: .error}
+
 The variance:
 
-$$\sigma_X^2 = \frac{1}{m}\sum_{i=1}^m (x_i-\mu_X)^2 \mbox{ and } \sigma_Y^2 = \frac{1}{n} \sum_{i=1}^n (y_i-\mu_Y)^2$$
+![](../fig/02-var-x-and-y.png)
 
 with the standard deviation being the square root of the variance. We refer to such quantities that can be obtained from the population as _population parameters_. The question we started out asking can now be written mathematically: is $\mu_Y - \mu_X = 0$ ? 
-
 Although in our illustration we have all the values and can check if this is true, in practice we do not. For example, in practice it would be prohibitively expensive to buy all the mice in a population. Here we learn how taking a _sample_ permits us to answer our questions. This is the essence of statistical inference.
 
 #### Sample estimates
@@ -160725,17 +160710,13 @@ The CLT is one of the most frequently used mathematical results in science. It t
 
 This implies that if we take many samples of size $N$, then the quantity: 
 
-$$
-\frac{\bar{Y} - \mu}{\sigma_Y/\sqrt{N}}
-$$
+![](../fig/02-random-sample.png)
 
 is approximated with a normal distribution centered at 0 and with standard deviation 1.
 
 We are interested in the difference between two sample averages. Again, applying certain mathematical principles, it can be implied that the below ratio:  
 
-$$
-\frac{\bar{Y}-\bar{X}}{\sqrt{\frac{\sigma_X^2}{M} + \frac{\sigma_Y^2}{N}}}
-$$
+![](../fig/02-diff-sample-avgs.png)
 
 is approximated by a normal distribution centered at 0 and standard deviation 1. Calculating p-values for the standard normal distribution is simple because we know the proportion of the distribution under any value. For example, only 5% of the values in the standard normal distribution are larger than 2 (in absolute value):
 
@@ -160756,21 +160737,17 @@ We don't need to buy more mice, 12 and 12 suffice.
 
 However, we can't claim victory just yet because we don't know the population standard deviations: $\sigma_X$ and $\sigma_Y$. These are unknown population parameters, but we can get around this by using the sample standard deviations, call them $s_X$ and $s_Y$. These are defined as: 
 
-$$ s_X^2 = \frac{1}{M-1} \sum_{i=1}^M (X_i - \bar{X})^2  \mbox{ and }  s_Y^2 = \frac{1}{N-1} \sum_{i=1}^N (Y_i - \bar{Y})^2 $$
+![](../fig/02-sample-stddev.png)
 
 Note that we are dividing by $M-1$ and $N-1$, instead of by $M$ and $N$. There is a theoretical reason for doing this which we do not explain here.
 
 So we can redefine our ratio as
 
-$$
-\sqrt{N} \frac{\bar{Y}-\bar{X}}{\sqrt{s_X^2 +s_Y^2}}
-$$
+![](../fig/02-sqrtN.png)
 
 if $M=N$ or in general,
 
-$$
-\frac{\bar{Y}-\bar{X}}{\sqrt{\frac{s_X^2}{M} + \frac{s_Y^2}{N}}}
-$$
+![](../fig/02-ybar-xbar.png)
 
 The CLT tells us that when $M$ and $N$ are large, this random variable is normally distributed with mean 0 and SD 1. Thus we can compute p-values using the function `pnorm`.
 
@@ -160778,9 +160755,7 @@ The CLT tells us that when $M$ and $N$ are large, this random variable is normal
 
 The CLT relies on large samples, what we refer to as _asymptotic results_. When the CLT does not apply, there is another option that does not rely on asymptotic results. When the original population from which a random variable, say $Y$, is sampled is normally distributed with mean 0, then we can calculate the distribution of: 
 
-$$
-\sqrt{N} \frac{\bar{Y}}{s_Y}
-$$
+![](../fig/02-tdist.gif)
 
 This is the ratio of two random variables so it is not
 necessarily normal. The fact that the denominator can be small by
@@ -160801,37 +160776,16 @@ We will now demonstrate how to obtain a p-value in practice. We begin by loading
 
 #### Read in and prepare data
 
-We start by reading in the data. A first important step is to identify
-which rows are associated with treatment and control, and to compute
-the difference in mean. 
+We start by reading in the data. A first important step is to identify which rows are associated with treatment and control, and to compute the difference in mean. 
 
 
 ~~~
-library(dplyr)
-dat <- read.csv("femaleMiceWeights.csv") #previously downloaded
-~~~
-{: .language-r}
-
-
-
-~~~
-Warning in file(file, "rt"): cannot open file 'femaleMiceWeights.csv': No
-such file or directory
-~~~
-{: .error}
-
-
-
-~~~
-Error in file(file, "rt"): cannot open the connection
-~~~
-{: .error}
-
-
-
-~~~
-control <- filter(dat,Diet=="chow") %>% select(Bodyweight) %>% unlist
-treatment <- filter(dat,Diet=="hf") %>% select(Bodyweight) %>% unlist
+control <- filter(dat, Diet=="chow") %>%
+  select(Bodyweight) %>%
+  unlist
+treatment <- filter(dat, Diet=="hf") %>%
+  select(Bodyweight) %>%
+  unlist
 diff <- mean(treatment) - mean(control)
 print(diff)
 ~~~
@@ -160840,7 +160794,7 @@ print(diff)
 
 
 ~~~
-[1] NA
+[1] 3.020833
 ~~~
 {: .output}
 
@@ -160848,7 +160802,7 @@ We are asked to report a p-value. What do we do? We learned that
 `diff`, referred to as the _observed effect size_, is a random
 variable. We also learned that under the null hypothesis, the mean of the distribution of `diff` is 0. What about the standard error? We also learned that the standard error of this random variable is the population standard deviation divided by the square root of the sample size:
 
-$$ SE(\bar{X}) = \sigma / \sqrt{N}$$
+![](../fig/02-stderr.png)
 
 We use the sample standard deviation as an estimate of the population
 standard deviation. In R, we simply use the `sd` function and the SE is:
@@ -160862,7 +160816,7 @@ sd(control)/sqrt(length(control))
 
 
 ~~~
-[1] NA
+[1] 0.8725323
 ~~~
 {: .output}
 
@@ -160877,8 +160831,7 @@ se <- sqrt(
 ~~~
 {: .language-r}
 
-Statistical theory tells us that if we divide a random variable by its
-SE, we get a new random variable with an SE of 1.
+Statistical theory tells us that if we divide a random variable by its SE, we get a new random variable with an SE of 1.
 
 
 ~~~
@@ -160912,7 +160865,7 @@ print(pval)
 
 
 ~~~
-[1] NA
+[1] 0.0398622
 ~~~
 {: .output}
 
@@ -160990,13 +160943,13 @@ t.test(treatment, control)
 	Welch Two Sample t-test
 
 data:  treatment and control
-t = 7.1932, df = 735.02, p-value = 1.563e-12
+t = 2.0552, df = 20.236, p-value = 0.053
 alternative hypothesis: true difference in means is not equal to 0
 95 percent confidence interval:
- 2.231533 3.906857
+ -0.04296563  6.08463229
 sample estimates:
 mean of x mean of y 
- 30.48201  27.41281 
+ 26.83417  23.81333 
 ~~~
 {: .output}
 
@@ -161012,7 +160965,7 @@ result$p.value
 
 
 ~~~
-[1] 1.562941e-12
+[1] 0.05299888
 ~~~
 {: .output}
 
@@ -161038,34 +160991,21 @@ Now that we have gone over the concepts, we can show the relatively
 simple code that one would use to actually compute a t-test: 
 
 
-
-
-
 ~~~
-library(dplyr)
-dat <- read.csv("mice_pheno.csv")
-control <- filter(dat,Diet=="chow") %>% select(Bodyweight) 
-treatment <- filter(dat,Diet=="hf") %>% select(Bodyweight) 
-t.test(treatment,control)
+control <- filter(pheno, Diet=="chow") %>%
+  select(Bodyweight) 
+treatment <- filter(pheno, Diet=="hf") %>%
+  select(Bodyweight) 
+t.test(treatment, control)
 ~~~
 {: .language-r}
 
 
 
 ~~~
-
-	Welch Two Sample t-test
-
-data:  treatment and control
-t = 7.1932, df = 735.02, p-value = 1.563e-12
-alternative hypothesis: true difference in means is not equal to 0
-95 percent confidence interval:
- 2.231533 3.906857
-sample estimates:
-mean of x mean of y 
- 30.48201  27.41281 
+Must use a vector in `[`, not an object of class matrix.
 ~~~
-{: .output}
+{: .error}
 
 The arguments to `t.test` can be of type *data.frame* and thus we do not need to unlist them into numeric objects.
 
@@ -161102,11 +161042,8 @@ confidence intervals in the simple case.
 We start by reading in the data and selecting the appropriate rows:
 
 
-
-
 ~~~
-dat <- read.csv("mice_pheno.csv")
-chowPopulation <- dat[dat$Sex=="F" & dat$Diet=="chow",3]
+chowPopulation <- pheno[pheno$Sex=="F" & pheno$Diet=="chow", 3]
 ~~~
 {: .language-r}
 
@@ -161115,6 +161052,20 @@ The population average $\mu_X$ is our parameter of interest here:
 
 ~~~
 mu_chow <- mean(chowPopulation)
+~~~
+{: .language-r}
+
+
+
+~~~
+Warning in mean.default(chowPopulation): argument is not numeric or
+logical: returning NA
+~~~
+{: .error}
+
+
+
+~~~
 print(mu_chow)
 ~~~
 {: .language-r}
@@ -161122,7 +161073,7 @@ print(mu_chow)
 
 
 ~~~
-[1] 23.89338
+[1] NA
 ~~~
 {: .output}
 
@@ -161131,7 +161082,20 @@ We are interested in estimating this parameter. In practice, we do not get to se
 
 ~~~
 N <- 30
-chow <- sample(chowPopulation,N)
+chow <- sample(chowPopulation, N)
+~~~
+{: .language-r}
+
+
+
+~~~
+Error in sample.int(length(x), size, replace, prob): cannot take a sample larger than the population when 'replace = FALSE'
+~~~
+{: .error}
+
+
+
+~~~
 print(mean(chow))
 ~~~
 {: .language-r}
@@ -161139,9 +161103,9 @@ print(mean(chow))
 
 
 ~~~
-[1] 24.03267
+Error in mean(chow): object 'chow' not found
 ~~~
-{: .output}
+{: .error}
 
 We know this is a random variable, so the sample average will not be a perfect estimate. In fact, because in this illustrative example we know the value of the parameter, we can see that they are not exactly the same. A confidence interval is a statistical way of reporting our finding, the sample average, in a way that explicitly summarizes the variability of our random variable.
 
@@ -161150,6 +161114,19 @@ With a sample size of 30, we will use the CLT. The CLT tells us that $\bar{X}$ o
 
 ~~~
 se <- sd(chow)/sqrt(N)
+~~~
+{: .language-r}
+
+
+
+~~~
+Error in is.data.frame(x): object 'chow' not found
+~~~
+{: .error}
+
+
+
+~~~
 print(se)
 ~~~
 {: .language-r}
@@ -161157,7 +161134,7 @@ print(se)
 
 
 ~~~
-[1] 0.6875646
+[1] 1.469867
 ~~~
 {: .output}
 
@@ -161174,9 +161151,7 @@ To construct it, we note that the CLT tells us that
 $\sqrt{N} (\bar{X}-\mu_X) / s_X$ follows a normal distribution with mean 0 and
 SD 1. This implies that the probability of this event:
 
-$$
--2 \leq \sqrt{N} (\bar{X}-\mu_X)/s_X \leq 2
-$$  
+![](../fig/02-confint.png)
 
 which written in R code is:
 
@@ -161197,10 +161172,8 @@ pnorm(2) - pnorm(-2)
 2). Now do some basic algebra to clear out everything and leave
 $\mu_X$ alone in the middle and you get that the following event: 
 
-$$
-\bar{X}-2 s_X/\sqrt{N} \leq \mu_X \leq \bar{X}+2s_X/\sqrt{N}
-$$  
-
+![](../fig/02-event-confint.png)
+ 
 has a probability of 95%. 
 
 Be aware that it is the edges of the interval 
@@ -161216,8 +161189,21 @@ interval with R relatively easily:
 
 
 ~~~
-Q <- qnorm(1- 0.05/2)
+Q <- qnorm(1 - 0.05/2)
 interval <- c(mean(chow)-Q*se, mean(chow)+Q*se )
+~~~
+{: .language-r}
+
+
+
+~~~
+Error in mean(chow): object 'chow' not found
+~~~
+{: .error}
+
+
+
+~~~
 interval
 ~~~
 {: .language-r}
@@ -161225,9 +161211,9 @@ interval
 
 
 ~~~
-[1] 22.68506 25.38027
+Error in eval(expr, envir, enclos): object 'interval' not found
 ~~~
-{: .output}
+{: .error}
 
 
 
@@ -161239,9 +161225,9 @@ interval[1] < mu_chow & interval[2] > mu_chow
 
 
 ~~~
-[1] TRUE
+Error in eval(expr, envir, enclos): object 'interval' not found
 ~~~
-{: .output}
+{: .error}
 
 which happens to cover $\mu_X$ or `mean(chowPopulation)`. However, we can take another sample and we might not be as lucky. In fact, the theory tells us that we will cover $\mu_X$ 95% of the time. Because we have access to the population data, we can confirm this by taking several new samples:
 
@@ -161252,7 +161238,56 @@ B <- 250
 mypar()
 plot(mean(chowPopulation)+c(-7,7),c(1,1),type="n",
      xlab="weight",ylab="interval",ylim=c(1,B))
+~~~
+{: .language-r}
+
+
+
+~~~
+Warning in mean.default(chowPopulation): argument is not numeric or
+logical: returning NA
+~~~
+{: .error}
+
+
+
+~~~
+Warning in min(x): no non-missing arguments to min; returning Inf
+~~~
+{: .error}
+
+
+
+~~~
+Warning in max(x): no non-missing arguments to max; returning -Inf
+~~~
+{: .error}
+
+
+
+~~~
+Error in plot.window(...): need finite 'xlim' values
+~~~
+{: .error}
+
+<img src="../fig/rmd-02-confidence_interval_n30-1.png" title="We show 250 random realizations of 95% confidence intervals. The color denotes if the interval fell on the parameter or not." alt="We show 250 random realizations of 95% confidence intervals. The color denotes if the interval fell on the parameter or not." width="612" style="display: block; margin: auto;" />
+
+~~~
 abline(v=mean(chowPopulation))
+~~~
+{: .language-r}
+
+
+
+~~~
+Warning in mean.default(chowPopulation): argument is not numeric or
+logical: returning NA
+~~~
+{: .error}
+
+
+
+~~~
 for (i in 1:B) {
   chow <- sample(chowPopulation,N)
   se <- sd(chow)/sqrt(N)
@@ -161265,7 +161300,12 @@ for (i in 1:B) {
 ~~~
 {: .language-r}
 
-<img src="../fig/rmd-02-confidence_interval_n30-1.png" title="We show 250 random realizations of 95% confidence intervals. The color denotes if the interval fell on the parameter or not." alt="We show 250 random realizations of 95% confidence intervals. The color denotes if the interval fell on the parameter or not." width="612" style="display: block; margin: auto;" />
+
+
+~~~
+Error in sample.int(length(x), size, replace, prob): cannot take a sample larger than the population when 'replace = FALSE'
+~~~
+{: .error}
 
 You can run this repeatedly to see what happens. You will see that in about 5% of the cases, we fail to cover $\mu_X$.
 
@@ -161281,7 +161321,56 @@ For $N=30$, the CLT works very well. However, if $N=5$, do these confidence inte
 mypar()
 plot(mean(chowPopulation)+c(-7,7),c(1,1),type="n",
      xlab="weight",ylab="interval",ylim=c(1,B))
+~~~
+{: .language-r}
+
+
+
+~~~
+Warning in mean.default(chowPopulation): argument is not numeric or
+logical: returning NA
+~~~
+{: .error}
+
+
+
+~~~
+Warning in min(x): no non-missing arguments to min; returning Inf
+~~~
+{: .error}
+
+
+
+~~~
+Warning in max(x): no non-missing arguments to max; returning -Inf
+~~~
+{: .error}
+
+
+
+~~~
+Error in plot.window(...): need finite 'xlim' values
+~~~
+{: .error}
+
+<img src="../fig/rmd-02-confidence_interval_n5-1.png" title="We show 250 random realizations of 95% confidence intervals, but now for a smaller sample size. The confidence interval is based on the CLT approximation. The color denotes if the interval fell on the parameter or not." alt="We show 250 random realizations of 95% confidence intervals, but now for a smaller sample size. The confidence interval is based on the CLT approximation. The color denotes if the interval fell on the parameter or not." width="612" style="display: block; margin: auto;" />
+
+~~~
 abline(v=mean(chowPopulation))
+~~~
+{: .language-r}
+
+
+
+~~~
+Warning in mean.default(chowPopulation): argument is not numeric or
+logical: returning NA
+~~~
+{: .error}
+
+
+
+~~~
 Q <- qnorm(1- 0.05/2)
 N <- 5
 for (i in 1:B) {
@@ -161295,7 +161384,12 @@ for (i in 1:B) {
 ~~~
 {: .language-r}
 
-<img src="../fig/rmd-02-confidence_interval_n5-1.png" title="We show 250 random realizations of 95% confidence intervals, but now for a smaller sample size. The confidence interval is based on the CLT approximation. The color denotes if the interval fell on the parameter or not." alt="We show 250 random realizations of 95% confidence intervals, but now for a smaller sample size. The confidence interval is based on the CLT approximation. The color denotes if the interval fell on the parameter or not." width="612" style="display: block; margin: auto;" />
+
+
+~~~
+Error in sample.int(length(x), size, replace, prob): cannot take a sample larger than the population when 'replace = FALSE'
+~~~
+{: .error}
 
 Despite the intervals being larger (we are dividing by $\sqrt{5}$
 instead of $\sqrt{30}$ ), we see many more intervals not covering
@@ -161309,7 +161403,56 @@ $\pm \infty$). This mistake affects us in the calculation of `Q`, which assumes 
 mypar()
 plot(mean(chowPopulation) + c(-7,7), c(1,1), type="n",
      xlab="weight", ylab="interval", ylim=c(1,B))
+~~~
+{: .language-r}
+
+
+
+~~~
+Warning in mean.default(chowPopulation): argument is not numeric or
+logical: returning NA
+~~~
+{: .error}
+
+
+
+~~~
+Warning in min(x): no non-missing arguments to min; returning Inf
+~~~
+{: .error}
+
+
+
+~~~
+Warning in max(x): no non-missing arguments to max; returning -Inf
+~~~
+{: .error}
+
+
+
+~~~
+Error in plot.window(...): need finite 'xlim' values
+~~~
+{: .error}
+
+<img src="../fig/rmd-02-confidence_interval_tdist_n5-1.png" title="We show 250 random realizations of 95% confidence intervals, but now for a smaller sample size. The confidence is now based on the t-distribution approximation. The color denotes if the interval fell on the parameter or not." alt="We show 250 random realizations of 95% confidence intervals, but now for a smaller sample size. The confidence is now based on the t-distribution approximation. The color denotes if the interval fell on the parameter or not." width="612" style="display: block; margin: auto;" />
+
+~~~
 abline(v=mean(chowPopulation))
+~~~
+{: .language-r}
+
+
+
+~~~
+Warning in mean.default(chowPopulation): argument is not numeric or
+logical: returning NA
+~~~
+{: .error}
+
+
+
+~~~
 ##Q <- qnorm(1- 0.05/2) ##no longer normal so use:
 Q <- qt(1- 0.05/2, df=4)
 N <- 5
@@ -161324,7 +161467,12 @@ for (i in 1:B) {
 ~~~
 {: .language-r}
 
-<img src="../fig/rmd-02-confidence_interval_tdist_n5-1.png" title="We show 250 random realizations of 95% confidence intervals, but now for a smaller sample size. The confidence is now based on the t-distribution approximation. The color denotes if the interval fell on the parameter or not." alt="We show 250 random realizations of 95% confidence intervals, but now for a smaller sample size. The confidence is now based on the t-distribution approximation. The color denotes if the interval fell on the parameter or not." width="612" style="display: block; margin: auto;" />
+
+
+~~~
+Error in sample.int(length(x), size, replace, prob): cannot take a sample larger than the population when 'replace = FALSE'
+~~~
+{: .error}
 
 Now the intervals are made bigger. This is because the t-distribution has fatter tails and therefore:
 
@@ -161389,8 +161537,6 @@ Note that the confidence interval for the difference $d$ is provided by the `t.t
 
 
 
-
-
 ~~~
 t.test(treatment,control)$conf.int
 ~~~
@@ -161399,11 +161545,9 @@ t.test(treatment,control)$conf.int
 
 
 ~~~
-[1] -0.04296563  6.08463229
-attr(,"conf.level")
-[1] 0.95
+Must use a vector in `[`, not an object of class matrix.
 ~~~
-{: .output}
+{: .error}
 
 In this case, the 95% confidence interval does include 0 and we observe that the p-value is larger than 0.05 as predicted. If we change this to a 90% confidence interval, then:
 
@@ -161416,11 +161560,9 @@ t.test(treatment,control,conf.level=0.9)$conf.int
 
 
 ~~~
-[1] 0.4871597 5.5545070
-attr(,"conf.level")
-[1] 0.9
+Must use a vector in `[`, not an object of class matrix.
 ~~~
-{: .output}
+{: .error}
 
 0 is no longer in the confidence interval (which is expected because
 the p-value is smaller than 0.10). 
