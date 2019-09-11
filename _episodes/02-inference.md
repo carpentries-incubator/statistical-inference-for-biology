@@ -72,6 +72,14 @@ and obtained this data (`head` just shows us the first 6 rows):
 If you already downloaded the `femaleMiceWeights` file into your working directory, you can read it into R with just one line:
 
 
+~~~
+library(downloader) ##use install.packages to install
+dir <- "https://raw.githubusercontent.com/genomicsclass/dagdata/master/inst/extdata/"
+filename <- "femaleMiceWeights.csv"
+url <- paste0(dir, filename)
+if (!file.exists(filename)) download(url, destfile=filename)
+~~~
+{: .language-r}
 
 
 ~~~
@@ -161,6 +169,15 @@ If we repeat the experiment, we obtain 24 new mice from The Jackson Laboratory a
 Let's explore random variables further. Imagine that we actually have the weight of all control female mice and can upload them to R. In Statistics, we refer to this as *the population*. These are all the control mice available from which we sampled 24. Note that in practice we do not have access to the population. We have a special dataset that we are using here to illustrate concepts. 
 
 
+~~~
+library(downloader)
+dir <- "https://raw.githubusercontent.com/genomicsclass/dagdata/master/inst/extdata/"
+filename <- "femaleControlsPopulation.csv"
+url <- paste0(dir, filename)
+##check if file exists and if it does not, download it:
+if (!file.exists(filename)) download(url,destfile=filename)
+~~~
+{: .language-r}
 
 The first step is to download the data from [here](https://raw.githubusercontent.com/genomicsclass/dagdata/master/inst/extdata/femaleControlsPopulation.csv) into your working directory and then read it into R: 
 
