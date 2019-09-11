@@ -303,29 +303,9 @@ The simplest way to think of a *distribution* is as a compact description of man
 
 ~~~
 data(father.son,package="UsingR")
-~~~
-{: .language-r}
-
-
-
-~~~
-Error in find.package(package, lib.loc, verbose = verbose): there is no package called 'UsingR'
-~~~
-{: .error}
-
-
-
-~~~
 x <- father.son$fheight
 ~~~
 {: .language-r}
-
-
-
-~~~
-Error in eval(expr, envir, enclos): object 'father.son' not found
-~~~
-{: .error}
 
 One approach to summarizing these numbers is to simply list them all out for the alien to see. Here are 10 randomly selected heights of 1,078:
 
@@ -338,9 +318,9 @@ round(sample(x,10),1)
 
 
 ~~~
-Error in sample(x, 10): object 'x' not found
+ [1] 67.7 72.5 64.7 62.7 66.1 67.5 68.2 61.8 69.7 71.2
 ~~~
-{: .error}
+{: .output}
 
 #### Cumulative Distribution Function
 
@@ -350,39 +330,7 @@ $$ F(a) \equiv \mbox{Pr}(x \leq a) $$
 
 This is called the cumulative distribution function (CDF). When the CDF is derived from data, as opposed to theoretically, we also call it the empirical CDF (ECDF). The ECDF for the height data looks like this:
 
-
-~~~
-Error in eval(expr, envir, enclos): object 'x' not found
-~~~
-{: .error}
-
-
-
-~~~
-Error in eval(expr, envir, enclos): object 'x' not found
-~~~
-{: .error}
-
-
-
-~~~
-Error in seq(smallest, largest, len = 300): object 'smallest' not found
-~~~
-{: .error}
-
-
-
-~~~
-Error in sort(x): object 'x' not found
-~~~
-{: .error}
-
-
-
-~~~
-Error in plot(values, heightecdf(values), type = "l", xlab = "a (Height in inches)", : object 'values' not found
-~~~
-{: .error}
+<img src="../fig/rmd-02-ecdf-1.png" title="Empirical cummulative distribution function for height." alt="Empirical cummulative distribution function for height." width="612" style="display: block; margin: auto;" />
 
 #### Histograms
 
@@ -410,12 +358,7 @@ hist(x,xlab="Height (in inches)",main="Adult men heights")
 ~~~
 {: .language-r}
 
-
-
-~~~
-Error in hist(x, xlab = "Height (in inches)", main = "Adult men heights"): object 'x' not found
-~~~
-{: .error}
+<img src="../fig/rmd-02-histogram-1.png" title="Histogram for heights." alt="Histogram for heights." width="612" style="display: block; margin: auto;" />
 
 Showing this plot to the alien is much more informative than showing numbers. With this simple plot, we can approximate the number of individuals in any given interval. For example, there are about 70 individuals over six feet (72 inches) tall. 
 
