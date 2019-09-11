@@ -106,7 +106,7 @@ Let's explore random variables further. Imagine that we actually have the weight
 Now let's sample 12 mice three times and see how the average changes.
 
 ```{r control_population}
-population < read_csv(file = "../data/femaleControlsPopulation.csv")
+population <- read_csv(file = "../data/femaleControlsPopulation.csv")
 population <- unlist(population) # turn into numeric
 
 control <- sample(population,12)
