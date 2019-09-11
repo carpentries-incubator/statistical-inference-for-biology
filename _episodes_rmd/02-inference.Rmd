@@ -26,6 +26,7 @@ source: Rmd
 source("../bin/chunk-options.R")
 knitr_fig_path("02-")
 library(UsingR)
+library(tidyverse)
 ```
 
 
@@ -62,8 +63,7 @@ R. The first step is to understand random variables. To do
 this, we will use data from a mouse database (provided by Karen
 Svenson via Gary Churchill and Dan Gatti and partially funded by P50
 GM070683). We will import the data into R and explain random variables
-and null distributions using R programming.
-
+and null distributions using R programming. See [Setup]("../setup.md") to import the data.
 
 #### Our first look at data
 
@@ -73,22 +73,8 @@ mice from The Jackson Lab and randomly assigning either chow or high
 fat (hf) diet. After several weeks, the scientists weighed each mouse
 and obtained this data (`head` just shows us the first 6 rows):
 
-If you already downloaded the `femaleMiceWeights` file into your working directory, you can read it into R with just one line:
-
-```{r load_Fweights, results="hide"}
-library(downloader) ##use install.packages to install
-dir <- "https://raw.githubusercontent.com/genomicsclass/dagdata/master/inst/extdata/"
-filename <- "femaleMiceWeights.csv"
-url <- paste0(dir, filename)
-if (!file.exists(filename)) download(url, destfile=filename)
-```
-
 ```{r}
-dat <- read.csv("femaleMiceWeights.csv")
-```
-
-
-```{r}
+dat <- read_csv("data/femaleMiceWeights.csv")
 head(dat) 
 ``` 
 
@@ -99,7 +85,6 @@ the hf diet. Just from looking at the data, we see there is
 averages. So let's look at the average of each group: 
 
 ```{r,message=FALSE}
-library(dplyr)
 control <- filter(dat,Diet=="chow") %>% select(Bodyweight) %>% unlist
 treatment <- filter(dat,Diet=="hf") %>% select(Bodyweight) %>% unlist
 print( mean(treatment) )
@@ -118,26 +103,12 @@ If we repeat the experiment, we obtain 24 new mice from The Jackson Laboratory a
 
 Let's explore random variables further. Imagine that we actually have the weight of all control female mice and can upload them to R. In Statistics, we refer to this as *the population*. These are all the control mice available from which we sampled 24. Note that in practice we do not have access to the population. We have a special dataset that we are using here to illustrate concepts. 
 
-```{r load_Fcontrols}
-library(downloader)
-dir <- "https://raw.githubusercontent.com/genomicsclass/dagdata/master/inst/extdata/"
-filename <- "femaleControlsPopulation.csv"
-url <- paste0(dir, filename)
-##check if file exists and if it does not, download it:
-if (!file.exists(filename)) download(url,destfile=filename)
-```
-
-The first step is to download the data from [here](https://raw.githubusercontent.com/genomicsclass/dagdata/master/inst/extdata/femaleControlsPopulation.csv) into your working directory and then read it into R: 
-
-```{r}
-population <- read.csv("femaleControlsPopulation.csv")
-##use unlist to turn it into a numeric vector
-population <- unlist(population) 
-```
-
 Now let's sample 12 mice three times and see how the average changes.
 
 ```{r}
+population < read_csv(file = "data/femaleControlsPopulation.csv")
+population <- unlist(population) # turn into numeric
+
 control <- sample(population,12)
 mean(control)
 
@@ -170,6 +141,7 @@ between two randomly split groups of 12 and 12. Here is this process
 written in R code:
 
 ```{r}
+
 ##12 control mice
 control <- sample(population,12)
 ##another 12 control mice that we act as if they were not
