@@ -862,32 +862,12 @@ We start by reading in the data. A first important step is to identify which row
 
 ~~~
 control <- filter(dat, Diet=="chow") %>%
-  select(Bodyweight)
+  select(Bodyweight) %>% 
+  unlist
 treatment <- filter(dat, Diet=="hf") %>%
-  select(Bodyweight)
+  select(Bodyweight) %>% 
+  unlist
 diff <- mean(treatment) - mean(control)
-~~~
-{: .language-r}
-
-
-
-~~~
-Warning in mean.default(treatment): argument is not numeric or logical:
-returning NA
-~~~
-{: .error}
-
-
-
-~~~
-Warning in mean.default(control): argument is not numeric or logical:
-returning NA
-~~~
-{: .error}
-
-
-
-~~~
 print(diff)
 ~~~
 {: .language-r}
@@ -895,7 +875,7 @@ print(diff)
 
 
 ~~~
-[1] NA
+[1] 3.020833
 ~~~
 {: .output}
 
@@ -917,9 +897,9 @@ sd(control)/sqrt(length(control))
 
 
 ~~~
-Error in is.data.frame(x): (list) object cannot be coerced to type 'double'
+[1] 0.8725323
 ~~~
-{: .error}
+{: .output}
 
 This is the SE of the sample average, but we actually want the SE of `diff`. We saw how statistical theory tells us that the variance of the difference of two random variables is the sum of its variances, so we compute the variance and take the square root:
 
@@ -966,8 +946,7 @@ print(pval)
 
 
 ~~~
-           Bodyweight
-Bodyweight         NA
+[1] 0.0398622
 ~~~
 {: .output}
 
@@ -1017,57 +996,13 @@ The following object is masked from 'package:remotes':
 ~~~
 mypar(1,2)
 qqnorm(treatment)
-~~~
-{: .language-r}
-
-
-
-~~~
-Must use a vector in `[`, not an object of class matrix.
-~~~
-{: .error}
-
-
-
-~~~
 qqline(treatment,col=2)
-~~~
-{: .language-r}
-
-
-
-~~~
-Must use a vector in `[`, not an object of class matrix.
-~~~
-{: .error}
-
-
-
-~~~
 qqnorm(control)
-~~~
-{: .language-r}
-
-
-
-~~~
-Must use a vector in `[`, not an object of class matrix.
-~~~
-{: .error}
-
-
-
-~~~
 qqline(control,col=2)
 ~~~
 {: .language-r}
 
-
-
-~~~
-Must use a vector in `[`, not an object of class matrix.
-~~~
-{: .error}
+<img src="../fig/rmd-02-data_qqplot-1.png" title="Quantile-quantile plots for sample against theoretical normal distribution." alt="Quantile-quantile plots for sample against theoretical normal distribution." width="756" style="display: block; margin: auto;" />
 
 If we use this approximation, then statistical theory tells us that
 the distribution of the random variable `tstat` follows a
@@ -1085,28 +1020,25 @@ t.test(treatment, control)
 
 
 ~~~
-Must use a vector in `[`, not an object of class matrix.
+
+	Welch Two Sample t-test
+
+data:  treatment and control
+t = 2.0552, df = 20.236, p-value = 0.053
+alternative hypothesis: true difference in means is not equal to 0
+95 percent confidence interval:
+ -0.04296563  6.08463229
+sample estimates:
+mean of x mean of y 
+ 26.83417  23.81333 
 ~~~
-{: .error}
+{: .output}
 
 To see just the p-value, we can use the `$` extractor:
 
 
 ~~~
 result <- t.test(treatment,control)
-~~~
-{: .language-r}
-
-
-
-~~~
-Must use a vector in `[`, not an object of class matrix.
-~~~
-{: .error}
-
-
-
-~~~
 result$p.value
 ~~~
 {: .language-r}
@@ -1114,9 +1046,9 @@ result$p.value
 
 
 ~~~
-Error in eval(expr, envir, enclos): object 'result' not found
+[1] 0.05299888
 ~~~
-{: .error}
+{: .output}
 
 
 The p-value is slightly bigger now. This is to be expected because our
@@ -1142,9 +1074,11 @@ simple code that one would use to actually compute a t-test:
 
 ~~~
 control <- filter(pheno, Diet=="chow") %>%
-  select(Bodyweight) 
+  select(Bodyweight) %>% 
+  unlist
 treatment <- filter(pheno, Diet=="hf") %>%
-  select(Bodyweight) 
+  select(Bodyweight) %>% 
+  unlist
 t.test(treatment, control)
 ~~~
 {: .language-r}
@@ -1152,9 +1086,19 @@ t.test(treatment, control)
 
 
 ~~~
-Must use a vector in `[`, not an object of class matrix.
+
+	Welch Two Sample t-test
+
+data:  treatment and control
+t = 7.1932, df = 735.02, p-value = 1.563e-12
+alternative hypothesis: true difference in means is not equal to 0
+95 percent confidence interval:
+ 2.231533 3.906857
+sample estimates:
+mean of x mean of y 
+ 30.48201  27.41281 
 ~~~
-{: .error}
+{: .output}
 
 The arguments to `t.test` can be of type *data.frame* and thus we do not need to unlist them into numeric objects.
 
@@ -1283,8 +1227,7 @@ print(se)
 
 
 ~~~
-           Bodyweight
-Bodyweight    5.09177
+[1] 1.469867
 ~~~
 {: .output}
 

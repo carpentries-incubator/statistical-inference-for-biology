@@ -455,9 +455,11 @@ We start by reading in the data. A first important step is to identify which row
 
 ```{r chow_hf, message=FALSE}
 control <- filter(dat, Diet=="chow") %>%
-  select(Bodyweight)
+  select(Bodyweight) %>% 
+  unlist
 treatment <- filter(dat, Diet=="hf") %>%
-  select(Bodyweight)
+  select(Bodyweight) %>% 
+  unlist
 diff <- mean(treatment) - mean(control)
 print(diff)
 ```
@@ -579,9 +581,11 @@ simple code that one would use to actually compute a t-test:
 
 ```{r ttest_pheno, message=FALSE}
 control <- filter(pheno, Diet=="chow") %>%
-  select(Bodyweight) 
+  select(Bodyweight) %>% 
+  unlist
 treatment <- filter(pheno, Diet=="hf") %>%
-  select(Bodyweight) 
+  select(Bodyweight) %>% 
+  unlist
 t.test(treatment, control)
 ```
 
