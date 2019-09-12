@@ -990,7 +990,10 @@ We start by reading in the data and selecting the appropriate rows:
 
 
 ~~~
-chowPopulation <- pheno[pheno$Sex=="F" & pheno$Diet=="chow", 3]
+chowPopulation <- pheno %>% 
+  filter(Sex=="F" & Diet=="chow") %>% 
+  select(Bodyweight) %>% 
+  unlist
 ~~~
 {: .language-r}
 
@@ -999,20 +1002,6 @@ The population average $\mu_X$ is our parameter of interest here:
 
 ~~~
 mu_chow <- mean(chowPopulation)
-~~~
-{: .language-r}
-
-
-
-~~~
-Warning in mean.default(chowPopulation): argument is not numeric or
-logical: returning NA
-~~~
-{: .error}
-
-
-
-~~~
 print(mu_chow)
 ~~~
 {: .language-r}
@@ -1020,7 +1009,7 @@ print(mu_chow)
 
 
 ~~~
-[1] NA
+[1] 23.89338
 ~~~
 {: .output}
 
@@ -1030,19 +1019,6 @@ We are interested in estimating this parameter. In practice, we do not get to se
 ~~~
 N <- 30
 chow <- sample(chowPopulation, N)
-~~~
-{: .language-r}
-
-
-
-~~~
-Error in sample.int(length(x), size, replace, prob): cannot take a sample larger than the population when 'replace = FALSE'
-~~~
-{: .error}
-
-
-
-~~~
 print(mean(chow))
 ~~~
 {: .language-r}
@@ -1050,9 +1026,9 @@ print(mean(chow))
 
 
 ~~~
-Error in mean(chow): object 'chow' not found
+[1] 24.03267
 ~~~
-{: .error}
+{: .output}
 
 We know this is a random variable, so the sample average will not be a perfect estimate. In fact, because in this illustrative example we know the value of the parameter, we can see that they are not exactly the same. A confidence interval is a statistical way of reporting our finding, the sample average, in a way that explicitly summarizes the variability of our random variable.
 
@@ -1061,19 +1037,6 @@ With a sample size of 30, we will use the CLT. The CLT tells us that $\bar{X}$ o
 
 ~~~
 se <- sd(chow)/sqrt(N)
-~~~
-{: .language-r}
-
-
-
-~~~
-Error in is.data.frame(x): object 'chow' not found
-~~~
-{: .error}
-
-
-
-~~~
 print(se)
 ~~~
 {: .language-r}
@@ -1081,7 +1044,7 @@ print(se)
 
 
 ~~~
-[1] 1.469867
+[1] 0.6875646
 ~~~
 {: .output}
 
@@ -1138,19 +1101,6 @@ interval with R relatively easily:
 ~~~
 Q <- qnorm(1 - 0.05/2)
 interval <- c(mean(chow)-Q*se, mean(chow)+Q*se )
-~~~
-{: .language-r}
-
-
-
-~~~
-Error in mean(chow): object 'chow' not found
-~~~
-{: .error}
-
-
-
-~~~
 interval
 ~~~
 {: .language-r}
@@ -1158,9 +1108,9 @@ interval
 
 
 ~~~
-Error in eval(expr, envir, enclos): object 'interval' not found
+[1] 22.68506 25.38027
 ~~~
-{: .error}
+{: .output}
 
 
 
@@ -1172,9 +1122,9 @@ interval[1] < mu_chow & interval[2] > mu_chow
 
 
 ~~~
-Error in eval(expr, envir, enclos): object 'interval' not found
+[1] TRUE
 ~~~
-{: .error}
+{: .output}
 
 which happens to cover $\mu_X$ or `mean(chowPopulation)`. However, we can take another sample and we might not be as lucky. In fact, the theory tells us that we will cover $\mu_X$ 95% of the time. Because we have access to the population data, we can confirm this by taking several new samples:
 
@@ -1185,56 +1135,7 @@ B <- 250
 mypar()
 plot(mean(chowPopulation)+c(-7,7),c(1,1),type="n",
      xlab="weight",ylab="interval",ylim=c(1,B))
-~~~
-{: .language-r}
-
-
-
-~~~
-Warning in mean.default(chowPopulation): argument is not numeric or
-logical: returning NA
-~~~
-{: .error}
-
-
-
-~~~
-Warning in min(x): no non-missing arguments to min; returning Inf
-~~~
-{: .error}
-
-
-
-~~~
-Warning in max(x): no non-missing arguments to max; returning -Inf
-~~~
-{: .error}
-
-
-
-~~~
-Error in plot.window(...): need finite 'xlim' values
-~~~
-{: .error}
-
-<img src="../fig/rmd-02-confidence_interval_n30-1.png" title="We show 250 random realizations of 95% confidence intervals. The color denotes if the interval fell on the parameter or not." alt="We show 250 random realizations of 95% confidence intervals. The color denotes if the interval fell on the parameter or not." width="612" style="display: block; margin: auto;" />
-
-~~~
 abline(v=mean(chowPopulation))
-~~~
-{: .language-r}
-
-
-
-~~~
-Warning in mean.default(chowPopulation): argument is not numeric or
-logical: returning NA
-~~~
-{: .error}
-
-
-
-~~~
 for (i in 1:B) {
   chow <- sample(chowPopulation,N)
   se <- sd(chow)/sqrt(N)
@@ -1247,12 +1148,7 @@ for (i in 1:B) {
 ~~~
 {: .language-r}
 
-
-
-~~~
-Error in sample.int(length(x), size, replace, prob): cannot take a sample larger than the population when 'replace = FALSE'
-~~~
-{: .error}
+<img src="../fig/rmd-02-confidence_interval_n30-1.png" title="We show 250 random realizations of 95% confidence intervals. The color denotes if the interval fell on the parameter or not." alt="We show 250 random realizations of 95% confidence intervals. The color denotes if the interval fell on the parameter or not." width="612" style="display: block; margin: auto;" />
 
 You can run this repeatedly to see what happens. You will see that in about 5% of the cases, we fail to cover $\mu_X$.
 
@@ -1268,56 +1164,7 @@ For $N=30$, the CLT works very well. However, if $N=5$, do these confidence inte
 mypar()
 plot(mean(chowPopulation)+c(-7,7),c(1,1),type="n",
      xlab="weight",ylab="interval",ylim=c(1,B))
-~~~
-{: .language-r}
-
-
-
-~~~
-Warning in mean.default(chowPopulation): argument is not numeric or
-logical: returning NA
-~~~
-{: .error}
-
-
-
-~~~
-Warning in min(x): no non-missing arguments to min; returning Inf
-~~~
-{: .error}
-
-
-
-~~~
-Warning in max(x): no non-missing arguments to max; returning -Inf
-~~~
-{: .error}
-
-
-
-~~~
-Error in plot.window(...): need finite 'xlim' values
-~~~
-{: .error}
-
-<img src="../fig/rmd-02-confidence_interval_n5-1.png" title="We show 250 random realizations of 95% confidence intervals, but now for a smaller sample size. The confidence interval is based on the CLT approximation. The color denotes if the interval fell on the parameter or not." alt="We show 250 random realizations of 95% confidence intervals, but now for a smaller sample size. The confidence interval is based on the CLT approximation. The color denotes if the interval fell on the parameter or not." width="612" style="display: block; margin: auto;" />
-
-~~~
 abline(v=mean(chowPopulation))
-~~~
-{: .language-r}
-
-
-
-~~~
-Warning in mean.default(chowPopulation): argument is not numeric or
-logical: returning NA
-~~~
-{: .error}
-
-
-
-~~~
 Q <- qnorm(1- 0.05/2)
 N <- 5
 for (i in 1:B) {
@@ -1331,12 +1178,7 @@ for (i in 1:B) {
 ~~~
 {: .language-r}
 
-
-
-~~~
-Error in sample.int(length(x), size, replace, prob): cannot take a sample larger than the population when 'replace = FALSE'
-~~~
-{: .error}
+<img src="../fig/rmd-02-confidence_interval_n5-1.png" title="We show 250 random realizations of 95% confidence intervals, but now for a smaller sample size. The confidence interval is based on the CLT approximation. The color denotes if the interval fell on the parameter or not." alt="We show 250 random realizations of 95% confidence intervals, but now for a smaller sample size. The confidence interval is based on the CLT approximation. The color denotes if the interval fell on the parameter or not." width="612" style="display: block; margin: auto;" />
 
 Despite the intervals being larger (we are dividing by $\sqrt{5}$
 instead of $\sqrt{30}$ ), we see many more intervals not covering
@@ -1350,56 +1192,7 @@ $\pm \infty$). This mistake affects us in the calculation of `Q`, which assumes 
 mypar()
 plot(mean(chowPopulation) + c(-7,7), c(1,1), type="n",
      xlab="weight", ylab="interval", ylim=c(1,B))
-~~~
-{: .language-r}
-
-
-
-~~~
-Warning in mean.default(chowPopulation): argument is not numeric or
-logical: returning NA
-~~~
-{: .error}
-
-
-
-~~~
-Warning in min(x): no non-missing arguments to min; returning Inf
-~~~
-{: .error}
-
-
-
-~~~
-Warning in max(x): no non-missing arguments to max; returning -Inf
-~~~
-{: .error}
-
-
-
-~~~
-Error in plot.window(...): need finite 'xlim' values
-~~~
-{: .error}
-
-<img src="../fig/rmd-02-confidence_interval_tdist_n5-1.png" title="We show 250 random realizations of 95% confidence intervals, but now for a smaller sample size. The confidence is now based on the t-distribution approximation. The color denotes if the interval fell on the parameter or not." alt="We show 250 random realizations of 95% confidence intervals, but now for a smaller sample size. The confidence is now based on the t-distribution approximation. The color denotes if the interval fell on the parameter or not." width="612" style="display: block; margin: auto;" />
-
-~~~
 abline(v=mean(chowPopulation))
-~~~
-{: .language-r}
-
-
-
-~~~
-Warning in mean.default(chowPopulation): argument is not numeric or
-logical: returning NA
-~~~
-{: .error}
-
-
-
-~~~
 ##Q <- qnorm(1- 0.05/2) ##no longer normal so use:
 Q <- qt(1- 0.05/2, df=4)
 N <- 5
@@ -1414,12 +1207,7 @@ for (i in 1:B) {
 ~~~
 {: .language-r}
 
-
-
-~~~
-Error in sample.int(length(x), size, replace, prob): cannot take a sample larger than the population when 'replace = FALSE'
-~~~
-{: .error}
+<img src="../fig/rmd-02-confidence_interval_tdist_n5-1.png" title="We show 250 random realizations of 95% confidence intervals, but now for a smaller sample size. The confidence is now based on the t-distribution approximation. The color denotes if the interval fell on the parameter or not." alt="We show 250 random realizations of 95% confidence intervals, but now for a smaller sample size. The confidence is now based on the t-distribution approximation. The color denotes if the interval fell on the parameter or not." width="612" style="display: block; margin: auto;" />
 
 Now the intervals are made bigger. This is because the t-distribution has fatter tails and therefore:
 
