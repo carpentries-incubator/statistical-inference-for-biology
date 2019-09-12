@@ -49,10 +49,10 @@ efficiency."
 To support this claim they provide the following in the results section:
 
 > "Already during the first week after introduction of high-fat diet, body 
-weight increased significantly more in the high-fat diet-fed mice ($+$ 1.6 $\pm$ 
-0.1 g) than in the normal diet-fed mice ($+$ 0.2 $\pm$ 0.1 g; P < 0.001)."
+weight increased significantly more in the high-fat diet-fed mice (+ 1.6 &plusmn; 
+0.1 g) than in the normal diet-fed mice (+ 0.2 &plusmn; 0.1 g; P < 0.001)."
 
-What does P < 0.001 mean? What are the $\pm$ included?
+What does P < 0.001 mean? What are the &plusmn; included?
 We will learn what this means and learn to compute these values in
 R. The first step is to understand random variables. To do
 this, we will use data from a mouse database (provided by Karen
@@ -340,7 +340,7 @@ round(sample(x, 10), 1)
 
 #### Cumulative Distribution Function
 
-Scanning through these numbers, we start to get a rough idea of what the entire list looks like, but it is certainly inefficient. We can quickly improve on this approach by defining and visualizing a _distribution_. To define a distribution we compute, for all possible values of $a$, the proportion of numbers in our list that are below $a$. We use the following notation:
+Scanning through these numbers, we start to get a rough idea of what the entire list looks like, but it is certainly inefficient. We can quickly improve on this approach by defining and visualizing a _distribution_. To define a distribution we compute, for all possible values of <i>a</i>, the proportion of numbers in our list that are below <i>a</i>. We use the following notation:
 
 
 ![](../fig/02-cum-dist-function.png)
@@ -377,11 +377,12 @@ Showing this plot to the alien is much more informative than showing numbers. Wi
 Summarizing lists of numbers is one powerful use of distribution. An
 even more important use is describing the possible outcomes of a
 random variable. Unlike a fixed list of numbers, we don't actually observe all possible outcomes of random variables, so instead of describing proportions, we describe probabilities. For instance, if we pick a random height from our list,
-then the probability of it falling between $a$ and $b$ is denoted with: 
+then the probability of it falling between <i>a</i> and <i>b</i> is denoted with: 
 
 ![](..fig/02-proba-lt-random.png)
 
-Note that the $X$ is now capitalized to distinguish it as a random
+
+Note that the <i>X</i> is now capitalized to distinguish it as a random
 variable and that the equation above defines the probability
 distribution of the random variable. Knowing this distribution is
 incredibly useful in science. For example, in the case above, if we
@@ -406,7 +407,7 @@ abline(v=obsdiff, col="red", lwd=2)
 
 <img src="../fig/rmd-02-null_and_obs-1.png" title="Null distribution with observed difference marked with vertical red line." alt="Null distribution with observed difference marked with vertical red line." width="612" style="display: block; margin: auto;" />
 
-An important point to keep in mind here is that while we defined $\mbox{Pr}(a)$ by counting cases, we will learn that, in some circumstances, mathematics gives us formulas for $\mbox{Pr}(a)$ that save us the trouble of computing them as we did here. One example of this powerful approach uses the normal distribution approximation.
+An important point to keep in mind here is that while we defined Pr<i>(a)</i> by counting cases, we will learn that, in some circumstances, mathematics gives us formulas for Pr<i>(a)</i> that save us the trouble of computing them as we did here. One example of this powerful approach uses the normal distribution approximation.
 
 <a name="normal_distribution"></a>
 
@@ -418,16 +419,16 @@ The probability distribution we see above approximates one that is very common i
 
 While the formula may look intimidating, don't worry, you will never
 actually have to type it out, as it is stored in a more convenient
-form (as `pnorm` in R which sets *a* to $-\infty$, and takes *b* as an argument). 
+form (as `pnorm` in R which sets *a* to -&infin;, and takes *b* as an argument). 
 
-Here $\mu$ and $\sigma$ are referred to as the mean and the standard
+Here &mu; and &sigma; are referred to as the mean and the standard
 deviation of the population (we explain these in more detail in
 another section). If this *normal approximation* holds for our list, then the
 population mean and variance of our list can be used in the formula
 above. An example of this would be when we noted above that only 1.5%
 of values on the null distribution were above `obsdiff`. We can
 compute the proportion of values below a value `x` with
-`pnorm(x,mu,sigma)` without knowing all the values. The normal
+`pnorm(x, mu, sigma)` without knowing all the values. The normal
 approximation works very well here: 
 
 
@@ -443,7 +444,7 @@ approximation works very well here:
 ~~~
 {: .output}
 
-Later, we will learn that there is a mathematical explanation for this. A very useful characteristic of this approximation is that one only needs to know $\mu$ and $\sigma$ to describe the entire distribution. From this, we can compute the proportion of values in any interval. 
+Later, we will learn that there is a mathematical explanation for this. A very useful characteristic of this approximation is that one only needs to know &mu; and &sigma; to describe the entire distribution. From this, we can compute the proportion of values in any interval. 
 
 
 #### Summary
@@ -1087,7 +1088,7 @@ $\mu_X$ alone in the middle and you get that the following event:
 has a probability of 95%. 
 
 Be aware that it is the edges of the interval 
-$\bar{X} \pm 2 s_X / \sqrt{N}$, not $\mu_X$, 
+$\bar{X} \&plusmn; 2 s_X / \sqrt{N}$, not $\mu_X$, 
 that are random. Again, the definition of
 the confidence interval is that 95% of *random intervals* will contain
 the true, fixed value $\mu_X$. For a specific interval that has been
@@ -1185,7 +1186,7 @@ instead of $\sqrt{30}$ ), we see many more intervals not covering
 $\mu_X$. This is because the CLT is incorrectly telling us that the
 distribution of the `mean(chow)` is approximately normal with standard deviation 1 when, in fact,
 it has a larger standard deviation and a fatter tail (the parts of the distribution going to
-$\pm \infty$). This mistake affects us in the calculation of `Q`, which assumes a normal distribution and uses `qnorm`. The t-distribution might be more appropriate. All we have to do is re-run the above, but change how we calculate `Q` to use `qt` instead of `qnorm`.
+$\&plusmn; \infty$). This mistake affects us in the calculation of `Q`, which assumes a normal distribution and uses `qnorm`. The t-distribution might be more appropriate. All we have to do is re-run the above, but change how we calculate `Q` to use `qt` instead of `qnorm`.
 
 
 ~~~
@@ -1252,7 +1253,7 @@ difference. Instead of writing $\bar{Y} - \bar{X}$ repeatedly, let's
 define this difference as a new variable 
 $d \equiv \bar{Y} - \bar{X}$ . 
 
-Suppose you use CLT and report $d \pm 2 s_d/\sqrt{N}$, with $s_d = \sqrt{s_X^2+s_Y^2}$, as a
+Suppose you use CLT and report $d \&plusmn; 2 s_d/\sqrt{N}$, with $s_d = \sqrt{s_X^2+s_Y^2}$, as a
 95% confidence interval for the difference and this interval does not
 include 0 (a false positive).
 Because the interval does not include 0, this implies that either
