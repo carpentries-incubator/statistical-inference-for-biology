@@ -115,8 +115,12 @@ averages. So let's look at the average of each group:
 
 
 ~~~
-control <- filter(dat, Diet=="chow") %>% select(Bodyweight)
-treatment <- filter(dat, Diet=="hf") %>% select(Bodyweight)
+control <- filter(dat, Diet=="chow") %>%
+  select(Bodyweight) %>% 
+  unlist
+treatment <- filter(dat, Diet=="hf") %>%
+  select(Bodyweight) %>% 
+  unlist
 print( mean(treatment) )
 ~~~
 {: .language-r}
@@ -124,15 +128,7 @@ print( mean(treatment) )
 
 
 ~~~
-Warning in mean.default(treatment): argument is not numeric or logical:
-returning NA
-~~~
-{: .error}
-
-
-
-~~~
-[1] NA
+[1] 26.83417
 ~~~
 {: .output}
 
@@ -146,15 +142,7 @@ print( mean(control) )
 
 
 ~~~
-Warning in mean.default(control): argument is not numeric or logical:
-returning NA
-~~~
-{: .error}
-
-
-
-~~~
-[1] NA
+[1] 23.81333
 ~~~
 {: .output}
 
@@ -162,28 +150,6 @@ returning NA
 
 ~~~
 obsdiff <- mean(treatment) - mean(control)
-~~~
-{: .language-r}
-
-
-
-~~~
-Warning in mean.default(treatment): argument is not numeric or logical:
-returning NA
-~~~
-{: .error}
-
-
-
-~~~
-Warning in mean.default(control): argument is not numeric or logical:
-returning NA
-~~~
-{: .error}
-
-
-
-~~~
 print(obsdiff)
 ~~~
 {: .language-r}
@@ -191,7 +157,7 @@ print(obsdiff)
 
 
 ~~~
-[1] NA
+[1] 3.020833
 ~~~
 {: .output}
 
@@ -227,46 +193,46 @@ cols(
 
 ~~~
 control <- sample(population$Bodyweight, 12)
-mean(control$Bodyweight)
+mean(control)
 ~~~
 {: .language-r}
 
 
 
 ~~~
-Error in control$Bodyweight: $ operator is invalid for atomic vectors
+[1] 23.47667
 ~~~
-{: .error}
+{: .output}
 
 
 
 ~~~
 control <- sample(population$Bodyweight, 12)
-mean(control$Bodyweight)
+mean(control)
 ~~~
 {: .language-r}
 
 
 
 ~~~
-Error in control$Bodyweight: $ operator is invalid for atomic vectors
+[1] 25.12583
 ~~~
-{: .error}
+{: .output}
 
 
 
 ~~~
 control <- sample(population$Bodyweight, 12)
-mean(control$Bodyweight)
+mean(control)
 ~~~
 {: .language-r}
 
 
 
 ~~~
-Error in control$Bodyweight: $ operator is invalid for atomic vectors
+[1] 23.72333
 ~~~
-{: .error}
+{: .output}
 
 Note how the average varies. We can continue to do this repeatedly and start learning something about the distribution of this random variable.
 
@@ -334,7 +300,7 @@ mean(null >= obsdiff)
 
 
 ~~~
-[1] NA
+[1] 0.0123
 ~~~
 {: .output}
 
@@ -473,7 +439,7 @@ approximation works very well here:
 
 
 ~~~
-[1] NA
+[1] 0.01311009
 ~~~
 {: .output}
 
@@ -551,7 +517,7 @@ We can then access the population values and determine, for example, how many we
 
 ~~~
 controlPopulation <- filter(pheno, Sex == "F" & Diet == "chow") %>%
-  select(Bodyweight)
+  select(Bodyweight) 
 length(controlPopulation)
 ~~~
 {: .language-r}
