@@ -85,8 +85,8 @@ the hf diet. Just from looking at the data, we see there is
 averages. So let's look at the average of each group: 
 
 ```{r control_treatment, message=FALSE}
-control <- filter(dat, Diet=="chow") %>% select(Bodyweight) %>% unlist
-treatment <- filter(dat, Diet=="hf") %>% select(Bodyweight) %>% unlist
+control <- filter(dat, Diet=="chow") %>% select(Bodyweight)
+treatment <- filter(dat, Diet=="hf") %>% select(Bodyweight)
 print( mean(treatment) )
 print( mean(control) )
 obsdiff <- mean(treatment) - mean(control)
@@ -107,15 +107,14 @@ Now let's sample 12 mice three times and see how the average changes.
 
 ```{r control_population}
 population <- read_csv(file = "../data/femaleControlsPopulation.csv")
-population <- unlist(population) # turn into numeric
 
-control <- sample(population,12)
+control <- sample(population, 12)
 mean(control)
 
-control <- sample(population,12)
+control <- sample(population, 12)
 mean(control)
 
-control <- sample(population,12)
+control <- sample(population, 12)
 mean(control)
 ```
 
@@ -143,9 +142,9 @@ written in R code:
 ```{r control_sample}
 
 ##12 control mice
-control <- sample(population,12)
+control <- sample(population, 12)
 ##another 12 control mice that we act as if they were not
-treatment <- sample(population,12)
+treatment <- sample(population, 12)
 print(mean(treatment) - mean(control))
 ```
 
@@ -343,8 +342,7 @@ We can then access the population values and determine, for example, how many we
 
 ```{r load_pheno, message=FALSE}
 controlPopulation <- filter(pheno, Sex == "F" & Diet == "chow") %>%
-  select(Bodyweight) %>%
-  unlist
+  select(Bodyweight)
 length(controlPopulation)
 ```
 
@@ -352,8 +350,7 @@ We usually denote these values as $x_1,\dots,x_m$. In this case, $m$ is the numb
 
 ```{r}
 hfPopulation <- filter(pheno, Sex == "F" & Diet == "hf") %>%  
-  select(Bodyweight) %>%
-  unlist
+  select(Bodyweight)
 length(hfPopulation)
 ```
 
@@ -368,14 +365,14 @@ The mean:
 
 ```{r mu_control_vs_hf}
 # X is the control population
-sum(controlPopulation$weight) # sum of the xsubi's
-length(controlPopulation$weight) # this equals m
-sum(controlPopulation$weight)/length(controlPopulation$weight) # this equals mu sub x
+sum(controlPopulation$Bodyweight) # sum of the xsubi's
+length(controlPopulation$Bodyweight) # this equals m
+sum(controlPopulation$Bodyweight)/length(controlPopulation$Bodyweight) # this equals mu sub x
 
 
 # Y is the high fat diet population
-sum(hfPopulation$weight) # sum of the ysubi's
-sum(hfPopulation$weight)/length(hfPopulation$weight) # this equals mu sub y
+sum(hfPopulation$Bodyweight) # sum of the ysubi's
+sum(hfPopulation$Bodyweight)/length(hfPopulation$Bodyweight) # this equals mu sub y
 ```
 
 The variance:
@@ -458,11 +455,9 @@ We start by reading in the data. A first important step is to identify which row
 
 ```{r chow_hf, message=FALSE}
 control <- filter(dat, Diet=="chow") %>%
-  select(Bodyweight) %>%
-  unlist
+  select(Bodyweight)
 treatment <- filter(dat, Diet=="hf") %>%
-  select(Bodyweight) %>%
-  unlist
+  select(Bodyweight)
 diff <- mean(treatment) - mean(control)
 print(diff)
 ```

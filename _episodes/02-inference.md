@@ -115,8 +115,8 @@ averages. So let's look at the average of each group:
 
 
 ~~~
-control <- filter(dat, Diet=="chow") %>% select(Bodyweight) %>% unlist
-treatment <- filter(dat, Diet=="hf") %>% select(Bodyweight) %>% unlist
+control <- filter(dat, Diet=="chow") %>% select(Bodyweight)
+treatment <- filter(dat, Diet=="hf") %>% select(Bodyweight)
 print( mean(treatment) )
 ~~~
 {: .language-r}
@@ -124,7 +124,15 @@ print( mean(treatment) )
 
 
 ~~~
-[1] 26.83417
+Warning in mean.default(treatment): argument is not numeric or logical:
+returning NA
+~~~
+{: .error}
+
+
+
+~~~
+[1] NA
 ~~~
 {: .output}
 
@@ -138,7 +146,15 @@ print( mean(control) )
 
 
 ~~~
-[1] 23.81333
+Warning in mean.default(control): argument is not numeric or logical:
+returning NA
+~~~
+{: .error}
+
+
+
+~~~
+[1] NA
 ~~~
 {: .output}
 
@@ -146,6 +162,28 @@ print( mean(control) )
 
 ~~~
 obsdiff <- mean(treatment) - mean(control)
+~~~
+{: .language-r}
+
+
+
+~~~
+Warning in mean.default(treatment): argument is not numeric or logical:
+returning NA
+~~~
+{: .error}
+
+
+
+~~~
+Warning in mean.default(control): argument is not numeric or logical:
+returning NA
+~~~
+{: .error}
+
+
+
+~~~
 print(obsdiff)
 ~~~
 {: .language-r}
@@ -153,7 +191,7 @@ print(obsdiff)
 
 
 ~~~
-[1] 3.020833
+[1] NA
 ~~~
 {: .output}
 
@@ -188,9 +226,20 @@ cols(
 
 
 ~~~
-population <- unlist(population) # turn into numeric
+control <- sample(population, 12)
+~~~
+{: .language-r}
 
-control <- sample(population,12)
+
+
+~~~
+Error in sample.int(length(x), size, replace, prob): cannot take a sample larger than the population when 'replace = FALSE'
+~~~
+{: .error}
+
+
+
+~~~
 mean(control)
 ~~~
 {: .language-r}
@@ -198,14 +247,35 @@ mean(control)
 
 
 ~~~
-[1] 23.47667
+Warning in mean.default(control): argument is not numeric or logical:
+returning NA
+~~~
+{: .error}
+
+
+
+~~~
+[1] NA
 ~~~
 {: .output}
 
 
 
 ~~~
-control <- sample(population,12)
+control <- sample(population, 12)
+~~~
+{: .language-r}
+
+
+
+~~~
+Error in sample.int(length(x), size, replace, prob): cannot take a sample larger than the population when 'replace = FALSE'
+~~~
+{: .error}
+
+
+
+~~~
 mean(control)
 ~~~
 {: .language-r}
@@ -213,14 +283,35 @@ mean(control)
 
 
 ~~~
-[1] 25.12583
+Warning in mean.default(control): argument is not numeric or logical:
+returning NA
+~~~
+{: .error}
+
+
+
+~~~
+[1] NA
 ~~~
 {: .output}
 
 
 
 ~~~
-control <- sample(population,12)
+control <- sample(population, 12)
+~~~
+{: .language-r}
+
+
+
+~~~
+Error in sample.int(length(x), size, replace, prob): cannot take a sample larger than the population when 'replace = FALSE'
+~~~
+{: .error}
+
+
+
+~~~
 mean(control)
 ~~~
 {: .language-r}
@@ -228,7 +319,15 @@ mean(control)
 
 
 ~~~
-[1] 23.72333
+Warning in mean.default(control): argument is not numeric or logical:
+returning NA
+~~~
+{: .error}
+
+
+
+~~~
+[1] NA
 ~~~
 {: .output}
 
@@ -256,9 +355,35 @@ written in R code:
 
 ~~~
 ##12 control mice
-control <- sample(population,12)
+control <- sample(population, 12)
+~~~
+{: .language-r}
+
+
+
+~~~
+Error in sample.int(length(x), size, replace, prob): cannot take a sample larger than the population when 'replace = FALSE'
+~~~
+{: .error}
+
+
+
+~~~
 ##another 12 control mice that we act as if they were not
-treatment <- sample(population,12)
+treatment <- sample(population, 12)
+~~~
+{: .language-r}
+
+
+
+~~~
+Error in sample.int(length(x), size, replace, prob): cannot take a sample larger than the population when 'replace = FALSE'
+~~~
+{: .error}
+
+
+
+~~~
 print(mean(treatment) - mean(control))
 ~~~
 {: .language-r}
@@ -266,7 +391,23 @@ print(mean(treatment) - mean(control))
 
 
 ~~~
-[1] -0.2391667
+Warning in mean.default(treatment): argument is not numeric or logical:
+returning NA
+~~~
+{: .error}
+
+
+
+~~~
+Warning in mean.default(control): argument is not numeric or logical:
+returning NA
+~~~
+{: .error}
+
+
+
+~~~
+[1] NA
 ~~~
 {: .output}
 
@@ -285,6 +426,13 @@ for (i in 1:n) {
 ~~~
 {: .language-r}
 
+
+
+~~~
+Error in sample.int(length(x), size, replace, prob): cannot take a sample larger than the population when 'replace = FALSE'
+~~~
+{: .error}
+
 The values in `null` form what we call the *null distribution*. We will define this more formally below.
 
 So what percent of the 10,000 are bigger than `obsdiff`?
@@ -298,7 +446,7 @@ mean(null >= obsdiff)
 
 
 ~~~
-[1] 0.0123
+[1] NA
 ~~~
 {: .output}
 
@@ -332,7 +480,7 @@ round(sample(x, 10), 1)
 
 
 ~~~
- [1] 67.7 72.5 64.7 62.7 66.1 67.5 68.2 61.8 69.7 71.2
+ [1] 70.6 67.4 70.1 68.5 62.7 67.1 66.5 67.6 67.2 68.5
 ~~~
 {: .output}
 
@@ -437,7 +585,7 @@ approximation works very well here:
 
 
 ~~~
-[1] 0.01311009
+[1] NA
 ~~~
 {: .output}
 
@@ -515,8 +663,7 @@ We can then access the population values and determine, for example, how many we
 
 ~~~
 controlPopulation <- filter(pheno, Sex == "F" & Diet == "chow") %>%
-  select(Bodyweight) %>%
-  unlist
+  select(Bodyweight)
 length(controlPopulation)
 ~~~
 {: .language-r}
@@ -524,7 +671,7 @@ length(controlPopulation)
 
 
 ~~~
-[1] 225
+[1] 1
 ~~~
 {: .output}
 
@@ -533,8 +680,7 @@ We usually denote these values as $x_1,\dots,x_m$. In this case, $m$ is the numb
 
 ~~~
 hfPopulation <- filter(pheno, Sex == "F" & Diet == "hf") %>%  
-  select(Bodyweight) %>%
-  unlist
+  select(Bodyweight)
 length(hfPopulation)
 ~~~
 {: .language-r}
@@ -542,7 +688,7 @@ length(hfPopulation)
 
 
 ~~~
-[1] 200
+[1] 1
 ~~~
 {: .output}
 
@@ -558,73 +704,73 @@ The mean:
 
 ~~~
 # X is the control population
-sum(controlPopulation$weight) # sum of the xsubi's
+sum(controlPopulation$Bodyweight) # sum of the xsubi's
 ~~~
 {: .language-r}
 
 
 
 ~~~
-Error in controlPopulation$weight: $ operator is invalid for atomic vectors
+[1] 5376.01
 ~~~
-{: .error}
-
-
-
-~~~
-length(controlPopulation$weight) # this equals m
-~~~
-{: .language-r}
+{: .output}
 
 
 
 ~~~
-Error in controlPopulation$weight: $ operator is invalid for atomic vectors
-~~~
-{: .error}
-
-
-
-~~~
-sum(controlPopulation$weight)/length(controlPopulation$weight) # this equals mu sub x
+length(controlPopulation$Bodyweight) # this equals m
 ~~~
 {: .language-r}
 
 
 
 ~~~
-Error in controlPopulation$weight: $ operator is invalid for atomic vectors
+[1] 225
 ~~~
-{: .error}
+{: .output}
+
+
+
+~~~
+sum(controlPopulation$Bodyweight)/length(controlPopulation$Bodyweight) # this equals mu sub x
+~~~
+{: .language-r}
+
+
+
+~~~
+[1] 23.89338
+~~~
+{: .output}
 
 
 
 ~~~
 # Y is the high fat diet population
-sum(hfPopulation$weight) # sum of the ysubi's
+sum(hfPopulation$Bodyweight) # sum of the ysubi's
 ~~~
 {: .language-r}
 
 
 
 ~~~
-Error in hfPopulation$weight: $ operator is invalid for atomic vectors
+[1] 5253.779
 ~~~
-{: .error}
+{: .output}
 
 
 
 ~~~
-sum(hfPopulation$weight)/length(hfPopulation$weight) # this equals mu sub y
+sum(hfPopulation$Bodyweight)/length(hfPopulation$Bodyweight) # this equals mu sub y
 ~~~
 {: .language-r}
 
 
 
 ~~~
-Error in hfPopulation$weight: $ operator is invalid for atomic vectors
+[1] 26.2689
 ~~~
-{: .error}
+{: .output}
 
 The variance:
 
@@ -716,12 +862,32 @@ We start by reading in the data. A first important step is to identify which row
 
 ~~~
 control <- filter(dat, Diet=="chow") %>%
-  select(Bodyweight) %>%
-  unlist
+  select(Bodyweight)
 treatment <- filter(dat, Diet=="hf") %>%
-  select(Bodyweight) %>%
-  unlist
+  select(Bodyweight)
 diff <- mean(treatment) - mean(control)
+~~~
+{: .language-r}
+
+
+
+~~~
+Warning in mean.default(treatment): argument is not numeric or logical:
+returning NA
+~~~
+{: .error}
+
+
+
+~~~
+Warning in mean.default(control): argument is not numeric or logical:
+returning NA
+~~~
+{: .error}
+
+
+
+~~~
 print(diff)
 ~~~
 {: .language-r}
@@ -729,7 +895,7 @@ print(diff)
 
 
 ~~~
-[1] 3.020833
+[1] NA
 ~~~
 {: .output}
 
@@ -751,9 +917,9 @@ sd(control)/sqrt(length(control))
 
 
 ~~~
-[1] 0.8725323
+Error in is.data.frame(x): (list) object cannot be coerced to type 'double'
 ~~~
-{: .output}
+{: .error}
 
 This is the SE of the sample average, but we actually want the SE of `diff`. We saw how statistical theory tells us that the variance of the difference of two random variables is the sum of its variances, so we compute the variance and take the square root:
 
@@ -800,7 +966,8 @@ print(pval)
 
 
 ~~~
-[1] 0.0398622
+           Bodyweight
+Bodyweight         NA
 ~~~
 {: .output}
 
@@ -850,13 +1017,57 @@ The following object is masked from 'package:remotes':
 ~~~
 mypar(1,2)
 qqnorm(treatment)
+~~~
+{: .language-r}
+
+
+
+~~~
+Must use a vector in `[`, not an object of class matrix.
+~~~
+{: .error}
+
+
+
+~~~
 qqline(treatment,col=2)
+~~~
+{: .language-r}
+
+
+
+~~~
+Must use a vector in `[`, not an object of class matrix.
+~~~
+{: .error}
+
+
+
+~~~
 qqnorm(control)
+~~~
+{: .language-r}
+
+
+
+~~~
+Must use a vector in `[`, not an object of class matrix.
+~~~
+{: .error}
+
+
+
+~~~
 qqline(control,col=2)
 ~~~
 {: .language-r}
 
-<img src="../fig/rmd-02-data_qqplot-1.png" title="Quantile-quantile plots for sample against theoretical normal distribution." alt="Quantile-quantile plots for sample against theoretical normal distribution." width="756" style="display: block; margin: auto;" />
+
+
+~~~
+Must use a vector in `[`, not an object of class matrix.
+~~~
+{: .error}
 
 If we use this approximation, then statistical theory tells us that
 the distribution of the random variable `tstat` follows a
@@ -874,25 +1085,28 @@ t.test(treatment, control)
 
 
 ~~~
-
-	Welch Two Sample t-test
-
-data:  treatment and control
-t = 2.0552, df = 20.236, p-value = 0.053
-alternative hypothesis: true difference in means is not equal to 0
-95 percent confidence interval:
- -0.04296563  6.08463229
-sample estimates:
-mean of x mean of y 
- 26.83417  23.81333 
+Must use a vector in `[`, not an object of class matrix.
 ~~~
-{: .output}
+{: .error}
 
 To see just the p-value, we can use the `$` extractor:
 
 
 ~~~
 result <- t.test(treatment,control)
+~~~
+{: .language-r}
+
+
+
+~~~
+Must use a vector in `[`, not an object of class matrix.
+~~~
+{: .error}
+
+
+
+~~~
 result$p.value
 ~~~
 {: .language-r}
@@ -900,9 +1114,9 @@ result$p.value
 
 
 ~~~
-[1] 0.05299888
+Error in eval(expr, envir, enclos): object 'result' not found
 ~~~
-{: .output}
+{: .error}
 
 
 The p-value is slightly bigger now. This is to be expected because our
@@ -1069,7 +1283,8 @@ print(se)
 
 
 ~~~
-[1] 1.469867
+           Bodyweight
+Bodyweight    5.09177
 ~~~
 {: .output}
 
