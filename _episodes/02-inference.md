@@ -226,110 +226,47 @@ cols(
 
 
 ~~~
-control <- sample(population, 12)
+control <- sample(population$Bodyweight, 12)
+mean(control$Bodyweight)
 ~~~
 {: .language-r}
 
 
 
 ~~~
-Error in sample.int(length(x), size, replace, prob): cannot take a sample larger than the population when 'replace = FALSE'
+Error in control$Bodyweight: $ operator is invalid for atomic vectors
 ~~~
 {: .error}
 
 
 
 ~~~
-mean(control)
+control <- sample(population$Bodyweight, 12)
+mean(control$Bodyweight)
 ~~~
 {: .language-r}
 
 
 
 ~~~
-Warning in mean.default(control): argument is not numeric or logical:
-returning NA
+Error in control$Bodyweight: $ operator is invalid for atomic vectors
 ~~~
 {: .error}
 
 
 
 ~~~
-[1] NA
-~~~
-{: .output}
-
-
-
-~~~
-control <- sample(population, 12)
+control <- sample(population$Bodyweight, 12)
+mean(control$Bodyweight)
 ~~~
 {: .language-r}
 
 
 
 ~~~
-Error in sample.int(length(x), size, replace, prob): cannot take a sample larger than the population when 'replace = FALSE'
+Error in control$Bodyweight: $ operator is invalid for atomic vectors
 ~~~
 {: .error}
-
-
-
-~~~
-mean(control)
-~~~
-{: .language-r}
-
-
-
-~~~
-Warning in mean.default(control): argument is not numeric or logical:
-returning NA
-~~~
-{: .error}
-
-
-
-~~~
-[1] NA
-~~~
-{: .output}
-
-
-
-~~~
-control <- sample(population, 12)
-~~~
-{: .language-r}
-
-
-
-~~~
-Error in sample.int(length(x), size, replace, prob): cannot take a sample larger than the population when 'replace = FALSE'
-~~~
-{: .error}
-
-
-
-~~~
-mean(control)
-~~~
-{: .language-r}
-
-
-
-~~~
-Warning in mean.default(control): argument is not numeric or logical:
-returning NA
-~~~
-{: .error}
-
-
-
-~~~
-[1] NA
-~~~
-{: .output}
 
 Note how the average varies. We can continue to do this repeatedly and start learning something about the distribution of this random variable.
 
@@ -355,35 +292,9 @@ written in R code:
 
 ~~~
 ##12 control mice
-control <- sample(population, 12)
-~~~
-{: .language-r}
-
-
-
-~~~
-Error in sample.int(length(x), size, replace, prob): cannot take a sample larger than the population when 'replace = FALSE'
-~~~
-{: .error}
-
-
-
-~~~
+control <- sample(population$Bodyweight, 12)
 ##another 12 control mice that we act as if they were not
-treatment <- sample(population, 12)
-~~~
-{: .language-r}
-
-
-
-~~~
-Error in sample.int(length(x), size, replace, prob): cannot take a sample larger than the population when 'replace = FALSE'
-~~~
-{: .error}
-
-
-
-~~~
+treatment <- sample(population$Bodyweight, 12)
 print(mean(treatment) - mean(control))
 ~~~
 {: .language-r}
@@ -391,23 +302,7 @@ print(mean(treatment) - mean(control))
 
 
 ~~~
-Warning in mean.default(treatment): argument is not numeric or logical:
-returning NA
-~~~
-{: .error}
-
-
-
-~~~
-Warning in mean.default(control): argument is not numeric or logical:
-returning NA
-~~~
-{: .error}
-
-
-
-~~~
-[1] NA
+[1] -0.2391667
 ~~~
 {: .output}
 
@@ -419,19 +314,12 @@ that lets us automate this (a simpler approach that, we will learn later, is to 
 n <- 10000
 null <- vector("numeric",n)
 for (i in 1:n) {
-  control <- sample(population,12)
-  treatment <- sample(population,12)
+  control <- sample(population$Bodyweight, 12)
+  treatment <- sample(population$Bodyweight, 12)
   null[i] <- mean(treatment) - mean(control)
 }
 ~~~
 {: .language-r}
-
-
-
-~~~
-Error in sample.int(length(x), size, replace, prob): cannot take a sample larger than the population when 'replace = FALSE'
-~~~
-{: .error}
 
 The values in `null` form what we call the *null distribution*. We will define this more formally below.
 
@@ -480,7 +368,7 @@ round(sample(x, 10), 1)
 
 
 ~~~
- [1] 70.6 67.4 70.1 68.5 62.7 67.1 66.5 67.6 67.2 68.5
+ [1] 67.7 72.5 64.7 62.7 66.1 67.5 68.2 61.8 69.7 71.2
 ~~~
 {: .output}
 

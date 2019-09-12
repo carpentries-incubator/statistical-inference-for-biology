@@ -108,14 +108,14 @@ Now let's sample 12 mice three times and see how the average changes.
 ```{r control_population}
 population <- read_csv(file = "../data/femaleControlsPopulation.csv")
 
-control <- sample(population, 12)
-mean(control)
+control <- sample(population$Bodyweight, 12)
+mean(control$Bodyweight)
 
-control <- sample(population, 12)
-mean(control)
+control <- sample(population$Bodyweight, 12)
+mean(control$Bodyweight)
 
-control <- sample(population, 12)
-mean(control)
+control <- sample(population$Bodyweight, 12)
+mean(control$Bodyweight)
 ```
 
 Note how the average varies. We can continue to do this repeatedly and start learning something about the distribution of this random variable.
@@ -142,9 +142,9 @@ written in R code:
 ```{r control_sample}
 
 ##12 control mice
-control <- sample(population, 12)
+control <- sample(population$Bodyweight, 12)
 ##another 12 control mice that we act as if they were not
-treatment <- sample(population, 12)
+treatment <- sample(population$Bodyweight, 12)
 print(mean(treatment) - mean(control))
 ```
 
@@ -155,8 +155,8 @@ that lets us automate this (a simpler approach that, we will learn later, is to 
 n <- 10000
 null <- vector("numeric",n)
 for (i in 1:n) {
-  control <- sample(population,12)
-  treatment <- sample(population,12)
+  control <- sample(population$Bodyweight, 12)
+  treatment <- sample(population$Bodyweight, 12)
   null[i] <- mean(treatment) - mean(control)
 }
 ```
