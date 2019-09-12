@@ -287,7 +287,7 @@ for (i in 1:n) {
 ~~~
 {: .language-r}
 
-The values in `null` form what we call the *null distribution*. We will define this more formally below.
+The values in `null` form what we call the *null distribution*. We will define this more formally below. By the way, the loop above is a *Monte Carlo* simulation to obtain 10,000 outcomes of the random variable under the null hypothesis. Simulations can be used to check theoretical or analytical results. For more information about Monte Carlo simulations, visit [Data Analysis for the Life Sciences](http://rwdc2.com/files/rafa.pdf).
 
 So what percent of the 10,000 are bigger than `obsdiff`?
 
@@ -379,8 +379,7 @@ even more important use is describing the possible outcomes of a
 random variable. Unlike a fixed list of numbers, we don't actually observe all possible outcomes of random variables, so instead of describing proportions, we describe probabilities. For instance, if we pick a random height from our list,
 then the probability of it falling between <i>a</i> and <i>b</i> is denoted with: 
 
-![](..fig/02-proba-lt-random.png)
-
+![](../fig/02-proba-lt-random.png)
 
 Note that the <i>X</i> is now capitalized to distinguish it as a random
 variable and that the equation above defines the probability
@@ -530,7 +529,7 @@ length(controlPopulation)
 ~~~
 {: .output}
 
-We usually denote these values as $x_1,\dots,x_m$. In this case, $m$ is the number computed above. We can do the same for the high fat diet population:
+We usually denote these values as <i>x<sub> 1</sub>,...,x<sub>m</sub></i>. In this case, *m* is the number computed above. We can do the same for the high fat diet population:
 
 
 ~~~
@@ -547,7 +546,7 @@ length(hfPopulation)
 ~~~
 {: .output}
 
-and denote with $y_1,\dots,y_n$.
+and denote with <i>y<sub> 1</sub>,...,y<sub>n</sub></i>.
 
 We can then define summaries of interest for these populations, such as the mean and variance. 
 
@@ -631,8 +630,8 @@ The variance:
 
 ![](../fig/02-var-x-and-y.png)
 
-with the standard deviation being the square root of the variance. We refer to such quantities that can be obtained from the population as _population parameters_. The question we started out asking can now be written mathematically: is $\mu_Y - \mu_X = 0$ ? 
-Although in our illustration we have all the values and can check if this is true, in practice we do not. For example, in practice it would be prohibitively expensive to buy all the mice in a population. Here we learn how taking a _sample_ permits us to answer our questions. This is the essence of statistical inference.
+with the standard deviation being the square root of the variance. We refer to such quantities that can be obtained from the population as *population parameters*. The question we started out asking can now be written mathematically: is <i>&mu;<sub>Y</sub> - &mu;<sub>X</sub> = 0</i> ? 
+Although in our illustration we have all the values and can check if this is true, in practice we do not. For example, in practice it would be prohibitively expensive to buy all the mice in a population. Here we learn how taking a *sample* permits us to answer our questions. This is the essence of statistical inference.
 
 #### Sample estimates
 Note that this difference of averages is also a random variable.
@@ -642,9 +641,9 @@ Below we will discuss the Central Limit Theorem (CLT) and the t-distribution, bo
 
 #### Central Limit Theorem 
 
-The CLT is one of the most frequently used mathematical results in science. It tells us that when the sample size is large, the average $\bar{Y}$ of a random sample follows a normal distribution centered at the population average $\mu_Y$ and with standard deviation equal to the population standard deviation $\sigma_Y$, divided by the square root of the sample size $N$. We refer to the standard deviation of the distribution of a random variable as the random variable's _standard error_.
+The CLT is one of the most frequently used mathematical results in science. It tells us that when the sample size is large, the average Y&#772; of a random sample follows a normal distribution centered at the population average &mu;<sub>Y</sub> and with standard deviation equal to the population standard deviation &sigma;<sub>Y</sub>, divided by the square root of the sample size *N*. We refer to the standard deviation of the distribution of a random variable as the random variable's *standard error*.
 
-This implies that if we take many samples of size $N$, then the quantity: 
+This implies that if we take many samples of size *N*, then the quantity: 
 
 ![](../fig/02-random-sample.png)
 
@@ -671,7 +670,7 @@ pnorm(-2) + (1 - pnorm(2))
 
 We don't need to buy more mice, 12 and 12 suffice.
 
-However, we can't claim victory just yet because we don't know the population standard deviations: $\sigma_X$ and $\sigma_Y$. These are unknown population parameters, but we can get around this by using the sample standard deviations, call them $s_X$ and $s_Y$. These are defined as: 
+However, we can't claim victory just yet because we don't know the population standard deviations: &sigma;<sub>X</sub> and &sigma;<sub>Y</sub>. These are unknown population parameters, but we can get around this by using the sample standard deviations, call them $s_X$ and $s_Y$. These are defined as: 
 
 ![](../fig/02-sample-stddev.png)
 
@@ -1088,7 +1087,7 @@ $\mu_X$ alone in the middle and you get that the following event:
 has a probability of 95%. 
 
 Be aware that it is the edges of the interval 
-$\bar{X} \&plusmn; 2 s_X / \sqrt{N}$, not $\mu_X$, 
+$\bar{X} &plusmn; 2 s_X / \sqrt{N}$, not $\mu_X$, 
 that are random. Again, the definition of
 the confidence interval is that 95% of *random intervals* will contain
 the true, fixed value $\mu_X$. For a specific interval that has been
