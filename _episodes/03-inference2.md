@@ -27,6 +27,7 @@ source: Rmd
 
 
 
+
 ## Confidence Intervals
 
 We have described how to compute p-values which are ubiquitous in the

@@ -78,9 +78,9 @@ We have also seen that, in some cases, when we take a sample and perform a t-tes
 ~~~
 set.seed(1)
 N <- 5
-hf <- sample(hfPopulation,N)
-control <- sample(controlPopulation,N)
-t.test(hf,control)$p.value
+hf <- sample(hfPopulation, N)
+control <- sample(controlPopulation, N)
+t.test(hf, control)$p.value
 ~~~
 {: .language-r}
 
@@ -104,6 +104,7 @@ subjects exposed to potential risk in a study. Here we explain what
 statistical power means. 
 
 #### Types of Error
+insert a graphic and reduce the text
 
 Whenever we perform a statistical test, we are aware that we may make a
 mistake. This is why our p-values are not 0. Under the null, there is
@@ -135,7 +136,8 @@ Most journals and regulatory agencies frequently insist that results be signific
 Power is the probability of rejecting the null when the null is
 false. Of course "when the null is false" is a complicated statement
 because it can be false in many ways.
-$\Delta \equiv \mu_Y - \mu_X$
+
+![](../fig/04-delta.png)
 could be anything and the power actually depends on this parameter. It
 also depends on the standard error of your estimates which in turn
 depends on the sample size and the population standard deviations. In
@@ -170,14 +172,14 @@ B <- 2000
 ~~~
 {: .language-r}
 
-simulations. The simulation is as follows: we take a sample of size $N$ from both control and treatment groups, we perform a t-test comparing these two, and report if the p-value is less than `alpha` or not. We write a function that does this:
+simulations. The simulation is as follows: we take a sample of size *N* from both control and treatment groups, we perform a t-test comparing these two, and report if the p-value is less than `alpha` or not. We write a function that does this:
 
 
 ~~~
 reject <- function(N, alpha=0.05){
-   hf <- sample(hfPopulation,N) 
-   control <- sample(controlPopulation,N)
-   pval <- t.test(hf,control)$p.value
+   hf <- sample(hfPopulation, N) 
+   control <- sample(controlPopulation, N)
+   pval <- t.test(hf, control)$p.value
    pval < alpha
 }
 ~~~
@@ -201,7 +203,7 @@ Now we can use the `replicate` function to do this `B` times.
 
 
 ~~~
-rejections <- replicate(B,reject(N))
+rejections <- replicate(B, reject(N))
 ~~~
 {: .language-r}
 

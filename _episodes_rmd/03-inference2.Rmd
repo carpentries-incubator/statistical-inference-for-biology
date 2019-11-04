@@ -28,6 +28,7 @@ knitr_fig_path("03-")
 library(UsingR)
 library(tidyverse)
 ```
+
 ```{r,results=FALSE,echo=FALSE}
 set.seed(1) ##so that we get same results
 ```
