@@ -25,13 +25,13 @@ sampling. One reason we have been using this dataset as an example is
 because we happen to have the weights of all the mice of this
 type. We download [this](https://raw.githubusercontent.com/genomicsclass/dagdata/master/inst/extdata/mice_pheno.csv) file to our working directory and read in to R:
 
-```{r}
+```{r load_pheno}
 pheno <- read_csv(file = "../data/mice_pheno.csv")
 ```
 
 We can then access the population values and determine, for example, how many we have. Here we compute the size of the control population:
 
-```{r load_pheno, message=FALSE}
+```{r control_pop, message=FALSE}
 controlPopulation <- filter(pheno, Sex == "F" & Diet == "chow") %>%
   select(Bodyweight) %>% unlist
 length(controlPopulation)
@@ -39,7 +39,7 @@ length(controlPopulation)
 
 We usually denote these values as <i>x<sub> 1</sub>,...,x<sub>m</sub></i>. In this case, *m* is the number computed above. We can do the same for the high fat diet population:
 
-```{r}
+```{r hf_pop}
 hfPopulation <- filter(pheno, Sex == "F" & Diet == "hf") %>%  
   select(Bodyweight) %>% unlist
 length(hfPopulation)
@@ -86,6 +86,48 @@ we consider the sample version: <i>Y&#772;-X&#772;</i> with:
 ![](../fig/andYbarEquals.png)
 
 Note that this difference of averages is also a random variable.
+Previously, we learned about the behavior of random variables
+with an exercise that involved repeatedly sampling from the original
+distribution. Of course, this is not an exercise that we can execute
+in practice. In this particular case it would involve buying 24 mice
+over and over again. Here we described the mathematical theory that
+mathematically relates <i>X&#772;</i> to <i>&mu;<sub>X</sub></i>
+and <i>Y&#772;</i> to <i>&mu;<sub>Y</sub></i>,
+that will in turn help us understand the relationship between
+<i>Y&#772;-X&#772;</i> and <i>&mu;<sub>Y</sub> - &mu;<sub>X</sub></i>. 
+Specifically, we will describe how the Central Limit Theorem permits us to use an approximation to
+answer this question, as well as motivate the widely used t-distribution.
+
+Exercises
+
+We will use the mouse phenotype data. Remove the lines that contain missing values:
+
+```{r na_omit_pheno}
+pheno <- na.omit(pheno)
+```
+
+> Exercise 1
+> 1.Use `dplyr` to create a vector `x` with the body weight of all males on the control (chow) diet. 
+> What is this population’s average?
+> 2. Now use the `rafalib` package and use the `popsd` function to compute the population standard deviation.
+> 3. Set the seed at 1. Take a random sample `X` of size 25 from `x`. What is the sample average?
+> 4. Use `dplyr` to create a vector `y` with the body weight of all males on the high fat (hf) diet.
+> What is this population’s average?
+> 5. Now use the `rafalib` package and use the `popsd` function to compute the population standard deviation.
+> 6. Set the seed at 1. Take a random sample `Y` of size 25 from `y`. What is the sample average?
+> 7. What is the difference in absolute value between <i>y&#772;-x&#772;</i> and <i>X&#772;-Y&#772;</i>?
+> 8. Repeat the above for females. Make sure to set the seed to 1 before each sample call. What is the difference 
+> in absolute value between <i>y&#772;-x&#772;</i> and <i>X&#772;-Y&#772;</i>?
+> 9.For the females, our sample estimates were closer to the population difference than with males. 
+> What is a possible explanation for this?
+> A) The population variance of the females is smaller than that of the males; thus, the sample variable has less variability.
+> B) Statistical estimates are more precise for females.
+> C) The sample size was larger for females.
+> D) The sample size was smaller for females.
+> > ## Solution to Exercise 1
+> >
+> {: .solution}
+{: .challenge}
 
 ## Central Limit Theorem and t-distribution
 Below we will discuss the Central Limit Theorem (CLT) and the t-distribution, both of which help us make important calculations related to probabilities. Both are frequently used in science to test statistical hypotheses. To use these, we have to make different assumptions from those for the CLT and the t-distribution. However, if the assumptions are true, then we are able to calculate the exact probabilities of events through the use of mathematical formula.
