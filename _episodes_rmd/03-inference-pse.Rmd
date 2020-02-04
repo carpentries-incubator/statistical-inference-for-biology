@@ -1,3 +1,31 @@
+---
+title: "Populations, Samples and Estimates "
+teaching: 0
+exercises: 0
+questions:
+- "What is a parameter from a population?"
+- "?"
+- "?"
+objectives:
+- ""
+- ""
+- ""
+- ""
+- ""
+- ""
+- ""
+keypoints:
+- "."
+- "."
+- "."
+- "."
+source: Rmd
+---
+
+```{r, include=FALSE}
+source("../bin/chunk-options.R")
+knitr_fig_path("03-")
+```
 ## Populations, Samples and Estimates 
 We can never know the true mean or variance of an entire population. Why not? Because we can't feasibly measure every member of a population. We can never know the true mean blood pressure of all mice, for example, even if all are from one strain, because we can't afford to buy them all or even find them all. We can never know the true mean blood pressure of all people on a Western diet, for example, because we can't possible measure the entire population that's on a Western diet. If we could measure all people on a Western diet, we really are interested in the difference in means between people on a Western vs. non high fat high sugar diet because we want to know what effect the diet has on people. If there is no difference in means, we can say that there is no effect of diet. If there is a difference in means, we can say that the diet has an effect. 
 The question we are asking is can be expressed as:
