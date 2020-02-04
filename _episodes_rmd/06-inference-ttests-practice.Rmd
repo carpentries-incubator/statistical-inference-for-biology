@@ -1,3 +1,32 @@
+
+---
+title: "t-tests in practice "
+teaching: 0
+exercises: 0
+questions:
+- "How are t-tests used in practice?"
+- "?"
+- "?"
+objectives:
+- ""
+- ""
+- ""
+- ""
+- ""
+- ""
+- ""
+keypoints:
+- "."
+- "."
+- "."
+- "."
+source: Rmd
+---
+
+```{r, include=FALSE}
+source("../bin/chunk-options.R")
+knitr_fig_path("06-")
+```
 ## t-tests in Practice
 
 #### Introduction
