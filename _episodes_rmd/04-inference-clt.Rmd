@@ -1,3 +1,32 @@
+---
+title: "Central Limit Theorem and the t-distribution "
+teaching: 0
+exercises: 0
+questions:
+- "What is a parameter from a population?"
+- "?"
+- "?"
+objectives:
+- ""
+- ""
+- ""
+- ""
+- ""
+- ""
+- ""
+keypoints:
+- "."
+- "."
+- "."
+- "."
+source: Rmd
+---
+
+```{r, include=FALSE}
+source("../bin/chunk-options.R")
+knitr_fig_path("04-")
+```
+
 ## Central Limit Theorem and t-distribution
 
 
