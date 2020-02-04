@@ -24,7 +24,7 @@ source: Rmd
 
 ```{r load_libraries, include=FALSE}
 source("../bin/chunk-options.R")
-knitr_fig_path("05-")
+knitr_fig_path("10-")
 library(tidyverse)
 ```
 
