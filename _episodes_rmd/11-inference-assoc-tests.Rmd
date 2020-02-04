@@ -245,3 +245,7 @@ exp(ci)
 
 The confidence includes 1, which is consistent with the p-value being bigger than 0.05. Note that the p-value shown here is based on a different approximation to the one used by the Chi-square test, which is why they differ.
 
+ExercisesWe showed how to calculate a Chi-square test from a table. Here we will show how to generate thetable from data which is in the form of a dataframe, so that you can then perform an associationtest to see if two columns have an enrichment (or depletion) of shared occurrences.Download thehttps://studio.edx.org/c4x/HarvardX/PH525.1x/asset/assoctest.csvfile into your Rworking directory, and then read it into R:d = read.csv("assoctest.csv")1.This dataframe reflects the allele status (either AA/Aa or aa) and the case/control statusfor 72 individuals. Compute the Chi-square test for the association of genotype withcase/control status (using thetablefunction and thechisq.testfunction). Examine thetable to see if there appears to be an association. What is the X-squared statistic?2.Compute Fisher’s exact testfisher.testfor the same table. What is the p-value?
+
+
+
