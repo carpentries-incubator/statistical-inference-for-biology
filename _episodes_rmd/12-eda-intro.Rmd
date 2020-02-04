@@ -45,7 +45,7 @@ may be hard or impossible to notice an error was made just from the
 reported results. 
 
 Graphing data is a powerful approach to detecting these problems. We
-refer to this as _exploratory data analysis_ (EDA). Many important
+refer to this as *exploratory data analysis* (EDA). Many important
 methodological contributions to existing techniques in
 data analysis were initiated by discoveries made via EDA.
 In addition, EDA can lead to interesting biological discoveries which
@@ -55,7 +55,7 @@ Through this book, we make use of exploratory plots to motivate the analyses we
 choose. Here we present a general introduction to EDA using height
 data.
 
-We have already introduced some EDA approaches for _univariate_ data,
+We have already introduced some EDA approaches for *univariate* data,
 namely the histograms and qq-plot. Here we describe the qq-plot in more detail and
 some EDA and summary statistics for paired data. We also give a
 demonstration of commonly used figures that we recommend against. 
@@ -129,8 +129,6 @@ for(df in dfs){
 }
 ```
 
-<a name="boxplots"></a>
-
 ## Boxplots
 
 Data is not always normally distributed. Income is a widely cited
@@ -152,9 +150,9 @@ qqline(exec.pay)
 In addition to qq-plots, a practical summary of data is to compute 3
 percentiles: 25th, 50th (the median) and the 75th. A boxplot shows
 these 3 values along with a 
-range of the points within median $\pm$ 1.5 (75th percentile -
+range of the points within median &plusmn; 1.5 (75th percentile -
 25th percentile). Values outside this range are shown as points and
-sometimes referred to as _outliers_. 
+sometimes referred to as *outliers*. 
 
 ```{r fig.width=6, fig.height=6, fig.cap="Simple boxplot of executive pay."}
 boxplot(exec.pay, ylab="10,000s of dollars", ylim=c(0,400))
@@ -164,11 +162,10 @@ Here we show just one boxplot.
 However, one of the great benefits of boxplots is that we could easily
 show many distributions in one plot, by lining them up, side by side. We will see several examples of this throughout the book.
 
-<a name="scatterplots"></a>
 
 ## Scatterplots and Correlation
 
-The methods described above relate to _univariate_ variables. In the
+The methods described above relate to *univariate* variables. In the
 biomedical sciences, it is common to be interested in the relationship
 between two or more variables. A classic example is the father/son
 height data used by
@@ -203,7 +200,7 @@ The father is taller than average. Specifically, he is 1.75
 standard deviations taller than the average father. So should we
 predict that the son is also 1.75 standard deviations taller? It turns
 out that this would be an overestimate. To see this, we look at all the sons
-with fathers who are about 72 inches. We do this by _stratifying_ the
+with fathers who are about 72 inches. We do this by *stratifying* the
 father heights. 
 
 ```{r boxplot, fig.cap="Boxplot of son heights stratified by father heights.", fig.width=10.5, fig.height=5.25}
@@ -223,32 +220,32 @@ below.
 
 Correlation is a widely used summary statistic in the life sciences. However, it is often misused or misinterpreted. To properly interpret correlation we actually have to understand the bivariate normal distribution.
 
-A pair of random variables $(X,Y)$ is considered to be approximated by
-bivariate normal when the proportion of values below, for example $a$
-and $b$, is approximated by this expression: 
+A pair of random variables <i>(X,Y)</i> is considered to be approximated by
+bivariate normal when the proportion of values below, for example <i>a</i>
+and <i>b</i>, is approximated by this expression: 
 
-$$ 
-\mbox{Pr}(X<a,Y<b) = 
-$$
+<!-- $$  -->
+<!-- \mbox{Pr}(X<a,Y<b) =  -->
+<!-- $$ -->
 
-$$
-\int_{-\infty}^{a} \int_{-\infty}^{b} \frac{1}{2\pi\sigma_x\sigma_y\sqrt{1-\rho^2}}
-\exp{ \left(
-\frac{1}{2(1-\rho^2)}
-\left[\left(\frac{x-\mu_x}{\sigma_x}\right)^2 -  
-2\rho\left(\frac{x-\mu_x}{\sigma_x}\right)\left(\frac{y-\mu_y}{\sigma_y}\right)+
-\left(\frac{y-\mu_y}{\sigma_y}\right)^2
-\right]
-\right)
-}
-$$
+<!-- $$ -->
+<!-- \int_{-\infty}^{a} \int_{-\infty}^{b} \frac{1}{2\pi\sigma_x\sigma_y\sqrt{1-\rho^2}} -->
+<!-- \exp{ \left( -->
+<!-- \frac{1}{2(1-\rho^2)} -->
+<!-- \left[\left(\frac{x-\mu_x}{\sigma_x}\right)^2 -   -->
+<!-- 2\rho\left(\frac{x-\mu_x}{\sigma_x}\right)\left(\frac{y-\mu_y}{\sigma_y}\right)+ -->
+<!-- \left(\frac{y-\mu_y}{\sigma_y}\right)^2 -->
+<!-- \right] -->
+<!-- \right) -->
+<!-- } -->
+<!-- $$ -->
 
-This may seem like a rather complicated equation, but the concept behind it is rather intuitive. An alternative definition is the following: fix a value $x$
-and look at all the pairs $(X,Y)$ for which $X=x$. Generally, in
-statistics we call this exercise _conditioning_. We are conditioning
-$Y$ on $X$. If a pair of random variables is approximated by a
-bivariate normal distribution, then the distribution of $Y$ conditioned
-on $X=x$ is approximated with a normal distribution, no matter what $x$ we choose. Let's
+This may seem like a rather complicated equation, but the concept behind it is rather intuitive. An alternative definition is the following: fix a value <i>x</i>
+and look at all the pairs <i>(X,Y)</i> for which <i>X=x</i>. Generally, in
+statistics we call this exercise *conditioning*. We are conditioning
+<i>Y</i> on <i>X</i>. If a pair of random variables is approximated by a
+bivariate normal distribution, then the distribution of <i>Y</i> conditioned
+on <i>X=x</i> is approximated with a normal distribution, no matter what <i>x</i> we choose. Let's
 see if this holds with our height data. We show 4 different strata: 
 
 ```{r qqnorm_of_strata, fig.cap="qqplots of son heights for four strata defined by father heights.",fig.width=7.5,fig.height=7.5}
@@ -262,25 +259,27 @@ for(i in c(5,8,11,14)){
 ```
 
 
-Now we come back to defining correlation. Mathematical statistics tells us that when two variables follow a bivariate normal distribution, then for any given value of $x$, the average of the $Y$ in pairs for which $X=x$ is:
+Now we come back to defining correlation. Mathematical statistics tells us that when two variables follow a bivariate normal distribution, then for any given value of <i>x</i>, the average of the <i>Y</i> in pairs for which <i>X=x</i> is:
 
-$$ 
-\mu_Y +  \rho \frac{X-\mu_X}{\sigma_X}\sigma_Y
-$$
-
-
-Note that this is a line with slope $\rho \frac{\sigma_Y}{\sigma_X}$. This is referred to as the _regression line_. If the SDs are the same, then the slope of the regression line is the correlation $\rho$. Therefore, if we standardize $X$ and $Y$, the correlation is the slope of the regression line. 
+<!-- #$$  -->
+<!-- #\mu_Y +  \rho \frac{X-\mu_X}{\sigma_X}\sigma_Y -->
+<!-- #$$ -->
 
 
+Note that this is a line with slope
+
+![](../fig/12-rhoSigmaYX.png)
+
+This is referred to as the *regression line*. If the SDs are the same, then the slope of the regression line is the correlation &rho;. Therefore, if we standardize <i>X</i> and <i>Y</i>, the correlation is the slope of the regression line. 
 
 
-Another way to see this is to form a prediction $\hat{Y}$: for every SD away from the mean in $x$, we predict $\rho$ SDs away for $Y$: 
+Another way to see this is to form a prediction Y&#770;: for every SD away from the mean in <i>x</i>, we predict &rho; SDs away for <i>Y</i>: 
 
-$$
-\frac{\hat{Y} - \mu_Y}{\sigma_Y} = \rho \frac{x-\mu_X}{\sigma_X}
-$$
+<!-- #$$ -->
+<!-- #\frac{\hat{Y} - \mu_Y}{\sigma_Y} = \rho #\frac{x-\mu_X}{\sigma_X} -->
+<!-- #$$ -->
 
-If there is perfect correlation, we predict the same number of SDs. If there is 0 correlation, then we don't use $x$ at all.  For values between 0 and 1, the prediction is somewhere in between. For negative values, we simply predict in the opposite direction.
+If there is perfect correlation, we predict the same number of SDs. If there is 0 correlation, then we don't use <i>x</i> at all.  For values between 0 and 1, the prediction is somewhere in between. For negative values, we simply predict in the opposite direction.
 
 To confirm that the above approximations hold in this case, let's compare the mean of each strata to the identity line and the regression line:
 
@@ -296,18 +295,28 @@ abline(0, cor(x,y))
 
 #### Variance explained
 
-The standard deviation of the _conditional_ distribution described above is:
+The standard deviation of the *conditional* distribution described above is:
 
-$$
- \sqrt{1-\rho^2} \sigma_Y
-$$
+<!-- #$$ -->
+<!-- # \sqrt{1-\rho^2} \sigma_Y -->
+<!-- #$$ -->
 
-This is where statements like $X$ explains $\rho^2 \times 100$ % of the variation in $Y$: the variance of $Y$ is $\sigma^2$ and, once we condition, it goes down to $(1-\rho^2) \sigma^2_Y$ . It is important to remember that the "variance explained" statement only makes sense when the data is approximated by a bivariate normal distribution.
+This is where statements like <i>X</i> explains &rho;<sup>2</sup> &times; 100% of the variation in <i>Y</i>: the variance of <i>Y</i> is &sigma;<sup>2</sup> and, once we condition, it goes down to (1-&rho;<sup>2</sup) &sigma;<sup>2_Y</sup>. It is important to remember that the "variance explained" statement only makes sense when the data is approximated by a bivariate normal distribution.
 
+Exercises
 
+1.Given the above histogram, how many people are between the ages of 35 and 45?
 
+2.TheInsectSpraysdata set is included in R. The dataset reports the counts of insects inagricultural experimental units treated with different insecticides. Make a boxplot anddetermine which insecticide appears to be most effective.
 
+3.Download and loadthisdataset into R. Use exploratory data analysis tools to determinewhich two columns are different from the rest. Which is the column that is positivelyskewed?
 
-
-Exploratory Data Analysis125..Exercises1.Given the above histogram, how many people are between the ages of 35 and 45?2.TheInsectSpraysdata set is included in R. The dataset reports the counts of insects inagricultural experimental units treated with different insecticides. Make a boxplot anddetermine which insecticide appears to be most effective.3.Download and loadthisdataset into R. Use exploratory data analysis tools to determinewhich two columns are different from the rest. Which is the column that is positivelyskewed?4.Which is the column that is negatively skewed?5.Let’s consider a random sample of finishers from the New York City Marathon in 2002. Thisdataset can be found in the UsingR package. Load the library and then load thenym.2002dataset.library(dplyr)data(nym.2002, package="UsingR")Use boxplots and histograms to compare the finishing times of males and females. Whichof the following best describes the difference?
-A) Males and females have the same distribution.•B) Most males are faster than most women.•C) Male and females have similar right skewed distributions with the former, 20minutes shifted to the left.•D) Both distribution are normally distributed with a difference in mean of about 30minutes.6.Usedplyrto create two new data frames:malesandfemales, with the data for each gender.For males, what is the Pearson correlation between age and time to finish?7.For females, what is the Pearson correlation between age and time to finish?8.If we interpret these correlations without visualizing the data, we would conclude that theolder we get, the slower we run marathons, regardless of gender. Look at scatterplots andboxplots of times stratified by age groups (20-25, 25-30, etc..). After examining the data, whatis a more reasonable conclusion?•A) Finish times are constant up until about our 40s, then we get slower.•B) On average, finish times go up by about 7 minutes every five years.•C) The optimal age to run a marathon is 20-25.•D) Coding errors never happen: a five year old boy completed the 2012 NY citymarathon.
+4.Which is the column that is negatively skewed?5.Let’s consider a random sample of finishers from the New York City Marathon in 2002. Thisdataset can be found in the UsingR package. Load the library and then load thenym.2002dataset.library(dplyr)data(nym.2002, package="UsingR")Use boxplots and histograms to compare the finishing times of males and females. Whichof the following best describes the difference?
+A) Males and females have the same distribution.
+B) Most males are faster than most women.
+C) Male and females have similar right skewed distributions with the former, 20minutes shifted to the left.
+D) Both distribution are normally distributed with a difference in mean of about 30minutes.6.Usedplyrto create two new data frames:malesandfemales, with the data for each gender.For males, what is the Pearson correlation between age and time to finish?7.For females, what is the Pearson correlation between age and time to finish?8.If we interpret these correlations without visualizing the data, we would conclude that theolder we get, the slower we run marathons, regardless of gender. Look at scatterplots andboxplots of times stratified by age groups (20-25, 25-30, etc..). After examining the data, whatis a more reasonable conclusion?
+A) Finish times are constant up until about our 40s, then we get slower.
+B) On average, finish times go up by about 7 minutes every five years.
+C) The optimal age to run a marathon is 20-25.
+D) Coding errors never happen: a five year old boy completed the 2012 NY citymarathon.
