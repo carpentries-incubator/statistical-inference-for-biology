@@ -33,7 +33,8 @@ set.seed(1)
 
 # Exploratory Data Analysis
 
-"The greatest value of a picture is when it forces us to notice what we never expected to see." -John W. Tukey
+"The greatest value of a picture is when it forces us to notice what we never 
+expected to see." -John W. Tukey
 
 Biases, systematic errors and unexpected variability are common in
 data from the life sciences. Failure to discover these problems often
@@ -50,10 +51,9 @@ methodological contributions to existing techniques in
 data analysis were initiated by discoveries made via EDA.
 In addition, EDA can lead to interesting biological discoveries which
 would otherwise be missed through simply subjecting the data to a
-battery of hypothesis tests.
-Through this book, we make use of exploratory plots to motivate the analyses we
-choose. Here we present a general introduction to EDA using height
-data.
+battery of hypothesis tests. Through this book, we make use of exploratory plots 
+to motivate the analyses we choose. Here we present a general introduction to 
+EDA using height data.
 
 We have already introduced some EDA approaches for *univariate* data,
 namely the histograms and qq-plot. Here we describe the qq-plot in more detail and
@@ -62,8 +62,8 @@ demonstration of commonly used figures that we recommend against.
 
 ## Quantile Quantile Plots
 
-To corroborate that a theoretical distribution, for example the normal distribution, is in fact a good
-approximation, we can use quantile-quantile plots
+To corroborate that a theoretical distribution, for example the normal 
+distribution, is in fact a good approximation, we can use quantile-quantile plots
 (qq-plots). Quantiles are best understood by considering the special
 case of percentiles. The p-th percentile of a list of a distribution
 is defined as the number q that is bigger than p% of numbers (so the inverse of
@@ -96,10 +96,12 @@ qqnorm(x)
 qqline(x) 
 ```
 
-However, the `qqnorm` function plots against a standard normal distribution. This is why the line has slope `popsd(x)` and intercept `mean(x)`.
+However, the `qqnorm` function plots against a standard normal distribution. 
+This is why the line has slope `popsd(x)` and intercept `mean(x)`.
 
-In the example above, the points match the line very well. In fact, we can run Monte Carlo simulations to see plots like this for data known to be normally distributed.
-
+In the example above, the points match the line very well. In fact, we can run 
+Monte Carlo simulations to see plots like this for data known to be normally 
+distributed.
 
 ```{r qqnorm_example, fig.cap="Example of the qqnorm function. Here we apply it to numbers generated to follow a normal distribution."}
 n <-1000
@@ -124,7 +126,7 @@ dfs <- c(3,6,12,30)
 mypar(2,2)
 for(df in dfs){
   x <- rt(1000,df)
-  qqnorm(x,xlab="t quantiles",main=paste0("d.f=",df),ylim=c(-6,6))
+  qqnorm(x, xlab="t quantiles", main=paste0("d.f=",df),ylim=c(-6,6))
   qqline(x)
 }
 ```
@@ -149,10 +151,9 @@ qqline(exec.pay)
 
 In addition to qq-plots, a practical summary of data is to compute 3
 percentiles: 25th, 50th (the median) and the 75th. A boxplot shows
-these 3 values along with a 
-range of the points within median &plusmn; 1.5 (75th percentile -
-25th percentile). Values outside this range are shown as points and
-sometimes referred to as *outliers*. 
+these 3 values along with a range of the points within median 
+&plusmn; 1.5 (75th percentile - 25th percentile). Values outside this range 
+are shown as points and sometimes referred to as *outliers*. 
 
 ```{r fig.width=6, fig.height=6, fig.cap="Simple boxplot of executive pay."}
 boxplot(exec.pay, ylab="10,000s of dollars", ylim=c(0,400))
@@ -160,7 +161,8 @@ boxplot(exec.pay, ylab="10,000s of dollars", ylim=c(0,400))
 
 Here we show just one boxplot.
 However, one of the great benefits of boxplots is that we could easily
-show many distributions in one plot, by lining them up, side by side. We will see several examples of this throughout the book.
+show many distributions in one plot, by lining them up, side by side. 
+We will see several examples of this throughout the book.
 
 
 ## Scatterplots and Correlation
@@ -208,6 +210,7 @@ groups <- split(y,round(x))
 boxplot(groups)
 print(mean(y[ round(x) == 72]))
 ```
+
 Stratification followed by boxplots lets us see the distribution of
 each group. The average height of sons with fathers that are 72 inches
 tall is 70.7 inches. We also see that the *medians* of the strata appear
@@ -224,21 +227,9 @@ A pair of random variables <i>(X,Y)</i> is considered to be approximated by
 bivariate normal when the proportion of values below, for example <i>a</i>
 and <i>b</i>, is approximated by this expression: 
 
-<!-- $$  -->
-<!-- \mbox{Pr}(X<a,Y<b) =  -->
-<!-- $$ -->
+![](../fig/12-probXltaYltb.png)
 
-<!-- $$ -->
-<!-- \int_{-\infty}^{a} \int_{-\infty}^{b} \frac{1}{2\pi\sigma_x\sigma_y\sqrt{1-\rho^2}} -->
-<!-- \exp{ \left( -->
-<!-- \frac{1}{2(1-\rho^2)} -->
-<!-- \left[\left(\frac{x-\mu_x}{\sigma_x}\right)^2 -   -->
-<!-- 2\rho\left(\frac{x-\mu_x}{\sigma_x}\right)\left(\frac{y-\mu_y}{\sigma_y}\right)+ -->
-<!-- \left(\frac{y-\mu_y}{\sigma_y}\right)^2 -->
-<!-- \right] -->
-<!-- \right) -->
-<!-- } -->
-<!-- $$ -->
+![](../fig/12-integralsMinusInfab.png)
 
 This may seem like a rather complicated equation, but the concept behind it is rather intuitive. An alternative definition is the following: fix a value <i>x</i>
 and look at all the pairs <i>(X,Y)</i> for which <i>X=x</i>. Generally, in
@@ -261,10 +252,7 @@ for(i in c(5,8,11,14)){
 
 Now we come back to defining correlation. Mathematical statistics tells us that when two variables follow a bivariate normal distribution, then for any given value of <i>x</i>, the average of the <i>Y</i> in pairs for which <i>X=x</i> is:
 
-<!-- #$$  -->
-<!-- #\mu_Y +  \rho \frac{X-\mu_X}{\sigma_X}\sigma_Y -->
-<!-- #$$ -->
-
+![](../fig/12-muYplusRho.png)
 
 Note that this is a line with slope
 
@@ -272,12 +260,9 @@ Note that this is a line with slope
 
 This is referred to as the *regression line*. If the SDs are the same, then the slope of the regression line is the correlation &rho;. Therefore, if we standardize <i>X</i> and <i>Y</i>, the correlation is the slope of the regression line. 
 
-
 Another way to see this is to form a prediction Y&#770;: for every SD away from the mean in <i>x</i>, we predict &rho; SDs away for <i>Y</i>: 
 
-<!-- #$$ -->
-<!-- #\frac{\hat{Y} - \mu_Y}{\sigma_Y} = \rho #\frac{x-\mu_X}{\sigma_X} -->
-<!-- #$$ -->
+![](../fig/12-YhatfracEqRhofrac.png)
 
 If there is perfect correlation, we predict the same number of SDs. If there is 0 correlation, then we don't use <i>x</i> at all.  For values between 0 and 1, the prediction is somewhere in between. For negative values, we simply predict in the opposite direction.
 
@@ -297,26 +282,66 @@ abline(0, cor(x,y))
 
 The standard deviation of the *conditional* distribution described above is:
 
-<!-- #$$ -->
-<!-- # \sqrt{1-\rho^2} \sigma_Y -->
-<!-- #$$ -->
+![](../fig/12-sqrt1minusRhoSq.png)
 
 This is where statements like <i>X</i> explains &rho;<sup>2</sup> &times; 100% of the variation in <i>Y</i>: the variance of <i>Y</i> is &sigma;<sup>2</sup> and, once we condition, it goes down to (1-&rho;<sup>2</sup) &sigma;<sup>2_Y</sup>. It is important to remember that the "variance explained" statement only makes sense when the data is approximated by a bivariate normal distribution.
 
-Exercises
+> ## Exercise 1
+> Given the above histogram, how many people are between the ages of 35 and 45?
+>
+> > ## Solution to Exercise 1
+> {: .solution}
+{: .challenge}
 
-1.Given the above histogram, how many people are between the ages of 35 and 45?
+> ## Exercise 2
+> The `InsectSprays` data set is included in R. The dataset reports the counts of 
+> insects in agricultural experimental units treated with different insecticides.
+> Make a boxplot and determine which insecticide appears to be most effective.
+>
+> > ## Solution to Exercise 2
+> {: .solution}
+{: .challenge}
 
-2.TheInsectSpraysdata set is included in R. The dataset reports the counts of insects inagricultural experimental units treated with different insecticides. Make a boxplot anddetermine which insecticide appears to be most effective.
+> ## Exercise 3
+> Download and load this dataset into R. 
+> Use exploratory data analysis tools to determine which two columns are 
+> different from the rest. 
+> 1. Which is the column that is positively skewed?
+> 2. Which is the column that is negatively skewed?
+>
+> > ## Solution to Exercise 3
+> {: .solution}
+{: .challenge}
 
-3.Download and loadthisdataset into R. Use exploratory data analysis tools to determinewhich two columns are different from the rest. Which is the column that is positivelyskewed?
-
-4.Which is the column that is negatively skewed?5.Let’s consider a random sample of finishers from the New York City Marathon in 2002. Thisdataset can be found in the UsingR package. Load the library and then load thenym.2002dataset.library(dplyr)data(nym.2002, package="UsingR")Use boxplots and histograms to compare the finishing times of males and females. Whichof the following best describes the difference?
-A) Males and females have the same distribution.
-B) Most males are faster than most women.
-C) Male and females have similar right skewed distributions with the former, 20minutes shifted to the left.
-D) Both distribution are normally distributed with a difference in mean of about 30minutes.6.Usedplyrto create two new data frames:malesandfemales, with the data for each gender.For males, what is the Pearson correlation between age and time to finish?7.For females, what is the Pearson correlation between age and time to finish?8.If we interpret these correlations without visualizing the data, we would conclude that theolder we get, the slower we run marathons, regardless of gender. Look at scatterplots andboxplots of times stratified by age groups (20-25, 25-30, etc..). After examining the data, whatis a more reasonable conclusion?
-A) Finish times are constant up until about our 40s, then we get slower.
-B) On average, finish times go up by about 7 minutes every five years.
-C) The optimal age to run a marathon is 20-25.
-D) Coding errors never happen: a five year old boy completed the 2012 NY citymarathon.
+> ## Exercise 4
+> Let’s consider a random sample of finishers from the New York City Marathon 
+> in 2002. This dataset can be found in the UsingR package. Load the library and 
+> then load the `nym.2002` dataset.
+> `library(UsingR)`
+> `library(dplyr)`
+> `data(nym.2002, package="UsingR")`
+> 1. Use boxplots and histograms to compare the finishing times of males and 
+> females. Which of the following best describes the difference?
+> A) Males and females have the same distribution.
+> B) Most males are faster than most women.
+> C) Male and females have similar right skewed distributions with the former, 
+> 20 minutes shifted to the left.
+> D) Both distribution are normally distributed with a difference in mean of 
+> about 30 minutes.
+> 2. Use `dplyr` to create two new data frames: `males` and `females`, with the 
+> data for each gender. 
+> For males, what is the Pearson correlation between age and time to finish?
+> For females, what is the Pearson correlation between age and time to finish?
+> 3. If we interpret these correlations without visualizing the data, we would 
+> conclude that the older we get, the slower we run marathons, regardless of gender. > Look at scatterplots and boxplots of times stratified by age groups 
+> (20-25, 25-30, etc..). After examining the data, what is a more reasonable
+> conclusion?
+> A) Finish times are constant up until about our 40s, then we get slower.
+> B) On average, finish times go up by about 7 minutes every five years.
+> C) The optimal age to run a marathon is 20-25.
+> D) Coding errors never happen: a five year old boy completed the 2012 NY city
+> marathon.
+>
+> > ## Solution to Exercise 4
+> {: .solution}
+{: .challenge}
