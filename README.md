@@ -1,8 +1,6 @@
-# FIXME Lesson title
+# Statistical Inference for Biology
 
-[![Create a Slack Account with us](https://img.shields.io/badge/Create_Slack_Account-The_Carpentries-071159.svg)](https://swc-slack-invite.herokuapp.com/)
-
-FIXME
+[![DOI](https://zenodo.org/badge/160702144.svg)](https://zenodo.org/badge/latestdoi/160702144)
 
 ## Contributing
 
@@ -15,7 +13,7 @@ how to write new episodes.
 
 ## Maintainer(s)
 
-* FIXME
+* Sue McClatchy
 
 ## Authors
 
