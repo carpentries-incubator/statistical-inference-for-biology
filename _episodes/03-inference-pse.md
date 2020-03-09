@@ -55,16 +55,9 @@ type. We download [this](https://raw.githubusercontent.com/genomicsclass/dagdata
 
 
 ~~~
-pheno <- read_csv(file = "../data/mice_pheno.csv")
+pheno <- read.csv(file = "../data/mice_pheno.csv")
 ~~~
 {: .language-r}
-
-
-
-~~~
-Error in read_csv(file = "../data/mice_pheno.csv"): could not find function "read_csv"
-~~~
-{: .error}
 
 We can then access the population values and determine, for example, how many we have. Here we compute the size of the control population:
 
@@ -72,19 +65,6 @@ We can then access the population values and determine, for example, how many we
 ~~~
 controlPopulation <- filter(pheno, Sex == "F" & Diet == "chow") %>%
   select(Bodyweight) %>% unlist
-~~~
-{: .language-r}
-
-
-
-~~~
-Error in filter(pheno, Sex == "F" & Diet == "chow") %>% select(Bodyweight) %>% : could not find function "%>%"
-~~~
-{: .error}
-
-
-
-~~~
 length(controlPopulation)
 ~~~
 {: .language-r}
@@ -92,9 +72,9 @@ length(controlPopulation)
 
 
 ~~~
-Error in eval(expr, envir, enclos): object 'controlPopulation' not found
+[1] 225
 ~~~
-{: .error}
+{: .output}
 
 We usually denote these values as <i>x<sub> 1</sub>,...,x<sub>m</sub></i>. In this case, *m* is the number computed above. We can do the same for the high fat diet population:
 
@@ -102,19 +82,6 @@ We usually denote these values as <i>x<sub> 1</sub>,...,x<sub>m</sub></i>. In th
 ~~~
 hfPopulation <- filter(pheno, Sex == "F" & Diet == "hf") %>%  
   select(Bodyweight) %>% unlist
-~~~
-{: .language-r}
-
-
-
-~~~
-Error in filter(pheno, Sex == "F" & Diet == "hf") %>% select(Bodyweight) %>% : could not find function "%>%"
-~~~
-{: .error}
-
-
-
-~~~
 length(hfPopulation)
 ~~~
 {: .language-r}
@@ -122,9 +89,9 @@ length(hfPopulation)
 
 
 ~~~
-Error in eval(expr, envir, enclos): object 'hfPopulation' not found
+[1] 200
 ~~~
-{: .error}
+{: .output}
 
 and denote with <i>y<sub> 1</sub>,...,y<sub>n</sub></i>.
 
@@ -145,7 +112,7 @@ sum(controlPopulation$Bodyweight) # sum of the xsubi's
 
 
 ~~~
-Error in eval(expr, envir, enclos): object 'controlPopulation' not found
+Error in controlPopulation$Bodyweight: $ operator is invalid for atomic vectors
 ~~~
 {: .error}
 
@@ -159,7 +126,7 @@ length(controlPopulation$Bodyweight) # this equals m
 
 
 ~~~
-Error in eval(expr, envir, enclos): object 'controlPopulation' not found
+Error in controlPopulation$Bodyweight: $ operator is invalid for atomic vectors
 ~~~
 {: .error}
 
@@ -173,7 +140,7 @@ sum(controlPopulation$Bodyweight)/length(controlPopulation$Bodyweight) # this eq
 
 
 ~~~
-Error in eval(expr, envir, enclos): object 'controlPopulation' not found
+Error in controlPopulation$Bodyweight: $ operator is invalid for atomic vectors
 ~~~
 {: .error}
 
@@ -188,7 +155,7 @@ sum(hfPopulation$Bodyweight) # sum of the ysubi's
 
 
 ~~~
-Error in eval(expr, envir, enclos): object 'hfPopulation' not found
+Error in hfPopulation$Bodyweight: $ operator is invalid for atomic vectors
 ~~~
 {: .error}
 
@@ -202,7 +169,7 @@ sum(hfPopulation$Bodyweight)/length(hfPopulation$Bodyweight) # this equals mu su
 
 
 ~~~
-Error in eval(expr, envir, enclos): object 'hfPopulation' not found
+Error in hfPopulation$Bodyweight: $ operator is invalid for atomic vectors
 ~~~
 {: .error}
 
@@ -446,7 +413,7 @@ control <- filter(dat, Diet=="chow") %>%
 
 
 ~~~
-Error in filter(dat, Diet == "chow") %>% select(Bodyweight) %>% unlist: could not find function "%>%"
+Error in filter(dat, Diet == "chow"): object 'dat' not found
 ~~~
 {: .error}
 
@@ -462,7 +429,7 @@ treatment <- filter(dat, Diet=="hf") %>%
 
 
 ~~~
-Error in filter(dat, Diet == "hf") %>% select(Bodyweight) %>% unlist: could not find function "%>%"
+Error in filter(dat, Diet == "hf"): object 'dat' not found
 ~~~
 {: .error}
 
@@ -492,7 +459,7 @@ print(diff)
 ~~~
 function (x, ...) 
 UseMethod("diff")
-<bytecode: 0x7fa26348b6f8>
+<bytecode: 0x7f935b0338f8>
 <environment: namespace:base>
 ~~~
 {: .output}
@@ -794,35 +761,9 @@ simple code that one would use to actually compute a t-test:
 control <- filter(pheno, Diet=="chow") %>%
   select(Bodyweight) %>% 
   unlist
-~~~
-{: .language-r}
-
-
-
-~~~
-Error in filter(pheno, Diet == "chow") %>% select(Bodyweight) %>% unlist: could not find function "%>%"
-~~~
-{: .error}
-
-
-
-~~~
 treatment <- filter(pheno, Diet=="hf") %>%
   select(Bodyweight) %>% 
   unlist
-~~~
-{: .language-r}
-
-
-
-~~~
-Error in filter(pheno, Diet == "hf") %>% select(Bodyweight) %>% unlist: could not find function "%>%"
-~~~
-{: .error}
-
-
-
-~~~
 t.test(treatment, control)
 ~~~
 {: .language-r}
@@ -830,9 +771,19 @@ t.test(treatment, control)
 
 
 ~~~
-Error in t.test(treatment, control): object 'treatment' not found
+
+	Welch Two Sample t-test
+
+data:  treatment and control
+t = 7.1932, df = 735.02, p-value = 1.563e-12
+alternative hypothesis: true difference in means is not equal to 0
+95 percent confidence interval:
+ 2.231533 3.906857
+sample estimates:
+mean of x mean of y 
+ 30.48201  27.41281 
 ~~~
-{: .error}
+{: .output}
 
 The arguments to `t.test` can be of type *data.frame* and thus we do not need to unlist them into numeric objects.
 
@@ -877,31 +828,11 @@ chowPopulation <- pheno %>%
 ~~~
 {: .language-r}
 
-
-
-~~~
-Error in pheno %>% filter(Sex == "F" & Diet == "chow") %>% select(Bodyweight) %>% : could not find function "%>%"
-~~~
-{: .error}
-
 The population average $\mu_X$ is our parameter of interest here:
 
 
 ~~~
 mu_chow <- mean(chowPopulation)
-~~~
-{: .language-r}
-
-
-
-~~~
-Error in mean(chowPopulation): object 'chowPopulation' not found
-~~~
-{: .error}
-
-
-
-~~~
 print(mu_chow)
 ~~~
 {: .language-r}
@@ -909,9 +840,9 @@ print(mu_chow)
 
 
 ~~~
-Error in print(mu_chow): object 'mu_chow' not found
+[1] 23.89338
 ~~~
-{: .error}
+{: .output}
 
 We are interested in estimating this parameter. In practice, we do not get to see the entire population so, as we did for p-values, we demonstrate how we can use samples to do this. Let's start with a sample of size 30:
 
@@ -919,19 +850,6 @@ We are interested in estimating this parameter. In practice, we do not get to se
 ~~~
 N <- 30
 chow <- sample(chowPopulation, N)
-~~~
-{: .language-r}
-
-
-
-~~~
-Error in sample(chowPopulation, N): object 'chowPopulation' not found
-~~~
-{: .error}
-
-
-
-~~~
 print(mean(chow))
 ~~~
 {: .language-r}
@@ -939,9 +857,9 @@ print(mean(chow))
 
 
 ~~~
-Error in mean(chow): object 'chow' not found
+[1] 25.09933
 ~~~
-{: .error}
+{: .output}
 
 We know this is a random variable, so the sample average will not be a perfect estimate. In fact, because in this illustrative example we know the value of the parameter, we can see that they are not exactly the same. A confidence interval is a statistical way of reporting our finding, the sample average, in a way that explicitly summarizes the variability of our random variable.
 
@@ -950,19 +868,6 @@ With a sample size of 30, we will use the CLT. The CLT tells us that $\bar{X}$ o
 
 ~~~
 se <- sd(chow)/sqrt(N)
-~~~
-{: .language-r}
-
-
-
-~~~
-Error in is.data.frame(x): object 'chow' not found
-~~~
-{: .error}
-
-
-
-~~~
 print(se)
 ~~~
 {: .language-r}
@@ -970,9 +875,9 @@ print(se)
 
 
 ~~~
-Error in print(se): object 'se' not found
+[1] 0.7723295
 ~~~
-{: .error}
+{: .output}
 
 <a name="interval"></a>
 
@@ -1027,19 +932,6 @@ interval with R relatively easily:
 ~~~
 Q <- qnorm(1 - 0.05/2)
 interval <- c(mean(chow)-Q*se, mean(chow)+Q*se )
-~~~
-{: .language-r}
-
-
-
-~~~
-Error in mean(chow): object 'chow' not found
-~~~
-{: .error}
-
-
-
-~~~
 interval
 ~~~
 {: .language-r}
@@ -1047,9 +939,9 @@ interval
 
 
 ~~~
-Error in eval(expr, envir, enclos): object 'interval' not found
+[1] 23.58560 26.61307
 ~~~
-{: .error}
+{: .output}
 
 
 
@@ -1061,9 +953,9 @@ interval[1] < mu_chow & interval[2] > mu_chow
 
 
 ~~~
-Error in eval(expr, envir, enclos): object 'interval' not found
+[1] TRUE
 ~~~
-{: .error}
+{: .output}
 
 which happens to cover $\mu_X$ or `mean(chowPopulation)`. However, we can take another sample and we might not be as lucky. In fact, the theory tells us that we will cover $\mu_X$ 95% of the time. Because we have access to the population data, we can confirm this by taking several new samples:
 
@@ -1074,33 +966,7 @@ B <- 250
 mypar()
 plot(mean(chowPopulation)+c(-7,7),c(1,1),type="n",
      xlab="weight",ylab="interval",ylim=c(1,B))
-~~~
-{: .language-r}
-
-
-
-~~~
-Error in mean(chowPopulation): object 'chowPopulation' not found
-~~~
-{: .error}
-
-
-
-~~~
 abline(v=mean(chowPopulation))
-~~~
-{: .language-r}
-
-
-
-~~~
-Error in mean(chowPopulation): object 'chowPopulation' not found
-~~~
-{: .error}
-
-
-
-~~~
 for (i in 1:B) {
   chow <- sample(chowPopulation,N)
   se <- sd(chow)/sqrt(N)
@@ -1113,12 +979,7 @@ for (i in 1:B) {
 ~~~
 {: .language-r}
 
-
-
-~~~
-Error in sample(chowPopulation, N): object 'chowPopulation' not found
-~~~
-{: .error}
+<img src="../fig/rmd-03-confidence_interval_n30-1.png" title="We show 250 random realizations of 95% confidence intervals. The color denotes if the interval fell on the parameter or not." alt="We show 250 random realizations of 95% confidence intervals. The color denotes if the interval fell on the parameter or not." width="612" style="display: block; margin: auto;" />
 
 You can run this repeatedly to see what happens. You will see that in about 5% of the cases, we fail to cover $\mu_X$.
 
@@ -1134,33 +995,7 @@ For $N=30$, the CLT works very well. However, if $N=5$, do these confidence inte
 mypar()
 plot(mean(chowPopulation)+c(-7,7),c(1,1),type="n",
      xlab="weight",ylab="interval",ylim=c(1,B))
-~~~
-{: .language-r}
-
-
-
-~~~
-Error in mean(chowPopulation): object 'chowPopulation' not found
-~~~
-{: .error}
-
-
-
-~~~
 abline(v=mean(chowPopulation))
-~~~
-{: .language-r}
-
-
-
-~~~
-Error in mean(chowPopulation): object 'chowPopulation' not found
-~~~
-{: .error}
-
-
-
-~~~
 Q <- qnorm(1- 0.05/2)
 N <- 5
 for (i in 1:B) {
@@ -1174,12 +1009,7 @@ for (i in 1:B) {
 ~~~
 {: .language-r}
 
-
-
-~~~
-Error in sample(chowPopulation, N): object 'chowPopulation' not found
-~~~
-{: .error}
+<img src="../fig/rmd-03-confidence_interval_n5-1.png" title="We show 250 random realizations of 95% confidence intervals, but now for a smaller sample size. The confidence interval is based on the CLT approximation. The color denotes if the interval fell on the parameter or not." alt="We show 250 random realizations of 95% confidence intervals, but now for a smaller sample size. The confidence interval is based on the CLT approximation. The color denotes if the interval fell on the parameter or not." width="612" style="display: block; margin: auto;" />
 
 Despite the intervals being larger (we are dividing by $\sqrt{5}$
 instead of $\sqrt{30}$ ), we see many more intervals not covering
@@ -1193,33 +1023,7 @@ $\&plusmn; \infty$). This mistake affects us in the calculation of `Q`, which as
 mypar()
 plot(mean(chowPopulation) + c(-7,7), c(1,1), type="n",
      xlab="weight", ylab="interval", ylim=c(1,B))
-~~~
-{: .language-r}
-
-
-
-~~~
-Error in mean(chowPopulation): object 'chowPopulation' not found
-~~~
-{: .error}
-
-
-
-~~~
 abline(v=mean(chowPopulation))
-~~~
-{: .language-r}
-
-
-
-~~~
-Error in mean(chowPopulation): object 'chowPopulation' not found
-~~~
-{: .error}
-
-
-
-~~~
 ##Q <- qnorm(1- 0.05/2) ##no longer normal so use:
 Q <- qt(1- 0.05/2, df=4)
 N <- 5
@@ -1234,12 +1038,7 @@ for (i in 1:B) {
 ~~~
 {: .language-r}
 
-
-
-~~~
-Error in sample(chowPopulation, N): object 'chowPopulation' not found
-~~~
-{: .error}
+<img src="../fig/rmd-03-confidence_interval_tdist_n5-1.png" title="We show 250 random realizations of 95% confidence intervals, but now for a smaller sample size. The confidence is now based on the t-distribution approximation. The color denotes if the interval fell on the parameter or not." alt="We show 250 random realizations of 95% confidence intervals, but now for a smaller sample size. The confidence is now based on the t-distribution approximation. The color denotes if the interval fell on the parameter or not." width="612" style="display: block; margin: auto;" />
 
 Now the intervals are made bigger. This is because the t-distribution has fatter tails and therefore:
 
@@ -1337,9 +1136,11 @@ t.test(treatment,control)$conf.int
 
 
 ~~~
-Error in t.test(treatment, control): object 'treatment' not found
+[1] 2.231533 3.906857
+attr(,"conf.level")
+[1] 0.95
 ~~~
-{: .error}
+{: .output}
 
 In this case, the 95% confidence interval does include 0 and we observe that the p-value is larger than 0.05 as predicted. If we change this to a 90% confidence interval, then:
 
@@ -1352,9 +1153,11 @@ t.test(treatment,control,conf.level=0.9)$conf.int
 
 
 ~~~
-Error in t.test(treatment, control, conf.level = 0.9): object 'treatment' not found
+[1] 2.366479 3.771911
+attr(,"conf.level")
+[1] 0.9
 ~~~
-{: .error}
+{: .output}
 
 0 is no longer in the confidence interval (which is expected because
 the p-value is smaller than 0.10). 
