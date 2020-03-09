@@ -179,7 +179,9 @@ downloaded.
 > mean 0 and SD 1. Set the seed to 1, then use `replicate` to perform the 
 > simulation, and report what proportion of times z was larger than 2 in 
 > absolute value (CLT says it should be about 0.05).
-
+> >
+> {: .solution}
+{: .challenge}
 
 > ## Exercise 2
 > For the last simulation you can  make a `qqplot` to confirm the normal
@@ -190,19 +192,21 @@ downloaded.
 > In the example used in exercise 1, the original data is binary (either 6 or not).
 > In this case, the success probability also affects the appropriateness of the 
 > CLT. With very low probabilities, we need larger sample sizes for the CLT to 
-> "kick in". Run the simulation from exercise 1, but for different values of 
+> "kick in". Run the simulation from exercise 1, but for different values of
 > <i>p</i> and <i>n</i>. 
 > For which of the following is the normal approximation best?
 > A)<i>p</i>=0.5 and <i>n</i>=5
 > B)<i>p</i>=0.5 and <i>n</i>=30
 > C)<i>p</i>=0.01 and <i>n</i>=30
 > D)<i>p</i>=0.01 and <i>n</i>=100
-
+> >
+> {: .solution}
+{: .challenge}
 
 > ## Exercise 3
 > As we have already seen, the CLT also applies to averages of quantitative 
 > data. A major difference with binary data, for which we know the variance 
-> is <i>p(1 - p)</i>, is that with quantitative data we need to estimate the 
+> is <i>p(1 - p)</i>, is that with quantitative data we need to estimate the
 > population standard deviation.
 > In several previous exercises we have illustrated statistical concepts with 
 > the unrealistic situation of having access to the entire population. 
@@ -218,12 +222,15 @@ downloaded.
 > `       select(Bodyweight) %>%`
 > `       unlist`
 > 
-> We think of X as a random sample from the population of all mice in the 
-> control diet and Y as a random sample from the population of all mice in the 
-> high fat diet. Define the parameterxas the average of the control population. 
+> We think of <i>X</i> as a random sample from the population of all mice in the 
+> control diet and <i>Y</i> as a random sample from the population of all mice 
+> in the high fat diet. Define the parameterxas the average of the control population. 
 We estimate this parameter with the sample averageX. What is the sample average?
-
-4.We don’t knowX, but want to useXto understandX. Which of the following uses CLT to understand how 
+> >
+> {: .solution}
+{: .challenge}
+28
+4.We don’t know <i>X</i>, but want to use <i>X</i> to understand <i>X</i>. Which of the following uses CLT to understand how 
 wellXapproximatesX?
 A)Xfollows a normal distribution with mean 0 and standard deviation 1.
 B)Xfollows a normal distribution with meanXand standard deviationxp12wherexis the population standard deviation.
