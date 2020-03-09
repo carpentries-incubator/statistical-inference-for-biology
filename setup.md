@@ -51,8 +51,6 @@ dir.create("./results")
 
 Alternatively, you can copy and paste the following into the R console to download the data.
 ~~~
-setwd(""./data")
-
 download(url = "https://raw.githubusercontent.com/genomicsclass/dagdata/master/inst/extdata/femaleMiceWeights.csv", destfile = "data/femaleMiceWeights.csv")
 
 download(url = "https://raw.githubusercontent.com/genomicsclass/dagdata/master/inst/extdata/femaleControlsPopulation.csv", destfile = "data/femaleControlsPopulation.csv")
