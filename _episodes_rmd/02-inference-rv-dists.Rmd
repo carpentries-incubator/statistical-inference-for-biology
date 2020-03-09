@@ -3,17 +3,14 @@ title: "Inference"
 teaching: 0
 exercises: 0
 questions:
-- "what does inference mean?"
-- "?"
-- "?"
+- "What does inference mean?"
+- "Why do we need p-values and confidence intervals?"
+- "What is a random variable?"
+- "What exactly is a distribution?"
 objectives:
-- ""
-- ""
-- ""
-- ""
-- ""
-- ""
-- ""
+- "Describe the statistical concepts underlying p-values and confidence intervals."
+- "Explain random variables and null distributions using R programming."
+- "Compute p-values and confidence intervals using R programming."
 keypoints:
 - "."
 - "."

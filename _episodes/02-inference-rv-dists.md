@@ -5,17 +5,14 @@ title: "Inference"
 teaching: 0
 exercises: 0
 questions:
-- "what does inference mean?"
-- "?"
-- "?"
+- "What does inference mean?"
+- "Why do we need p-values and confidence intervals?"
+- "What is a random variable?"
+- "What exactly is a distribution?"
 objectives:
-- ""
-- ""
-- ""
-- ""
-- ""
-- ""
-- ""
+- "Describe the statistical concepts underlying p-values and confidence intervals."
+- "Explain random variables and null distributions using R programming."
+- "Compute p-values and confidence intervals using R programming."
 keypoints:
 - "."
 - "."
@@ -77,9 +74,13 @@ dat <- read_csv("../data/femaleMiceWeights.csv")
 
 
 ~~~
-Error: '../data/femaleMiceWeights.csv' does not exist in current working directory ('/Users/smc/Projects/Lessons/statistical-inference-for-biology/_episodes_rmd').
+Parsed with column specification:
+cols(
+  Diet = col_character(),
+  Bodyweight = col_double()
+)
 ~~~
-{: .error}
+{: .output}
 
 
 
@@ -91,9 +92,17 @@ head(dat)
 
 
 ~~~
-Error in head(dat): object 'dat' not found
+# A tibble: 6 x 2
+  Diet  Bodyweight
+  <chr>      <dbl>
+1 chow        21.5
+2 chow        28.1
+3 chow        24.0
+4 chow        23.4
+5 chow        23.7
+6 chow        19.8
 ~~~
-{: .error}
+{: .output}
 
 So are the hf mice heavier? Mouse 24 at 20.73 grams is one of the
 lightest mice, while Mouse 21 at 34.02 grams is one of the heaviest. Both are on
@@ -106,35 +115,9 @@ averages. So let's look at the average of each group:
 control <- filter(dat, Diet=="chow") %>%
   select(Bodyweight) %>% 
   unlist
-~~~
-{: .language-r}
-
-
-
-~~~
-Error in filter(dat, Diet == "chow"): object 'dat' not found
-~~~
-{: .error}
-
-
-
-~~~
 treatment <- filter(dat, Diet=="hf") %>%
   select(Bodyweight) %>% 
   unlist
-~~~
-{: .language-r}
-
-
-
-~~~
-Error in filter(dat, Diet == "hf"): object 'dat' not found
-~~~
-{: .error}
-
-
-
-~~~
 print( mean(treatment) )
 ~~~
 {: .language-r}
@@ -142,9 +125,9 @@ print( mean(treatment) )
 
 
 ~~~
-Error in mean(treatment): object 'treatment' not found
+[1] 26.83417
 ~~~
-{: .error}
+{: .output}
 
 
 
@@ -156,27 +139,14 @@ print( mean(control) )
 
 
 ~~~
-Error in mean(control): object 'control' not found
+[1] 23.81333
 ~~~
-{: .error}
+{: .output}
 
 
 
 ~~~
 obsdiff <- mean(treatment) - mean(control)
-~~~
-{: .language-r}
-
-
-
-~~~
-Error in mean(treatment): object 'treatment' not found
-~~~
-{: .error}
-
-
-
-~~~
 print(obsdiff)
 ~~~
 {: .language-r}
@@ -184,9 +154,9 @@ print(obsdiff)
 
 
 ~~~
-Error in print(obsdiff): object 'obsdiff' not found
+[1] 3.020833
 ~~~
-{: .error}
+{: .output}
 
 So the hf diet mice are about 10% heavier. Are we done? Why do we need p-values and confidence intervals? The reason is that these averages are random variables. They can take many values. 
 
@@ -209,34 +179,17 @@ population <- read_csv(file = "../data/femaleControlsPopulation.csv")
 
 
 ~~~
-Error: '../data/femaleControlsPopulation.csv' does not exist in current working directory ('/Users/smc/Projects/Lessons/statistical-inference-for-biology/_episodes_rmd').
+Parsed with column specification:
+cols(
+  Bodyweight = col_double()
+)
 ~~~
-{: .error}
+{: .output}
 
 
 
 ~~~
 control <- sample(population$Bodyweight, 12)
-~~~
-{: .language-r}
-
-
-
-~~~
-Warning: Unknown or uninitialised column: 'Bodyweight'.
-~~~
-{: .error}
-
-
-
-~~~
-Error in sample.int(length(x), size, replace, prob): invalid first argument
-~~~
-{: .error}
-
-
-
-~~~
 mean(control)
 ~~~
 {: .language-r}
@@ -244,34 +197,14 @@ mean(control)
 
 
 ~~~
-Error in mean(control): object 'control' not found
+[1] 23.47667
 ~~~
-{: .error}
+{: .output}
 
 
 
 ~~~
 control <- sample(population$Bodyweight, 12)
-~~~
-{: .language-r}
-
-
-
-~~~
-Warning: Unknown or uninitialised column: 'Bodyweight'.
-~~~
-{: .error}
-
-
-
-~~~
-Error in sample.int(length(x), size, replace, prob): invalid first argument
-~~~
-{: .error}
-
-
-
-~~~
 mean(control)
 ~~~
 {: .language-r}
@@ -279,34 +212,14 @@ mean(control)
 
 
 ~~~
-Error in mean(control): object 'control' not found
+[1] 25.12583
 ~~~
-{: .error}
+{: .output}
 
 
 
 ~~~
 control <- sample(population$Bodyweight, 12)
-~~~
-{: .language-r}
-
-
-
-~~~
-Warning: Unknown or uninitialised column: 'Bodyweight'.
-~~~
-{: .error}
-
-
-
-~~~
-Error in sample.int(length(x), size, replace, prob): invalid first argument
-~~~
-{: .error}
-
-
-
-~~~
 mean(control)
 ~~~
 {: .language-r}
@@ -314,9 +227,9 @@ mean(control)
 
 
 ~~~
-Error in mean(control): object 'control' not found
+[1] 23.72333
 ~~~
-{: .error}
+{: .output}
 
 Note how the average varies. We can continue to do this repeatedly and start learning something about the distribution of this random variable.
 
@@ -343,48 +256,8 @@ written in R code:
 ~~~
 ##12 control mice
 control <- sample(population$Bodyweight, 12)
-~~~
-{: .language-r}
-
-
-
-~~~
-Warning: Unknown or uninitialised column: 'Bodyweight'.
-~~~
-{: .error}
-
-
-
-~~~
-Error in sample.int(length(x), size, replace, prob): invalid first argument
-~~~
-{: .error}
-
-
-
-~~~
 ##another 12 control mice that we act as if they were not
 treatment <- sample(population$Bodyweight, 12)
-~~~
-{: .language-r}
-
-
-
-~~~
-Warning: Unknown or uninitialised column: 'Bodyweight'.
-~~~
-{: .error}
-
-
-
-~~~
-Error in sample.int(length(x), size, replace, prob): invalid first argument
-~~~
-{: .error}
-
-
-
-~~~
 print(mean(treatment) - mean(control))
 ~~~
 {: .language-r}
@@ -392,9 +265,9 @@ print(mean(treatment) - mean(control))
 
 
 ~~~
-Error in mean(treatment): object 'treatment' not found
+[1] -0.2391667
 ~~~
-{: .error}
+{: .output}
 
 Now let's do it 10,000 times. We will use a "for-loop", an operation
 that lets us automate this (a simpler approach that, we will learn later, is to use `replicate`).
@@ -411,20 +284,6 @@ for (i in 1:n) {
 ~~~
 {: .language-r}
 
-
-
-~~~
-Warning: Unknown or uninitialised column: 'Bodyweight'.
-~~~
-{: .error}
-
-
-
-~~~
-Error in sample.int(length(x), size, replace, prob): invalid first argument
-~~~
-{: .error}
-
 The values in `null` form what we call the *null distribution*. We will define this more formally below. By the way, the loop above is a *Monte Carlo* simulation to obtain 10,000 outcomes of the random variable under the null hypothesis. Simulations can be used to check theoretical or analytical results. For more information about Monte Carlo simulations, visit [Data Analysis for the Life Sciences](http://rwdc2.com/files/rafa.pdf).
 
 So what percent of the 10,000 are bigger than `obsdiff`?
@@ -438,9 +297,9 @@ mean(null >= obsdiff)
 
 
 ~~~
-Error in mean(null >= obsdiff): object 'obsdiff' not found
+[1] 0.0123
 ~~~
-{: .error}
+{: .output}
 
 Only a small percent of the 10,000 simulations. As skeptics what do
 we conclude? When there is no diet effect, we see a difference as big
@@ -472,7 +331,7 @@ round(sample(x, 10), 1)
 
 
 ~~~
- [1] 70.6 70.2 71.0 67.4 62.0 70.5 69.9 67.2 64.6 69.0
+ [1] 67.7 72.5 64.7 62.7 66.1 67.5 68.2 61.8 69.7 71.2
 ~~~
 {: .output}
 
@@ -538,22 +397,11 @@ as `obsdiff` are relatively rare:
 
 ~~~
 hist(null, freq=TRUE)
-~~~
-{: .language-r}
-
-<img src="../fig/rmd-02-null_and_obs-1.png" title="Null distribution with observed difference marked with vertical red line." alt="Null distribution with observed difference marked with vertical red line." width="612" style="display: block; margin: auto;" />
-
-~~~
 abline(v=obsdiff, col="red", lwd=2)
 ~~~
 {: .language-r}
 
-
-
-~~~
-Error in int_abline(a = a, b = b, h = h, v = v, untf = untf, ...): object 'obsdiff' not found
-~~~
-{: .error}
+<img src="../fig/rmd-02-null_and_obs-1.png" title="Null distribution with observed difference marked with vertical red line." alt="Null distribution with observed difference marked with vertical red line." width="612" style="display: block; margin: auto;" />
 
 An important point to keep in mind here is that while we defined Pr<i>(a)</i> by counting cases, we will learn that, in some circumstances, mathematics gives us formulas for Pr<i>(a)</i> that save us the trouble of computing them as we did here. One example of this powerful approach uses the normal distribution approximation.
 
@@ -588,9 +436,9 @@ approximation works very well here:
 
 
 ~~~
-Error in pnorm(obsdiff, mean(null), sd(null)): object 'obsdiff' not found
+[1] 0.01311009
 ~~~
-{: .error}
+{: .output}
 
 Later, we will learn that there is a mathematical explanation for this. A very useful characteristic of this approximation is that one only needs to know &mu; and &sigma; to describe the entire distribution. From this, we can compute the proportion of values in any interval. 
 
