@@ -55,7 +55,7 @@ R. The first step is to understand random variables. To do
 this, we will use data from a mouse database (provided by Karen
 Svenson via Gary Churchill and Dan Gatti and partially funded by P50
 GM070683). We will import the data into R and explain random variables
-and null distributions using R programming. See [Setup]("../setup.md") to import the data.
+and null distributions using R programming. See [Setup]("https://smcclatchy.github.io/statistical-inference-for-biology/setup/") to import the data.
 
 #### Our first look at data
 
@@ -67,7 +67,7 @@ and obtained this data (`head` just shows us the first 6 rows):
 
 
 ~~~
-dat <- read_csv("../data/femaleMiceWeights.csv")
+fWeights <- read_csv("../data/femaleMiceWeights.csv")
 ~~~
 {: .language-r}
 
@@ -85,7 +85,7 @@ cols(
 
 
 ~~~
-head(dat) 
+head(fWeights) 
 ~~~
 {: .language-r}
 
@@ -112,10 +112,10 @@ averages. So let's look at the average of each group:
 
 
 ~~~
-control <- filter(dat, Diet=="chow") %>%
+control <- filter(fWeights, Diet=="chow") %>%
   select(Bodyweight) %>% 
   unlist
-treatment <- filter(dat, Diet=="hf") %>%
+treatment <- filter(fWeights, Diet=="hf") %>%
   select(Bodyweight) %>% 
   unlist
 print( mean(treatment) )
