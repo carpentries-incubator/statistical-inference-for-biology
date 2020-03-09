@@ -692,7 +692,7 @@ print(mean(chow))
 
 
 ~~~
-[1] 24.425
+[1] 24.62533
 ~~~
 {: .output}
 
@@ -710,7 +710,7 @@ print(se)
 
 
 ~~~
-[1] 0.6539162
+[1] 0.5969545
 ~~~
 {: .output}
 
@@ -774,7 +774,7 @@ interval
 
 
 ~~~
-[1] 23.14335 25.70665
+[1] 23.45532 25.79534
 ~~~
 {: .output}
 
@@ -939,24 +939,18 @@ Note that the confidence interval for the difference $d$ is provided by the `t.t
 
 
 ~~~
-t.test(treatment,control)$conf.int
+t.test(treatment, control)$conf.int
 ~~~
 {: .language-r}
 
 
 
 ~~~
-Warning in mean.default(x): argument is not numeric or logical: returning NA
+[1] 2.231533 3.906857
+attr(,"conf.level")
+[1] 0.95
 ~~~
-{: .error}
-
-
-
-~~~
-Error in var(x): Calling var(x) on a factor x is defunct.
-  Use something like 'all(duplicated(x)[-1L])' to test for a constant vector.
-~~~
-{: .error}
+{: .output}
 
 In this case, the 95% confidence interval does include 0 and we observe that the p-value is larger than 0.05 as predicted. If we change this to a 90% confidence interval, then:
 
@@ -969,17 +963,11 @@ t.test(treatment,control,conf.level=0.9)$conf.int
 
 
 ~~~
-Warning in mean.default(x): argument is not numeric or logical: returning NA
+[1] 2.366479 3.771911
+attr(,"conf.level")
+[1] 0.9
 ~~~
-{: .error}
-
-
-
-~~~
-Error in var(x): Calling var(x) on a factor x is defunct.
-  Use something like 'all(duplicated(x)[-1L])' to test for a constant vector.
-~~~
-{: .error}
+{: .output}
 
 0 is no longer in the confidence interval (which is expected because
 the p-value is smaller than 0.10). 
