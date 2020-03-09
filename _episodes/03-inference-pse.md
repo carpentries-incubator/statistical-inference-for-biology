@@ -105,73 +105,73 @@ The mean:
 
 ~~~
 # X is the control population
-sum(controlPopulation$Bodyweight) # sum of the xsubi's
+sum(controlPopulation) # sum of the xsubi's
 ~~~
 {: .language-r}
 
 
 
 ~~~
-Error in controlPopulation$Bodyweight: $ operator is invalid for atomic vectors
+[1] 5376.01
 ~~~
-{: .error}
-
-
-
-~~~
-length(controlPopulation$Bodyweight) # this equals m
-~~~
-{: .language-r}
+{: .output}
 
 
 
 ~~~
-Error in controlPopulation$Bodyweight: $ operator is invalid for atomic vectors
-~~~
-{: .error}
-
-
-
-~~~
-sum(controlPopulation$Bodyweight)/length(controlPopulation$Bodyweight) # this equals mu sub x
+length(controlPopulation) # this equals m
 ~~~
 {: .language-r}
 
 
 
 ~~~
-Error in controlPopulation$Bodyweight: $ operator is invalid for atomic vectors
+[1] 225
 ~~~
-{: .error}
+{: .output}
+
+
+
+~~~
+sum(controlPopulation)/length(controlPopulation) # this equals mu sub x
+~~~
+{: .language-r}
+
+
+
+~~~
+[1] 23.89338
+~~~
+{: .output}
 
 
 
 ~~~
 # Y is the high fat diet population
-sum(hfPopulation$Bodyweight) # sum of the ysubi's
+sum(hfPopulation) # sum of the ysubi's
 ~~~
 {: .language-r}
 
 
 
 ~~~
-Error in hfPopulation$Bodyweight: $ operator is invalid for atomic vectors
+[1] 5253.779
 ~~~
-{: .error}
+{: .output}
 
 
 
 ~~~
-sum(hfPopulation$Bodyweight)/length(hfPopulation$Bodyweight) # this equals mu sub y
+sum(hfPopulation)/length(hfPopulation) # this equals mu sub y
 ~~~
 {: .language-r}
 
 
 
 ~~~
-Error in hfPopulation$Bodyweight: $ operator is invalid for atomic vectors
+[1] 26.2689
 ~~~
-{: .error}
+{: .output}
 
 The variance:
 
@@ -368,7 +368,7 @@ used.
 > Set the seed at 1, generate these 10,000 averages.   
 > Make a histogram and qq-plot these 10,000 numbers against the normal distribution.  
 > We can see that, as predicted by the CLT, the distribution of the
-> random variable is very well approximated by the normal distribution. > `y <- filter(dat, Sex=="M"&Diet=="chow") %>%`   
+> random variable is very well approximated by the normal distribution. > `y <- filter(pheno, Sex=="M"&Diet=="chow") %>%`   
 > `select(Bodyweight) %>%`   
 > `unlist`  
 > `avgs <- replicate(10000, mean(sample(y,25)))`  
@@ -404,52 +404,13 @@ We start by reading in the data. A first important step is to identify which row
 
 
 ~~~
-control <- filter(dat, Diet=="chow") %>%
+control <- filter(pheno, Diet=="chow") %>%
   select(Bodyweight) %>% 
   unlist
-~~~
-{: .language-r}
-
-
-
-~~~
-Error in filter(dat, Diet == "chow"): object 'dat' not found
-~~~
-{: .error}
-
-
-
-~~~
-treatment <- filter(dat, Diet=="hf") %>%
+treatment <- filter(pheno, Diet=="hf") %>%
   select(Bodyweight) %>% 
   unlist
-~~~
-{: .language-r}
-
-
-
-~~~
-Error in filter(dat, Diet == "hf"): object 'dat' not found
-~~~
-{: .error}
-
-
-
-~~~
 diff <- mean(treatment) - mean(control)
-~~~
-{: .language-r}
-
-
-
-~~~
-Error in mean(treatment): object 'treatment' not found
-~~~
-{: .error}
-
-
-
-~~~
 print(diff)
 ~~~
 {: .language-r}
@@ -457,10 +418,7 @@ print(diff)
 
 
 ~~~
-function (x, ...) 
-UseMethod("diff")
-<bytecode: 0x7f935b0338f8>
-<environment: namespace:base>
+[1] 3.069195
 ~~~
 {: .output}
 
@@ -482,9 +440,9 @@ sd(control)/sqrt(length(control))
 
 
 ~~~
-Error in is.data.frame(x): object 'control' not found
+[1] 0.2506653
 ~~~
-{: .error}
+{: .output}
 
 This is the SE of the sample average, but we actually want the SE of `diff`. We saw how statistical theory tells us that the variance of the difference of two random variables is the sum of its variances, so we compute the variance and take the square root:
 
@@ -497,13 +455,6 @@ se <- sqrt(
 ~~~
 {: .language-r}
 
-
-
-~~~
-Error in is.data.frame(x): object 'treatment' not found
-~~~
-{: .error}
-
 Statistical theory tells us that if we divide a random variable by its SE, we get a new random variable with an SE of 1.
 
 
@@ -511,13 +462,6 @@ Statistical theory tells us that if we divide a random variable by its SE, we ge
 tstat <- diff/se 
 ~~~
 {: .language-r}
-
-
-
-~~~
-Error in eval(expr, envir, enclos): object 'se' not found
-~~~
-{: .error}
 
 This ratio is what we call the t-statistic. It's the ratio of two random variables and thus a random variable. Once we know the distribution of this random variable, we can then easily compute a p-value.
 
@@ -536,47 +480,8 @@ these two regions "tails" and calculate their size:
 
 ~~~
 righttail <- 1 - pnorm(abs(tstat)) 
-~~~
-{: .language-r}
-
-
-
-~~~
-Error in pnorm(abs(tstat)): object 'tstat' not found
-~~~
-{: .error}
-
-
-
-~~~
 lefttail <- pnorm(-abs(tstat))
-~~~
-{: .language-r}
-
-
-
-~~~
-Error in pnorm(-abs(tstat)): object 'tstat' not found
-~~~
-{: .error}
-
-
-
-~~~
 pval <- lefttail + righttail
-~~~
-{: .language-r}
-
-
-
-~~~
-Error in eval(expr, envir, enclos): object 'lefttail' not found
-~~~
-{: .error}
-
-
-
-~~~
 print(pval)
 ~~~
 {: .language-r}
@@ -584,9 +489,9 @@ print(pval)
 
 
 ~~~
-Error in print(pval): object 'pval' not found
+[1] 6.330737e-13
 ~~~
-{: .error}
+{: .output}
 
 In this case, the p-value is smaller than 0.05 and using the conventional cutoff of 0.05, we would call the difference _statistically significant_.
 
@@ -609,82 +514,15 @@ samples. This shows that the approximation is at least close:
 
 ~~~
 library(rafalib)
-~~~
-{: .language-r}
-
-
-
-~~~
-
-Attaching package: 'rafalib'
-~~~
-{: .output}
-
-
-
-~~~
-The following object is masked from 'package:remotes':
-
-    install_bioc
-~~~
-{: .output}
-
-
-
-~~~
 mypar(1,2)
 qqnorm(treatment)
-~~~
-{: .language-r}
-
-
-
-~~~
-Error in qqnorm(treatment): object 'treatment' not found
-~~~
-{: .error}
-
-
-
-~~~
 qqline(treatment,col=2)
-~~~
-{: .language-r}
-
-
-
-~~~
-Error in quantile(y, probs, names = FALSE, type = qtype, na.rm = TRUE): object 'treatment' not found
-~~~
-{: .error}
-
-
-
-~~~
 qqnorm(control)
-~~~
-{: .language-r}
-
-
-
-~~~
-Error in qqnorm(control): object 'control' not found
-~~~
-{: .error}
-
-
-
-~~~
 qqline(control,col=2)
 ~~~
 {: .language-r}
 
-
-
-~~~
-Error in quantile(y, probs, names = FALSE, type = qtype, na.rm = TRUE): object 'control' not found
-~~~
-{: .error}
+<img src="../fig/rmd-03-data_qqplot-1.png" title="Quantile-quantile plots for sample against theoretical normal distribution." alt="Quantile-quantile plots for sample against theoretical normal distribution." width="756" style="display: block; margin: auto;" />
 
 If we use this approximation, then statistical theory tells us that
 the distribution of the random variable `tstat` follows a
@@ -702,28 +540,25 @@ t.test(treatment, control)
 
 
 ~~~
-Error in t.test(treatment, control): object 'treatment' not found
+
+	Welch Two Sample t-test
+
+data:  treatment and control
+t = 7.1932, df = 735.02, p-value = 1.563e-12
+alternative hypothesis: true difference in means is not equal to 0
+95 percent confidence interval:
+ 2.231533 3.906857
+sample estimates:
+mean of x mean of y 
+ 30.48201  27.41281 
 ~~~
-{: .error}
+{: .output}
 
 To see just the p-value, we can use the `$` extractor:
 
 
 ~~~
 result <- t.test(treatment,control)
-~~~
-{: .language-r}
-
-
-
-~~~
-Error in t.test(treatment, control): object 'treatment' not found
-~~~
-{: .error}
-
-
-
-~~~
 result$p.value
 ~~~
 {: .language-r}
@@ -731,9 +566,9 @@ result$p.value
 
 
 ~~~
-Error in eval(expr, envir, enclos): object 'result' not found
+[1] 1.562941e-12
 ~~~
-{: .error}
+{: .output}
 
 
 The p-value is slightly bigger now. This is to be expected because our
@@ -857,7 +692,7 @@ print(mean(chow))
 
 
 ~~~
-[1] 25.09933
+[1] 24.425
 ~~~
 {: .output}
 
@@ -875,7 +710,7 @@ print(se)
 
 
 ~~~
-[1] 0.7723295
+[1] 0.6539162
 ~~~
 {: .output}
 
@@ -939,7 +774,7 @@ interval
 
 
 ~~~
-[1] 23.58560 26.61307
+[1] 23.14335 25.70665
 ~~~
 {: .output}
 
@@ -1101,31 +936,6 @@ In summary, if a 95% or 99% confidence interval does not include
 Note that the confidence interval for the difference $d$ is provided by the `t.test` function:
 
 
-~~~
-Error in which(dat$Diet == "chow"): object 'dat' not found
-~~~
-{: .error}
-
-
-
-~~~
-Error in which(dat$Diet == "hf"): object 'dat' not found
-~~~
-{: .error}
-
-
-
-~~~
-Error in eval(expr, envir, enclos): object 'dat' not found
-~~~
-{: .error}
-
-
-
-~~~
-Error in eval(expr, envir, enclos): object 'dat' not found
-~~~
-{: .error}
 
 
 ~~~
@@ -1136,11 +946,17 @@ t.test(treatment,control)$conf.int
 
 
 ~~~
-[1] 2.231533 3.906857
-attr(,"conf.level")
-[1] 0.95
+Warning in mean.default(x): argument is not numeric or logical: returning NA
 ~~~
-{: .output}
+{: .error}
+
+
+
+~~~
+Error in var(x): Calling var(x) on a factor x is defunct.
+  Use something like 'all(duplicated(x)[-1L])' to test for a constant vector.
+~~~
+{: .error}
 
 In this case, the 95% confidence interval does include 0 and we observe that the p-value is larger than 0.05 as predicted. If we change this to a 90% confidence interval, then:
 
@@ -1153,11 +969,17 @@ t.test(treatment,control,conf.level=0.9)$conf.int
 
 
 ~~~
-[1] 2.366479 3.771911
-attr(,"conf.level")
-[1] 0.9
+Warning in mean.default(x): argument is not numeric or logical: returning NA
 ~~~
-{: .output}
+{: .error}
+
+
+
+~~~
+Error in var(x): Calling var(x) on a factor x is defunct.
+  Use something like 'all(duplicated(x)[-1L])' to test for a constant vector.
+~~~
+{: .error}
 
 0 is no longer in the confidence interval (which is expected because
 the p-value is smaller than 0.10). 
