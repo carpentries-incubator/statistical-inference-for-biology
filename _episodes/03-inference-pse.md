@@ -25,6 +25,7 @@ source: Rmd
 ---
 
 
+
 ## Populations, Samples and Estimates 
 We can never know the true mean or variance of an entire population. Why not? Because we can't feasibly measure every member of a population. We can never know the true mean blood pressure of all mice, for example, even if all are from one strain, because we can't afford to buy them all or even find them all. We can never know the true mean blood pressure of all people on a Western diet, for example, because we can't possible measure the entire population that's on a Western diet. If we could measure all people on a Western diet, we really are interested in the difference in means between people on a Western vs. non high fat high sugar diet because we want to know what effect the diet has on people. If there is no difference in means, we can say that there is no effect of diet. If there is a difference in means, we can say that the diet has an effect. 
 The question we are asking is can be expressed as:
@@ -247,13 +248,6 @@ pheno <- na.omit(pheno)
 ~~~
 {: .language-r}
 
-
-
-~~~
-Error in na.omit(pheno): object 'pheno' not found
-~~~
-{: .error}
-
 > ## Exercise 1  
 > 1.Use `dplyr` to create a vector `x` with the body weight of all males on the control (chow) diet.   
 > What is this population’s average?  
@@ -272,6 +266,7 @@ Error in na.omit(pheno): object 'pheno' not found
 > B) Statistical estimates are more precise for females.
 > C) The sample size was larger for females.
 > D) The sample size was smaller for females.
+>
 > > ## Solution to Exercise 1
 > >
 > {: .solution}
@@ -343,6 +338,68 @@ pseudonym "Student". The distribution is therefore called Student's
 t-distribution. Later we will learn more about how this result is
 used.
 
+> ## Exercise 1  
+> 1. If a list of numbers has a distribution that is well approximated
+> by the normal distribution,what proportion of these numbers are
+> within one standard deviation away from the list’s average?  
+> 2. What proportion of these numbers are within two standard
+> deviations away from the list’s average?  
+> 3.What proportion of these numbers are within three standard
+> deviations away from the list’s average?  
+> 4.Define y to be the weights of males on the control diet. 
+> What proportion of the mice are within one standard deviation away
+> from the average weight (remember to use `popsd` for the
+> population sd)?  
+> 5.What proportion of these numbers are within two standard deviations
+> away from the list’s average?  
+> 6.What proportion of these numbers are within three standard
+> deviations away from the list’s average?  
+> 7.Note that the numbers for the normal distribution and our weights
+> are relatively close. Also, notice that we are indirectly comparing
+> quantiles of the normal distribution to quantiles of the mouse weight
+> distribution. We can actually compare all quantiles using a
+> qqplot. Which of the following best describes the qq-plot comparing
+> mouse weights to the normal distribution?  
+> A) The points on the qq-plot fall exactly on the identity line.  
+> B) The average of the mouse weights is not 0 and thus it can’t follow a normal distribution.
+> C) The mouse weights are well approximated by the normal
+> distribution, although the larger values (right tail) are larger than
+> predicted by the normal. This is consistent with the differences seen
+> between question 3 and 6.  
+> D) These are not random variables and thus they can’t follow a normal distribution.  
+> 8.Create the above qq-plot for the four populations: male/females on
+> each of the two diets. What is the most likely explanation for the
+> mouse weights being well approximated?   
+> What is the best explanation for all these being well approximated by
+> the normal distribution?  
+> A) The CLT tells us that sample averages are approximately normal.  
+> B) This just happens to be how nature behaves, perhaps the result of
+> many biological factors averaging out.  
+> C) Everything measured in nature follows a normal distribution.  
+> D) Measurement error is normally distributed.
+>
+> > ## Solution to Exercise 1
+> {: .solution}
+{: .challenge}
+
+> ## Exercise 2
+> Here we are going to use the function` replicate` to learn about
+> the distribution of random variables. All the above exercises relate
+> to the normal distribution as an approximation of the distribution of
+> a fixed list of numbers or a population. We have not yet discussed
+> probabilityin these exercises. If the distribution of a list of  numbers
+> is approximately normal, then if we pick a number at random from this
+> distribution, it will follow a normal distribution. However, it is
+> important to remember that stating that some quantity has a
+> distribution does not necessarily imply this quantity is random.
+> Also, keep in mind that this is not related to the central limit
+> theorem. The central limit applies to averages of random variables.
+> Let’s explore this concept.
+>
+> > ## Solution to Exercise 2
+> {: .solution}
+{: .challenge}
+
 ## t-tests in Practice
 
 #### Introduction
@@ -411,7 +468,7 @@ print(diff)
 ~~~
 function (x, ...) 
 UseMethod("diff")
-<bytecode: 0x7fd5376c8ef8>
+<bytecode: 0x7f94ea4c94f8>
 <environment: namespace:base>
 ~~~
 {: .output}
