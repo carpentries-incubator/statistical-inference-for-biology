@@ -37,8 +37,8 @@ Alternatively, you can use the R console to run the following commands for steps
 
 ~~~
 setwd("~/Desktop")
-dir.create("./dals")
-setwd("~/Desktop/dals")
+dir.create("./inference")
+setwd("~/Desktop/inference")
 dir.create("./data")
 dir.create("./scripts")
 dir.create("./results")
@@ -46,28 +46,18 @@ dir.create("./results")
 {: .r}
 
 
-3. Please download the following files **before the workshop**, and place them in your `data` folder. You can download the files from the URLs below and move the files the same way that you would for downloading and moving any other kind of data.
+3. Please download the following files and place them in your `data` folder. You can download the files from the URLs below and move the files the same way that you would for downloading and moving any other kind of data.
 
 
 Alternatively, you can copy and paste the following into the R console to download the data.
 ~~~
-setwd("~/Desktop/mapping")
-download.file("https://ndownloader.figshare.com/files/9746485", "./data/cc_variants.sqlite")
-download.file("https://ndownloader.figshare.com/files/9746458", "./data/mouse_genes.sqlite")
-download.file("https://ndownloader.figshare.com/files/9746452", "./data/mouse_genes_mgi.sqlite")
-download.file("ftp://ftp.jax.org/dgatti/qtl2_workshop/qtl2_demo.Rdata", "./data/qtl2_demo.Rdata")
-~~~
-{: .r}
-
-
-You will need these for the final lesson episodes on SNP association mapping and QTL analysis in Diversity Outbred mice.
-
-### Load data for the chapter on [Inference]("https://smcclatchy.github.io/dals-chaps4-10/02-inference/index.html") by copying and pasting the following code into the RStudio Console.
-
 download(url = "https://raw.githubusercontent.com/genomicsclass/dagdata/master/inst/extdata/femaleMiceWeights.csv", destfile = "data/femaleMiceWeights.csv")
 
 download(url = "https://raw.githubusercontent.com/genomicsclass/dagdata/master/inst/extdata/femaleControlsPopulation.csv", destfile = "data/femaleControlsPopulation.csv")
  
 download(url = "https://raw.githubusercontent.com/genomicsclass/dagdata/master/inst/extdata/mice_pheno.csv", destfile = "data/mice_pheno.csv")
+~~~
+{: .r}
+
 
 {% include links.md %}
