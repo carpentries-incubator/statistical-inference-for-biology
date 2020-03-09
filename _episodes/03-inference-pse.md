@@ -394,7 +394,31 @@ used.
 > distribution does not necessarily imply this quantity is random.
 > Also, keep in mind that this is not related to the central limit
 > theorem. The central limit applies to averages of random variables.
-> Let’s explore this concept.
+> Let’s explore this concept. We will now take a sample of size 25 from
+> the population of males on the chow diet. The average of this sample
+> is our random variable. We will use the replicate to observe
+> 10,000 realizations of this random variable.  
+> Set the seed at 1, generate these 10,000 averages.   
+> Make a histogram and qq-plot these 10,000 numbers against the normal distribution.  
+> We can see that, as predicted by the CLT, the distribution of the
+> random variable is very well approximated by the normal distribution. > `y <- filter(dat, Sex=="M"&Diet=="chow") %>%`   
+> `select(Bodyweight) %>%`   
+> `unlist`  
+> `avgs <- replicate(10000, mean(sample(y,25)))`  
+> `mypar(1,2)`  
+> `hist(avgs)`  
+> `qqnorm(avgs)`  
+> `qqline(avgs)`  
+> What is the average of the distribution of the sample average?  
+> What is the standard deviation of the distribution of sample averages?  
+> According to the CLT, the answer to the exercise above should be the
+> same as `mean(y)`. You should be able to confirm that these two
+> numbers are very close. Which of the following does the CLT tell us
+> should be close to your answer to this exercise?  
+> A) `popsd(y)`  
+> B) `popsd(avgs)/sqrt(25)`  
+> C) `sqrt(25) / popsd(y)`  
+> D) `popsd(y)/sqrt(25)`
 >
 > > ## Solution to Exercise 2
 > {: .solution}
@@ -468,7 +492,7 @@ print(diff)
 ~~~
 function (x, ...) 
 UseMethod("diff")
-<bytecode: 0x7f94ea4c94f8>
+<bytecode: 0x7fa26348b6f8>
 <environment: namespace:base>
 ~~~
 {: .output}
