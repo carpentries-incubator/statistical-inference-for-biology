@@ -67,24 +67,7 @@ and obtained this data (`head` just shows us the first 6 rows):
 
 
 ~~~
-fWeights <- read_csv("../data/femaleMiceWeights.csv")
-~~~
-{: .language-r}
-
-
-
-~~~
-Parsed with column specification:
-cols(
-  Diet = col_character(),
-  Bodyweight = col_double()
-)
-~~~
-{: .output}
-
-
-
-~~~
+fWeights <- read.csv("../data/femaleMiceWeights.csv")
 head(fWeights) 
 ~~~
 {: .language-r}
@@ -92,15 +75,13 @@ head(fWeights)
 
 
 ~~~
-# A tibble: 6 x 2
-  Diet  Bodyweight
-  <chr>      <dbl>
-1 chow        21.5
-2 chow        28.1
-3 chow        24.0
-4 chow        23.4
-5 chow        23.7
-6 chow        19.8
+  Diet Bodyweight
+1 chow      21.51
+2 chow      28.14
+3 chow      24.04
+4 chow      23.45
+5 chow      23.68
+6 chow      19.79
 ~~~
 {: .output}
 
@@ -172,23 +153,8 @@ Now let's sample 12 mice three times and see how the average changes.
 
 
 ~~~
-population <- read_csv(file = "../data/femaleControlsPopulation.csv")
-~~~
-{: .language-r}
+population <- read.csv(file = "../data/femaleControlsPopulation.csv")
 
-
-
-~~~
-Parsed with column specification:
-cols(
-  Bodyweight = col_double()
-)
-~~~
-{: .output}
-
-
-
-~~~
 control <- sample(population$Bodyweight, 12)
 mean(control)
 ~~~
@@ -474,34 +440,194 @@ Throughout this book, we use random number generators. This implies that many of
 ~~~
 {: .language-r}
 
-For the following exercises, we will be using this dataset:
+Even better is to review an example. R has a built-in vector of characters called `LETTERS` that contains upper case letters of the Roman alphabet. We can take a sample of 5 letters with the following code, which when repeated will give a different set of 5 letters each times.
 
 
 ~~~
-library(downloader)
-url <- "https://raw.githubusercontent.com/genomicsclass/dagdata/master/inst/extdata/femaleControlsPopulation.csv"
-filename <- basename(url)
-download(url, destfile=filename)
-x <- unlist(read.csv(filename))
+LETTERS
 ~~~
 {: .language-r}
 
-Here x represents the weights for the entire population.
 
+
+~~~
+ [1] "A" "B" "C" "D" "E" "F" "G" "H" "I" "J" "K" "L" "M" "N" "O" "P" "Q" "R" "S"
+[20] "T" "U" "V" "W" "X" "Y" "Z"
+~~~
+{: .output}
+
+
+
+~~~
+sample(LETTERS, 5)
+~~~
+{: .language-r}
+
+
+
+~~~
+[1] "Y" "D" "G" "A" "B"
+~~~
+{: .output}
+
+
+
+~~~
+sample(LETTERS, 5)
+~~~
+{: .language-r}
+
+
+
+~~~
+[1] "W" "K" "N" "R" "S"
+~~~
+{: .output}
+
+
+
+~~~
+sample(LETTERS, 5)
+~~~
+{: .language-r}
+
+
+
+~~~
+[1] "A" "U" "Y" "J" "V"
+~~~
+{: .output}
+
+If we set a seed, we will get the same sample of letters each time.
+
+
+~~~
+set.seed(1)
+sample(LETTERS, 5)
+~~~
+{: .language-r}
+
+
+
+~~~
+[1] "Y" "D" "G" "A" "B"
+~~~
+{: .output}
+
+
+
+~~~
+set.seed(1)
+sample(LETTERS, 5)
+~~~
+{: .language-r}
+
+
+
+~~~
+[1] "Y" "D" "G" "A" "B"
+~~~
+{: .output}
+
+
+
+~~~
+set.seed(1)
+sample(LETTERS, 5)
+~~~
+{: .language-r}
+
+
+
+~~~
+[1] "Y" "D" "G" "A" "B"
+~~~
+{: .output}
+
+When we set a seed we ensure that we get the same results from random number generation, which is used in sampling with `sample`.
+
+For the following exercises, we will be using the female controls population dataset that we read into a variable called `population`. Here `population` represents the weights for the entire population of female mice. To remind ourselves about this data set, run the following:
+
+
+~~~
+str(population)
+~~~
+{: .language-r}
+
+
+
+~~~
+'data.frame':	225 obs. of  1 variable:
+ $ Bodyweight: num  27 24.8 27 28.1 23.6 ...
+~~~
+{: .output}
+
+
+
+~~~
+head(population)
+~~~
+{: .language-r}
+
+
+
+~~~
+  Bodyweight
+1      27.03
+2      24.80
+3      27.02
+4      28.07
+5      23.55
+6      22.72
+~~~
+{: .output}
+
+
+
+~~~
+summary(population)
+~~~
+{: .language-r}
+
+
+
+~~~
+   Bodyweight   
+ Min.   :15.51  
+ 1st Qu.:21.51  
+ Median :23.54  
+ Mean   :23.89  
+ 3rd Qu.:26.08  
+ Max.   :36.84  
+~~~
+{: .output}
+
+  
 > ## Exercise 1
 > 1. What is the average of these weights?  
-> 2. After setting the seed at 1, (`set.seed(1)`) take a random sample of size 5. 
+> 2. After setting the seed at 1, (`set.seed(1)`) take a random sample of size 5.   
 > What is the absolute value (`abs()`) of the difference between the 
-> average of the sample and the average of all the values?
+> average of the sample and the average of all the values?  
 > 3. After setting the seed at 5, `set.seed(5)` take a random sample of size 5. What is the absolute 
 > value of the difference between the average of the sample and the average of all the values?  
-> 4. Why are the answers from 2 and 3 different?  
-> A) Because we made a coding mistake.
-> B) Because the average of the x is random.
-> C) Because the average of the samples is a random variable.
-> D) All of the above.
+> 4. Why are the answers from 2 and 3 different?   
+> A) Because we made a coding mistake.  
+> B) Because the average of the population weights is random.  
+> C) Because the average of the samples is a random variable.  
+> D) All of the above.  
 >
-> > ## Solution to Exercise 1
+> > ## Solution to Exercise 1  
+> > 1. `mean(population$Bodyweight)` 
+> >  
+> > 2. `set.seed(1)`  
+> > `meanOfSample1 <- mean(sample(population$Bodyweight, 5))`  
+> > `abs(meanOfSample1 - mean(population$Bodyweight))` 
+> >  
+> > 3. `set.seed(5)`  
+> > `meanOfSample2 <- mean(sample(population$Bodyweight, 5))`  
+> > `abs(meanOfSample2 - mean(population$Bodyweight))`  
+> >  
+> >  4. C) Because the average of the samples is a random variable.
 > {: .solution}
 {: .challenge}
 

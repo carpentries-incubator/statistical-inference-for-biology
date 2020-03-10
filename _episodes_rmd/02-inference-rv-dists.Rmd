@@ -60,7 +60,7 @@ R. The first step is to understand random variables. To do
 this, we will use data from a mouse database (provided by Karen
 Svenson via Gary Churchill and Dan Gatti and partially funded by P50
 GM070683). We will import the data into R and explain random variables
-and null distributions using R programming. See [Setup]("../setup.md") to import the data.
+and null distributions using R programming. See [Setup]("https://smcclatchy.github.io/statistical-inference-for-biology/setup/") to import the data.
 
 #### Our first look at data
 
@@ -71,8 +71,8 @@ fat (hf) diet. After several weeks, the scientists weighed each mouse
 and obtained this data (`head` just shows us the first 6 rows):
 
 ```{r load_weight_data}
-dat <- read_csv("../data/femaleMiceWeights.csv")
-head(dat) 
+fWeights <- read.csv("../data/femaleMiceWeights.csv")
+head(fWeights) 
 ``` 
 
 So are the hf mice heavier? Mouse 24 at 20.73 grams is one of the
@@ -82,10 +82,10 @@ the hf diet. Just from looking at the data, we see there is
 averages. So let's look at the average of each group: 
 
 ```{r control_treatment, message=FALSE}
-control <- filter(dat, Diet=="chow") %>%
+control <- filter(fWeights, Diet=="chow") %>%
   select(Bodyweight) %>% 
   unlist
-treatment <- filter(dat, Diet=="hf") %>%
+treatment <- filter(fWeights, Diet=="hf") %>%
   select(Bodyweight) %>% 
   unlist
 print( mean(treatment) )
@@ -107,7 +107,7 @@ Let's explore random variables further. Imagine that we actually have the weight
 Now let's sample 12 mice three times and see how the average changes.
 
 ```{r control_population}
-population <- read_csv(file = "../data/femaleControlsPopulation.csv")
+population <- read.csv(file = "../data/femaleControlsPopulation.csv")
 
 control <- sample(population$Bodyweight, 12)
 mean(control)
@@ -318,32 +318,62 @@ Throughout this book, we use random number generators. This implies that many of
 ?set.seed
 ```
 
-For the following exercises, we will be using this dataset:
+Even better is to review an example. R has a built-in vector of characters called `LETTERS` that contains upper case letters of the Roman alphabet. We can take a sample of 5 letters with the following code, which when repeated will give a different set of 5 letters each times.
 
-```{r download_data}
-library(downloader)
-url <- "https://raw.githubusercontent.com/genomicsclass/dagdata/master/inst/extdata/femaleControlsPopulation.csv"
-filename <- basename(url)
-download(url, destfile=filename)
-x <- unlist(read.csv(filename))
+```{r sample_letters}
+LETTERS
+sample(LETTERS, 5)
+sample(LETTERS, 5)
+sample(LETTERS, 5)
 ```
 
-Here x represents the weights for the entire population.
+If we set a seed, we will get the same sample of letters each time.
 
+```{r set_seed_letters}
+set.seed(1)
+sample(LETTERS, 5)
+set.seed(1)
+sample(LETTERS, 5)
+set.seed(1)
+sample(LETTERS, 5)
+```
+
+When we set a seed we ensure that we get the same results from random number generation, which is used in sampling with `sample`.
+
+For the following exercises, we will be using the female controls population dataset that we read into a variable called `population`. Here `population` represents the weights for the entire population of female mice. To remind ourselves about this data set, run the following:
+
+```{r data_reminder}
+str(population)
+head(population)
+summary(population)
+```
+
+  
 > ## Exercise 1
 > 1. What is the average of these weights?  
-> 2. After setting the seed at 1, (`set.seed(1)`) take a random sample of size 5. 
+> 2. After setting the seed at 1, (`set.seed(1)`) take a random sample of size 5.   
 > What is the absolute value (`abs()`) of the difference between the 
-> average of the sample and the average of all the values?
+> average of the sample and the average of all the values?  
 > 3. After setting the seed at 5, `set.seed(5)` take a random sample of size 5. What is the absolute 
 > value of the difference between the average of the sample and the average of all the values?  
-> 4. Why are the answers from 2 and 3 different?  
-> A) Because we made a coding mistake.
-> B) Because the average of the x is random.
-> C) Because the average of the samples is a random variable.
-> D) All of the above.
+> 4. Why are the answers from 2 and 3 different?   
+> A) Because we made a coding mistake.  
+> B) Because the average of the population weights is random.  
+> C) Because the average of the samples is a random variable.  
+> D) All of the above.  
 >
-> > ## Solution to Exercise 1
+> > ## Solution to Exercise 1  
+> > 1. `mean(population$Bodyweight)` 
+> >  
+> > 2. `set.seed(1)`  
+> > `meanOfSample1 <- mean(sample(population$Bodyweight, 5))`  
+> > `abs(meanOfSample1 - mean(population$Bodyweight))` 
+> >  
+> > 3. `set.seed(5)`  
+> > `meanOfSample2 <- mean(sample(population$Bodyweight, 5))`  
+> > `abs(meanOfSample2 - mean(population$Bodyweight))`  
+> >  
+> >  4. C) Because the average of the samples is a random variable.
 > {: .solution}
 {: .challenge}
 
