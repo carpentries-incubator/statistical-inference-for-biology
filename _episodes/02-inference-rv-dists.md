@@ -650,11 +650,11 @@ summary(population)
 
 > ## Exercise 2
 > 1. Set the seed at 1, then using a for-loop take a random sample of 5 mice 1,000 times. 
-> Save these averages. What percent of these 1,000 averages are more than 1 ounce away from the
+> Save these averages. What percent of these 1,000 averages are more than 1 gram away from the
 > average of the population?  
 > 2. We are now going to increase the number of times we redo the sample from 1,000 to 10,000.  
 > Set the seed at 1, then using a for-loop take a random sample of 5 mice 10,000 times.   
-> Save these averages. What percent of these 10,000 averages are more than 1 ounce away from
+> Save these averages. What percent of these 10,000 averages are more than 1 gram away from
 > the average of the population?  
 > 3. Note that the answers to the previous two questions barely changed. This is expected.  
 > The way we think about the random value distributions is as the distribution of the list of values
@@ -663,26 +663,76 @@ summary(population)
 > thus 10,000 is as well. Now if instead we change the sample size, then we change the random variable
 > and thus its distribution.  
 > Set the seed at 1, then using a for-loop take a random sample of 50 mice 1,000 times. Save these
-> averages. What percent of these 1,000 averages are more than 1 ounce away from the average of the population?  
+> averages. What percent of these 1,000 averages are more than 1 gram away from the average of the population?  
 >
 > > ## Solution to Exercise 2
-> > 1. `set.seed(1)`
-> >  `n <- 1000`
-> > `meanSampleOf5 <- vector("numeric",n)`
-> > `for (i in 1:n) {`
-> > `  meanSampleOf5[i] <- mean(sample(population$Bodyweight, 5)`  
-> > `}
-
-
-> > 2.   
-> > `meanOfSample1 <- mean(sample(population$Bodyweight, 5))`  
-> > `abs(meanOfSample1 - mean(population$Bodyweight))` 
-> >  
-> > 3. `set.seed(5)`  
-> > `meanOfSample2 <- mean(sample(population$Bodyweight, 5))`  
-> > `abs(meanOfSample2 - mean(population$Bodyweight))`  
-> >  
-> >  4. C) Because the average of the samples is a random variable.  
+> > 1. `set.seed(1)`  
+> >  `n <- 1000`  
+> > `meanSampleOf5 <- vector("numeric", n)`  
+> > `for (i in 1:n) {`  
+> > `  meanSampleOf5[i] <- mean(sample(population$Bodyweight, 5)`   
+> > `}    
+> >  `meanSampleOf5`  
+> >  `mean(population$Bodyweight)`
+> >  # histogram of sample means 
+> >  `hist(meanSampleof5)` 
+> >  # mean population weight plus one gram and minus one gram
+> >  `meanPopWeight <- mean(population$Bodyweight)` # mean
+> >  `sdPopWeight <- sd(population$Bodyweight)`     # standard deviation
+> >  `abline(v = meanPopWeight, col = "blue", lwd = 2)`
+> >  `abline(v = meanPopWeight + 1, col = "red", lwd = 2)`
+> >  `abline(v = meanPopWeight - 1, col = "red", lwd = 2)`
+> >  # proportion below mean population weight minus 1 gram
+> >  `pnorm(meanPopWeight - 1, mean = meanPopWeight, sd = sdPopWeight)`
+> >  # proportion greater than mean population weight plus 1 gram
+> >  `1 - pnorm(meanPopWeight + 1, mean = meanPopWeight, sd = sdPopWeight)`
+> >  # add the two together
+> >  `pnorm(meanPopWeight - 1, mean = meanPopWeight, sd = sdPopWeight) +`
+> >  `1 - pnorm(meanPopWeight + 1, mean = meanPopWeight, sd = sdPopWeight)`
+> > 2. `set.seed(1)`  
+> >  `n <- 10000`  
+> > `meanSampleOf5 <- vector("numeric", n)`  
+> > `for (i in 1:n) {`  
+> > `  meanSampleOf5[i] <- mean(sample(population$Bodyweight, 5))`   
+> > `}    
+> >  `meanSampleOf5`  
+> >  `mean(population$Bodyweight)`
+> >  # histogram of sample means 
+> >  `hist(meanSampleOf5)` 
+> >  # mean population weight plus one gram and minus one gram
+> >  `meanPopWeight <- mean(population$Bodyweight)` # mean
+> >  `sdPopWeight <- sd(population$Bodyweight)`     # standard deviation
+> >  `abline(v = meanPopWeight, col = "blue", lwd = 2)`
+> >  `abline(v = meanPopWeight + 1, col = "red", lwd = 2)`
+> >  `abline(v = meanPopWeight - 1, col = "red", lwd = 2)`
+> >  # proportion below mean population weight minus 1 gram
+> >  `pnorm(meanPopWeight - 1, mean = meanPopWeight, sd = sdPopWeight)`
+> >  # proportion greater than mean population weight plus 1 gram
+> >  `1 - pnorm(meanPopWeight + 1, mean = meanPopWeight, sd = sdPopWeight)`
+> >  # add the two together
+> >  `pnorm(meanPopWeight - 1, mean = meanPopWeight, sd = sdPopWeight) +`
+> >  `1 - pnorm(meanPopWeight + 1, mean = meanPopWeight, sd = sdPopWeight)`
+> > 3. `set.seed(1)`  
+> >  `n <- 1000`  
+> > `meanSampleOf50 <- vector("numeric", n)`  
+> > `for (i in 1:n) {`  
+> > `  meanSampleOf50[i] <- mean(sample(population$Bodyweight, 50))`   
+> > `}    
+> >  `meanSampleOf50`  
+> >  `mean(population$Bodyweight)`
+> >  # histogram of sample means 
+> >  `hist(meanSampleOf50)` 
+> >  # mean population weight plus one gram and minus one gram
+> >  `abline(v = meanPopWeight, col = "blue", lwd = 2)`
+> >  `abline(v = meanPopWeight + 1, col = "red", lwd = 2)`
+> >  `abline(v = meanPopWeight - 1, col = "red", lwd = 2)`
+> >  # proportion below mean population weight minus 1 gram
+> >  `pnorm(meanPopWeight - 1, mean = meanPopWeight, sd = sdPopWeight)`
+> >  # proportion greater than mean population weight plus 1 gram
+> >  `1 - pnorm(meanPopWeight + 1, mean = meanPopWeight, sd = sdPopWeight)`
+> >  # add the two together
+> >  `pnorm(meanPopWeight - 1, mean = meanPopWeight, sd = sdPopWeight) +`
+> >  `1 - pnorm(meanPopWeight + 1, mean = meanPopWeight, sd = sdPopWeight)`
 > {: .solution}
 {: .challenge}
 
