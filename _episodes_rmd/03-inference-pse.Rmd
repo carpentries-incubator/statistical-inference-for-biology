@@ -512,7 +512,7 @@ print(mean(chow))
 
 We know this is a random variable, so the sample average will not be a perfect estimate. In fact, because in this illustrative example we know the value of the parameter, we can see that they are not exactly the same. A confidence interval is a statistical way of reporting our finding, the sample average, in a way that explicitly summarizes the variability of our random variable.
 
-With a sample size of 30, we will use the CLT. The CLT tells us that <i>X&#772;</i> or `mean(chow)` follows a normal distribution with mean <i>&mu;<sub>X</sub></i> or `mean(chowPopulation)` and standard error approximately  *s<sub>X</sub> /  &radic;N* or:
+With a sample size of 30, we will use the CLT. The CLT tells us that <i>X&#772;</i> or `mean(chow)` follows a normal distribution with mean <i>&mu;<sub>X</sub></i> or `mean(chowPopulation)` and standard error approximately  <i>s<sub>X</sub> /  &radic;N</i> or:
 
 ```{r}
 se <- sd(chow)/sqrt(N)
@@ -529,7 +529,7 @@ are estimating. Keep in mind that saying 95% of random intervals will fall on th
 true value (our definition above) is *not the same* as saying there is
 a 95% chance that the true value falls in our interval. 
 To construct it, we note that the CLT tells us that 
-*&radic;N (X&#772;-<i>&mu;<sub>X</sub></i>) / s<sub>X</sub>* follows a normal distribution with mean 0 and
+<i>&radic;N (X&#772;-<i>&mu;<sub>X</sub></i>) / s<sub>X</sub></i> follows a normal distribution with mean 0 and
 SD 1. This implies that the probability of this event:
 
 ![](../fig/02-confint.png)

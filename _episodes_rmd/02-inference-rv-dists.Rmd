@@ -162,7 +162,7 @@ for (i in 1:n) {
 }
 ```
 
-The values in `null` form what we call the *null distribution*. We will define this more formally below. By the way, the loop above is a *Monte Carlo* simulation to obtain 10,000 outcomes of the random variable under the null hypothesis. Simulations can be used to check theoretical or analytical results. For more information about Monte Carlo simulations, visit [Data Analysis for the Life Sciences](http://rwdc2.com/files/rafa.pdf).
+The values in `null` form what we call the *null distribution*. We will define this more formally below. By the way, the loop above is a *Monte Carlo* simulation to obtain 10,000 outcomes of the random variable under the null hypothesis. Simulations can be used to check theoretical or analytical results. For more information about Monte Carlo simulations, visit [Data Analysis for the Life Sciences](https://leanpub.com/dataanalysisforthelifesciences).
 
 So what percent of the 10,000 are bigger than `obsdiff`?
 
