@@ -143,7 +143,7 @@ pheno <- na.omit(pheno)
 ```
 
 > ## Exercise 1  
-> 1.Use `dplyr` to create a vector `x` with the body weight of all males on the control (chow) diet.   
+> 1. Use `dplyr` to create a vector `x` with the body weight of all males on the control (chow) diet.   
 > What is this population’s average?  
 > 2. Now use the `rafalib` package and use the `popsd` function to compute the population standard deviation.  
 > 3. Set the seed at 1. Take a random sample `X` of size 25 from `x`. What is the sample average?  
@@ -154,11 +154,11 @@ pheno <- na.omit(pheno)
 > 7. What is the difference in absolute value between <i>y&#772;-x&#772;</i> and <i>X&#772;-Y&#772;</i>?  
 > 8. Repeat the above for females. Make sure to set the seed to 1 before each sample call. What is the difference 
 > in absolute value between <i>y&#772;-x&#772;</i> and <i>X&#772;-Y&#772;</i>?  
-> 9.For the females, our sample estimates were closer to the population difference than with males. 
+> 9. For the females, our sample estimates were closer to the population difference than with males. 
 > What is a possible explanation for this?  
-> A) The population variance of the females is smaller than that of the males; thus, the sample variable has less variability.
-> B) Statistical estimates are more precise for females.
-> C) The sample size was larger for females.
+> A) The population variance of the females is smaller than that of the males; thus, the sample variable has less variability.  
+> B) Statistical estimates are more precise for females.  
+> C) The sample size was larger for females.  
 > D) The sample size was smaller for females.
 >
 > > ## Solution to Exercise 1
@@ -191,25 +191,25 @@ pnorm(-2) + (1 - pnorm(2))
 
 We don't need to buy more mice, 12 and 12 suffice.
 
-However, we can't claim victory just yet because we don't know the population standard deviations: &sigma;<sub>X</sub> and &sigma;<sub>Y</sub>. These are unknown population parameters, but we can get around this by using the sample standard deviations, call them $s_X$ and $s_Y$. These are defined as: 
+However, we can't claim victory just yet because we don't know the population standard deviations: &sigma;<sub>X</sub> and &sigma;<sub>Y</sub>. These are unknown population parameters, but we can get around this by using the sample standard deviations, call them *s<sub>X</sub>* and *s<sub>Y</sub>*. These are defined as: 
 
 ![](../fig/02-sample-stddev.png)
 
-Note that we are dividing by $M-1$ and $N-1$, instead of by $M$ and $N$. There is a theoretical reason for doing this which we do not explain here.
+Note that we are dividing by *M-1* and *N-1*, instead of by *M* and *N*. There is a theoretical reason for doing this which we do not explain here.
 
 So we can redefine our ratio as
 
 ![](../fig/02-sqrtN.png)
 
-if $M=N$ or in general,
+if *M=N* or in general,
 
 ![](../fig/02-ybar-xbar.png)
 
-The CLT tells us that when $M$ and $N$ are large, this random variable is normally distributed with mean 0 and SD 1. Thus we can compute p-values using the function `pnorm`.
+The CLT tells us that when *M* and *N* are large, this random variable is normally distributed with mean 0 and SD 1. Thus we can compute p-values using the function `pnorm`.
 
 #### The t-distribution
 
-The CLT relies on large samples, what we refer to as _asymptotic results_. When the CLT does not apply, there is another option that does not rely on asymptotic results. When the original population from which a random variable, say $Y$, is sampled is normally distributed with mean 0, then we can calculate the distribution of: 
+The CLT relies on large samples, what we refer to as *asymptotic results*. When the CLT does not apply, there is another option that does not rely on asymptotic results. When the original population from which a random variable, say *Y*, is sampled is normally distributed with mean 0, then we can calculate the distribution of: 
 
 ![](../fig/02-tdist.gif)
 
@@ -223,36 +223,36 @@ pseudonym "Student". The distribution is therefore called Student's
 t-distribution. Later we will learn more about how this result is
 used.
 
-> ## Exercise 1  
+> ## Exercise 2  
 > 1. If a list of numbers has a distribution that is well approximated
-> by the normal distribution,what proportion of these numbers are
+> by the normal distribution, what proportion of these numbers are
 > within one standard deviation away from the list’s average?  
 > 2. What proportion of these numbers are within two standard
 > deviations away from the list’s average?  
-> 3.What proportion of these numbers are within three standard
+> 3. What proportion of these numbers are within three standard
 > deviations away from the list’s average?  
-> 4.Define y to be the weights of males on the control diet. 
+> 4. Define y to be the weights of males on the control diet. 
 > What proportion of the mice are within one standard deviation away
 > from the average weight (remember to use `popsd` for the
 > population sd)?  
-> 5.What proportion of these numbers are within two standard deviations
+> 5. What proportion of these numbers are within two standard deviations
 > away from the list’s average?  
-> 6.What proportion of these numbers are within three standard
+> 6. What proportion of these numbers are within three standard
 > deviations away from the list’s average?  
-> 7.Note that the numbers for the normal distribution and our weights
+> 7. Note that the numbers for the normal distribution and our weights
 > are relatively close. Also, notice that we are indirectly comparing
 > quantiles of the normal distribution to quantiles of the mouse weight
 > distribution. We can actually compare all quantiles using a
 > qqplot. Which of the following best describes the qq-plot comparing
 > mouse weights to the normal distribution?  
 > A) The points on the qq-plot fall exactly on the identity line.  
-> B) The average of the mouse weights is not 0 and thus it can’t follow a normal distribution.
+> B) The average of the mouse weights is not 0 and thus it can’t follow a normal distribution.  
 > C) The mouse weights are well approximated by the normal
 > distribution, although the larger values (right tail) are larger than
 > predicted by the normal. This is consistent with the differences seen
 > between question 3 and 6.  
 > D) These are not random variables and thus they can’t follow a normal distribution.  
-> 8.Create the above qq-plot for the four populations: male/females on
+> 8. Create the above qq-plot for the four populations: male/females on
 > each of the two diets. What is the most likely explanation for the
 > mouse weights being well approximated?   
 > What is the best explanation for all these being well approximated by
@@ -263,49 +263,52 @@ used.
 > C) Everything measured in nature follows a normal distribution.  
 > D) Measurement error is normally distributed.
 >
-> > ## Solution to Exercise 1
+> > ## Solution to Exercise 2
 > {: .solution}
 {: .challenge}
 
-> ## Exercise 2
-> Here we are going to use the function` replicate` to learn about
+> ## Exercise 3
+> Here we are going to use the function `replicate` to learn about
 > the distribution of random variables. All the above exercises relate
 > to the normal distribution as an approximation of the distribution of
 > a fixed list of numbers or a population. We have not yet discussed
-> probabilityin these exercises. If the distribution of a list of  numbers
+> probability in these exercises. If the distribution of a list of  numbers
 > is approximately normal, then if we pick a number at random from this
 > distribution, it will follow a normal distribution. However, it is
 > important to remember that stating that some quantity has a
 > distribution does not necessarily imply this quantity is random.
 > Also, keep in mind that this is not related to the central limit
 > theorem. The central limit applies to averages of random variables.
-> Let’s explore this concept. We will now take a sample of size 25 from
-> the population of males on the chow diet. The average of this sample
-> is our random variable. We will use the replicate to observe
+> Let’s explore this concept.  
+> We will now take a sample of size 25 from the population of males on the chow diet. 
+> The average of this sample is our random variable. We will use the replicate to observe
 > 10,000 realizations of this random variable.  
-> Set the seed at 1, generate these 10,000 averages.   
-> Make a histogram and qq-plot these 10,000 numbers against the normal distribution.  
-> We can see that, as predicted by the CLT, the distribution of the
-> random variable is very well approximated by the normal distribution. > `y <- filter(pheno, Sex=="M"&Diet=="chow") %>%`   
+> 1. Set the seed at 1, generate these 10,000 averages.  
+> `set.seed(1)`  
+> `y <- filter(pheno, Sex=="M"&Diet=="chow") %>%`   
 > `select(Bodyweight) %>%`   
 > `unlist`  
-> `avgs <- replicate(10000, mean(sample(y,25)))`  
+> `avgs <- replicate(10000, mean(sample(y,25)))`   
+> 2. Make a histogram and qq-plot these 10,000 numbers against the normal distribution. 
 > `mypar(1,2)`  
 > `hist(avgs)`  
 > `qqnorm(avgs)`  
 > `qqline(avgs)`  
-> What is the average of the distribution of the sample average?  
-> What is the standard deviation of the distribution of sample averages?  
+> We can see that, as predicted by the CLT, the distribution of the
+> random variable is very well approximated by the normal distribution.  
+> 3. What is the average of the distribution of the sample average?  
+> 4. What is the standard deviation of the distribution of sample averages?  
 > According to the CLT, the answer to the exercise above should be the
 > same as `mean(y)`. You should be able to confirm that these two
-> numbers are very close. Which of the following does the CLT tell us
+> numbers are very close. 
+> 5. Which of the following does the CLT tell us
 > should be close to your answer to this exercise?  
 > A) `popsd(y)`  
 > B) `popsd(avgs)/sqrt(25)`  
 > C) `sqrt(25) / popsd(y)`  
 > D) `popsd(y)/sqrt(25)`
 >
-> > ## Solution to Exercise 2
+> > ## Solution to Exercise 3
 > {: .solution}
 {: .challenge}
 
@@ -425,7 +428,6 @@ result <- t.test(treatment,control)
 result$p.value
 ```
 
-
 The p-value is slightly bigger now. This is to be expected because our
 CLT approximation considered the denominator of `tstat` practically
 fixed (with large samples it practically is), while the t-distribution
@@ -497,7 +499,7 @@ chowPopulation <- pheno %>%
   unlist
 ```
 
-The population average $\mu_X$ is our parameter of interest here:
+The population average <i>&mu;<sub>X</sub></i> is our parameter of interest here:
 
 ```{r muChow}
 mu_chow <- mean(chowPopulation)
@@ -514,7 +516,7 @@ print(mean(chow))
 
 We know this is a random variable, so the sample average will not be a perfect estimate. In fact, because in this illustrative example we know the value of the parameter, we can see that they are not exactly the same. A confidence interval is a statistical way of reporting our finding, the sample average, in a way that explicitly summarizes the variability of our random variable.
 
-With a sample size of 30, we will use the CLT. The CLT tells us that $\bar{X}$ or `mean(chow)` follows a normal distribution with mean $\mu_X$ or `mean(chowPopulation)` and standard error approximately  $s_X/\sqrt{N}$ or:
+With a sample size of 30, we will use the CLT. The CLT tells us that $\bar{X}$ or `mean(chow)` follows a normal distribution with mean <i>&mu;<sub>X</sub></i> or `mean(chowPopulation)` and standard error approximately  $s_X/\sqrt{N}$ or:
 
 ```{r}
 se <- sd(chow)/sqrt(N)
@@ -531,7 +533,7 @@ are estimating. Keep in mind that saying 95% of random intervals will fall on th
 true value (our definition above) is *not the same* as saying there is
 a 95% chance that the true value falls in our interval. 
 To construct it, we note that the CLT tells us that 
-$\sqrt{N} (\bar{X}-\mu_X) / s_X$ follows a normal distribution with mean 0 and
+$\sqrt{N} (\bar{X}-<i>&mu;<sub>X</sub></i>) / s_X$ follows a normal distribution with mean 0 and
 SD 1. This implies that the probability of this event:
 
 ![](../fig/02-confint.png)
@@ -551,12 +553,12 @@ $\mu_X$ alone in the middle and you get that the following event:
 has a probability of 95%. 
 
 Be aware that it is the edges of the interval 
-$\bar{X} &plusmn; 2 s_X / \sqrt{N}$, not $\mu_X$, 
+$\bar{X} &plusmn; 2 s_X / \sqrt{N}$, not <i>&mu;<sub>X</sub></i>, 
 that are random. Again, the definition of
 the confidence interval is that 95% of *random intervals* will contain
-the true, fixed value $\mu_X$. For a specific interval that has been
+the true, fixed value <i>&mu;<sub>X</sub></i>$. For a specific interval that has been
 calculated, the probability is either 0 or 1 that it contains the
-fixed population mean $\mu_X$.
+fixed population mean <i>&mu;<sub>X</sub></i>.
 
 Let's demonstrate this logic through simulation. We can construct this
 interval with R relatively easily: 
@@ -568,7 +570,7 @@ interval
 interval[1] < mu_chow & interval[2] > mu_chow
 ```
 
-which happens to cover $\mu_X$ or `mean(chowPopulation)`. However, we can take another sample and we might not be as lucky. In fact, the theory tells us that we will cover $\mu_X$ 95% of the time. Because we have access to the population data, we can confirm this by taking several new samples:
+which happens to cover <i>&mu;<sub>X</sub></i> or `mean(chowPopulation)`. However, we can take another sample and we might not be as lucky. In fact, the theory tells us that we will cover <i>&mu;<sub>X</sub></i> 95% of the time. Because we have access to the population data, we can confirm this by taking several new samples:
 
 ```{r confidence_interval_n30,fig.cap="We show 250 random realizations of 95% confidence intervals. The color denotes if the interval fell on the parameter or not.",fig.height=8}
 library(rafalib)
@@ -588,13 +590,13 @@ for (i in 1:B) {
 }
 ```
 
-You can run this repeatedly to see what happens. You will see that in about 5% of the cases, we fail to cover $\mu_X$.
+You can run this repeatedly to see what happens. You will see that in about 5% of the cases, we fail to cover <i>&mu;<sub>X</sub></i>.
 
 <a name="smallsample"></a>
 
 #### Small Sample Size and the CLT
 
-For $N=30$, the CLT works very well. However, if $N=5$, do these confidence intervals work as well? We used the CLT to create our intervals, and with $N=5$ it may not be as useful an approximation. We can confirm this with a simulation:
+For *N=30*, the CLT works very well. However, if $N=5$, do these confidence intervals work as well? We used the CLT to create our intervals, and with *N=5* it may not be as useful an approximation. We can confirm this with a simulation:
 
 
 ```{r confidence_interval_n5,fig.cap="We show 250 random realizations of 95% confidence intervals, but now for a smaller sample size. The confidence interval is based on the CLT approximation. The color denotes if the interval fell on the parameter or not.",fig.height=8}
@@ -616,7 +618,7 @@ for (i in 1:B) {
 
 Despite the intervals being larger (we are dividing by $\sqrt{5}$
 instead of $\sqrt{30}$ ), we see many more intervals not covering
-$\mu_X$. This is because the CLT is incorrectly telling us that the
+<i>&mu;<sub>X</sub></i>. This is because the CLT is incorrectly telling us that the
 distribution of the `mean(chow)` is approximately normal with standard deviation 1 when, in fact,
 it has a larger standard deviation and a fatter tail (the parts of the distribution going to
 $\&plusmn; \infty$). This mistake affects us in the calculation of `Q`, which assumes a normal distribution and uses `qnorm`. The t-distribution might be more appropriate. All we have to do is re-run the above, but change how we calculate `Q` to use `qt` instead of `qnorm`.
@@ -651,7 +653,7 @@ is bigger than...
 qnorm(1- 0.05/2)
 ```
 
-...which makes the intervals larger and hence cover $\mu_X$ more frequently; in fact, about 95% of the time.
+...which makes the intervals larger and hence cover <i>&mu;<sub>X</sub></i> more frequently; in fact, about 95% of the time.
 
 #### Connection Between Confidence Intervals and p-values
 
@@ -679,7 +681,7 @@ CLT (with `qt(.05/2, df=2*N-2)`).
 In summary, if a 95% or 99% confidence interval does not include
 0, then the p-value must be smaller than 0.05 or 0.01 respectively. 
 
-Note that the confidence interval for the difference $d$ is provided by the `t.test` function:
+Note that the confidence interval for the difference *d* is provided by the `t.test` function:
 
 ```{r control_v_treatment,echo=FALSE}
 controlIndex <- which(pheno$Diet=="chow")
