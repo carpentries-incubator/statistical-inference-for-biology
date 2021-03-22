@@ -1,7 +1,7 @@
 ---
 title: "Inference"
-teaching: 0
-exercises: 0
+teaching: 75
+exercises: 40
 questions:
 - "What does inference mean?"
 - "Why do we need p-values and confidence intervals?"
@@ -12,10 +12,9 @@ objectives:
 - "Explain random variables and null distributions using R programming."
 - "Compute p-values and confidence intervals using R programming."
 keypoints:
-- "."
-- "."
-- "."
-- "."
+- "Inference uses sampling to investigate population parameters such as mean and standard deviation."
+- "A p-value describes the probability of obtaining a specific value."
+- "A distribution summarizes a set of numbers."
 source: Rmd
 ---
 
@@ -73,6 +72,12 @@ and obtained this data (`head` just shows us the first 6 rows):
 ```{r load_weight_data}
 fWeights <- read.csv("../data/femaleMiceWeights.csv")
 head(fWeights) 
+``` 
+
+If you would like to view the entire data set with RStudio:
+
+```{r view_weight_data}
+View(fWeights) 
 ``` 
 
 So are the hf mice heavier? Mouse 24 at 20.73 grams is one of the
@@ -202,7 +207,7 @@ Scanning through these numbers, we start to get a rough idea of what the entire 
 
 This is called the cumulative distribution function (CDF). When the CDF is derived from data, as opposed to theoretically, we also call it the empirical CDF (ECDF). The ECDF for the height data looks like this:
 
-```{r ecdf, fig.cap="Empirical cumulative distribution function for height.", echo=FALSE}
+```{r ecdf, echo=FALSE, fig.cap="Empirical cumulative distribution function for height.", echo=FALSE}
 smallest <- floor( min(x) )
 largest <- ceiling( max(x) )
 values <- seq(smallest, largest, len=300)
