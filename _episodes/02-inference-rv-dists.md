@@ -250,7 +250,7 @@ for (i in 1:n) {
 ~~~
 {: .language-r}
 
-The values in `null` form what we call the *null distribution*. We will define this more formally below. By the way, the loop above is a *Monte Carlo* simulation to obtain 10,000 outcomes of the random variable under the null hypothesis. Simulations can be used to check theoretical or analytical results. For more information about Monte Carlo simulations, visit [Data Analysis for the Life Sciences](http://rwdc2.com/files/rafa.pdf).
+The values in `null` form what we call the *null distribution*. We will define this more formally below. By the way, the loop above is a *Monte Carlo* simulation to obtain 10,000 outcomes of the random variable under the null hypothesis. Simulations can be used to check theoretical or analytical results. For more information about Monte Carlo simulations, visit [Data Analysis for the Life Sciences](https://leanpub.com/dataanalysisforthelifesciences).
 
 So what percent of the 10,000 are bigger than `obsdiff`?
 
@@ -738,10 +738,10 @@ summary(population)
 
 > ## Exercise 3
 > Use a histogram to “look” at the distribution of averages we get with a sample size of 5 
-> and a sample size of 50. How would you say they differ?
-> A) They are actually the same.
-> B) They both look roughly normal, but with a sample size of 50 the spread is smaller.
-> C) They both look roughly normal, but with a sample size of 50 the spread is larger.
+> and a sample size of 50. How would you say they differ?  
+> A) They are actually the same.  
+> B) They both look roughly normal, but with a sample size of 50 the spread is smaller.  
+> C) They both look roughly normal, but with a sample size of 50 the spread is larger.  
 > D) The second distribution does not look normal at all.
 >
 > > ## Solution to Exercise 3
