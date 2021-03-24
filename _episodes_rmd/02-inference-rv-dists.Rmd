@@ -25,10 +25,6 @@ library(UsingR)
 library(tidyverse)
 ```
 
-
-<a name="introduction"></a>
-
-
 ## Introduction 
 
 ```{r set_seed,vresults=FALSE, echo=FALSE}
@@ -76,7 +72,7 @@ head(fWeights)
 
 If you would like to view the entire data set with RStudio:
 
-```{r view_weight_data}
+```{r view_weight_data, eval=FALSE}
 View(fWeights) 
 ``` 
 

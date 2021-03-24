@@ -22,10 +22,6 @@ source: Rmd
 
 
 
-
-<a name="introduction"></a>
-
-
 ## Introduction 
 
 
@@ -91,13 +87,6 @@ If you would like to view the entire data set with RStudio:
 View(fWeights) 
 ~~~
 {: .language-r}
-
-
-
-~~~
-Error in check_for_XQuartz(): X11 library is missing: install XQuartz from xquartz.macosforge.org
-~~~
-{: .error}
 
 So are the hf mice heavier? Mouse 24 at 20.73 grams is one of the
 lightest mice, while Mouse 21 at 34.02 grams is one of the heaviest. Both are on
