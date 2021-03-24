@@ -27,6 +27,7 @@ source("../bin/chunk-options.R")
 knitr_fig_path("06-")
 ```
 
+
 ## t-tests in Practice
 
 #### Introduction
@@ -36,17 +37,16 @@ We will now demonstrate how to obtain a p-value in practice. We begin by loading
 
 #### Read in and prepare data
 
-We start by reading in the data. A first important step is to identify
-which rows are associated with treatment and control, and to compute
-the difference in mean. 
+We start by reading in the data. A first important step is to identify which rows are associated with treatment and control, and to compute the difference in mean. 
 
-```{r,message=FALSE}
-library(dplyr)
-dat <- read.csv("femaleMiceWeights.csv") #previously downloaded
-
-control <- filter(dat,Diet=="chow") %>% select(Bodyweight) %>% unlist
-treatment <- filter(dat,Diet=="hf") %>% select(Bodyweight) %>% unlist
-
+```{r chow_hf, message=FALSE}
+pheno <- read.csv(file = "../data/mice_pheno.csv") # we read this data in earlier
+control <- filter(pheno, Diet=="chow") %>%
+  select(Bodyweight) %>% 
+  unlist
+treatment <- filter(pheno, Diet=="hf") %>%
+  select(Bodyweight) %>% 
+  unlist
 diff <- mean(treatment) - mean(control)
 print(diff)
 ```
@@ -55,7 +55,7 @@ We are asked to report a p-value. What do we do? We learned that
 `diff`, referred to as the _observed effect size_, is a random
 variable. We also learned that under the null hypothesis, the mean of the distribution of `diff` is 0. What about the standard error? We also learned that the standard error of this random variable is the population standard deviation divided by the square root of the sample size:
 
-![](../fig/06-seXbarEq.png)
+![](../fig/02-stderr.png)
 
 We use the sample standard deviation as an estimate of the population
 standard deviation. In R, we simply use the `sd` function and the SE is:
@@ -66,15 +66,14 @@ sd(control)/sqrt(length(control))
 
 This is the SE of the sample average, but we actually want the SE of `diff`. We saw how statistical theory tells us that the variance of the difference of two random variables is the sum of its variances, so we compute the variance and take the square root:
 
-```{r}
+```{r stderr}
 se <- sqrt( 
   var(treatment)/length(treatment) + 
   var(control)/length(control) 
   )
 ```
 
-Statistical theory tells us that if we divide a random variable by its
-SE, we get a new random variable with an SE of 1.
+Statistical theory tells us that if we divide a random variable by its SE, we get a new random variable with an SE of 1.
 
 ```{r}
 tstat <- diff/se 
@@ -94,7 +93,7 @@ probability of seeing something as extreme as `diff`: either smaller
 (more negative) than `-abs(diff)` or larger than `abs(diff)`. We call
 these two regions "tails" and calculate their size:
 
-```{r}
+```{r tails}
 righttail <- 1 - pnorm(abs(tstat)) 
 lefttail <- pnorm(-abs(tstat))
 pval <- lefttail + righttail
@@ -104,6 +103,8 @@ print(pval)
 In this case, the p-value is smaller than 0.05 and using the conventional cutoff of 0.05, we would call the difference _statistically significant_.
 
 Now there is a problem. CLT works for large samples, but is 12 large enough? A rule of thumb for CLT is that 30 is a large enough sample size (but this is just a rule of thumb). The p-value we computed is only a valid approximation if the assumptions hold, which do not seem to be the case here. However, there is another option other than using CLT.
+
+<a name="smallsample"></a>
 
 ## The t-distribution in Practice
 
@@ -120,10 +121,8 @@ samples. This shows that the approximation is at least close:
 ```{r data_qqplot, fig.cap="Quantile-quantile plots for sample against theoretical normal distribution.", fig.width=10.5,fig.height=5.25}
 library(rafalib)
 mypar(1,2)
-
 qqnorm(treatment)
 qqline(treatment,col=2)
-
 qqnorm(control)
 qqline(control,col=2)
 ```
@@ -135,17 +134,16 @@ normal. The t-distribution has a location parameter like the normal
 and another parameter called *degrees of freedom*. R has a nice
 function that actually computes everything for us. 
 
-```{r}
+```{r t_test}
 t.test(treatment, control)
 ```
 
 To see just the p-value, we can use the `$` extractor:
 
-```{r}
+```{r ttest_result}
 result <- t.test(treatment,control)
 result$p.value
 ```
-
 
 The p-value is slightly bigger now. This is to be expected because our
 CLT approximation considered the denominator of `tstat` practically
@@ -167,20 +165,14 @@ to incorrectly accept the null hypothesis (false negative).
 Now that we have gone over the concepts, we can show the relatively
 simple code that one would use to actually compute a t-test: 
 
-
-```{r,message=FALSE,echo=FALSE}
-library(downloader)
-url <- "https://raw.githubusercontent.com/genomicsclass/dagdata/master/inst/extdata/mice_pheno.csv"
-filename <- "mice_pheno.csv"
-if(!file.exists(filename)) download(url,destfile=filename)
-```
-
-```{r,message=FALSE}
-library(dplyr)
-dat <- read.csv("mice_pheno.csv")
-control <- filter(dat,Diet=="chow") %>% select(Bodyweight) 
-treatment <- filter(dat,Diet=="hf") %>% select(Bodyweight) 
-t.test(treatment,control)
+```{r ttest_pheno, message=FALSE}
+control <- filter(pheno, Diet=="chow") %>%
+  select(Bodyweight) %>% 
+  unlist
+treatment <- filter(pheno, Diet=="hf") %>%
+  select(Bodyweight) %>% 
+  unlist
+t.test(treatment, control)
 ```
 
 The arguments to `t.test` can be of type *data.frame* and thus we do not need to unlist them into numeric objects.
