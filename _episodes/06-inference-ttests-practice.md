@@ -44,49 +44,10 @@ pheno <- read.csv(file = "../data/mice_pheno.csv") # we read this data in earlie
 control <- filter(pheno, Diet=="chow") %>%
   select(Bodyweight) %>% 
   unlist
-~~~
-{: .language-r}
-
-
-
-~~~
-Error in filter(pheno, Diet == "chow") %>% select(Bodyweight) %>% unlist: could not find function "%>%"
-~~~
-{: .error}
-
-
-
-~~~
 treatment <- filter(pheno, Diet=="hf") %>%
   select(Bodyweight) %>% 
   unlist
-~~~
-{: .language-r}
-
-
-
-~~~
-Error in filter(pheno, Diet == "hf") %>% select(Bodyweight) %>% unlist: could not find function "%>%"
-~~~
-{: .error}
-
-
-
-~~~
 diff <- mean(treatment) - mean(control)
-~~~
-{: .language-r}
-
-
-
-~~~
-Error in mean(treatment): object 'treatment' not found
-~~~
-{: .error}
-
-
-
-~~~
 print(diff)
 ~~~
 {: .language-r}
@@ -94,10 +55,7 @@ print(diff)
 
 
 ~~~
-function (x, ...) 
-UseMethod("diff")
-<bytecode: 0x7fee53838358>
-<environment: namespace:base>
+[1] NA
 ~~~
 {: .output}
 
@@ -119,9 +77,9 @@ sd(control)/sqrt(length(control))
 
 
 ~~~
-Error in is.data.frame(x): object 'control' not found
+[1] NA
 ~~~
-{: .error}
+{: .output}
 
 This is the SE of the sample average, but we actually want the SE of `diff`. We saw how statistical theory tells us that the variance of the difference of two random variables is the sum of its variances, so we compute the variance and take the square root:
 
@@ -134,13 +92,6 @@ se <- sqrt(
 ~~~
 {: .language-r}
 
-
-
-~~~
-Error in is.data.frame(x): object 'treatment' not found
-~~~
-{: .error}
-
 Statistical theory tells us that if we divide a random variable by its SE, we get a new random variable with an SE of 1.
 
 
@@ -148,13 +99,6 @@ Statistical theory tells us that if we divide a random variable by its SE, we ge
 tstat <- diff/se 
 ~~~
 {: .language-r}
-
-
-
-~~~
-Error in eval(expr, envir, enclos): object 'se' not found
-~~~
-{: .error}
 
 This ratio is what we call the t-statistic. It's the ratio of two random variables and thus a random variable. Once we know the distribution of this random variable, we can then easily compute a p-value.
 
@@ -173,47 +117,8 @@ these two regions "tails" and calculate their size:
 
 ~~~
 righttail <- 1 - pnorm(abs(tstat)) 
-~~~
-{: .language-r}
-
-
-
-~~~
-Error in pnorm(abs(tstat)): object 'tstat' not found
-~~~
-{: .error}
-
-
-
-~~~
 lefttail <- pnorm(-abs(tstat))
-~~~
-{: .language-r}
-
-
-
-~~~
-Error in pnorm(-abs(tstat)): object 'tstat' not found
-~~~
-{: .error}
-
-
-
-~~~
 pval <- lefttail + righttail
-~~~
-{: .language-r}
-
-
-
-~~~
-Error in eval(expr, envir, enclos): object 'lefttail' not found
-~~~
-{: .error}
-
-
-
-~~~
 print(pval)
 ~~~
 {: .language-r}
@@ -221,9 +126,9 @@ print(pval)
 
 
 ~~~
-Error in print(pval): object 'pval' not found
+[1] NA
 ~~~
-{: .error}
+{: .output}
 
 In this case, the p-value is smaller than 0.05 and using the conventional cutoff of 0.05, we would call the difference _statistically significant_.
 
@@ -271,57 +176,13 @@ The following object is masked from 'package:remotes':
 ~~~
 mypar(1,2)
 qqnorm(treatment)
-~~~
-{: .language-r}
-
-
-
-~~~
-Error in qqnorm(treatment): object 'treatment' not found
-~~~
-{: .error}
-
-
-
-~~~
 qqline(treatment,col=2)
-~~~
-{: .language-r}
-
-
-
-~~~
-Error in quantile(y, probs, names = FALSE, type = qtype, na.rm = TRUE): object 'treatment' not found
-~~~
-{: .error}
-
-
-
-~~~
 qqnorm(control)
-~~~
-{: .language-r}
-
-
-
-~~~
-Error in qqnorm(control): object 'control' not found
-~~~
-{: .error}
-
-
-
-~~~
 qqline(control,col=2)
 ~~~
 {: .language-r}
 
-
-
-~~~
-Error in quantile(y, probs, names = FALSE, type = qtype, na.rm = TRUE): object 'control' not found
-~~~
-{: .error}
+<img src="../fig/rmd-06-data_qqplot-1.png" title="Quantile-quantile plots for sample against theoretical normal distribution." alt="Quantile-quantile plots for sample against theoretical normal distribution." width="756" style="display: block; margin: auto;" />
 
 If we use this approximation, then statistical theory tells us that
 the distribution of the random variable `tstat` follows a
@@ -339,28 +200,25 @@ t.test(treatment, control)
 
 
 ~~~
-Error in t.test(treatment, control): object 'treatment' not found
+
+	Welch Two Sample t-test
+
+data:  treatment and control
+t = 7.1932, df = 735.02, p-value = 1.563e-12
+alternative hypothesis: true difference in means is not equal to 0
+95 percent confidence interval:
+ 2.231533 3.906857
+sample estimates:
+mean of x mean of y 
+ 30.48201  27.41281 
 ~~~
-{: .error}
+{: .output}
 
 To see just the p-value, we can use the `$` extractor:
 
 
 ~~~
 result <- t.test(treatment,control)
-~~~
-{: .language-r}
-
-
-
-~~~
-Error in t.test(treatment, control): object 'treatment' not found
-~~~
-{: .error}
-
-
-
-~~~
 result$p.value
 ~~~
 {: .language-r}
@@ -368,9 +226,9 @@ result$p.value
 
 
 ~~~
-Error in eval(expr, envir, enclos): object 'result' not found
+[1] 1.562941e-12
 ~~~
-{: .error}
+{: .output}
 
 The p-value is slightly bigger now. This is to be expected because our
 CLT approximation considered the denominator of `tstat` practically
@@ -397,35 +255,9 @@ simple code that one would use to actually compute a t-test:
 control <- filter(pheno, Diet=="chow") %>%
   select(Bodyweight) %>% 
   unlist
-~~~
-{: .language-r}
-
-
-
-~~~
-Error in filter(pheno, Diet == "chow") %>% select(Bodyweight) %>% unlist: could not find function "%>%"
-~~~
-{: .error}
-
-
-
-~~~
 treatment <- filter(pheno, Diet=="hf") %>%
   select(Bodyweight) %>% 
   unlist
-~~~
-{: .language-r}
-
-
-
-~~~
-Error in filter(pheno, Diet == "hf") %>% select(Bodyweight) %>% unlist: could not find function "%>%"
-~~~
-{: .error}
-
-
-
-~~~
 t.test(treatment, control)
 ~~~
 {: .language-r}
@@ -433,8 +265,18 @@ t.test(treatment, control)
 
 
 ~~~
-Error in t.test(treatment, control): object 'treatment' not found
+
+	Welch Two Sample t-test
+
+data:  treatment and control
+t = 7.1932, df = 735.02, p-value = 1.563e-12
+alternative hypothesis: true difference in means is not equal to 0
+95 percent confidence interval:
+ 2.231533 3.906857
+sample estimates:
+mean of x mean of y 
+ 30.48201  27.41281 
 ~~~
-{: .error}
+{: .output}
 
 The arguments to `t.test` can be of type *data.frame* and thus we do not need to unlist them into numeric objects.

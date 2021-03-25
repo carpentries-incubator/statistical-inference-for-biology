@@ -69,31 +69,11 @@ chowPopulation <- pheno %>%
 ~~~
 {: .language-r}
 
-
-
-~~~
-Error in filter(., Sex == "F" & Diet == "chow"): object 'pheno' not found
-~~~
-{: .error}
-
 The population average <i>&mu;<sub>X</sub></i> is our parameter of interest here:
 
 
 ~~~
 mu_chow <- mean(chowPopulation)
-~~~
-{: .language-r}
-
-
-
-~~~
-Error in mean(chowPopulation): object 'chowPopulation' not found
-~~~
-{: .error}
-
-
-
-~~~
 print(mu_chow)
 ~~~
 {: .language-r}
@@ -101,9 +81,9 @@ print(mu_chow)
 
 
 ~~~
-Error in print(mu_chow): object 'mu_chow' not found
+[1] 23.89338
 ~~~
-{: .error}
+{: .output}
 
 We are interested in estimating this parameter. In practice, we do not get to see the entire population so, as we did for p-values, we demonstrate how we can use samples to do this. Let's start with a sample of size 30:
 
@@ -111,19 +91,6 @@ We are interested in estimating this parameter. In practice, we do not get to se
 ~~~
 N <- 30
 chow <- sample(chowPopulation, N)
-~~~
-{: .language-r}
-
-
-
-~~~
-Error in sample(chowPopulation, N): object 'chowPopulation' not found
-~~~
-{: .error}
-
-
-
-~~~
 print(mean(chow))
 ~~~
 {: .language-r}
@@ -131,9 +98,9 @@ print(mean(chow))
 
 
 ~~~
-Error in mean(chow): object 'chow' not found
+[1] 24.03267
 ~~~
-{: .error}
+{: .output}
 
 We know this is a random variable, so the sample average will not be a perfect estimate. In fact, because in this illustrative example we know the value of the parameter, we can see that they are not exactly the same. A confidence interval is a statistical way of reporting our finding, the sample average, in a way that explicitly summarizes the variability of our random variable.
 
@@ -142,19 +109,6 @@ With a sample size of 30, we will use the CLT. The CLT tells us that <i>X&#772;<
 
 ~~~
 se <- sd(chow)/sqrt(N)
-~~~
-{: .language-r}
-
-
-
-~~~
-Error in is.data.frame(x): object 'chow' not found
-~~~
-{: .error}
-
-
-
-~~~
 print(se)
 ~~~
 {: .language-r}
@@ -162,9 +116,9 @@ print(se)
 
 
 ~~~
-Error in print(se): object 'se' not found
+[1] 0.6875646
 ~~~
-{: .error}
+{: .output}
 
 <a name="interval"></a>
 
@@ -219,19 +173,6 @@ interval with R relatively easily:
 ~~~
 Q <- qnorm(1 - 0.05/2)
 interval <- c(mean(chow)-Q*se, mean(chow)+Q*se )
-~~~
-{: .language-r}
-
-
-
-~~~
-Error in mean(chow): object 'chow' not found
-~~~
-{: .error}
-
-
-
-~~~
 interval
 ~~~
 {: .language-r}
@@ -239,9 +180,9 @@ interval
 
 
 ~~~
-Error in eval(expr, envir, enclos): object 'interval' not found
+[1] 22.68506 25.38027
 ~~~
-{: .error}
+{: .output}
 
 
 
@@ -253,9 +194,9 @@ interval[1] < mu_chow & interval[2] > mu_chow
 
 
 ~~~
-Error in eval(expr, envir, enclos): object 'interval' not found
+[1] TRUE
 ~~~
-{: .error}
+{: .output}
 
 which happens to cover <i>&mu;<sub>X</sub></i> or `mean(chowPopulation)`. However, we can take another sample and we might not be as lucky. In fact, the theory tells us that we will cover <i>&mu;<sub>X</sub></i> 95% of the time. Because we have access to the population data, we can confirm this by taking several new samples:
 
@@ -289,33 +230,7 @@ B <- 250
 mypar()
 plot(mean(chowPopulation)+c(-7,7),c(1,1),type="n",
      xlab="weight",ylab="interval",ylim=c(1,B))
-~~~
-{: .language-r}
-
-
-
-~~~
-Error in mean(chowPopulation): object 'chowPopulation' not found
-~~~
-{: .error}
-
-
-
-~~~
 abline(v=mean(chowPopulation))
-~~~
-{: .language-r}
-
-
-
-~~~
-Error in mean(chowPopulation): object 'chowPopulation' not found
-~~~
-{: .error}
-
-
-
-~~~
 for (i in 1:B) {
   chow <- sample(chowPopulation,N)
   se <- sd(chow)/sqrt(N)
@@ -328,12 +243,7 @@ for (i in 1:B) {
 ~~~
 {: .language-r}
 
-
-
-~~~
-Error in sample(chowPopulation, N): object 'chowPopulation' not found
-~~~
-{: .error}
+<img src="../fig/rmd-07-confidence_interval_n30-1.png" title="We show 250 random realizations of 95% confidence intervals. The color denotes if the interval fell on the parameter or not." alt="We show 250 random realizations of 95% confidence intervals. The color denotes if the interval fell on the parameter or not." width="612" style="display: block; margin: auto;" />
 
 You can run this repeatedly to see what happens. You will see that in about 5% of the cases, we fail to cover <i>&mu;<sub>X</sub></i>.
 
@@ -349,33 +259,7 @@ For *N=30*, the CLT works very well. However, if *N=5*, do these confidence inte
 mypar()
 plot(mean(chowPopulation)+c(-7,7),c(1,1),type="n",
      xlab="weight",ylab="interval",ylim=c(1,B))
-~~~
-{: .language-r}
-
-
-
-~~~
-Error in mean(chowPopulation): object 'chowPopulation' not found
-~~~
-{: .error}
-
-
-
-~~~
 abline(v=mean(chowPopulation))
-~~~
-{: .language-r}
-
-
-
-~~~
-Error in mean(chowPopulation): object 'chowPopulation' not found
-~~~
-{: .error}
-
-
-
-~~~
 Q <- qnorm(1- 0.05/2)
 N <- 5
 for (i in 1:B) {
@@ -389,12 +273,7 @@ for (i in 1:B) {
 ~~~
 {: .language-r}
 
-
-
-~~~
-Error in sample(chowPopulation, N): object 'chowPopulation' not found
-~~~
-{: .error}
+<img src="../fig/rmd-07-confidence_interval_n5-1.png" title="We show 250 random realizations of 95% confidence intervals, but now for a smaller sample size. The confidence interval is based on the CLT approximation. The color denotes if the interval fell on the parameter or not." alt="We show 250 random realizations of 95% confidence intervals, but now for a smaller sample size. The confidence interval is based on the CLT approximation. The color denotes if the interval fell on the parameter or not." width="612" style="display: block; margin: auto;" />
 
 Despite the intervals being larger (we are dividing by <i>&radic;5</i>
 instead of <i>&radic;30</i> ), we see many more intervals not covering
@@ -408,33 +287,7 @@ it has a larger standard deviation and a fatter tail (the parts of the distribut
 mypar()
 plot(mean(chowPopulation) + c(-7,7), c(1,1), type="n",
      xlab="weight", ylab="interval", ylim=c(1,B))
-~~~
-{: .language-r}
-
-
-
-~~~
-Error in mean(chowPopulation): object 'chowPopulation' not found
-~~~
-{: .error}
-
-
-
-~~~
 abline(v=mean(chowPopulation))
-~~~
-{: .language-r}
-
-
-
-~~~
-Error in mean(chowPopulation): object 'chowPopulation' not found
-~~~
-{: .error}
-
-
-
-~~~
 ##Q <- qnorm(1- 0.05/2) ##no longer normal so use:
 Q <- qt(1- 0.05/2, df=4)
 N <- 5
@@ -449,12 +302,7 @@ for (i in 1:B) {
 ~~~
 {: .language-r}
 
-
-
-~~~
-Error in sample(chowPopulation, N): object 'chowPopulation' not found
-~~~
-{: .error}
+<img src="../fig/rmd-07-confidence_interval_tdist_n5-1.png" title="We show 250 random realizations of 95% confidence intervals, but now for a smaller sample size. The confidence is now based on the t-distribution approximation. The color denotes if the interval fell on the parameter or not." alt="We show 250 random realizations of 95% confidence intervals, but now for a smaller sample size. The confidence is now based on the t-distribution approximation. The color denotes if the interval fell on the parameter or not." width="612" style="display: block; margin: auto;" />
 
 Now the intervals are made bigger. This is because the t-distribution has fatter tails and therefore:
 
@@ -517,31 +365,6 @@ In summary, if a 95% or 99% confidence interval does not include
 Note that the confidence interval for the difference *d* is provided by the `t.test` function:
 
 
-~~~
-Error in which(pheno$Diet == "chow"): object 'pheno' not found
-~~~
-{: .error}
-
-
-
-~~~
-Error in which(pheno$Diet == "hf"): object 'pheno' not found
-~~~
-{: .error}
-
-
-
-~~~
-Error in eval(expr, envir, enclos): object 'pheno' not found
-~~~
-{: .error}
-
-
-
-~~~
-Error in eval(expr, envir, enclos): object 'pheno' not found
-~~~
-{: .error}
 
 
 ~~~
@@ -552,9 +375,11 @@ t.test(treatment, control)$conf.int
 
 
 ~~~
-Error in t.test(treatment, control): object 'treatment' not found
+[1] 2.231533 3.906857
+attr(,"conf.level")
+[1] 0.95
 ~~~
-{: .error}
+{: .output}
 
 In this case, the 95% confidence interval does include 0 and we observe that the p-value is larger than 0.05 as predicted. If we change this to a 90% confidence interval, then:
 
@@ -567,9 +392,11 @@ t.test(treatment,control,conf.level=0.9)$conf.int
 
 
 ~~~
-Error in t.test(treatment, control, conf.level = 0.9): object 'treatment' not found
+[1] 2.366479 3.771911
+attr(,"conf.level")
+[1] 0.9
 ~~~
-{: .error}
+{: .output}
 
 0 is no longer in the confidence interval (which is expected because
 the p-value is smaller than 0.10). 
