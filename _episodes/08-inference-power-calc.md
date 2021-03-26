@@ -6,14 +6,7 @@ teaching: 0
 exercises: 0
 questions:
 - "?"
-- "?"
-- "?"
 objectives:
-- ""
-- ""
-- ""
-- ""
-- ""
 - ""
 - ""
 keypoints:
@@ -87,7 +80,7 @@ t.test(hf, control)$p.value
 
 
 ~~~
-[1] 0.1410204
+[1] 0.5806661
 ~~~
 {: .output}
 
@@ -195,7 +188,7 @@ reject(12)
 
 
 ~~~
-[1] FALSE
+[1] TRUE
 ~~~
 {: .output}
 
@@ -218,7 +211,7 @@ mean(rejections)
 
 
 ~~~
-[1] 0.2145
+[1] 0.2155
 ~~~
 {: .output}
 
@@ -379,7 +372,7 @@ diff / mean(control) * 100
 
 
 ~~~
-[1] 1.868663
+[1] 5.196293
 ~~~
 {: .output}
 
@@ -393,7 +386,7 @@ t.test(hf, control)$conf.int / mean(control) * 100
 
 
 ~~~
-[1] -20.94576  24.68309
+[1] -7.775307 18.167892
 attr(,"conf.level")
 [1] 0.95
 ~~~
@@ -414,7 +407,7 @@ diff / sd_pool
 
 
 ~~~
-[1] 0.07140083
+[1] 0.3397886
 ~~~
 {: .output}
 

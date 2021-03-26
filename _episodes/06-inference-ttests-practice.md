@@ -6,13 +6,7 @@ teaching: 0
 exercises: 0
 questions:
 - "How are t-tests used in practice?"
-- "?"
-- "?"
 objectives:
-- ""
-- ""
-- ""
-- ""
 - ""
 - ""
 - ""

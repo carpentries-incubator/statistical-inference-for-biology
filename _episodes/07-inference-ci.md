@@ -5,14 +5,8 @@ title: "Confidence Intervals"
 teaching: 0
 exercises: 0
 questions:
-- "what is a confidence interval?"
-- "?"
-- "?"
+- "What is a confidence interval?"
 objectives:
-- ""
-- ""
-- ""
-- ""
 - ""
 - ""
 - ""

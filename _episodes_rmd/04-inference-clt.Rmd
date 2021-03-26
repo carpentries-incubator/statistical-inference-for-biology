@@ -4,13 +4,7 @@ teaching: 0
 exercises: 0
 questions:
 - "What is a parameter from a population?"
-- "?"
-- "?"
 objectives:
-- ""
-- ""
-- ""
-- ""
 - ""
 - ""
 - ""

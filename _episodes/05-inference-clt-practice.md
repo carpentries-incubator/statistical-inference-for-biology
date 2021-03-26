@@ -6,13 +6,7 @@ teaching: 0
 exercises: 0
 questions:
 - "How is the CLT used in practice?"
-- "?"
-- "?"
 objectives:
-- ""
-- ""
-- ""
-- ""
 - ""
 - ""
 - ""
