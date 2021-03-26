@@ -6,13 +6,8 @@ teaching: 0
 exercises: 0
 questions:
 - "What is a parameter from a population?"
-- "?"
-- "?"
 objectives:
 - "Describe the Central Limit Theorem, the mathematical theory that permits us to compute p-values in practice."
-- ""
-- ""
-- ""
 - ""
 - ""
 - ""
