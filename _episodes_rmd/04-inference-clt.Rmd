@@ -19,6 +19,13 @@ source: Rmd
 ```{r, include=FALSE}
 source("../bin/chunk-options.R")
 knitr_fig_path("04-")
+library(downloader)
+url <- "https://raw.githubusercontent.com/genomicsclass/dagdata/master/inst/extdata/mice_pheno.csv"
+filename <- basename(url)
+download(url, destfile=filename)
+pheno <- na.omit(read.csv(filename))
+library(tidyverse)
+library(rafalib)
 ```
 
 ## Central Limit Theorem and t-distribution
@@ -179,7 +186,7 @@ hfPopulation <- filter(dat,Sex == "F" & Diet == "hf") %>%
   select(Bodyweight) %>% unlist
 ```
 
-It is important to keep in mind that what we are assuming to be normal here is the distribution of $y_1,y_2,\dots,y_n$, not the random variable $\bar{Y}$. Although we can't do this in practice, in this illustrative example, we get to see this distribution for both controls and high fat diet mice:
+It is important to keep in mind that what we are assuming to be normal here is the distribution of <i>y<sub>1</sub>,y<sub>2</sub>,&period;&period;&period;,y<sub>n</sub></i>, not the random variable Y&#772;. Although we can't do this in practice, in this illustrative example, we get to see this distribution for both controls and high fat diet mice:
 
 ```{r population_histograms, fig.cap="Histograms of all weights for both populations.",fig.width=10.5,fig.height=5.25}
 library(rafalib)

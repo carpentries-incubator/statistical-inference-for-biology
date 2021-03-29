@@ -37,7 +37,7 @@ Is
 
 ![Does mean of Y less mean of x equal zero?](../fig/02-muy-mux-eq-zero.png)
 
-[Examples of normal curves with different means and standard deviations](../fig/normal-curves.png)
+![Examples of normal curves with different means and standard deviations](../fig/normal-curves.png)
 
 We also want to know the variance from the mean, so that we have a sense of the spread of measurement around the mean.
 

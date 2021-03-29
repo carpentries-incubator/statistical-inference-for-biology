@@ -189,34 +189,11 @@ hfPopulation <- filter(dat,Sex == "F" & Diet == "hf") %>%
 ~~~
 {: .language-r}
 
-It is important to keep in mind that what we are assuming to be normal here is the distribution of $y_1,y_2,\dots,y_n$, not the random variable $\bar{Y}$. Although we can't do this in practice, in this illustrative example, we get to see this distribution for both controls and high fat diet mice:
+It is important to keep in mind that what we are assuming to be normal here is the distribution of <i>y<sub>1</sub>,y<sub>2</sub>,&period;&period;&period;,y<sub>n</sub></i>, not the random variable Y&#772;. Although we can't do this in practice, in this illustrative example, we get to see this distribution for both controls and high fat diet mice:
 
 
 ~~~
 library(rafalib)
-~~~
-{: .language-r}
-
-
-
-~~~
-
-Attaching package: 'rafalib'
-~~~
-{: .output}
-
-
-
-~~~
-The following object is masked from 'package:remotes':
-
-    install_bioc
-~~~
-{: .output}
-
-
-
-~~~
 mypar(1,2)
 hist(hfPopulation)
 ~~~
