@@ -27,9 +27,9 @@ The question we are asking is can be expressed as:
 
 Is
 
-![](../fig/02-muy-mux-eq-zero.png)
+![Does mean of Y less mean of x equal zero?](../fig/02-muy-mux-eq-zero.png)
 
-[example of normal curves]("https://www.varsitytutors.com/assets/vt-hotmath-legacy/hotmath_help/topics/normal-distribution-of-data/normal-distribution-1.gif")
+[Examples of normal curves with different means and standard deviations](../fig/normal-curves.png)
 
 We also want to know the variance from the mean, so that we have a sense of the spread of measurement around the mean.
 
