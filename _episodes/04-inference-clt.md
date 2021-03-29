@@ -189,7 +189,7 @@ hfPopulation <- filter(pheno,Sex == "F" & Diet == "hf") %>%
 ~~~
 {: .language-r}
 
-It is important to keep in mind that what we are assuming to be normal here is the distribution of <i>y<sub>1</sub>,y<sub>2</sub>,&period;&period;&period;,y<sub>n</sub></i>, not the random variable Y&#772;. Although we can't do this in practice, in this illustrative example, we get to see this distribution for both controls and high fat diet mice:
+It is important to keep in mind that what we are assuming to be normal here is the distribution of <i>y<sub>1</sub>,y<sub>2</sub>,...,y<sub>n</sub></i>, not the random variable Y&#772;. Although we can't do this in practice, in this illustrative example, we get to see this distribution for both controls and high fat diet mice:
 
 
 ~~~
@@ -226,32 +226,60 @@ weakness of this approximation. In the next section, we will see that
 for this particular dataset the t-distribution works well even for
 sample sizes as small as 3. 
 
-Exercises
-
 All the above exercises relate to the normal distribution as an approximation of the distribution of a fixed list of numbers or a population. We have not yet discussed probability in these exercises. If the distribution of a list of numbers is approximately normal, then if we pick a number at random from this distribution, it will follow a normal distribution. However, it is important to remember that stating that some quantity has a distribution does not necessarily imply this quantity is random. Also, keep in mind that this is not related to the central limit theorem. The central limit applies to averages of random variables. Let’s explore this concept.
 
-We will now take a sample of size 25 from the population of males on the chow diet. The average of this sample is our random variable. We will use the replicate to observe 10,000 realizations of this random variable. Set the seed at 1, generate these 10,000 averages. Make a histogram and qq-plot of these 10,000 numbers against the normal distribution. We can see that, as predicted by the CLT, the distribution of the random variable is very well approximated by the normal distribution.
-y<-filter(dat, Sex=="M"&Diet=="chow")%>%
-select(Bodyweight)%>%
-unlist
-avgs<-replicate(10000, mean( sample(y,25)))
-mypar(1,2)
-hist(avgs)
-qqnorm(avgs)
-qqline(avgs)
-What is the average of the distribution of the sample average?
-
-10.What is the standard deviation of the distribution of sample averages?
-
-11.According to the CLT, the answer to exercise 9 should be the same asmean(y). You shouldbe able to confirm that these two numbers are very close. Which of the following does theCLT tell us should be close to your answer to exercise 10?
-A)popsd(y)
-B)popsd(avgs)/sqrt(25)
-C)sqrt(25) / popsd(y)
-D)popsd(y)/sqrt(25)
-
-12.In practice we do not know(popsd(y)) which is why we can’t use the CLT directly. Thisis because we see a sample and not the entire distribution. We also can’t usepopsd(avgs)because to construct averages, we have to take 10,000 samples and this is never practical. Weusually just get one sample. Instead we have to estimatepopsd(y). As described, what weuse is the sample standard deviation. Set the seed at 1, using thereplicatefunction, create10,000 samples of 25 and now, instead of the sample average, keep the standard deviation.Look at the distribution of the sample standard deviations. It is a random variable. The realpopulation SD is about 4.5. What proportion of the sample SDs are below 3.5?
-13.What the answer to question 12 reveals is that the denominator of the t-test is a randomvariable. By decreasing the sample size, you can see how this variability can increase.It therefore adds variability. The smaller the sample size, the more variability is added.The normal distribution stops providing a useful approximation. When the distribution ofthe population values is approximately normal, as it is for the weights, the t-distributionprovides a better approximation. We will see this later on. Here we will look at the differencebetween the t-distribution and normal. Use the functionqtandqnormto get the quantiles ofx=seq(0.0001,0.9999,len=300). Do this for degrees of freedom 3, 10, 30, and 100. Whichof the following is true?
-A) The t-distribution and normal distribution are always the same.
-B) The t-distribution has a higher average than the normal distribution.
-C) The t-distribution has larger tails up until 30 degrees of freedom, at which point itis practically the same as the normal distribution.
-D) The variance of the t-distribution grows as the degrees of freedom grow.
+> ## Exercise 3
+> We will now take a sample of size 25 from the population of males on the chow
+> diet. The average of this sample is our random variable. We will use 
+> `replicate` to observe 10,000 realizations of this random variable.   
+> 1. Set the seed at 1.  
+> 2. Generate these 10,000 averages.  
+> 3. Make a histogram and qq-plot of these 10,000 numbers against the normal
+> distribution.   
+> `y<-filter(dat, Sex=="M"&Diet=="chow")%>%`  
+> `select(Bodyweight)%>%`  
+> `unlist`  
+> `avgs<-replicate(10000, mean( sample(y,25)))`  
+> `mypar(1,2)`  
+> `hist(avgs)`  
+> `qqnorm(avgs)`  
+> `qqline(avgs)`  
+> We can see that, as predicted by the CLT, the distribution of the random 
+> variable is very well approximated by the normal distribution.  
+> 4. What is the average of the distribution of the sample average?  
+> 5. What is the standard deviation of the distribution of sample averages?  
+> 6. According to the CLT, the answer to exercise 9 should be the same as
+> `mean(y)`. You should be able to confirm that these two numbers are very 
+> close. Which of the following does the CLT tell us should be close to your 
+> answer to exercise 5?  
+> A) `popsd(y)`  
+> B) `popsd(avgs)/sqrt(25)`  
+> C) `sqrt(25) / popsd(y)`  
+> D) `popsd(y)/sqrt(25)`  
+> 7. In practice we do not know `(popsd(y))` which is why we can’t use the CLT 
+> directly. This is because we see a sample and not the entire distribution. We 
+> also can’t use `popsd(avgs)` because to construct averages, we have to take
+> 10,000 samples and this is never practical. We usually just get one sample.
+> Instead we have to estimate `popsd(y)`. As described, what we use is the 
+> sample standard deviation.  
+> Set the seed at 1. Using the`replicate` function, create 10,000 samples of 25 
+> and now, instead of the sample average, keep the standard deviation. Look at 
+> the distribution of the sample standard deviations. It is a random variable. 
+> The real population SD is about 4.5. What proportion of the sample SDs are 
+> below 3.5?  
+> 8. What the answer to question 7 reveals is that the denominator of the t-test 
+> is a random variable. By decreasing the sample size, you can see how this
+> variability can increase. It therefore adds variability. The smaller the 
+> sample size, the more variability is added. The normal distribution stops
+> providing a useful approximation. When the distribution of the population 
+> values is approximately normal, as it is for the weights, the
+> t-distribution provides a better approximation. We will see this later on. 
+> Here we will look at the difference between the t-distribution and normal. Use
+> the function `qt` and `qnorm` to get the quantiles of 
+> `x=seq(0.0001, 0.9999, len=300)`. Do this for degrees of freedom 3, 10, 30, 
+> and 100. Which of the following is true?  
+> A) The t-distribution and normal distribution are always the same.  
+> B) The t-distribution has a higher average than the normal distribution.  
+> C) The t-distribution has larger tails up until 30 degrees of freedom, at 
+> which point itis practically the same as the normal distribution.  
+> D) The variance of the t-distribution grows as the degrees of freedom grow.  
