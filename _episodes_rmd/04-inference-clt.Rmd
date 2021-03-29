@@ -178,11 +178,11 @@ Here we will use the mice phenotype data as an example. We start by
 creating two vectors, one for the control population and one for the
 high-fat diet population:
 
-```{r, eval=FALSE}
-dat <- read.csv("mice_pheno.csv") #We downloaded this file in a previous section
-controlPopulation <- filter(dat,Sex == "F" & Diet == "chow") %>%  
+```{r control_hf}
+# pheno <- read.csv("mice_pheno.csv") #We downloaded this file in a previous section
+controlPopulation <- filter(pheno,Sex == "F" & Diet == "chow") %>%  
   select(Bodyweight) %>% unlist
-hfPopulation <- filter(dat,Sex == "F" & Diet == "hf") %>%  
+hfPopulation <- filter(pheno,Sex == "F" & Diet == "hf") %>%  
   select(Bodyweight) %>% unlist
 ```
 

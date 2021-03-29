@@ -36,6 +36,7 @@ The question we are asking is can be expressed as:
 Is
 
 ![Does mean of Y less mean of x equal zero?](../fig/02-muy-mux-eq-zero.png)
+The three normal curves below help to visualize this equation as a question comparing the means of each curve to one of the others. 
 
 ![Examples of normal curves with different means and standard deviations](../fig/normal-curves.png)
 

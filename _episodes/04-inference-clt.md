@@ -181,10 +181,10 @@ high-fat diet population:
 
 
 ~~~
-dat <- read.csv("mice_pheno.csv") #We downloaded this file in a previous section
-controlPopulation <- filter(dat,Sex == "F" & Diet == "chow") %>%  
+# pheno <- read.csv("mice_pheno.csv") #We downloaded this file in a previous section
+controlPopulation <- filter(pheno,Sex == "F" & Diet == "chow") %>%  
   select(Bodyweight) %>% unlist
-hfPopulation <- filter(dat,Sex == "F" & Diet == "hf") %>%  
+hfPopulation <- filter(pheno,Sex == "F" & Diet == "hf") %>%  
   select(Bodyweight) %>% unlist
 ~~~
 {: .language-r}
@@ -196,29 +196,11 @@ It is important to keep in mind that what we are assuming to be normal here is t
 library(rafalib)
 mypar(1,2)
 hist(hfPopulation)
-~~~
-{: .language-r}
-
-
-
-~~~
-Error in hist(hfPopulation): object 'hfPopulation' not found
-~~~
-{: .error}
-
-
-
-~~~
 hist(controlPopulation)
 ~~~
 {: .language-r}
 
-
-
-~~~
-Error in hist(controlPopulation): object 'controlPopulation' not found
-~~~
-{: .error}
+<img src="../fig/rmd-04-population_histograms-1.png" title="Histograms of all weights for both populations." alt="Histograms of all weights for both populations." width="756" style="display: block; margin: auto;" />
 
 We can use *qq-plots* to confirm that the distributions are relatively
 close to being normally distributed. We will explore these plots in
@@ -231,57 +213,13 @@ data is close to the theoretical distribution.
 ~~~
 mypar(1,2)
 qqnorm(hfPopulation)
-~~~
-{: .language-r}
-
-
-
-~~~
-Error in qqnorm(hfPopulation): object 'hfPopulation' not found
-~~~
-{: .error}
-
-
-
-~~~
 qqline(hfPopulation)
-~~~
-{: .language-r}
-
-
-
-~~~
-Error in quantile(y, probs, names = FALSE, type = qtype, na.rm = TRUE): object 'hfPopulation' not found
-~~~
-{: .error}
-
-
-
-~~~
 qqnorm(controlPopulation)
-~~~
-{: .language-r}
-
-
-
-~~~
-Error in qqnorm(controlPopulation): object 'controlPopulation' not found
-~~~
-{: .error}
-
-
-
-~~~
 qqline(controlPopulation)
 ~~~
 {: .language-r}
 
-
-
-~~~
-Error in quantile(y, probs, names = FALSE, type = qtype, na.rm = TRUE): object 'controlPopulation' not found
-~~~
-{: .error}
+<img src="../fig/rmd-04-population_qqplots-1.png" title="Quantile-quantile plots of all weights for both populations." alt="Quantile-quantile plots of all weights for both populations." width="756" style="display: block; margin: auto;" />
 
 The larger the sample, the more forgiving the result is to the
 weakness of this approximation. In the next section, we will see that
