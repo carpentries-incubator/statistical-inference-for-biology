@@ -228,20 +228,20 @@ downloaded.
 > 1. Define the parameter <i>&mu;<sub>x</sub></i> as the average of the control
 > population. We estimate this parameter with the sample average X&#772;.
 > What is the sample average?  
-> 2. We don’t know <i>&mu;<sub>X</sub></i>, but want to use <i>X&#772;</i> to
+> 2. We don’t know <i>&mu;<sub>X</sub></i>, but want to use X&#772; to
 > understand <i>&mu;<sub>X</sub></i>. Which of the following uses CLT to
-> understand how well <i>X&#772;</i> approximates <i>&mu;<sub>X</sub></i>?  
-> A) <i>X&#772;</i> follows a normal distribution with mean 0 and standard 
+> understand how well X&#772; approximates <i>&mu;<sub>X</sub></i>?  
+> A) X&#772; follows a normal distribution with mean 0 and standard 
 > deviation 1.  
 > B) <i>&mu;<sub>X</sub></i> follows a normal distribution with mean
-> <i>X&#772;</i> and standard deviation <i>&sigma;<sub>X</sub>/&radic;12</i> where <i>&sigma;<sub>X</sub></i> is the population standard deviation.  
-> C) <i>X&#772;</i> follows a normal distribution with mean 
-> <i>&mu;<sub>X</sub></i> and standard deviation <i>&sigma;<sub>X</sub></i> 
-> where <i>&sigma;<sub>X</sub></i> is the population standard deviation.  
-> D) <i>X&#772;</i> follows a normal distribution with mean
-> <i>&mu;<sub>X</sub></i> and standard deviation 
-> <i>&sigma;<sub>X</sub>/&radic;12</i> where <i>&sigma;<sub>X</sub></i> is the 
-> population standard deviation.  
+> X&#772; and standard deviation <i>&sigma;<sub>X</sub>/&radic;12</i> where
+> <i>&sigma;<sub>X</sub></i> is the population standard deviation.  
+> C) X&#772; follows a normal distribution with mean <i>&mu;<sub>X</sub></i> and
+> standard deviation <i>&sigma;<sub>X</sub></i> where <i>&sigma;<sub>X</sub></i>
+> is the population standard deviation.  
+> D) X&#772; follows a normal distribution with mean <i>&mu;<sub>X</sub></i> and
+> standard deviation <i>&sigma;<sub>X</sub>/&radic;12</i> where 
+> <i>&sigma;<sub>X</sub></i> is the population standard deviation.  
 > 3. The result above tells us the distribution of the following random 
 > variable:  
 > ![](../fig/Z-equation.png)
@@ -251,39 +251,56 @@ downloaded.
 > However, the equation involves the population standard deviation
 > <i>&sigma;<sub>X</sub></i>, which we don’t know. Given what we discussed, what
 > is your estimate of <i>&sigma;<sub>X</sub></i>?  
-> 5. Use the CLT to approximate the probability that our estimateXis off by more than 5.21ounces fromX.
-
-8. Now we introduce the concept of a null hypothesis. We don’t knowxnory. We want to quantify what the data say 
-about the possibility that the diet has no effect:x=y. If weuse CLT, then we approximate the distribution ofXas
-normal with meanXand standard deviationXand the distribution ofYas normal with meanyand standard deviationy. 
-This implies that the differenceY�Xhas mean0. We described that the standarddeviation of this statistic 
-(the standard error) is SE(X�Y) =√2y/12 +2x/12and thatwe estimate the population standard deviationsxandywith 
-the sample estimates. Whatis the estimate of SE(X�Y) =√2y/12 +2x/12?9.So now we can computeY�Xas well as an
-estimate of this standard error and constructa t-statistic. What is this t-statistic?
-
-10.If we apply the CLT, what is the distribution of this t-statistic?
-A) Normal with mean 0 and standard deviation 1.
-B) t-distributed with 22 degrees of freedom.
-C) Normal with mean 0 and standard deviation√2y/12 +2x/12.
-D) t-distributed with 12 degrees of freedom.
-
-11.Now we are ready to compute a p-value using the CLT. What is the probability of observinga quantity as 
-large as what we computed in 10, when the null distribution is true?
-
-12.CLT provides an approximation for cases in which the sample size is large. In practice, we can’t check 
-the assumption because we only get to see 1 outcome (which you computedabove). As a result, if this 
-approximation is off, so is our p-value. As described earlier, thereis another approach that does not 
-require a large sample size, but rather that the distributionof the population is approximately normal. 
-We don’t get to see this distribution so it isagain an assumption, although we can look at the distribution 
-of the sample withqqnorm(X)andqqnorm(Y). If we are willing to assume this, then it follows that the 
-t-statistic followst-distribution. What is the p-value under the t-distribution approximation? 
-Hint: use thet.testfunction.13.With the CLT distribution, we obtained a p-value smaller than 0.05 and 
-with the t-distribution, one that is larger. They can’t both be right. What best describes the difference?
-A) A sample size of 12 is not large enough, so we have to use the t-distributionapproximation.
-B) These are two different assumptions. The t-distribution accounts for the variabilityintroduced by the 
-estimation of the standard error and thus, under the null, largevalues are more probable under the null distribution.
-C) The population data is probably not normally distributed so the t-distributionapproximation is wrong.
-D) Neither assumption is useful. Both are wrong.
+> 5. Use the CLT to approximate the probability that our estimate X&#772; is off 
+> by more than 5.21 ounces from <i>&mu;<sub>X</sub></i>.  
+> 6. Now we introduce the concept of a null hypothesis. We don’t know 
+> <i>&mu;<sub>x</sub></i> nor <i>&mu;<sub>y</sub></i>. We want to quantify what 
+> the data say about the possibility that the diet has no effect:
+> <i>&mu;<sub>x</sub> = &mu;<sub>y</sub></i>. If we use CLT, then we approximate
+> the distribution of X&#772; as normal with mean <i>&mu;<sub>X</sub></i> and 
+> standard deviation <i>&sigma;<sub>X</sub></i> and the distribution of Y&#772;
+> as normal with mean <i>&mu;<sub>Y</sub></i> and standard deviation 
+> <i>&sigma;<sub>Y</sub></i>. This implies that the difference Y&#772; - X&#772;
+> has mean 0. We described that the standard deviation of this statistic 
+> (the standard error) is
+> ![](../fig/SE-Xbar-Ybar.png)
+> and that we estimate the population standard deviations 
+> <i>&sigma;<sub>X</sub></i> and <i>&sigma;<sub>Y</sub></i> with the sample 
+> estimates. What is the estimate of 
+> ![](../fig/SE-Xbar-Ybar.png)
+> 7. So now we can compute Y&#772; - X&#772; as well as an estimate of this 
+> standard error and construct a t-statistic. What is this t-statistic?  
+> 8. If we apply the CLT, what is the distribution of this t-statistic?  
+> A) Normal with mean 0 and standard deviation 1.  
+> B) t-distributed with 22 degrees of freedom.  
+> C) Normal with mean 0 and standard deviation
+> ![](../fig/SE.png)  
+> D) t-distributed with 12 degrees of freedom.  
+> 9. Now we are ready to compute a p-value using the CLT. What is the 
+> probability of observing a quantity as large as what we computed in 8, when 
+> the null distribution is true?  
+> 10. CLT provides an approximation for cases in which the sample size is large. 
+> In practice, we can’t check the assumption because we only get to see 1 
+> outcome (which you computed above). As a result, if this approximation is off, 
+> so is our p-value. As described earlier, there is another approach that does 
+> not require a large sample size, but rather that the distribution of the 
+> population is approximately normal. We don’t get to see this distribution so 
+> it is again an assumption, although we can look at the distribution of the 
+> sample with `qqnorm(X)` and `qqnorm(Y)`. If we are willing to assume this, 
+> then it follows that the t-statistic follows t-distribution. What is the 
+> p-value under the t-distribution approximation? Hint: use the `t.test` 
+> function.  
+> 11. With the CLT distribution, we obtained a p-value smaller than 0.05 and 
+> with the t-distribution, one that is larger. They can’t both be right. What 
+> best describes the difference?  
+> A) A sample size of 12 is not large enough, so we have to use the 
+> t-distribution approximation.  
+> B) These are two different assumptions. The t-distribution accounts for the
+> variability introduced by the estimation of the standard error and thus, under
+> the null, large values are more probable under the null distribution.  
+> C) The population data is probably not normally distributed so the 
+> t-distribution approximation is wrong.  
+> D) Neither assumption is useful. Both are wrong.  
 > > ## Solution to Exercise 3
 > {: .solution}
 {: .challenge}
