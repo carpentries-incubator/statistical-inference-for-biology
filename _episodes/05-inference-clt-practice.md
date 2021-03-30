@@ -268,7 +268,6 @@ downloaded.
 > `Y <- filter(dat, Diet=="hf") %>%`   
 > `select(Bodyweight) %>%`  
 > `unlist`  
-> <span style="font-size:80%">D</span>
 > We think of <i>X</i> as a random sample from the population of all mice in the 
 > control diet and <i>Y</i> as a random sample from the population of all mice 
 > in the high fat diet.  
