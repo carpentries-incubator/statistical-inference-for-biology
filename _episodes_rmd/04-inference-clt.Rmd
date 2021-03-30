@@ -220,7 +220,7 @@ All the above exercises relate to the normal distribution as an approximation of
 > ## Exercise 3
 > We will now take a sample of size 25 from the population of males on the chow
 > diet. The average of this sample is our random variable. We will use 
-> `replicate` to observe 10,000 realizations of this random variable.   
+> `replicate` to observe 10,000 realizations of this random variable.  
 > 1. Set the seed at 1.  
 > 2. Generate these 10,000 averages.  
 > 3. Make a histogram and qq-plot of these 10,000 numbers against the normal
@@ -272,6 +272,7 @@ All the above exercises relate to the normal distribution as an approximation of
 > C) The t-distribution has larger tails up until 30 degrees of freedom, at 
 > which point itis practically the same as the normal distribution.  
 > D) The variance of the t-distribution grows as the degrees of freedom grow.  
+>
 > > ## Solution to Exercise 3
 > {: .solution}
 {: .challenge}
