@@ -255,14 +255,10 @@ Y&#772; - X&#772; repeatedly, let's define this difference as a new variable
 Suppose you use CLT and report 
 
 ![](../fig/d-plusmn.png)
-
-<i>d &plusmn; 2 s<sub>d</sub> / &radic;N</i>,
-
 with 
 
 ![](../fig/s-sub-d.png)
 
-<i>s<sub>d</sub> = &radic;(s<sub>X</sub>&sup2; + s<sub>Y</sub>&sup2;)</i>, 
 as a 95% confidence interval for the difference and this interval does not 
 include 0 (a false positive). Because the interval does not include 0, this 
 implies that either 
