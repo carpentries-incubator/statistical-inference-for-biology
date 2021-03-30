@@ -30,23 +30,17 @@ Let's use our data to see how well the central limit theorem approximates sample
 
 
 ~~~
-dat <- read.csv("mice_pheno.csv") #file was previously downloaded
-head(dat)
+# pheno <- read.csv("mice_pheno.csv") #file was previously downloaded
+head(pheno)
 ~~~
 {: .language-r}
 
 
 
 ~~~
-  Sex Diet Bodyweight
-1   F   hf      31.94
-2   F   hf      32.48
-3   F   hf      22.82
-4   F   hf      19.92
-5   F   hf      32.22
-6   F   hf      27.50
+Error in head(pheno): object 'pheno' not found
 ~~~
-{: .output}
+{: .error}
 
 Start by selecting only female mice since males and females have
 different weights. We will select three mice from each population.
@@ -54,19 +48,65 @@ different weights. We will select three mice from each population.
 
 ~~~
 library(dplyr)
-controlPopulation <- filter(dat,Sex == "F" & Diet == "chow") %>%  
-  select(Bodyweight) %>% unlist
-hfPopulation <- filter(dat,Sex == "F" & Diet == "hf") %>%  
+controlPopulation <- filter(pheno, Sex == "F" & Diet == "chow") %>%  
   select(Bodyweight) %>% unlist
 ~~~
 {: .language-r}
+
+
+
+~~~
+Error in filter(pheno, Sex == "F" & Diet == "chow"): object 'pheno' not found
+~~~
+{: .error}
+
+
+
+~~~
+hfPopulation <- filter(pheno, Sex == "F" & Diet == "hf") %>%  
+  select(Bodyweight) %>% unlist
+~~~
+{: .language-r}
+
+
+
+~~~
+Error in filter(pheno, Sex == "F" & Diet == "hf"): object 'pheno' not found
+~~~
+{: .error}
 
 We can compute the population parameters of interest using the mean function.
 
 
 ~~~
 mu_hf <- mean(hfPopulation)
+~~~
+{: .language-r}
+
+
+
+~~~
+Error in mean(hfPopulation): object 'hfPopulation' not found
+~~~
+{: .error}
+
+
+
+~~~
 mu_control <- mean(controlPopulation)
+~~~
+{: .language-r}
+
+
+
+~~~
+Error in mean(controlPopulation): object 'controlPopulation' not found
+~~~
+{: .error}
+
+
+
+~~~
 print(mu_hf - mu_control)
 ~~~
 {: .language-r}
@@ -74,17 +114,56 @@ print(mu_hf - mu_control)
 
 
 ~~~
-[1] 2.375517
+Error in print(mu_hf - mu_control): object 'mu_hf' not found
 ~~~
-{: .output}
+{: .error}
 
 We can compute the population standard deviations of, say, a vector <i>x</i> as well. However, we do not use the R function `sd` because this function actually does not compute the population standard deviation <i>&sigma;<sub>x</sub></i>. Instead, `sd` assumes the main argument is a random sample, say <i>X</i>, and provides an estimate of <i>&sigma;<sub>x</sub></i>, defined by <i>s<sub>X</sub></i> above. As shown in the equations above the actual final answer differs because one divides by the sample size and the other by the sample size minus one. We can see that with R code:
 
 
 ~~~
 x <- controlPopulation
+~~~
+{: .language-r}
+
+
+
+~~~
+Error in eval(expr, envir, enclos): object 'controlPopulation' not found
+~~~
+{: .error}
+
+
+
+~~~
 N <- length(x)
+~~~
+{: .language-r}
+
+
+
+~~~
+Error in eval(expr, envir, enclos): object 'x' not found
+~~~
+{: .error}
+
+
+
+~~~
 populationvar <- mean((x-mean(x))^2)
+~~~
+{: .language-r}
+
+
+
+~~~
+Error in mean((x - mean(x))^2): object 'x' not found
+~~~
+{: .error}
+
+
+
+~~~
 identical(var(x), populationvar)
 ~~~
 {: .language-r}
@@ -92,9 +171,9 @@ identical(var(x), populationvar)
 
 
 ~~~
-[1] FALSE
+Error in is.data.frame(x): object 'x' not found
 ~~~
-{: .output}
+{: .error}
 
 
 
@@ -106,9 +185,9 @@ identical(var(x)*(N-1)/N, populationvar)
 
 
 ~~~
-[1] TRUE
+Error in is.data.frame(x): object 'x' not found
 ~~~
-{: .output}
+{: .error}
 
 So to be mathematically correct, we do not use `sd` or  `var`. Instead, we use the `popvar` and `popsd` function in `rafalib`:
 
@@ -139,9 +218,29 @@ The following object is masked from 'package:remotes':
 
 ~~~
 sd_hf <- popsd(hfPopulation)
+~~~
+{: .language-r}
+
+
+
+~~~
+Error in popvar(if (is.vector(x)) x else as.double(x), na.rm = na.rm): object 'hfPopulation' not found
+~~~
+{: .error}
+
+
+
+~~~
 sd_control <- popsd(controlPopulation)
 ~~~
 {: .language-r}
+
+
+
+~~~
+Error in popvar(if (is.vector(x)) x else as.double(x), na.rm = na.rm): object 'controlPopulation' not found
+~~~
+{: .error}
 
 Remember that in practice we do not get to compute these population parameters.
 These are values we never see. In general, we want to estimate them from samples. 
@@ -150,9 +249,29 @@ These are values we never see. In general, we want to estimate them from samples
 ~~~
 N <- 12
 hf <- sample(hfPopulation, 12)
+~~~
+{: .language-r}
+
+
+
+~~~
+Error in sample(hfPopulation, 12): object 'hfPopulation' not found
+~~~
+{: .error}
+
+
+
+~~~
 control <- sample(controlPopulation, 12)
 ~~~
 {: .language-r}
+
+
+
+~~~
+Error in sample(controlPopulation, 12): object 'controlPopulation' not found
+~~~
+{: .error}
 
 As we described, the CLT tells us that for large <i>N</i>, each of these is approximately normal with average population mean and standard error population variance divided by <i>N</i>. We mentioned that a rule of thumb is that <i>N</i> should be 30 or more. However, that is just a rule of thumb since the preciseness of the approximation depends on the population distribution. Here we can actually check the approximation and we do that for various values of <i>N</i>.
 
@@ -170,6 +289,13 @@ res <-  sapply(Ns,function(n) {
 ~~~
 {: .language-r}
 
+
+
+~~~
+Error in sample(hfPopulation, n): object 'hfPopulation' not found
+~~~
+{: .error}
+
 Now we can use qq-plots to see how well CLT approximations works for these. If in fact the normal distribution is a good approximation, the points should fall on a straight line when compared to normal quantiles. The more it deviates, the worse the approximation. In the title, we also show the average and SD of the observed distribution, which demonstrates how the SD decreases with <i>&radic;N</i> as predicted. 
 
 
@@ -185,7 +311,12 @@ for (i in seq(along=Ns)) {
 ~~~
 {: .language-r}
 
-<img src="../fig/rmd-05-effect_size_qqplot-1.png" title="Quantile versus quantile plot of simulated differences versus theoretical normal distribution for four different sample sizes." alt="Quantile versus quantile plot of simulated differences versus theoretical normal distribution for four different sample sizes." width="540" style="display: block; margin: auto;" />
+
+
+~~~
+Error in mean(res[, i]): object 'res' not found
+~~~
+{: .error}
 
 Here we see a pretty good fit even for 3. Why is this? Because the
 population itself is relatively close to normally distributed, the
@@ -207,6 +338,19 @@ computetstat <- function(n) {
 res <-  sapply(Ns,function(n) {
   replicate(B,computetstat(n))
 })
+~~~
+{: .language-r}
+
+
+
+~~~
+Error in sample(hfPopulation, n): object 'hfPopulation' not found
+~~~
+{: .error}
+
+
+
+~~~
 mypar(2,2)
 for (i in seq(along=Ns)) {
   qqnorm(res[,i],main=Ns[i])
@@ -215,7 +359,12 @@ for (i in seq(along=Ns)) {
 ~~~
 {: .language-r}
 
-<img src="../fig/rmd-05-t_test_qqplot-1.png" title="Quantile versus quantile plot of simulated ratios versus theoretical normal distribution for four different sample sizes." alt="Quantile versus quantile plot of simulated ratios versus theoretical normal distribution for four different sample sizes." width="540" style="display: block; margin: auto;" />
+
+
+~~~
+Error in qqnorm(res[, i], main = Ns[i]): object 'res' not found
+~~~
+{: .error}
 
 So we see that for <i>N=3</i>, the CLT does not provide a usable
 approximation. For <i>N=12</i>, there is a slight deviation at the higher
@@ -227,8 +376,6 @@ not in general. As mentioned above, we will not be able to perform
 this simulation in most situations. We only use the simulation to
 illustrate the concepts behind the CLT and its limitations. In future
 sections, we will describe the approaches we actually use in practice. 
-
-Exercises
 
 These exercises use the female mouse weights data set we have previously 
 downloaded.
@@ -247,10 +394,11 @@ downloaded.
 > keep these proportions. This random variable (proportion of 6s) has mean
 > <i>p=1/6</i> and variance <i>p &times; (1-p)/n</i>. So according to 
 > CLT <i>z</i> = `(mean(x==6) - p) / sqrt(p * (1-p)/n)` should be normal with 
-> mean 0 and SD 1. Set the seed to 1, then use `replicate` to perform the 
-> simulation, and report what proportion of times z was larger than 2 in 
-> absolute value (CLT says it should be about 0.05).
-> >
+> mean 0 and SD 1.  
+> Set the seed to 1, then use `replicate` to perform the simulation, and report
+> what proportion of times z was larger than 2 in absolute value (CLT says it
+> should be about 0.05).
+> > ## Solution to Exercise 1
 > {: .solution}
 {: .challenge}
 
@@ -265,12 +413,12 @@ downloaded.
 > CLT. With very low probabilities, we need larger sample sizes for the CLT to 
 > "kick in". Run the simulation from exercise 1, but for different values of
 > <i>p</i> and <i>n</i>. 
-> For which of the following is the normal approximation best?
-> A)<i>p</i>=0.5 and <i>n</i>=5
-> B)<i>p</i>=0.5 and <i>n</i>=30
-> C)<i>p</i>=0.01 and <i>n</i>=30
-> D)<i>p</i>=0.01 and <i>n</i>=100
-> >
+> For which of the following is the normal approximation best?  
+> A)<i>p</i>=0.5 and <i>n</i>=5  
+> B)<i>p</i>=0.5 and <i>n</i>=30  
+> C)<i>p</i>=0.01 and <i>n</i>=30  
+> D)<i>p</i>=0.01 and <i>n</i>=100  
+> > ## Solution to Exercise 2
 > {: .solution}
 {: .challenge}
 
@@ -282,34 +430,34 @@ downloaded.
 > In several previous exercises we have illustrated statistical concepts with 
 > the unrealistic situation of having access to the entire population. 
 > In practice, we do not have access to entire populations. Instead, we obtain 
-> one random sample and need to reach conclusions analyzing that data. `dat` is 
-> an example of a typical simple dataset representing just one sample. We have 
-> 12 measurements for each of two populations:
+> one random sample and need to reach conclusions analyzing that data. `pheno`
+> is an example of a typical simple dataset representing just one sample.
+> We have 12 measurements for each of two populations:
 > 
-> `X <- filter(dat, Diet=="chow") %>%`
-> `       select(Bodyweight) %>%`
-> `       unlist`
-> `Y <- filter(dat, Diet=="hf") %>%`
-> `       select(Bodyweight) %>%`
+> `X <- filter(dat, Diet=="chow") %>%`  
+> `       select(Bodyweight) %>%`  
+> `       unlist`  
+> `Y <- filter(dat, Diet=="hf") %>%`  
+> `       select(Bodyweight) %>%`  
 > `       unlist`
 > 
 > We think of <i>X</i> as a random sample from the population of all mice in the 
 > control diet and <i>Y</i> as a random sample from the population of all mice 
-> in the high fat diet. Define the parameterxas the average of the control population. 
-We estimate this parameter with the sample averageX. What is the sample average?
-> >
-> {: .solution}
-{: .challenge}
-28
-4.We don’t know <i>X</i>, but want to use <i>X</i> to understand <i>X</i>. Which of the following uses CLT to understand how 
-wellXapproximatesX?
-A)Xfollows a normal distribution with mean 0 and standard deviation 1.
-B)Xfollows a normal distribution with meanXand standard deviationxp12wherexis the population standard deviation.
-C)Xfollows a normal distribution with meanXand standard deviationxwherexis the population standard deviation.
-D)Xfollows a normal distribution with meanXand standard deviationxp12wherexis the population standard deviation.
-
-5.The result above tells us the distribution of the following random variable:Z=p12X�XX.
-What does the CLT tell us is the mean ofZ(you don’t need code)?
+> in the high fat diet.  
+> 1. Define the parameter <i>&mu;<sub>x</sub></i> as the average of the control
+> population. We estimate this parameter with the sample average <i>X&#772;</i>.
+> What is the sample average?  
+> 2. We don’t know <i>&mu;<sub>x</sub></i>, but want to use <i>X&#772;</i> to
+> understand <i>&mu;<sub>x</sub></i>. Which of the following uses CLT to
+> understand how well <i>X&#772;</i> approximates <i>&mu;<sub>x</sub></i>?  
+> A) <i>X&#772;</i> follows a normal distribution with mean 0 and standard deviation 1.  
+> B) <i>&mu;<sub>x</sub></i> follows a normal distribution with mean
+> <i>X&#772;</i> and standard deviationxp12where &sigma;<sub>x</sub> is the population standard deviation.  
+> C) <i>X&#772;</i> follows a normal distribution with mean <i>&mu;<sub>x</sub></i> and standard deviation &sigma;<sub>x</sub> where
+> &sigma;<sub>x</sub> is the population standard deviation.  
+> D) <i>X&#772;</i> follows a normal distribution with mean <i>&mu;<sub>x</sub></i> and standard deviationxp12where &sigma;<sub>x</sub> is the population standard deviation.  
+> 3. The result above tells us the distribution of the following random 
+> variable: Z=p12X�XX. What does the CLT tell us is the mean of Z (you don’t need code)?
 
 6.The result of 4 and 5 tell us that we know the distribution of the difference between ourestimate and what 
 we want to estimate, but don’t know. However, the equation involves the population standard deviationX, which 
@@ -348,3 +496,6 @@ B) These are two different assumptions. The t-distribution accounts for the vari
 estimation of the standard error and thus, under the null, largevalues are more probable under the null distribution.
 C) The population data is probably not normally distributed so the t-distributionapproximation is wrong.
 D) Neither assumption is useful. Both are wrong.
+> > ## Solution to Exercise 3
+> {: .solution}
+{: .challenge}

@@ -148,7 +148,7 @@ used.
 > 10,000 realizations of this random variable.  
 > 1. Set the seed at 1, generate these 10,000 averages.  
 > `set.seed(1)`  
-> `y <- filter(pheno, Sex=="M"&Diet=="chow") %>%`   
+> `y <- filter(pheno, Sex=="M" & Diet=="chow") %>%`   
 > `select(Bodyweight) %>%`   
 > `unlist`  
 > `avgs <- replicate(10000, mean(sample(y,25)))`   
@@ -182,9 +182,9 @@ high-fat diet population:
 
 ~~~
 # pheno <- read.csv("mice_pheno.csv") #We downloaded this file in a previous section
-controlPopulation <- filter(pheno,Sex == "F" & Diet == "chow") %>%  
+controlPopulation <- filter(pheno, Sex == "F" & Diet == "chow") %>%  
   select(Bodyweight) %>% unlist
-hfPopulation <- filter(pheno,Sex == "F" & Diet == "hf") %>%  
+hfPopulation <- filter(pheno, Sex == "F" & Diet == "hf") %>%  
   select(Bodyweight) %>% unlist
 ~~~
 {: .language-r}
@@ -236,10 +236,10 @@ All the above exercises relate to the normal distribution as an approximation of
 > 2. Generate these 10,000 averages.  
 > 3. Make a histogram and qq-plot of these 10,000 numbers against the normal
 > distribution.   
-> `y<-filter(dat, Sex=="M"&Diet=="chow")%>%`  
-> `select(Bodyweight)%>%`  
+> `y <- filter(dat, Sex=="M" & Diet=="chow") %>%`  
+> `select(Bodyweight) %>%`  
 > `unlist`  
-> `avgs<-replicate(10000, mean( sample(y,25)))`  
+> `avgs <- replicate(10000, mean( sample(y,25)))`  
 > `mypar(1,2)`  
 > `hist(avgs)`  
 > `qqnorm(avgs)`  
@@ -253,9 +253,9 @@ All the above exercises relate to the normal distribution as an approximation of
 > close. Which of the following does the CLT tell us should be close to your 
 > answer to exercise 5?  
 > A) `popsd(y)`  
-> B) `popsd(avgs)/sqrt(25)`  
+> B) `popsd(avgs) / sqrt(25)`  
 > C) `sqrt(25) / popsd(y)`  
-> D) `popsd(y)/sqrt(25)`  
+> D) `popsd(y) / sqrt(25)`  
 > 7. In practice we do not know `(popsd(y))` which is why we can’t use the CLT 
 > directly. This is because we see a sample and not the entire distribution. We 
 > also can’t use `popsd(avgs)` because to construct averages, we have to take
@@ -283,3 +283,6 @@ All the above exercises relate to the normal distribution as an approximation of
 > C) The t-distribution has larger tails up until 30 degrees of freedom, at 
 > which point itis practically the same as the normal distribution.  
 > D) The variance of the t-distribution grows as the degrees of freedom grow.  
+> > ## Solution to Exercise 3
+> {: .solution}
+{: .challenge}

@@ -37,8 +37,8 @@ if (!file.exists(filename)) download(url,destfile=filename)
 ```
 
 ```{r}
-dat <- read.csv("mice_pheno.csv") #file was previously downloaded
-head(dat)
+# pheno <- read.csv("mice_pheno.csv") #file was previously downloaded
+head(pheno)
 ```
 
 Start by selecting only female mice since males and females have
@@ -46,9 +46,9 @@ different weights. We will select three mice from each population.
 
 ```{r, message=FALSE}
 library(dplyr)
-controlPopulation <- filter(dat,Sex == "F" & Diet == "chow") %>%  
+controlPopulation <- filter(pheno, Sex == "F" & Diet == "chow") %>%  
   select(Bodyweight) %>% unlist
-hfPopulation <- filter(dat,Sex == "F" & Diet == "hf") %>%  
+hfPopulation <- filter(pheno, Sex == "F" & Diet == "hf") %>%  
   select(Bodyweight) %>% unlist
 ```
 
@@ -151,8 +151,6 @@ this simulation in most situations. We only use the simulation to
 illustrate the concepts behind the CLT and its limitations. In future
 sections, we will describe the approaches we actually use in practice. 
 
-Exercises
-
 These exercises use the female mouse weights data set we have previously 
 downloaded.
 
@@ -170,10 +168,11 @@ downloaded.
 > keep these proportions. This random variable (proportion of 6s) has mean
 > <i>p=1/6</i> and variance <i>p &times; (1-p)/n</i>. So according to 
 > CLT <i>z</i> = `(mean(x==6) - p) / sqrt(p * (1-p)/n)` should be normal with 
-> mean 0 and SD 1. Set the seed to 1, then use `replicate` to perform the 
-> simulation, and report what proportion of times z was larger than 2 in 
-> absolute value (CLT says it should be about 0.05).
-> >
+> mean 0 and SD 1.  
+> Set the seed to 1, then use `replicate` to perform the simulation, and report
+> what proportion of times z was larger than 2 in absolute value (CLT says it
+> should be about 0.05).
+> > ## Solution to Exercise 1
 > {: .solution}
 {: .challenge}
 
@@ -188,12 +187,12 @@ downloaded.
 > CLT. With very low probabilities, we need larger sample sizes for the CLT to 
 > "kick in". Run the simulation from exercise 1, but for different values of
 > <i>p</i> and <i>n</i>. 
-> For which of the following is the normal approximation best?
-> A)<i>p</i>=0.5 and <i>n</i>=5
-> B)<i>p</i>=0.5 and <i>n</i>=30
-> C)<i>p</i>=0.01 and <i>n</i>=30
-> D)<i>p</i>=0.01 and <i>n</i>=100
-> >
+> For which of the following is the normal approximation best?  
+> A)<i>p</i>=0.5 and <i>n</i>=5  
+> B)<i>p</i>=0.5 and <i>n</i>=30  
+> C)<i>p</i>=0.01 and <i>n</i>=30  
+> D)<i>p</i>=0.01 and <i>n</i>=100  
+> > ## Solution to Exercise 2
 > {: .solution}
 {: .challenge}
 
@@ -205,34 +204,34 @@ downloaded.
 > In several previous exercises we have illustrated statistical concepts with 
 > the unrealistic situation of having access to the entire population. 
 > In practice, we do not have access to entire populations. Instead, we obtain 
-> one random sample and need to reach conclusions analyzing that data. `dat` is 
-> an example of a typical simple dataset representing just one sample. We have 
-> 12 measurements for each of two populations:
+> one random sample and need to reach conclusions analyzing that data. `pheno`
+> is an example of a typical simple dataset representing just one sample.
+> We have 12 measurements for each of two populations:
 > 
-> `X <- filter(dat, Diet=="chow") %>%`
-> `       select(Bodyweight) %>%`
-> `       unlist`
-> `Y <- filter(dat, Diet=="hf") %>%`
-> `       select(Bodyweight) %>%`
+> `X <- filter(dat, Diet=="chow") %>%`  
+> `       select(Bodyweight) %>%`  
+> `       unlist`  
+> `Y <- filter(dat, Diet=="hf") %>%`  
+> `       select(Bodyweight) %>%`  
 > `       unlist`
 > 
 > We think of <i>X</i> as a random sample from the population of all mice in the 
 > control diet and <i>Y</i> as a random sample from the population of all mice 
-> in the high fat diet. Define the parameterxas the average of the control population. 
-We estimate this parameter with the sample averageX. What is the sample average?
-> >
-> {: .solution}
-{: .challenge}
-28
-4.We don’t know <i>X</i>, but want to use <i>X</i> to understand <i>X</i>. Which of the following uses CLT to understand how 
-wellXapproximatesX?
-A)Xfollows a normal distribution with mean 0 and standard deviation 1.
-B)Xfollows a normal distribution with meanXand standard deviationxp12wherexis the population standard deviation.
-C)Xfollows a normal distribution with meanXand standard deviationxwherexis the population standard deviation.
-D)Xfollows a normal distribution with meanXand standard deviationxp12wherexis the population standard deviation.
-
-5.The result above tells us the distribution of the following random variable:Z=p12X�XX.
-What does the CLT tell us is the mean ofZ(you don’t need code)?
+> in the high fat diet.  
+> 1. Define the parameter <i>&mu;<sub>x</sub></i> as the average of the control
+> population. We estimate this parameter with the sample average <i>X&#772;</i>.
+> What is the sample average?  
+> 2. We don’t know <i>&mu;<sub>x</sub></i>, but want to use <i>X&#772;</i> to
+> understand <i>&mu;<sub>x</sub></i>. Which of the following uses CLT to
+> understand how well <i>X&#772;</i> approximates <i>&mu;<sub>x</sub></i>?  
+> A) <i>X&#772;</i> follows a normal distribution with mean 0 and standard deviation 1.  
+> B) <i>&mu;<sub>x</sub></i> follows a normal distribution with mean
+> <i>X&#772;</i> and standard deviationxp12where &sigma;<sub>x</sub> is the population standard deviation.  
+> C) <i>X&#772;</i> follows a normal distribution with mean <i>&mu;<sub>x</sub></i> and standard deviation &sigma;<sub>x</sub> where
+> &sigma;<sub>x</sub> is the population standard deviation.  
+> D) <i>X&#772;</i> follows a normal distribution with mean <i>&mu;<sub>x</sub></i> and standard deviationxp12where &sigma;<sub>x</sub> is the population standard deviation.  
+> 3. The result above tells us the distribution of the following random 
+> variable: Z=p12X�XX. What does the CLT tell us is the mean of Z (you don’t need code)?
 
 6.The result of 4 and 5 tell us that we know the distribution of the difference between ourestimate and what 
 we want to estimate, but don’t know. However, the equation involves the population standard deviationX, which 
@@ -271,3 +270,6 @@ B) These are two different assumptions. The t-distribution accounts for the vari
 estimation of the standard error and thus, under the null, largevalues are more probable under the null distribution.
 C) The population data is probably not normally distributed so the t-distributionapproximation is wrong.
 D) Neither assumption is useful. Both are wrong.
+> > ## Solution to Exercise 3
+> {: .solution}
+{: .challenge}
