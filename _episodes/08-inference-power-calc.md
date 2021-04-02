@@ -425,7 +425,7 @@ diet group is from the control group. Under the alternative hypothesis, unlike
 the t-statistic which is guaranteed to increase, the effect size and Cohen's d 
 will become more precise.
 
-> ## Exercise 1 
+> ## Exercises
 > For these exercises we will load the babies dataset from babies.txt. We will 
 > use this data to review the concepts behind the p-values and then test 
 > confidence interval concepts.  
@@ -589,4 +589,7 @@ will become more precise.
 > gives you power of about 80%?  
 > 12. Repeat problem 11, but now require an <i>&alpha;</i> level of 0.01. Which 
 > of those four gives you power of about 80%?
-
+>
+> > ## Solution to Exercises
+> {: .solution}
+{: .challenge}
