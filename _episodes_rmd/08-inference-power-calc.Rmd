@@ -351,7 +351,7 @@ will become more precise.
 > 1. Set the seed at 1 and obtain two samples, each of size <i>N = 25</i>, from 
 > non-smoking mothers (`dat.ns`) and smoking mothers (`dat.s`). Compute the 
 > t-statistic (call it tval).  
-> 2.Recall that we summarize our data using a t-statistic because we know that 
+> 2. Recall that we summarize our data using a t-statistic because we know that 
 > in situations where the null hypothesis is true (what we mean when we say 
 > “under the null”) andthe sample size is relatively large, this t-value will 
 > have an approximate standard normal distribution. Because we know the 
@@ -382,7 +382,7 @@ will become more precise.
 > confidence interval?  
 > 5. If instead of CLT, we use the t-distribution approximation, what do we add 
 > and subtract (use 2 * N - 2 degrees of freedom)?  
-> 6.Why are the values from 4 and 5 so similar?  
+> 6. Why are the values from 4 and 5 so similar?  
 > A) Coincidence.  
 > B) They are both related to 99% confidence intervals.  
 > C) N and thus the degrees of freedom is large enough to make the normal and 
