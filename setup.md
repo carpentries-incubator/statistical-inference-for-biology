@@ -43,7 +43,8 @@ dir.create("./scripts")
 dir.create("./results")
 ~~~
 {: .r}
-3. Please download the following files and place them in your `data` folder. You can download the files from the URLs below and move the files the same way that you would for downloading and moving any other kind of data.
+
+Please download the following files and place them in your `data` folder. You can download the files from the URLs below and move the files the same way that you would for downloading and moving any other kind of data.
 
 
 Alternatively, you can copy and paste the following into the R console to download the data.
