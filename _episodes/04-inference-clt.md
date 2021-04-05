@@ -21,23 +21,41 @@ source: Rmd
 
 
 ## Central Limit Theorem and t-distribution
-Below we will discuss the Central Limit Theorem (CLT) and the t-distribution, both of which help us make important calculations related to probabilities. Both are frequently used in science to test statistical hypotheses. To use these, we have to make different assumptions from those for the CLT and the t-distribution. However, if the assumptions are true, then we are able to calculate the exact probabilities of events through the use of mathematical formula.
+Below we will discuss the Central Limit Theorem (CLT) and the t-distribution, 
+both of which help us make important calculations related to probabilities. Both 
+are frequently used in science to test statistical hypotheses. To use these, we 
+have to make different assumptions from those for the CLT and the 
+t-distribution. However, if the assumptions are true, then we are able to 
+calculate the exact probabilities of events through the use of mathematical 
+formula.
 
 #### Central Limit Theorem 
 
-The CLT is one of the most frequently used mathematical results in science. It tells us that when the sample size is large, the average Y&#772; of a random sample follows a normal distribution centered at the population average &mu;<sub>Y</sub> and with standard deviation equal to the population standard deviation &sigma;<sub>Y</sub>, divided by the square root of the sample size *N*. We refer to the standard deviation of the distribution of a random variable as the random variable's *standard error*.
+The CLT is one of the most frequently used mathematical results in science. It 
+tells us that when the sample size is large, the average Y&#772; of a random 
+sample follows a normal distribution centered at the population average 
+&mu;<sub>Y</sub> and with standard deviation equal to the population standard 
+deviation &sigma;<sub>Y</sub>, divided by the square root of the sample size 
+*N*. We refer to the standard deviation of the distribution of a random variable 
+as the random variable's *standard error*.
 
 This implies that if we take many samples of size *N*, then the quantity: 
 
 ![](../fig/02-random-sample.png)
 
-is approximated with a normal distribution centered at 0 and with standard deviation 1.
+is approximated with a normal distribution centered at 0 and with standard 
+deviation 1.
 
-We are interested in the difference between two sample averages. Again, applying certain mathematical principles, it can be implied that the below ratio:  
+We are interested in the difference between two sample averages. Again, applying 
+certain mathematical principles, it can be implied that the below ratio:  
 
 ![](../fig/02-diff-sample-avgs.png)
 
-is approximated by a normal distribution centered at 0 and standard deviation 1. Calculating p-values for the standard normal distribution is simple because we know the proportion of the distribution under any value. For example, only 5% of the values in the standard normal distribution are larger than 2 (in absolute value):
+is approximated by a normal distribution centered at 0 and standard deviation 1. 
+Calculating p-values for the standard normal distribution is simple because we 
+know the proportion of the distribution under any value. For example, only 5% of 
+the values in the standard normal distribution are larger than 2 (in absolute 
+value):
 
 
 ~~~
@@ -54,11 +72,16 @@ pnorm(-2) + (1 - pnorm(2))
 
 We don't need to buy more mice, 12 and 12 suffice.
 
-However, we can't claim victory just yet because we don't know the population standard deviations: &sigma;<sub>X</sub> and &sigma;<sub>Y</sub>. These are unknown population parameters, but we can get around this by using the sample standard deviations, call them *s<sub>X</sub>* and *s<sub>Y</sub>*. These are defined as: 
+However, we can't claim victory just yet because we don't know the population 
+standard deviations: &sigma;<sub>X</sub> and &sigma;<sub>Y</sub>. These are 
+unknown population parameters, but we can get around this by using the sample 
+standard deviations, call them *s<sub>X</sub>* and *s<sub>Y</sub>*. These are 
+defined as: 
 
 ![](../fig/02-sample-stddev.png)
 
-Note that we are dividing by *M-1* and *N-1*, instead of by *M* and *N*. There is a theoretical reason for doing this which we do not explain here.
+Note that we are dividing by *M-1* and *N-1*, instead of by *M* and *N*. There 
+is a theoretical reason for doing this which we do not explain here.
 
 So we can redefine our ratio as
 

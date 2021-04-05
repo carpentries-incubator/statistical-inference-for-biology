@@ -30,38 +30,59 @@ library(rafalib)
 ```
 
 ## Populations, Samples and Estimates 
-We can never know the true mean or variance of an entire population. Why not? Because we can't feasibly measure every member of a population. We can never know the true mean blood pressure of all mice, for example, even if all are from one strain, because we can't afford to buy them all or even find them all. We can never know the true mean blood pressure of all people on a Western diet, for example, because we can't possible measure the entire population that's on a Western diet. If we could measure all people on a Western diet, we really are interested in the difference in means between people on a Western vs. non high fat high sugar diet because we want to know what effect the diet has on people. If there is no difference in means, we can say that there is no effect of diet. If there is a difference in means, we can say that the diet has an effect. 
-The question we are asking is can be expressed as:
+We can never know the true mean or variance of an entire population. Why not? 
+Because we can't feasibly measure every member of a population. We can never 
+know the true mean blood pressure of all mice, for example, even if all are from 
+one strain, because we can't afford to buy them all or even find them all. We 
+can never know the true mean blood pressure of all people on a Western diet, for 
+example, because we can't possibly measure the entire population that's on a 
+Western diet. If we could measure all people on a Western diet, we really are 
+interested in the difference in means between people on a Western vs. non high 
+fat high sugar diet because we want to know what effect the diet has on people. 
+If there is no difference in means, we can say that there is no effect of diet. 
+If there is a difference in means, we can say that the diet has an effect. The 
+question we are asking is can be expressed as:
 
 Is
 
 ![Does mean of Y less mean of x equal zero?](../fig/02-muy-mux-eq-zero.png)
-The three normal curves below help to visualize this equation as a question comparing the means of each curve to one of the others. 
+The three normal curves below help to visualize this equation as a question 
+comparing the means of each curve to one of the others. 
 
-![Examples of normal curves with different means and standard deviations](../fig/normal-curves.png)
+![Normal curves with different means and standard deviations](../fig/normal-curves.png)
 
-We also want to know the variance from the mean, so that we have a sense of the spread of measurement around the mean.
+We also want to know the variance from the mean, so that we have a sense of the 
+spread of measurement around the mean.
 
-In reality we use sample estimates of population parameters. The true population parameters that we are interested in are mean and standard deviation. Here we learn how to taking a sample permits us to answer our questions about differences between groups. This is the essence of statistical inference.
+In reality we use sample estimates of population parameters. The true population 
+parameters that we are interested in are mean and standard deviation. Here we 
+learn how taking a sample permits us to answer our questions about differences 
+between groups. This is the essence of statistical inference.
 
-Now that we have introduced the idea of a random variable, a null distribution, and a p-value, we are ready to describe the mathematical theory that permits us to compute p-values in practice. We will also learn about confidence intervals and power calculations.
+Now that we have introduced the idea of a random variable, a null distribution, 
+and a p-value, we are ready to describe the mathematical theory that permits us 
+to compute p-values in practice. We will also learn about confidence intervals 
+and power calculations.
 
 #### Population parameters
 
-A first step in statistical inference is to understand what population
-you are interested in. In the mouse weight example, we have two
+A first step in statistical inference is to understand what population you are 
+interested in. In the mouse weight example, we have two
 populations: female mice on control diets and female mice on high fat
 diets, with weight being the outcome of interest. We consider this
 population to be fixed, and the randomness comes from the
 sampling. One reason we have been using this dataset as an example is
 because we happen to have the weights of all the mice of this
-type. We download [this](https://raw.githubusercontent.com/genomicsclass/dagdata/master/inst/extdata/mice_pheno.csv) file to our working directory and read in to R:
+type. We download 
+[this](https://raw.githubusercontent.com/genomicsclass/dagdata/master/inst/extdata/mice_pheno.csv) 
+file to our working directory and read in to R:
 
 ```{r load_pheno}
 pheno <- read.csv(file = "../data/mice_pheno.csv")
 ```
 
-We can then access the population values and determine, for example, how many we have. Here we compute the size of the control population:
+We can then access the population values and determine, for example, how many we 
+have. Here we compute the size of the control population:
 
 ```{r control_pop, message=FALSE}
 controlPopulation <- filter(pheno, Sex == "F" & Diet == "chow") %>%
@@ -69,7 +90,9 @@ controlPopulation <- filter(pheno, Sex == "F" & Diet == "chow") %>%
 length(controlPopulation)
 ```
 
-We usually denote these values as <i>x<sub> 1</sub>,...,x<sub>m</sub></i>. In this case, *m* is the number computed above. We can do the same for the high fat diet population:
+We usually denote these values as <i>x<sub> 1</sub>,...,x<sub>m</sub></i>. In 
+this case, *m* is the number computed above. We can do the same for the high fat 
+diet population:
 
 ```{r hf_pop}
 hfPopulation <- filter(pheno, Sex == "F" & Diet == "hf") %>%  
@@ -79,7 +102,8 @@ length(hfPopulation)
 
 and denote with <i>y<sub> 1</sub>,...,y<sub>n</sub></i>.
 
-We can then define summaries of interest for these populations, such as the mean and variance. 
+We can then define summaries of interest for these populations, such as the mean 
+and variance. 
 
 The mean:
 
@@ -102,14 +126,24 @@ The variance:
 
 ![](../fig/02-var-x-and-y.png)
 
-with the standard deviation being the square root of the variance. We refer to such quantities that can be obtained from the population as *population parameters*. The question we started out asking can now be written mathematically: is <i>&mu;<sub>Y</sub> - &mu;<sub>X</sub> = 0</i> ? 
-Although in our illustration we have all the values and can check if this is true, in practice we do not. For example, in practice it would be prohibitively expensive to buy all the mice in a population. Here we learn how taking a *sample* permits us to answer our questions. <strong><i>This is the essence of statistical inference.</i></strong>
+with the standard deviation being the square root of the variance. We refer to 
+such quantities that can be obtained from the population as 
+*population parameters*. The question we started out asking can now be written 
+mathematically: is <i>&mu;<sub>Y</sub> - &mu;<sub>X</sub> = 0</i> ? 
+Although in our illustration we have all the values and can check if this is 
+true, in practice we do not. For example, in practice it would be prohibitively 
+expensive to buy all the mice in a population. Here we learn how taking a 
+*sample* permits us to answer our questions. <strong><i>This is the essence of 
+statistical inference.</i></strong>
 
 #### Sample estimates
-In the previous chapter, we obtained samples of 12 mice from each
-population. We represent data from samples with capital letters to
-indicate that they are random. This is common practice in statistics,
-although it is not always followed. So the samples are <i>X<sub> 1</sub>,...,X<sub>M</sub></i> and <i>Y<sub> 1</sub>,...,Y<sub>N</sub></i> and, in this case, <i>&Nu;=&Mu;=12</i>. In contrast and as we saw above, when we list out the values of the population, which are set and not random, we use lower-case letters.
+In the previous chapter, we obtained samples of 12 mice from each population. We 
+represent data from samples with capital letters to indicate that they are 
+random. This is common practice in statistics, although it is not always 
+followed. So the samples are <i>X<sub> 1</sub>,...,X<sub>M</sub></i> and 
+<i>Y<sub> 1</sub>,...,Y<sub>N</sub></i> and, in this case, <i>&Nu;=&Mu;=12</i>. 
+In contrast and as we saw above, when we list out the values of the population, 
+which are set and not random, we use lower-case letters.
 
 Since we want to know if <i>&mu;<sub>Y</sub> - &mu;<sub>X</sub> = 0</i>,
 we consider the sample version: <i>Y&#772;-X&#772;</i> with:
@@ -117,38 +151,48 @@ we consider the sample version: <i>Y&#772;-X&#772;</i> with:
 ![](../fig/XbarEquals.png) 
 ![](../fig/andYbarEquals.png)
 
-Note that this difference of averages is also a random variable.
-Previously, we learned about the behavior of random variables
-with an exercise that involved repeatedly sampling from the original
-distribution. Of course, this is not an exercise that we can execute
-in practice. In this particular case it would involve buying 24 mice
-over and over again. Here we described the mathematical theory that
-mathematically relates <i>X&#772;</i> to <i>&mu;<sub>X</sub></i>
-and <i>Y&#772;</i> to <i>&mu;<sub>Y</sub></i>,
-that will in turn help us understand the relationship between
-<i>Y&#772;-X&#772;</i> and <i>&mu;<sub>Y</sub> - &mu;<sub>X</sub></i>. 
-Specifically, we will describe how the Central Limit Theorem permits us to use an approximation to
-answer this question, as well as motivate the widely used t-distribution.
+Note that this difference of averages is also a random variable. Previously, we 
+learned about the behavior of random variables with an exercise that involved 
+repeatedly sampling from the original distribution. Of course, this is not an 
+exercise that we can execute in practice. In this particular case it would 
+involve buying 24 mice over and over again. Here we described the mathematical 
+theory that mathematically relates <i>X&#772;</i> to <i>&mu;<sub>X</sub></i>
+and <i>Y&#772;</i> to <i>&mu;<sub>Y</sub></i>, that will in turn help us 
+understand the relationship between <i>Y&#772;-X&#772;</i> and 
+<i>&mu;<sub>Y</sub> - &mu;<sub>X</sub></i>. Specifically, we will describe how 
+the Central Limit Theorem permits us to use an approximation to answer this 
+question, as well as motivate the widely used t-distribution.
 
 
 > ## Exercise 1  
-> We will use the mouse phenotype data. Remove the lines that contain missing values:  
+> We will use the mouse phenotype data. Remove the lines that contain missing 
+> values:  
 > `{r na_omit_pheno}`  
 > `pheno <- na.omit(pheno)`  
-> 1. Use `dplyr` to create a vector `x` with the body weight of all males on the control (chow) diet.   
+> 1. Use `dplyr` to create a vector `x` with the body weight of all males on the 
+> control (chow) diet.   
 > What is this population’s average?  
-> 2. Now use the `rafalib` package and use the `popsd` function to compute the population standard deviation.  
-> 3. Set the seed at 1. Take a random sample `X` of size 25 from `x`. What is the sample average?  
-> 4. Use `dplyr` to create a vector `y` with the body weight of all males on the high fat (hf) diet.  
+> 2. Now use the `rafalib` package and use the `popsd` function to compute the 
+> population standard deviation.  
+> 3. Set the seed at 1. Take a random sample `X` of size 25 from `x`. What is 
+> the sample average?  
+> 4. Use `dplyr` to create a vector `y` with the body weight of all males on the 
+> high fat (hf) diet.  
 > What is this population’s average?  
-> 5. Now use the `rafalib` package and use the `popsd` function to compute the population standard deviation.  
-> 6. Set the seed at 1. Take a random sample `Y` of size 25 from `y`. What is the sample average?  
-> 7. What is the difference in absolute value between <i>y&#772;-x&#772;</i> and <i>X&#772;-Y&#772;</i>?  
-> 8. Repeat the above for females. Make sure to set the seed to 1 before each sample call. What is the difference 
+> 5. Now use the `rafalib` package and use the `popsd` function to compute the 
+> population standard deviation.  
+> 6. Set the seed at 1. Take a random sample `Y` of size 25 from `y`. What is 
+> the sample average?  
+> 7. What is the difference in absolute value between <i>y&#772;-x&#772;</i> and 
+> <i>X&#772;-Y&#772;</i>?  
+> 8. Repeat the above for females. Make sure to set the seed to 1 before each 
+> sample call. What is the difference 
 > in absolute value between <i>y&#772;-x&#772;</i> and <i>X&#772;-Y&#772;</i>?  
-> 9. For the females, our sample estimates were closer to the population difference than with males. 
+> 9. For the females, our sample estimates were closer to the population 
+> difference than with males. 
 > What is a possible explanation for this?  
-> A) The population variance of the females is smaller than that of the males; thus, the sample variable has less variability.  
+> A) The population variance of the females is smaller than that of the males; 
+> thus, the sample variable has less variability.  
 > B) Statistical estimates are more precise for females.  
 > C) The sample size was larger for females.  
 > D) The sample size was smaller for females.
