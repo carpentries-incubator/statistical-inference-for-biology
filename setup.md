@@ -29,7 +29,7 @@ Also install and load the libraries for `downloader`, `UsingR` and `rafalib` by 
 
 ## Data files and project organization
 
-1. Make a new folder in your Desktop called `dals`. Move into this new folder.
+1. Make a new folder in your Desktop called `inference`. Move into this new folder.
 
 2. Create  a `data` folder to hold the data, a `scripts` folder to house your scripts, and a `results` folder to hold results. 
 
