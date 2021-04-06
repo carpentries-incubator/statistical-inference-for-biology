@@ -6,13 +6,7 @@ teaching: 0
 exercises: 0
 questions:
 - "?"
-- "?"
-- "?"
 objectives:
-- ""
-- ""
-- ""
-- ""
 - ""
 - ""
 - ""
@@ -165,12 +159,12 @@ head(dat)
 
 ~~~
     disease genotype
-67  control    AA/Aa
-93  control    AA/Aa
-143 control    AA/Aa
-225 control       aa
-50  control    AA/Aa
-221 control       aa
+249   cases       aa
+68  control    AA/Aa
+167 control    AA/Aa
+129 control    AA/Aa
+162 control    AA/Aa
+215 control       aa
 ~~~
 {: .output}
 

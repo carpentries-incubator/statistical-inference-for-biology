@@ -29,12 +29,11 @@ Also install and load the libraries for `downloader`, `UsingR` and `rafalib` by 
 
 ## Data files and project organization
 
-1. Make a new folder in your Desktop called `dals`. Move into this new folder.
+1. Make a new folder in your Desktop called `inference`. Move into this new folder.
 
 2. Create  a `data` folder to hold the data, a `scripts` folder to house your scripts, and a `results` folder to hold results. 
 
 Alternatively, you can use the R console to run the following commands for steps 1 and 2.
-
 ~~~
 setwd("~/Desktop")
 dir.create("./inference")
@@ -45,8 +44,7 @@ dir.create("./results")
 ~~~
 {: .r}
 
-
-3. Please download the following files and place them in your `data` folder. You can download the files from the URLs below and move the files the same way that you would for downloading and moving any other kind of data.
+Please download the following files and place them in your `data` folder. You can download the files from the URLs below and move the files the same way that you would for downloading and moving any other kind of data.
 
 
 Alternatively, you can copy and paste the following into the R console to download the data.

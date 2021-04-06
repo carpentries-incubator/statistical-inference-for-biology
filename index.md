@@ -11,6 +11,10 @@ skills and knowledge to help data analysts in the life sciences to avoid some of
 >
 > This lesson assumes basic skills in the [R statistical programming language](https://cran.r-project.org/) 
 > and the [RStudio](https://rstudio.com/) integrated development environment.
+>
+> To get started, follow the directions in the [Setup](setup.html) tab to 
+> get access to the required software and data for this workshop.
+> 
 {: .prereq}
 
 {% include links.md %}

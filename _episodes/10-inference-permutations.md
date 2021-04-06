@@ -6,13 +6,7 @@ teaching: 0
 exercises: 0
 questions:
 - "?"
-- "?"
-- "?"
 objectives:
-- ""
-- ""
-- ""
-- ""
 - ""
 - ""
 - ""
@@ -37,14 +31,67 @@ We are back to the scenario where we only have 10 measurements for each group.
 
 ~~~
 dat=read.csv("femaleMiceWeights.csv")
+~~~
+{: .language-r}
 
+
+
+~~~
+Warning in file(file, "rt"): cannot open file 'femaleMiceWeights.csv': No such
+file or directory
+~~~
+{: .error}
+
+
+
+~~~
+Error in file(file, "rt"): cannot open the connection
+~~~
+{: .error}
+
+
+
+~~~
 library(dplyr)
 
 control <- filter(dat,Diet=="chow") %>% select(Bodyweight) %>% unlist
+~~~
+{: .language-r}
+
+
+
+~~~
+Error in filter(dat, Diet == "chow"): object 'dat' not found
+~~~
+{: .error}
+
+
+
+~~~
 treatment <- filter(dat,Diet=="hf") %>% select(Bodyweight) %>% unlist
+~~~
+{: .language-r}
+
+
+
+~~~
+Error in filter(dat, Diet == "hf"): object 'dat' not found
+~~~
+{: .error}
+
+
+
+~~~
 obsdiff <- mean(treatment)-mean(control)
 ~~~
 {: .language-r}
+
+
+
+~~~
+Error in mean(treatment): object 'treatment' not found
+~~~
+{: .error}
 
 In previous sections, we showed parametric approaches that helped determine if the observed difference was significant. Permutation tests take advantage of the fact that if we randomly shuffle the cases and control labels, then the null is true. So we shuffle the cases and control labels and assume that the ensuing distribution approximates the null distribution. Here is how we generate a null distribution by shuffling the data 1,000 times:
 
@@ -57,12 +104,43 @@ avgdiff <- replicate(1000, {
     newtreatments <- all[(N+1):(2*N)]
   return(mean(newtreatments) - mean(newcontrols))
 })
+~~~
+{: .language-r}
+
+
+
+~~~
+Error in sample(c(control, treatment)): object 'control' not found
+~~~
+{: .error}
+
+
+
+~~~
 hist(avgdiff)
+~~~
+{: .language-r}
+
+
+
+~~~
+Error in hist(avgdiff): object 'avgdiff' not found
+~~~
+{: .error}
+
+
+
+~~~
 abline(v=obsdiff, col="red", lwd=2)
 ~~~
 {: .language-r}
 
-<img src="../fig/rmd-10-diff_hist-1.png" title="Histogram of difference between averages from permutations. Vertical line shows the observed difference." alt="Histogram of difference between averages from permutations. Vertical line shows the observed difference." width="612" style="display: block; margin: auto;" />
+
+
+~~~
+Error in int_abline(a = a, b = b, h = h, v = v, untf = untf, ...): object 'obsdiff' not found
+~~~
+{: .error}
 
 How many of the null means are bigger than the observed value? That
 proportion would be the p-value for the null. We add a 1 to the
@@ -80,9 +158,9 @@ numerator and denominator to account for misestimation of the p-value
 
 
 ~~~
-[1] 0.06293706
+Error in eval(expr, envir, enclos): object 'avgdiff' not found
 ~~~
-{: .output}
+{: .error}
 
 Now let's repeat this experiment for a smaller dataset. We create a smaller dataset by sampling:
 
@@ -90,10 +168,43 @@ Now let's repeat this experiment for a smaller dataset. We create a smaller data
 ~~~
 N <- 5
 control <- sample(control,N)
+~~~
+{: .language-r}
+
+
+
+~~~
+Error in sample(control, N): object 'control' not found
+~~~
+{: .error}
+
+
+
+~~~
 treatment <- sample(treatment,N)
+~~~
+{: .language-r}
+
+
+
+~~~
+Error in sample(treatment, N): object 'treatment' not found
+~~~
+{: .error}
+
+
+
+~~~
 obsdiff <- mean(treatment)- mean(control)
 ~~~
 {: .language-r}
+
+
+
+~~~
+Error in mean(treatment): object 'treatment' not found
+~~~
+{: .error}
 and repeat the exercise:
 
 
@@ -105,12 +216,43 @@ avgdiff <- replicate(1000, {
     newtreatments <- all[(N+1):(2*N)]
   return(mean(newtreatments) - mean(newcontrols))
 })
+~~~
+{: .language-r}
+
+
+
+~~~
+Error in sample(c(control, treatment)): object 'control' not found
+~~~
+{: .error}
+
+
+
+~~~
 hist(avgdiff)
+~~~
+{: .language-r}
+
+
+
+~~~
+Error in hist(avgdiff): object 'avgdiff' not found
+~~~
+{: .error}
+
+
+
+~~~
 abline(v=obsdiff, col="red", lwd=2)
 ~~~
 {: .language-r}
 
-<img src="../fig/rmd-10-diff_hist_N50-1.png" title="Histogram of difference between averages from permutations for smaller sample size. Vertical line shows the observed difference." alt="Histogram of difference between averages from permutations for smaller sample size. Vertical line shows the observed difference." width="612" style="display: block; margin: auto;" />
+
+
+~~~
+Error in int_abline(a = a, b = b, h = h, v = v, untf = untf, ...): object 'obsdiff' not found
+~~~
+{: .error}
 
 Now the observed difference is not significant using this approach. Keep in mind that there is no theoretical guarantee that the null distribution estimated from permutations approximates the actual null distribution. For example, if there is a real difference between the populations, some of the permutations will be unbalanced and will contain some samples that explain this difference. This implies that the null distribution created with permutations will have larger tails than the actual null distribution. This is why permutations result in conservative p-values. For this reason, when we have few samples, we can't do permutations. 
 
