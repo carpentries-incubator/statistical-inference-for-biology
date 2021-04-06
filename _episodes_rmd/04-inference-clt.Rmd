@@ -19,13 +19,9 @@ source: Rmd
 ```{r, include=FALSE}
 source("../bin/chunk-options.R")
 knitr_fig_path("04-")
-library(downloader)
-url <- "https://raw.githubusercontent.com/genomicsclass/dagdata/master/inst/extdata/mice_pheno.csv"
-filename <- basename(url)
-download(url, destfile=filename)
-pheno <- na.omit(read.csv(filename))
 library(tidyverse)
 library(rafalib)
+pheno <- read.csv(file = "../data/mice_pheno.csv")
 ```
 
 ## Central Limit Theorem and t-distribution

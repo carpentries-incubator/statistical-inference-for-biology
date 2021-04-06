@@ -178,10 +178,10 @@ Now that we have gone over the concepts, we can show the relatively simple code
 that one would use to actually compute a t-test: 
 
 ```{r ttest_pheno, message=FALSE}
-control <- filter(pheno, Diet=="chow") %>%
+control <- filter(fWeights, Diet=="chow") %>%
   select(Bodyweight) %>% 
   unlist
-treatment <- filter(pheno, Diet=="hf") %>%
+treatment <- filter(fWeights, Diet=="hf") %>%
   select(Bodyweight) %>% 
   unlist
 t.test(treatment, control)
