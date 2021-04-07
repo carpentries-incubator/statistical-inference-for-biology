@@ -29,12 +29,12 @@ We have used the example of the effects of two different diets on the weight of 
 
 ```{r, message=FALSE}
 library(dplyr)
-dat <- read.csv("../data/mice_pheno.csv") #Previously downloaded 
+pheno <- read.csv("../data/mice_pheno.csv") #Previously downloaded 
 
-controlPopulation <- filter(dat,Sex == "F" & Diet == "chow") %>%  
+controlPopulation <- filter(pheno, Sex == "F" & Diet == "chow") %>%  
   select(Bodyweight) %>% unlist
 
-hfPopulation <- filter(dat,Sex == "F" & Diet == "hf") %>%  
+hfPopulation <- filter(pheno, Sex == "F" & Diet == "hf") %>%  
   select(Bodyweight) %>% unlist
 
 mu_hf <- mean(hfPopulation)

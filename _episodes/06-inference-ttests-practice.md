@@ -263,38 +263,12 @@ that one would use to actually compute a t-test:
 
 
 ~~~
-control <- filter(pheno, Diet=="chow") %>%
+control <- filter(fWeights, Diet=="chow") %>%
   select(Bodyweight) %>% 
   unlist
-~~~
-{: .language-r}
-
-
-
-~~~
-Error in filter(pheno, Diet == "chow"): object 'pheno' not found
-~~~
-{: .error}
-
-
-
-~~~
-treatment <- filter(pheno, Diet=="hf") %>%
+treatment <- filter(fWeights, Diet=="hf") %>%
   select(Bodyweight) %>% 
   unlist
-~~~
-{: .language-r}
-
-
-
-~~~
-Error in filter(pheno, Diet == "hf"): object 'pheno' not found
-~~~
-{: .error}
-
-
-
-~~~
 t.test(treatment, control)
 ~~~
 {: .language-r}

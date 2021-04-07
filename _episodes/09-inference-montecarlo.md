@@ -180,6 +180,7 @@ ttestgenerator <- function(n, mean=24, sd=3.5) {
 ~~~
 {: .language-r}
 
+>
 > ## Exercises
 > We have used Monte Carlo simulation throughout this chapter to demonstrate 
 > statistical concepts; namely, sampling from the population. We mostly applied 
@@ -251,3 +252,4 @@ ttestgenerator <- function(n, mean=24, sd=3.5) {
 > distributed for large ones.  
 > D) The sample median is approximately normal with mean 0 and SD larger than 
 > 1/pN.
+>
