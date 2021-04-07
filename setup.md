@@ -49,11 +49,11 @@ Please download the following files and place them in your `data` folder. You ca
 
 Alternatively, you can copy and paste the following into the R console to download the data.
 ~~~
-download(url = "https://raw.githubusercontent.com/genomicsclass/dagdata/master/inst/extdata/femaleMiceWeights.csv", destfile = "data/femaleMiceWeights.csv")
+download.file(url = "https://raw.githubusercontent.com/genomicsclass/dagdata/master/inst/extdata/femaleMiceWeights.csv", destfile = "data/femaleMiceWeights.csv")
 
-download(url = "https://raw.githubusercontent.com/genomicsclass/dagdata/master/inst/extdata/femaleControlsPopulation.csv", destfile = "data/femaleControlsPopulation.csv")
+download.file(url = "https://raw.githubusercontent.com/genomicsclass/dagdata/master/inst/extdata/femaleControlsPopulation.csv", destfile = "data/femaleControlsPopulation.csv")
  
-download(url = "https://raw.githubusercontent.com/genomicsclass/dagdata/master/inst/extdata/mice_pheno.csv", destfile = "data/mice_pheno.csv")
+download.file(url = "https://raw.githubusercontent.com/genomicsclass/dagdata/master/inst/extdata/mice_pheno.csv", destfile = "data/mice_pheno.csv")
 ~~~
 {: .r}
 
