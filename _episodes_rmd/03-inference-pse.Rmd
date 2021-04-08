@@ -4,16 +4,16 @@ teaching: 0
 exercises: 0
 questions:
 - "What is a parameter from a population?"
+- "What are sample estimates?" 
+- "How can we use sample estimates to make inferences about population parameters?"
 objectives:
-- "Describe the Central Limit Theorem, the mathematical theory that permits us to compute p-values in practice."
-- ""
-- ""
-- ""
+- "Understand the difference between parameters and statistics."
+- "Calculate population means and sample means."
+- "Calculate the difference between the means of two subgroups."
 keypoints:
-- "."
-- "."
-- "."
-- "."
+- "Parameters are measures of populations."
+- "Statistics are measures of samples drawn from populations."
+- "Statistical inference is the process of using sample statistics to answer questions about population parameters."
 source: Rmd
 ---
 
@@ -41,13 +41,12 @@ interested in the difference in means between people on a Western vs. non high
 fat high sugar diet because we want to know what effect the diet has on people. 
 If there is no difference in means, we can say that there is no effect of diet. 
 If there is a difference in means, we can say that the diet has an effect. The 
-question we are asking is can be expressed as:
+question we are asking can be expressed as:
 
 Is
 
 ![Does mean of Y less mean of x equal zero?](../fig/02-muy-mux-eq-zero.png)
-The three normal curves below help to visualize this equation as a question 
-comparing the means of each curve to one of the others. 
+We can even compare more than two means.  The three normal curves below help to visualize a question comparing the means of each curve to one of the others.  
 
 ![Normal curves with different means and standard deviations](../fig/normal-curves.png)
 
@@ -76,6 +75,8 @@ because we happen to have the weights of all the mice of this
 type. We download 
 [this](https://raw.githubusercontent.com/genomicsclass/dagdata/master/inst/extdata/mice_pheno.csv) 
 file to our working directory and read in to R:
+
+
 
 ```{r load_pheno}
 pheno <- read.csv(file = "../data/mice_pheno.csv")
@@ -129,7 +130,7 @@ The variance:
 with the standard deviation being the square root of the variance. We refer to 
 such quantities that can be obtained from the population as 
 *population parameters*. The question we started out asking can now be written 
-mathematically: is <i>&mu;<sub>Y</sub> - &mu;<sub>X</sub> = 0</i> ? 
+mathematically: <strong>is <i>&mu;<sub>Y</sub> - &mu;<sub>X</sub> = 0</i></strong> ?
 Although in our illustration we have all the values and can check if this is 
 true, in practice we do not. For example, in practice it would be prohibitively 
 expensive to buy all the mice in a population. Here we learn how taking a 
@@ -164,14 +165,64 @@ the Central Limit Theorem permits us to use an approximation to answer this
 question, as well as motivate the widely used t-distribution.
 
 
-> ## Exercise 1  
-> We will use the mouse phenotype data. Remove the lines that contain missing 
+> ## Exercise   
+> We will use the mouse phenotype data. Remove the observations that contain missing 
 > values:  
-> `{r na_omit_pheno}`  
+>   
 > `pheno <- na.omit(pheno)`  
+>
 > 1. Use `dplyr` to create a vector `x` with the body weight of all males on the 
 > control (chow) diet.   
-> What is this population’s average?  
+> What is this population’s average body weight? 
+>
+> > ## Solution
+> >
+> > 
+> > ~~~
+> > # Omit observations with missing data
+> > pheno <- na.omit(pheno)
+> > 
+> > # Create subset of males on chow diet
+> > x <- pheno %>%
+> >   filter(Diet == "chow" & Sex == "M") %>%
+> >   select(Bodyweight) %>%
+> >   unlist
+> > 
+> > # Calculate mean weight
+> > mean(x)
+> > ~~~
+> > {: .language-r}
+> > 
+> > 
+> > 
+> > ~~~
+> > [1] 30.96381
+> > ~~~
+> > {: .output}
+> {: .solution}
+>
+> Set the seed at 1. Take a random sample `X` of size 25 from `x`. What is 
+> the sample average?
+> 
+> > ## Solution
+> >
+> > 
+> > ~~~
+> > set.seed(1)
+> > x_sample <- sample(x, 25)
+> > mean(x_sample)
+> > ~~~
+> > {: .language-r}
+> > 
+> > 
+> > 
+> > ~~~
+> > [1] 30.5196
+> > ~~~
+> > {: .output}
+> {: .solution}
+> 
+> Use `dplyr` to create a vector `y` with the body weight of all males on the high fat (hf) diet.
 > 2. Now use the `rafalib` package and use the `popsd` function to compute the 
 > population standard deviation.  
 > 3. Set the seed at 1. Take a random sample `X` of size 25 from `x`. What is 
@@ -179,12 +230,168 @@ question, as well as motivate the widely used t-distribution.
 > 4. Use `dplyr` to create a vector `y` with the body weight of all males on the 
 > high fat (hf) diet.  
 > What is this population’s average?  
-> 5. Now use the `rafalib` package and use the `popsd` function to compute the 
-> population standard deviation.  
-> 6. Set the seed at 1. Take a random sample `Y` of size 25 from `y`. What is 
-> the sample average?  
-> 7. What is the difference in absolute value between <i>y&#772;-x&#772;</i> and 
-> <i>X&#772;-Y&#772;</i>?  
+> 
+> > ## Solution
+> >
+> > 
+> > ~~~
+> > # Create subset of males on high fat diet
+> > y <- pheno %>%
+> >   filter(Diet == "hf" & Sex == "M") %>%
+> >   select(Bodyweight) %>%
+> >   unlist
+> > 
+> > # Calculate the mean weight
+> > mean(y)
+> > ~~~
+> > {: .language-r}
+> > 
+> > 
+> > 
+> > ~~~
+> > [1] 34.84793
+> > ~~~
+> > {: .output}
+> {: .solution}
+> 
+> Set the seed at 1. Take a random sample `Y` of size 25 from `y`. What is 
+> the sample average? 
+>
+> > ## Solution
+> >
+> > 
+> > ~~~
+> > set.seed(1)
+> > y_sample <- sample(y, 25)
+> > mean(y_sample)
+> > ~~~
+> > {: .language-r}
+> > 
+> > 
+> > 
+> > ~~~
+> > [1] 35.8036
+> > ~~~
+> > {: .output}
+> {: .solution}
+>
+> What is the difference in absolute value between <i>x&#772;-y&#772;</i> and > <i>X&#772;-Y&#772;</i>?
+> 
+> > ## Solution
+> >
+> > 
+> > ~~~
+> > # mu_x - mu_y
+> > pop_mean_diff <- abs(mean(x) - mean(y))
+> > # x-bar - y-bar
+> > sample_mean_diff <- abs(mean(x_sample) - mean(y_sample))
+> > # difference in absolute value between (mu_x - mu_y) - (x-bar - y-bar)
+> > pop_sample_mean_diff <- abs(pop_mean_diff - sample_mean_diff)
+> > 
+> > pop_sample_mean_diff
+> > ~~~
+> > {: .language-r}
+> > 
+> > 
+> > 
+> > ~~~
+> > [1] 1.399884
+> > ~~~
+> > {: .output}
+> {: .solution}
+> 
+> Repeat the above for females. Make sure to set the seed to 1 before each > sample call. What is the difference 
+> in absolute value between <i>x&#772;-y&#772;</i> and <i>X&#772;-Y&#772;</i>?
+> 
+> > ## Solution
+> > 
+> > ~~~
+> > x_f <- pheno %>%
+> >     filter(Diet == "chow" & Sex == "F") %>%
+> >     select(Bodyweight) %>%
+> >     unlist
+> > mean(x_f)
+> > ~~~
+> > {: .language-r}
+> > 
+> > 
+> > 
+> > ~~~
+> > [1] 23.89338
+> > ~~~
+> > {: .output}
+> > 
+> > 
+> > 
+> > ~~~
+> > set.seed(1)
+> > x_f_sample <- sample(x_f, 25)
+> > mean(x_f_sample)
+> > ~~~
+> > {: .language-r}
+> > 
+> > 
+> > 
+> > ~~~
+> > [1] 24.2528
+> > ~~~
+> > {: .output}
+> > 
+> > 
+> > 
+> > ~~~
+> > y_f <- pheno %>%
+> >     filter(Diet == "hf" & Sex == "F") %>%
+> >     select(Bodyweight) %>%
+> >     unlist
+> > mean(y_f)
+> > ~~~
+> > {: .language-r}
+> > 
+> > 
+> > 
+> > ~~~
+> > [1] 26.2689
+> > ~~~
+> > {: .output}
+> > 
+> > 
+> > 
+> > ~~~
+> > set.seed(1)
+> > y_f_sample <- sample(y_f, 25)
+> > mean(y_f_sample)
+> > ~~~
+> > {: .language-r}
+> > 
+> > 
+> > 
+> > ~~~
+> > [1] 28.3828
+> > ~~~
+> > {: .output}
+> > 
+> > 
+> > 
+> > ~~~
+> > pop_mean_diff_f <- abs(mean(x_f) - mean(y_f))
+> > sample_mean_diff_f <- abs(mean(x_f_sample) - mean(y_f_sample))
+> > pop_sample_mean_diff_f <- abs(pop_mean_diff_f - sample_mean_diff_f)
+> > 
+> > pop_sample_mean_diff_f
+> > ~~~
+> > {: .language-r}
+> > 
+> > 
+> > 
+> > ~~~
+> > [1] 1.754483
+> > ~~~
+> > {: .output}
+> {: .solution}
+> 
+{: .challenge}
+
 > 8. Repeat the above for females. Make sure to set the seed to 1 before each 
 > sample call. What is the difference 
 > in absolute value between <i>y&#772;-x&#772;</i> and <i>X&#772;-Y&#772;</i>?  

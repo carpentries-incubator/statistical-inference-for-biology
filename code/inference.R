@@ -33,6 +33,7 @@ print(obsdiff)
 population <- read.csv(file = "../data/femaleControlsPopulation.csv")
 control <- sample(population$Bodyweight, 12)
 mean(control)
+
 # Repeat the previous commands two more times and watch how the mean changes.
 control <- sample(population$Bodyweight, 12)
 mean(control)
@@ -68,3 +69,49 @@ x <- father.son$fheight # fathers' heights
 # take a random sample of 10 fathers' heights and round them to 1 decimal place
 round(sample(x, 10), 1)
 
+# create a histogram to visualize the distribution of fathers' heights
+hist(x , xlab = "Height (in inches", main = "Fathers' heights")
+
+# Probability Distribution
+
+# create a histogram of the 10,000 null values created earlier
+hist(null, freq = TRUE)
+# now add a vertical line indicating where the observed difference between 
+# high-fat and control mice lies
+abline(v=obsdiff, col="red", lwd=2)
+print(obsdiff) # what was the observed difference?
+
+# Normal Distribution
+
+# Use the normal approximation (pnorm) to compute the proportion of values below
+# the observed difference between high-fat and control mice.
+1 - pnorm(obsdiff, mean = mean(null), sd = sd(null))
+# this represents everything to the right of the red vertical line on the 
+# histogram above
+
+# what is everything to the left of the red line (e.g. what proportion are below
+# the observed difference)?
+pnorm(obsdiff, mean = mean(null), sd = sd(null))
+
+# Setting the random seed
+set.seed(1) # set the random number generator seed to 1 so that results come up 
+# the same each time
+
+LETTERS # R has a built-in vector of letters
+sample(LETTERS, 5) # take a sample of 5 letters after setting the seed
+sample(LETTERS, 5) # should be different from previous
+sample(LETTERS, 5) # different again
+
+set.seed(1) # set the random number generator seed
+sample(LETTERS, 5) 
+set.seed(1) # set the seed again
+sample(LETTERS, 5) # you should get exactly the same letters
+set.seed(1) # set the seed again
+sample(LETTERS, 5) # you should get exactly the same letters
+
+# back to the "population" data
+str(population)
+head(population)
+summary(population)
+
+# use the population data for the exercises
