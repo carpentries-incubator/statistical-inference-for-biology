@@ -158,9 +158,9 @@ learned about the behavior of random variables with an exercise that involved
 repeatedly sampling from the original distribution. Of course, this is not an 
 exercise that we can execute in practice. In this particular case it would 
 involve buying 24 mice over and over again. Here we described the mathematical 
-theory that mathematically relates X&#772; to <i>&mu;<sub>X</sub></i>
-and Y&#772; to <i>&mu;<sub>Y</sub></i>, that will in turn help us 
-understand the relationship between Y&#772;-X&#772; and 
+theory that mathematically relates <i>X&#772;</i> to <i>&mu;<sub>X</sub></i>
+and <i>Y&#772;</i> to <i>&mu;<sub>Y</sub></i>, that will in turn help us 
+understand the relationship between <i>Y&#772;-X&#772;</i> and 
 <i>&mu;<sub>Y</sub> - &mu;<sub>X</sub></i>. Specifically, we will describe how 
 the Central Limit Theorem permits us to use an approximation to answer this 
 question, as well as motivate the widely used t-distribution.
@@ -236,7 +236,7 @@ question, as well as motivate the widely used t-distribution.
 > {: .solution}
 >
 > What is the difference in absolute value between <i>x&#772;-y&#772;</i> and 
-> X&#772;-Y&#772;?  
+> <i>X&#772;-Y&#772;</i>?  
 > 
 > > ## Solution
 > >
@@ -254,7 +254,7 @@ question, as well as motivate the widely used t-distribution.
 > 
 > Repeat the above for females. Make sure to set the seed to 1 before each 
 > sample call. What is the difference 
-> in absolute value between <i>x&#772;-y&#772;</i> and X&#772;-Y&#772;?
+> in absolute value between <i>x&#772;-y&#772;</i> and <i>X&#772;-Y&#772;</i>?
 > 
 > > ## Solution
 > >
@@ -288,4 +288,3 @@ question, as well as motivate the widely used t-distribution.
 > {: .solution}
 > 
 {: .challenge}
-
