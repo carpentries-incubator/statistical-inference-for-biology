@@ -114,4 +114,14 @@ str(population)
 head(population)
 summary(population)
 
-# use the population data for the exercises
+# use the population data for Exercise 1
+# Exercise 1
+# avg of weights?
+mean(population$Bodyweight)
+set.seed(1)
+sample1 <- sample(population$Bodyweight, 5)
+abs(mean(sample1) - mean(population$Bodyweight))
+set.seed(5)
+sample2 <- sample(population$Bodyweight, 5)
+abs(mean(sample2) - mean(population$Bodyweight))
+

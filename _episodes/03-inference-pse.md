@@ -35,10 +35,8 @@ If there is no difference in means, we can say that there is no effect of diet.
 If there is a difference in means, we can say that the diet has an effect. The 
 question we are asking can be expressed as:
 
-Is
-
-![Does mean of Y less mean of x equal zero?](../fig/02-muy-mux-eq-zero.png)
-We can even compare more than two means.  The three normal curves below help to visualize a question comparing the means of each curve to one of the others.  
+![Does mean of Y less mean of X equal zero?](../fig/02-muy-mux-eq-zero.png)
+We can even compare more than two means.  The three normal curves below help to visualize a question comparing the means of each curve to one of the others. 
 
 ![Normal curves with different means and standard deviations](../fig/normal-curves.png)
 
@@ -201,7 +199,8 @@ The variance:
 with the standard deviation being the square root of the variance. We refer to 
 such quantities that can be obtained from the population as 
 *population parameters*. The question we started out asking can now be written 
-mathematically: <strong>is <i>&mu;<sub>Y</sub> - &mu;<sub>X</sub> = 0</i></strong> ?
+mathematically: <strong>is <i>&mu;<sub>Y</sub> - &mu;<sub>X</sub> = 0</i></strong> ? 
+
 Although in our illustration we have all the values and can check if this is 
 true, in practice we do not. For example, in practice it would be prohibitively 
 expensive to buy all the mice in a population. Here we learn how taking a 
@@ -236,15 +235,15 @@ the Central Limit Theorem permits us to use an approximation to answer this
 question, as well as motivate the widely used t-distribution.
 
 
-> ## Exercise   
+> ## Exercise  
 > We will use the mouse phenotype data. Remove the observations that contain missing 
 > values:  
->   
+> 
 > `pheno <- na.omit(pheno)`  
->
-> 1. Use `dplyr` to create a vector `x` with the body weight of all males on the 
+> 
+> Use `dplyr` to create a vector `x` with the body weight of all males on the 
 > control (chow) diet.   
-> What is this population’s average body weight? 
+> What is this population’s average body weight?  
 >
 > > ## Solution
 > >
@@ -293,14 +292,9 @@ question, as well as motivate the widely used t-distribution.
 > > {: .output}
 > {: .solution}
 > 
-> Use `dplyr` to create a vector `y` with the body weight of all males on the high fat (hf) diet.
-> 2. Now use the `rafalib` package and use the `popsd` function to compute the 
-> population standard deviation.  
-> 3. Set the seed at 1. Take a random sample `X` of size 25 from `x`. What is 
-> the sample average?  
-> 4. Use `dplyr` to create a vector `y` with the body weight of all males on the 
+> Use `dplyr` to create a vector `y` with the body weight of all males on the 
 > high fat (hf) diet.  
-> What is this population’s average?  
+> What is this population’s average?
 > 
 > > ## Solution
 > >
@@ -346,7 +340,8 @@ question, as well as motivate the widely used t-distribution.
 > > {: .output}
 > {: .solution}
 >
-> What is the difference in absolute value between <i>x&#772;-y&#772;</i> and > <i>X&#772;-Y&#772;</i>?
+> What is the difference in absolute value between <i>x&#772;-y&#772;</i> and 
+> <i>X&#772;-Y&#772;</i>?  
 > 
 > > ## Solution
 > >
@@ -371,10 +366,12 @@ question, as well as motivate the widely used t-distribution.
 > > {: .output}
 > {: .solution}
 > 
-> Repeat the above for females. Make sure to set the seed to 1 before each > sample call. What is the difference 
+> Repeat the above for females. Make sure to set the seed to 1 before each 
+> sample call. What is the difference 
 > in absolute value between <i>x&#772;-y&#772;</i> and <i>X&#772;-Y&#772;</i>?
 > 
 > > ## Solution
+> >
 > > 
 > > ~~~
 > > x_f <- pheno %>%
@@ -463,19 +460,3 @@ question, as well as motivate the widely used t-distribution.
 > 
 {: .challenge}
 
-> 8. Repeat the above for females. Make sure to set the seed to 1 before each 
-> sample call. What is the difference 
-> in absolute value between <i>y&#772;-x&#772;</i> and <i>X&#772;-Y&#772;</i>?  
-> 9. For the females, our sample estimates were closer to the population 
-> difference than with males. 
-> What is a possible explanation for this?  
-> A) The population variance of the females is smaller than that of the males; 
-> thus, the sample variable has less variability.  
-> B) Statistical estimates are more precise for females.  
-> C) The sample size was larger for females.  
-> D) The sample size was smaller for females.
->
-> > ## Solution to Exercise 1
-> >
-> {: .solution}
-{: .challenge}
