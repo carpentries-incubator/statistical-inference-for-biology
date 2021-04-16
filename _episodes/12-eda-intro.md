@@ -65,7 +65,7 @@ We can compute the percentiles for our list of heights:
 
 ~~~
 library(rafalib)
-data(father.son,package="UsingR") ##available from CRAN
+father.son <- UsingR::father.son
 x <- father.son$fheight
 ~~~
 {: .language-r}
@@ -152,7 +152,7 @@ CEOs in the year 2000.
 
 
 ~~~
-data(exec.pay,package="UsingR")
+exec.pay <- UsingR::exec.pay
 mypar(1,2)
 hist(exec.pay) 
 qqnorm(exec.pay)
@@ -196,7 +196,7 @@ fails to describe an important characteristic of the data.
 
 
 ~~~
-data(father.son,package="UsingR")
+father.son <- UsingR::father.son
 x=father.son$fheight
 y=father.son$sheight
 plot(x,y, xlab="Father's height in inches", 
