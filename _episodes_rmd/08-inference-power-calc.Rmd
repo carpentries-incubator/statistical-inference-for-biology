@@ -316,14 +316,15 @@ will become more precise.
 > ## Exercises
 > For these exercises we will load the babies dataset from babies.txt. We will 
 > use this data to review the concepts behind the p-values and then test 
-> confidence interval concepts.  
-> `url<-"https://raw.githubusercontent.com/genomicsclass/dagdata/master/inst/extd\ata/babies.txt"`  
+> confidence interval concepts. 
+> `library(downloader)`   
+> `url<-"https://raw.githubusercontent.com/genomicsclass/dagdata/master/inst/extdata/babies.txt"`  
 > `filename <- basename(url)`  
 > `download(url, destfile=filename)`  
 > `babies<-read.table("babies.txt", header=TRUE)`  
 > This is a large dataset (1,236 cases), and we will pretend that it contains 
-> the entire population inwhich we are interested. We will study the differences 
-> in birth weight between babies born to smoking and non-smoking mothers.First, 
+> the entire population in which we are interested. We will study the differences 
+> in birth weight between babies born to smoking and non-smoking mothers. First, 
 > let’s split this into two birth weight datasets: one of birth weights to 
 > non-smoking mothers and the other of birth weights to smoking mothers.  
 > `bwt.nonsmoke <- filter(babies, smoke==0) %>%`  
@@ -340,7 +341,7 @@ will become more precise.
 > `popsd(bwt.smoke)`  
 > The population difference of mean birth weights is about 8.9 ounces. The 
 > standard deviations of the nonsmoking and smoking groups are about 17.4 and 
-> 18.1 ounces, respectively.As we did with the mouse weight data, this 
+> 18.1 ounces, respectively. As we did with the mouse weight data, this 
 > assessment interactively reviews inference concepts using simulations in R. We
 > will treat the babies dataset as the full population and draw samples from it 
 > to simulate individual experiments. We will then ask whether somebody who only 
@@ -350,13 +351,13 @@ will become more precise.
 > weights of babies born to smoking mothers.  
 > 1. Set the seed at 1 and obtain two samples, each of size <i>N = 25</i>, from 
 > non-smoking mothers (`dat.ns`) and smoking mothers (`dat.s`). Compute the 
-> t-statistic (call it tval).  
+> t-statistic (call it `tval`).  
 > 2. Recall that we summarize our data using a t-statistic because we know that 
 > in situations where the null hypothesis is true (what we mean when we say 
-> “under the null”) andthe sample size is relatively large, this t-value will 
+> “under the null”) and the sample size is relatively large, this t-value will 
 > have an approximate standard normal distribution. Because we know the 
 > distribution of the t-value under the null, we can quantitatively determine 
-> how unusual the observed t-value would be if the null hypothesis were true.The 
+> how unusual the observed t-value would be if the null hypothesis were true. The
 > standard procedure is to examine the probability a t-statistic that actually 
 > does follow the null hypothesis would have larger absolute value than the 
 > absolute value of the t-value we just observed – this is called a two-sided 
@@ -479,5 +480,19 @@ will become more precise.
 > of those four gives you power of about 80%?
 >
 > > ## Solution to Exercises
+> > 1. `set.seed(1)`  
+> > `dat.ns <- sample(bwt.nonsmoke, size = 25)`  
+> > `dat.s <- sample(bwt.smoke, size = 25)`  
+> > `tval <- t.test(bwt.smoke, bwt.nonsmoke)$p.value`  
+> > 2. 
+> >
+> > 4. `se <- sd(dat.ns)/sqrt(N)`  
+`qnorm(1-0.01/2)*se`
+> > 5. `qt(1-0.01/2, df=2*N-2)*se` 
+> > 8. `set.seed(1)`  
+> > `dat.ns <- sample(bwt.nonsmoke, size = 5)`  
+> > `dat.s <- sample(bwt.smoke, size = 5)`  
+> > `tval <- t.test(dat.ns, bdat.s)$p.value`   
+> > `tval`  
 > {: .solution}
 {: .challenge}
