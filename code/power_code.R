@@ -27,9 +27,9 @@ alpha <- 0.05
 B <- 2000
 
 reject <- function(N, alpha=0.05){
-  hf <- sample(hfPopulation, N) 
+  treatment <- sample(hfPopulation, N) 
   control <- sample(controlPopulation, N)
-  pval <- t.test(hf, control)$p.value
+  pval <- t.test(treatment, control)$p.value
   pval < alpha
 }
 

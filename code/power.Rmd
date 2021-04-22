@@ -24,13 +24,13 @@ library(tidyverse)
 ## Power Calculations 
 
 #### Introduction
-We saw that there is always a certain level of variation due to sampling and uncertainty around our estimates, and we saw how to quantify it and account for it when we're trying to learn something about our population. However, in order to be able to overcome that variation and uncertainty and get a statistical result we need to have enough statistical power to detect a real effect. What that means is that we need to have a large enough sample size given the sampling variation and the effect size in our study. What constitutes a large enough sample size will change from one study to the next because power depends on the variation and effect size in a specific study. It also depends on the p-value threshold we choose, which is basically our tolerance for reaching the wrong conclusion. 
+We saw that there is always a certain level of variation and uncertainty around our estimates due to sampling, and we saw how to quantify it and account for it when we're trying to learn something about our population. We also saw that in order to be able to overcome that variation and uncertainty and detect any effect in our data, we need to have a large enough sample size. Another way to say it is that we need to have enough statistical power to detect a real effect if it exists. What constitutes a large enough sample size will change from one study to the next because power depends on both the amppling variation and the effect size in a specific study. It also depends on the p-value threshold we choose, which is basically our tolerance for reaching the wrong conclusion. 
 So it is often useful to calculate the power in our study in order to optimize our sample size or at least be able to say whether or not we have a large enough sample size. Of course, more data is always better in terms of detecting real effects, but it comes with a cost of money and time, as well as exposing subjects to suffering and potential health risks. Power calculation helps us optimize this trade-off. 
 
 Below we will see how to calculate power and how the different factors mentioned above - sampling variation, effect size, and p-value cut off - affect our ability to statistically detect real effects.
 
 To see it in action:
-We have used the example of the effects of two different diets on beody weight of mice. Since in this illustrative example we have access to the "real" population, we know that in fact there is a substantial (about 10%) difference between the average weights of the two populations:
+We have used the example of the effects of two different diets on body weight of mice. Since in this illustrative example we have access to the "real" population, we know that in fact there is a substantial (about 10%) difference between the average weights of the two populations:
 
 ```{r, message=FALSE}
 library(dplyr)
@@ -93,7 +93,7 @@ Power depends on the magnitude of the effect we're estimating - e.g., how large 
 In practice, we don't know the true standard deviation and we certainly don't know in advance what is the real effect size. So we want to look at several plausible combinations of effect size and sample size.
 
 As with everything else, we can either use simulations to get those insights or make assumptions about the probability distribution and then use the appropriate formulas that statistical theory gives us. 
-The `pwr` package performs these calculations for you. Here we will illustrate the concepts behind 
+Here we will illustrate the concepts behind 
 power by coding up simulations in R. 
 
 Suppose our sample size is: 
@@ -123,9 +123,9 @@ this:
 
 ```{r}
 reject <- function(N, alpha=0.05){
-   hf <- sample(hfPopulation, N) 
+   treatment <- sample(hfPopulation, N) 
    control <- sample(controlPopulation, N)
-   pval <- t.test(hf, control)$p.value
+   pval <- t.test(treatment, control)$p.value
    pval < alpha
 }
 ```
@@ -134,7 +134,7 @@ Here is an example of one simulation for a sample size of 12. The call to
 `reject` answers the question "Did we reject?" 
 
 ```{r}
-reject(12)
+reject(N=12)
 ```
 
 Now we can use the `replicate` function to do this `B` times. 
@@ -151,9 +151,7 @@ length(which(rejections==TRUE))/B
 ```
 
 This explains why the t-test was not rejecting the null when we knew it was false. 
-With a sample size of just 12, our power is about 23%. To guard against false 
-positives at the 0.05 level, we had set the threshold at a high enough level 
-that resulted in many type II errors. 
+With a sample size of just 12, our power is about 23%. This is considered a very low power. Usually we want to aim for at least 80%.
 
 Let's see how power improves with N. We will use the function `sapply`, which 
 applies a function to each of the elements of a vector. We want to repeat the 
@@ -202,7 +200,6 @@ understand what each means.
 To see this clearly, you could create a plot with curves of power versus N. Show 
 several curves in the same plot with color representing alpha level.
 
-[show slide from paper instead of the section below, which is somewhat misleading]
 
 #### p-values Are Arbitrary under the Alternative Hypothesis
 

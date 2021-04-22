@@ -32,7 +32,7 @@ set.seed(1)
 
 With the advance of statistics during the 20th century, it became more and more popular to emphasize p-values and significance of results. In the 1980's scientists have started to move away from this dichotomous thinking and back to considering the actual results and the magnitude of the statistical effect rather than whether it passes a certain threshold of significance, which is after all rather arbitrary 
 Whether an observed effect is statistically significant or not at a given p-value, does not necessarily mean that it is scientifically meaningful, and vice versa.
-But, as we saw, observed effects can differ from one sample to another, which is why we call them random variables. Confidence intervals provide a way to quantify this variation and account for the uncertainty in our estimates.
+But, as we saw, observed effects always differ from one sample to another, which is why we call them random variables. Confidence intervals provide a way to quantify this variation and account for the uncertainty in our estimates.
 
 Again, it's important to remember that everything we're talking about here pertains to any kind of effect, or statistic, that we estimate, not just the mean or difference in means.
 
@@ -64,7 +64,7 @@ chow <- sample(chowPopulation, N)
 print(mean(chow))
 ```
 
-Obviously, the sample mean isn't exactly the same as the population mean because we can never capture the full variation in the population with one small sample, and we can never have enough samples to get the exact true mean, that's why we call it a random variable. So we use the CI in order to quantify that uncertainty and work around it.
+Obviously, the sample mean isn't exactly the same as the population mean, because we can never capture the full variation in the population with one small sample, and we can never have enough samples to get the exact true mean, that's why we call it a random variable. So we use the CI in order to quantify that uncertainty and work around it.
 
 Since a sample size of 30 is reasonably large, we can use the CLT to calculate CI.
 
@@ -80,9 +80,6 @@ You can see that by typing in R:
 pnorm(2) - pnorm(-2)
 ```
 This give you the proportion of the normal distribution that lies between 2 sd above and below the mean (it's actually 1.96 sd)
-```{r}
-pnorm(2) - pnorm(-2)
-```
 
 Second, we can calculate the standard error of the mean by taking the SD of the sample and divide it by sqrt of N.
 ```{r}
@@ -154,7 +151,7 @@ for (i in 1:B) {
 
 Notice that we have many more intervals now that do not contain the "true" mean. Also, notice that the CIs are wider now than with N=30. This reflects the fact that with smaller sample size, the sampling error around the sample mean is larger, so the uncertainty around the estimated mean is greater.
 
-In practice, this is happening because our assumption of normality is invalid with such a small sample size, so the calculation of Q using the qnorm() function is incorrect.
+In practice, this is happening because our assumption of normality is invalid with such a small sample size, so the calculation of Q using the qnorm() function is inaccurate.
 As we learned last lesson, with small sample sizes, it's better to use the t-distribution, which in practice means using the qt() function instead of qnorm().
 
 ```{r}
