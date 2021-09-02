@@ -19,13 +19,6 @@ source: Rmd
 ---
 
 
-~~~
-source("../bin/chunk-options.R")
-knitr_fig_path("13-")
-~~~
-{: .language-r}
-
-
 
 ## Plots to Avoid 
 
@@ -51,7 +44,7 @@ Let's say we want to report the results from a poll asking about browser prefere
 
 
 ~~~
-pie(browsers,main="Browser Usage (August 2013)")
+pie(browsers, main="Browser Usage (August 2013)")
 ~~~
 {: .language-r}
 
@@ -142,13 +135,13 @@ Now we can simply show the points and make simple boxplots:
 ~~~
 library(rafalib)
 mypar()
-dat <- list(Treatment=x,Control=y)
-boxplot(dat,xlab="Group",ylab="Response",cex=0)
-stripchart(dat,vertical=TRUE,method="jitter",pch=16,add=TRUE,col=1)
+dat <- list(Treatment=x, Control=y)
+boxplot(dat,xlab="Group", ylab="Response", cex=0)
+stripchart(dat, vertical=TRUE, method="jitter", pch=16, add=TRUE, col=1)
 ~~~
 {: .language-r}
 
-<img src="../fig/rmd-13-unnamed-chunk-6-1.png" title="Treatment data and control data shown with a boxplot." alt="Treatment data and control data shown with a boxplot." width="612" style="display: block; margin: auto;" />
+<img src="../fig/rmd-13-unnamed-chunk-5-1.png" title="Treatment data and control data shown with a boxplot." alt="Treatment data and control data shown with a boxplot." width="612" style="display: block; margin: auto;" />
 
 Notice how much more we see here: the center, spread, range, and the points themselves. In the barplot, we only see the mean and the SE, and the SE has more to do with sample size than with the spread of the data.
 
@@ -178,11 +171,11 @@ library(rafalib)
 mypar(1,2)
 dat <- list(Treatment=x,Control=y)
 
-boxplot(dat,xlab="Group",ylab="Response",cex=0)
-stripchart(dat,vertical=TRUE,method="jitter",pch=16,add=TRUE,col=1)
+boxplot(dat, xlab="Group", ylab="Response", cex=0)
+stripchart(dat, vertical=TRUE, method="jitter", pch=16, add=TRUE, col=1)
 
-boxplot(dat,xlab="Group",ylab="Response",log="y",cex=0)
-stripchart(dat,vertical=TRUE,method="jitter",pch=16,add=TRUE,col=1)
+boxplot(dat, xlab="Group", ylab="Response", log="y", cex=0)
+stripchart(dat, vertical=TRUE, method="jitter", pch=16, add=TRUE, col=1)
 ~~~
 {: .language-r}
 
@@ -206,7 +199,7 @@ load(filename)
 
 ~~~
 mypar(1,2)
-plot(x,y,lwd=2,type="n")
+plot(x, y, lwd=2, type="n")
 fit <- lm(y~x)
 abline(fit$coef,lwd=2)
 b <- round(fit$coef,4)

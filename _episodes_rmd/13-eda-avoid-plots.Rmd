@@ -16,12 +16,9 @@ keypoints:
 source: Rmd
 ---
 
-```{r}
+```{r,include=FALSE}
 source("../bin/chunk-options.R")
 knitr_fig_path("13-")
-```
-
-```{r,include=FALSE}
 set.seed(1)
 library(rafalib)
 ```
@@ -45,13 +42,13 @@ The aim of good data graphics is to display data accurately and clearly. Accordi
 #### Pie charts
 
 ```{r,include=FALSE}
-browsers <- c(Opera=1,Safari=9,Firefox=20,IE=26,Chrome=44)
+browsers <- c(Opera=1, Safari=9, Firefox=20, IE=26, Chrome=44)
 ```
 
 Let's say we want to report the results from a poll asking about browser preference (taken in August 2013). The standard way of displaying these is with a pie chart:
 
 ```{r piechart, fig.cap="Pie chart of browser usage."}
-pie(browsers,main="Browser Usage (August 2013)")
+pie(browsers, main="Browser Usage (August 2013)")
 ```
 
 Nonetheless, as stated by the help file for the `pie` function:
@@ -122,9 +119,9 @@ Now we can simply show the points and make simple boxplots:
 ```{r, fig.cap="Treatment data and control data shown with a boxplot."}
 library(rafalib)
 mypar()
-dat <- list(Treatment=x,Control=y)
-boxplot(dat,xlab="Group",ylab="Response",cex=0)
-stripchart(dat,vertical=TRUE,method="jitter",pch=16,add=TRUE,col=1)
+dat <- list(Treatment=x, Control=y)
+boxplot(dat,xlab="Group", ylab="Response", cex=0)
+stripchart(dat, vertical=TRUE, method="jitter", pch=16, add=TRUE, col=1)
 ```
 
 Notice how much more we see here: the center, spread, range, and the points themselves. In the barplot, we only see the mean and the SE, and the SE has more to do with sample size than with the spread of the data.
@@ -152,11 +149,11 @@ library(rafalib)
 mypar(1,2)
 dat <- list(Treatment=x,Control=y)
 
-boxplot(dat,xlab="Group",ylab="Response",cex=0)
-stripchart(dat,vertical=TRUE,method="jitter",pch=16,add=TRUE,col=1)
+boxplot(dat, xlab="Group", ylab="Response", cex=0)
+stripchart(dat, vertical=TRUE, method="jitter", pch=16, add=TRUE, col=1)
 
-boxplot(dat,xlab="Group",ylab="Response",log="y",cex=0)
-stripchart(dat,vertical=TRUE,method="jitter",pch=16,add=TRUE,col=1)
+boxplot(dat, xlab="Group", ylab="Response", log="y", cex=0)
+stripchart(dat, vertical=TRUE, method="jitter", pch=16, add=TRUE, col=1)
 ```
 
 #### Show the scatter plot
@@ -174,7 +171,7 @@ load(filename)
 
 ```{r show-data, fig.cap="The plot on the left shows a regression line that was fitted to the data shown on the right. It is much more informative to show all the data.", fig.width=10.5, fig.height=5.25}
 mypar(1,2)
-plot(x,y,lwd=2,type="n")
+plot(x, y, lwd=2, type="n")
 fit <- lm(y~x)
 abline(fit$coef,lwd=2)
 b <- round(fit$coef,4)

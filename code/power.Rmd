@@ -24,8 +24,13 @@ library(tidyverse)
 ## Power Calculations 
 
 #### Introduction
+We saw that there is always a certain level of variation and uncertainty around our estimates due to sampling, and we saw how to quantify it and account for it when we're trying to learn something about our population. We also saw that in order to be able to overcome that variation and uncertainty and detect any effect in our data, we need to have a large enough sample size. Another way to say it is that we need to have enough statistical power to detect a real effect if it exists. What constitutes a large enough sample size will change from one study to the next because power depends on both the amppling variation and the effect size in a specific study. It also depends on the p-value threshold we choose, which is basically our tolerance for reaching the wrong conclusion. 
+So it is often useful to calculate the power in our study in order to optimize our sample size or at least be able to say whether or not we have a large enough sample size. Of course, more data is always better in terms of detecting real effects, but it comes with a cost of money and time, as well as exposing subjects to suffering and potential health risks. Power calculation helps us optimize this trade-off. 
 
-We have used the example of the effects of two different diets on the weight of mice. Since in this illustrative example we have access to the population, we know that in fact there is a substantial (about 10%) difference between the average weights of the two populations:
+Below we will see how to calculate power and how the different factors mentioned above - sampling variation, effect size, and p-value cut off - affect our ability to statistically detect real effects.
+
+To see it in action:
+We have used the example of the effects of two different diets on body weight of mice. Since in this illustrative example we have access to the "real" population, we know that in fact there is a substantial (about 10%) difference between the average weights of the two populations:
 
 ```{r, message=FALSE}
 library(dplyr)
@@ -49,7 +54,7 @@ case where we take a sample of 5 mice and don't achieve statistical significance
 at the 0.05 level:
 
 ```{r}
-set.seed(1)
+set.seed(1234)
 N <- 5
 hf <- sample(hfPopulation, N)
 control <- sample(controlPopulation, N)
@@ -60,60 +65,35 @@ Did we make a mistake? By not rejecting the null hypothesis, are we saying the
 diet has no effect? The answer to this question is no. All we can say is that we 
 did not reject the null hypothesis. But this does not necessarily imply that the 
 null is true. The problem is that, in this particular instance, we don't have 
-enough _power_, a term we are now going to define. If you are doing scientific 
-research, it is very likely that you will have to do a power calculation at some
-point. In many cases, it is an ethical obligation as it can help you avoid 
-sacrificing mice unnecessarily or limiting the number of human subjects exposed 
-to potential risk in a study. Here we explain what statistical power means. 
+enough _power_, which is largely the same as saying that we don't have a large enough sample size for this particular analysis. 
 
 #### Types of Error
-insert a graphic and reduce the text
 
-Whenever we perform a statistical test, we are aware that we may make a mistake. 
-This is why our p-values are not 0. Under the null, there is always a positive, 
-perhaps very small, but still positive chance that we will reject the null when 
-it is true. If the p-value is 0.05, it will happen 1 out of 20 times. This 
-*error* is called _type I error_ by statisticians. 
+In the example above, we couldn't reject the null hypothesis because our sample size is too small. But that decision was based on the p-value we chose to consider as our cutoff. Over the years, the convention has become to choose cutoffs of 0.05 and 0.01 in most cases, but this is ultimately a largely arbitrary - scientifically-blind - choice.  
 
-A type I error is defined as rejecting the null when we should not. This is also 
-referred to as a false positive. So why do we then use 0.05? Shouldn't we use 
-0.000001 to be really sure? The reason we don't use infinitesimal cut-offs to 
-avoid type I errors at all cost is that there is another error we can commit: to 
-not reject the null when we should. This is called a _type II error_ or a false 
-negative. The R code analysis above shows an example of a false negative: we did 
-not reject the null hypothesis (at the 0.05 level) and, because we happen to 
-know and peeked at the true population means, we know there is in fact a 
-difference. Had we used a p-value cutoff of 0.25, we would not have made this 
-mistake. However, in general, are we comfortable with a type I error rate of 1 
-in 4? Usually we are not.  
+We could decide in the example above that we accept any p-value below 0.25 to be considered significant, in which case we would be able to reject the null hypothesis with only 5 data points.
 
+Then why wouldn't we want to do that?
 
-#### The 0.05 and 0.01 Cut-offs Are Arbitrary
+Our choice of a cut-off p-value basically reflects a trade-off between two different types of errors we might make in the conclusion we draw:
 
-Most journals and regulatory agencies frequently insist that results be 
-significant at the 0.01 or 0.05 levels. Of course there is nothing special about 
-these numbers other than the fact that some of the first papers on p-values used 
-these values as examples. Part of the goal of this book is to give readers a 
-good understanding of what p-values and confidence intervals are so that these 
-choices can be judged in an informed way. Unfortunately, in science, these 
-cut-offs are applied somewhat mindlessly, but that topic is part of a 
-complicated debate.
+A higher cutoff means that we would reject the null hypothesis more easily - with smaller sample size and for smaller effect size - regardless of whether it is true or false. That means that a higher cutoff will make us more likely to make the mistake of rejecting it when it is true, or concluding that the effect size we observe is real when it is not. This *error* is called _type I error_ by statisticians, or false positive. With p-value cutoff of 0.05, that will happen 1 out of 20 times. With cutoff of 0.25 that will happen 1 out of 4 times. 
+
+But a smaller cutoff, say 0.01, means that we are more likely to make the opposite mistake of not rejecting the null hypothesis when it is in fact wrong. This is called a _type II error_ or a false negative. 
+The R code analysis above shows an example of a false negative: we did not reject the null hypothesis (at the 0.05 level) and, because we happen to know and peeked at the true population means, we know there is in fact a difference. Had we used a p-value cutoff of 0.25, we would not have made this mistake. However, in general, are we comfortable with a type I error rate of 1 in 4? Usually we are not.  
+
+Power calculation helps us understand the level of risk we are taking in each direction, with different combinations of sample size and effect size.
 
 #### Power Calculation
 
-Power is the probability of rejecting the null when the null is false. Of course 
-"when the null is false" is a complicated statement because it can be false in 
-many ways.
+Power is the probability of rejecting the null when the null is false, i.e., the probability of correctly detecting a real effect in our dataset. 
 
-![](../fig/delta-eq.png)
+Power depends on the magnitude of the effect we're estimating - e.g., how large is the difference between two groups - and the sampling variation, which we usually measure with standard deviation and which depends on sample size.
 
-could be anything and the power actually depends on this parameter. It also 
-depends on the standard error of your estimates which in turn depends on the 
-sample size and the population standard deviations. In practice, we don't know 
-these so we usually report power for several plausible values of <i>&Delta;, 
-&sigma;<sub>X</sub>, &sigma;<sub>Y</sub></i> and various sample sizes.
-Statistical theory gives us formulas to calculate power. The `pwr` package 
-performs these calculations for you. Here we will illustrate the concepts behind 
+In practice, we don't know the true standard deviation and we certainly don't know in advance what is the real effect size. So we want to look at several plausible combinations of effect size and sample size.
+
+As with everything else, we can either use simulations to get those insights or make assumptions about the probability distribution and then use the appropriate formulas that statistical theory gives us. 
+Here we will illustrate the concepts behind 
 power by coding up simulations in R. 
 
 Suppose our sample size is: 
@@ -136,16 +116,16 @@ null hypothesis is rejected. Specifically, we will run:
 B <- 2000
 ```
 
-simulations. The simulation is as follows: we take a sample of size *N* from 
+The simulation is as follows: we take a sample of size *N* from 
 both control and treatment groups, we perform a t-test comparing these two, and 
 report if the p-value is less than `alpha` or not. We write a function that does 
 this:
 
 ```{r}
 reject <- function(N, alpha=0.05){
-   hf <- sample(hfPopulation, N) 
+   treatment <- sample(hfPopulation, N) 
    control <- sample(controlPopulation, N)
-   pval <- t.test(hf, control)$p.value
+   pval <- t.test(treatment, control)$p.value
    pval < alpha
 }
 ```
@@ -154,7 +134,7 @@ Here is an example of one simulation for a sample size of 12. The call to
 `reject` answers the question "Did we reject?" 
 
 ```{r}
-reject(12)
+reject(N=12)
 ```
 
 Now we can use the `replicate` function to do this `B` times. 
@@ -167,13 +147,11 @@ Our power is just the proportion of times we correctly reject. So with  *N = 12*
 our power is only: 
 
 ```{r}
-mean(rejections)
+length(which(rejections==TRUE))/B
 ```
 
-This explains why the t-test was not rejecting when we knew the null was false. 
-With a sample size of just 12, our power is about 23%. To guard against false 
-positives at the 0.05 level, we had set the threshold at a high enough level 
-that resulted in many type II errors. 
+This explains why the t-test was not rejecting the null when we knew it was false. 
+With a sample size of just 12, our power is about 23%. This is considered a very low power. Usually we want to aim for at least 80%.
 
 Let's see how power improves with N. We will use the function `sapply`, which 
 applies a function to each of the elements of a vector. We want to repeat the 
@@ -187,11 +165,11 @@ So we use `apply` like this:
 ```{r}
 power <- sapply(Ns,function(N){
   rejections <- replicate(B, reject(N))
-  mean(rejections)
+  length(which(rejections==TRUE))/B
   })
 ```
 
-For each of the three simulations, the above code returns the proportion of 
+For each of the simulations, the above code returns the proportion of 
 times we reject. Not surprisingly power increases with N:
 
 ```{r power_versus_sample_size, fig.cap="Power plotted against sample size."}
@@ -209,7 +187,7 @@ N <- 30
 alphas <- c(0.1, 0.05, 0.01, 0.001, 0.0001)
 power <- sapply(alphas, function(alpha){
   rejections <- replicate(B, reject(N, alpha=alpha))
-  mean(rejections)
+  length(which(rejections==TRUE))/B
 })
 plot(alphas, power, xlab="alpha", type="b", log="x")
 ```
@@ -221,6 +199,7 @@ understand what each means.
 
 To see this clearly, you could create a plot with curves of power versus N. Show 
 several curves in the same plot with color representing alpha level.
+
 
 #### p-values Are Arbitrary under the Alternative Hypothesis
 
@@ -316,15 +295,14 @@ will become more precise.
 > ## Exercises
 > For these exercises we will load the babies dataset from babies.txt. We will 
 > use this data to review the concepts behind the p-values and then test 
-> confidence interval concepts. 
-> `library(downloader)`   
-> `url<-"https://raw.githubusercontent.com/genomicsclass/dagdata/master/inst/extdata/babies.txt"`  
+> confidence interval concepts.  
+> `url<-"https://raw.githubusercontent.com/genomicsclass/dagdata/master/inst/extd\ata/babies.txt"`  
 > `filename <- basename(url)`  
 > `download(url, destfile=filename)`  
 > `babies<-read.table("babies.txt", header=TRUE)`  
 > This is a large dataset (1,236 cases), and we will pretend that it contains 
-> the entire population in which we are interested. We will study the differences 
-> in birth weight between babies born to smoking and non-smoking mothers. First, 
+> the entire population inwhich we are interested. We will study the differences 
+> in birth weight between babies born to smoking and non-smoking mothers.First, 
 > let’s split this into two birth weight datasets: one of birth weights to 
 > non-smoking mothers and the other of birth weights to smoking mothers.  
 > `bwt.nonsmoke <- filter(babies, smoke==0) %>%`  
@@ -341,7 +319,7 @@ will become more precise.
 > `popsd(bwt.smoke)`  
 > The population difference of mean birth weights is about 8.9 ounces. The 
 > standard deviations of the nonsmoking and smoking groups are about 17.4 and 
-> 18.1 ounces, respectively. As we did with the mouse weight data, this 
+> 18.1 ounces, respectively.As we did with the mouse weight data, this 
 > assessment interactively reviews inference concepts using simulations in R. We
 > will treat the babies dataset as the full population and draw samples from it 
 > to simulate individual experiments. We will then ask whether somebody who only 
@@ -351,13 +329,13 @@ will become more precise.
 > weights of babies born to smoking mothers.  
 > 1. Set the seed at 1 and obtain two samples, each of size <i>N = 25</i>, from 
 > non-smoking mothers (`dat.ns`) and smoking mothers (`dat.s`). Compute the 
-> t-statistic (call it `tval`).  
+> t-statistic (call it tval).  
 > 2. Recall that we summarize our data using a t-statistic because we know that 
 > in situations where the null hypothesis is true (what we mean when we say 
-> “under the null”) and the sample size is relatively large, this t-value will 
+> “under the null”) andthe sample size is relatively large, this t-value will 
 > have an approximate standard normal distribution. Because we know the 
 > distribution of the t-value under the null, we can quantitatively determine 
-> how unusual the observed t-value would be if the null hypothesis were true. The
+> how unusual the observed t-value would be if the null hypothesis were true.The 
 > standard procedure is to examine the probability a t-statistic that actually 
 > does follow the null hypothesis would have larger absolute value than the 
 > absolute value of the t-value we just observed – this is called a two-sided 
@@ -480,19 +458,5 @@ will become more precise.
 > of those four gives you power of about 80%?
 >
 > > ## Solution to Exercises
-> > 1. `set.seed(1)`  
-> > `dat.ns <- sample(bwt.nonsmoke, size = 25)`  
-> > `dat.s <- sample(bwt.smoke, size = 25)`  
-> > `tval <- t.test(bwt.smoke, bwt.nonsmoke)$p.value`  
-> > 2. 
-> >
-> > 4. `se <- sd(dat.ns)/sqrt(N)`  
-`qnorm(1-0.01/2)*se`
-> > 5. `qt(1-0.01/2, df=2*N-2)*se` 
-> > 8. `set.seed(1)`  
-> > `dat.ns <- sample(bwt.nonsmoke, size = 5)`  
-> > `dat.s <- sample(bwt.smoke, size = 5)`  
-> > `tval <- t.test(dat.ns, bdat.s)$p.value`   
-> > `tval`  
 > {: .solution}
 {: .challenge}

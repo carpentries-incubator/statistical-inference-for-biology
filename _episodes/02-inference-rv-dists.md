@@ -297,7 +297,7 @@ Suppose all these heights are contained in the following dataset:
 
 
 ~~~
-data(father.son, package="UsingR")
+father.son <- UsingR::father.son
 x <- father.son$fheight
 ~~~
 {: .language-r}

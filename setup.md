@@ -25,7 +25,7 @@ library(tidyverse)
 ~~~
 {: .r}
 
-Also install and load the libraries for `downloader`, `UsingR` and `rafalib` by following the same procedure that you followed for the `tidyverse`.
+Also install and load the libraries for `downloader` and `rafalib` by following the same procedure that you followed for the `tidyverse`.
 
 ## Data files and project organization
 

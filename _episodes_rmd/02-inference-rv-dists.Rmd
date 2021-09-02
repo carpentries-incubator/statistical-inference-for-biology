@@ -196,7 +196,7 @@ idea what these heights are, such as an alien that has never visited Earth.
 Suppose all these heights are contained in the following dataset:
 
 ```{r definingHeights, message=FALSE}
-data(father.son, package="UsingR")
+father.son <- UsingR::father.son
 x <- father.son$fheight
 ```
 
