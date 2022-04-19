@@ -342,10 +342,10 @@ will become more precise.
 > `unlist`   
 > Now, we can look for the true population difference in means between smoking 
 > and non-smoking birth weights.  
-> `#library(rafalib)`  
+> `library(rafalib)`  
 > `mean(bwt.nonsmoke) - mean(bwt.smoke)`  
-> `#popsd(bwt.nonsmoke)`  
-> `#popsd(bwt.smoke)`  
+> `popsd(bwt.nonsmoke)`  
+> `popsd(bwt.smoke)`  
 > The population difference of mean birth weights is about 8.9 ounces. The 
 > standard deviations of the nonsmoking and smoking groups are about 17.4 and 
 > 18.1 ounces, respectively. As we did with the mouse weight data, this 
