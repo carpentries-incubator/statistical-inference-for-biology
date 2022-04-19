@@ -6,7 +6,6 @@
 # https://smcclatchy.github.io/statistical-inference-for-biology/02-inference-rv-dists/index.html
 
 library(tidyverse)
-library(UsingR)
 
 fWeights <- read.csv("../data/femaleMiceWeights.csv")
 head(fWeights) # to view the first 6 rows
