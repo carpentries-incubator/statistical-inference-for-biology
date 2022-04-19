@@ -103,8 +103,6 @@ perhaps very small, but still positive chance that we will reject the null when
 it is true. If the p-value is 0.05, it will happen 1 out of 20 times. This 
 *error* is called _type I error_ by statisticians.  
 
-<img src="../fig/null-hypothesis.png" title="Null distribution showing type I error as alpha" alt="Null distribution showing type I error as alpha" style="display: block; margin: auto;" />
-
 ![Null distribution showing type I error as alpha](../fig/null-hypothesis.png)
 
 A type I error is defined as rejecting the null when we should not. This is also 
@@ -114,7 +112,7 @@ avoid type I errors at all cost is that there is another error we can commit: to
 not reject the null when we should. This is called a _type II error_ or a false 
 negative. 
 
-![Alternative hypothesis showing type II error as beta](../fig/alternative-hypothesis.pdf)
+![Alternative hypothesis showing type II error as beta](../fig/alternative-hypothesis.png)
 
 The R code analysis above shows an example of a false negative: we did 
 not reject the null hypothesis (at the 0.05 level) and, because we happen to 
