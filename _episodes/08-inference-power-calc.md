@@ -103,7 +103,9 @@ perhaps very small, but still positive chance that we will reject the null when
 it is true. If the p-value is 0.05, it will happen 1 out of 20 times. This 
 *error* is called _type I error_ by statisticians.  
 
-![Null distribution showing type I error as alpha](../fig/null-hypothesis.pdf)
+<img src="../fig/null-hypothesis.png" title="Null distribution showing type I error as alpha" alt="Null distribution showing type I error as alpha" style="display: block; margin: auto;" />
+
+![Null distribution showing type I error as alpha](../fig/null-hypothesis.png)
 
 A type I error is defined as rejecting the null when we should not. This is also 
 referred to as a false positive. So why do we then use 0.05? Shouldn't we use 
