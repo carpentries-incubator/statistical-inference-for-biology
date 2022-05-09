@@ -5,7 +5,8 @@ title: "Power Calculations"
 teaching: 0
 exercises: 0
 questions:
-- "?"
+- "What is statistical power?"
+- "How is power calculated?"
 objectives:
 - ""
 - ""
@@ -96,20 +97,24 @@ sacrificing mice unnecessarily or limiting the number of human subjects exposed
 to potential risk in a study. Here we explain what statistical power means. 
 
 #### Types of Error
-insert a graphic and reduce the text
-
 Whenever we perform a statistical test, we are aware that we may make a mistake. 
 This is why our p-values are not 0. Under the null, there is always a positive, 
 perhaps very small, but still positive chance that we will reject the null when 
 it is true. If the p-value is 0.05, it will happen 1 out of 20 times. This 
-*error* is called _type I error_ by statisticians. 
+*error* is called _type I error_ by statisticians.  
+
+![Null distribution showing type I error as alpha](../fig/null-hypothesis.png)
 
 A type I error is defined as rejecting the null when we should not. This is also 
 referred to as a false positive. So why do we then use 0.05? Shouldn't we use 
 0.000001 to be really sure? The reason we don't use infinitesimal cut-offs to 
 avoid type I errors at all cost is that there is another error we can commit: to 
 not reject the null when we should. This is called a _type II error_ or a false 
-negative. The R code analysis above shows an example of a false negative: we did 
+negative. 
+
+![Alternative hypothesis showing type II error as beta](../fig/alternative-hypothesis.png)
+
+The R code analysis above shows an example of a false negative: we did 
 not reject the null hypothesis (at the 0.05 level) and, because we happen to 
 know and peeked at the true population means, we know there is in fact a 
 difference. Had we used a p-value cutoff of 0.25, we would not have made this 
@@ -433,7 +438,7 @@ will become more precise.
 > `url<-"https://raw.githubusercontent.com/genomicsclass/dagdata/master/inst/extdata/babies.txt"`  
 > `filename <- basename(url)`  
 > `download(url, destfile=filename)`  
-> `babies<-read.table("babies.txt", header=TRUE)`  
+> `babies <- read.table("babies.txt", header=TRUE)`  
 > This is a large dataset (1,236 cases), and we will pretend that it contains 
 > the entire population in which we are interested. We will study the differences 
 > in birth weight between babies born to smoking and non-smoking mothers. First, 
@@ -442,7 +447,7 @@ will become more precise.
 > `bwt.nonsmoke <- filter(babies, smoke==0) %>%`  
 > `select(bwt) %>%`  
 > `unlist`  
-> `bwt.smoke<-filter(babies, smoke==1) %>%`  
+> `bwt.smoke <- filter(babies, smoke==1) %>%`  
 > `select(bwt) %>%`  
 > `unlist`   
 > Now, we can look for the true population difference in means between smoking 
