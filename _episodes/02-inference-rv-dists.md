@@ -49,7 +49,7 @@ this means and learn to compute these values in R. The first step is to
 understand random variables. To do this, we will use data from a mouse database 
 (provided by Karen Svenson via Gary Churchill and Dan Gatti and partially funded 
 by P50 GM070683). We will import the data into R and explain random variables
-and null distributions using R programming. See the [Setup]("../setup/") 
+and null distributions using R programming. See the [Setup]("https://smcclatchy.github.io/statistical-inference-for-biology/setup/") 
 instructions to import the data.
 
 #### Our first look at data

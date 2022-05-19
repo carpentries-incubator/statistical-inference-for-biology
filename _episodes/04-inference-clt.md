@@ -149,7 +149,27 @@ used.
 > C) Everything measured in nature follows a normal distribution.  
 > D) Measurement error is normally distributed.
 >
-> > ## Solution to Exercise 1
+> > ## Solutions to Exercise 1
+> > 1. `pnorm(1)-pnorm(-1)` = 0.6826895 (68%)  
+> > 2. `pnorm(2)-pnorm(-2)` = 0.9544997 (95%)  
+> > 3. `pnorm(3)-pnorm(-3)` = 0.9973002 (99%)  
+> > 4. `install.packages("rafalib")`  
+> >    `library(rafalib)`  
+> >    `pheno <- read.csv(file = "../data/mice_pheno.csv")`  
+> >    `y <- pheno %>%`   
+> >           `filter(Sex == "M" & Diet == "chow") %>%`  
+> >           `select(Bodyweight) %>%`   
+> >           `unlist()`  
+> >    `sigma <- popsd(y, na.rm = TRUE)` # 4.420545  
+> >    `mu <- mean(y, na.rm = TRUE)`  # 30.96381  
+> >    `y %>%`  
+> >           `filter(Bodyweight > mu - sigma & Bodyweight < mu + sigma) %>%`  
+> >           `count()/nrow(y)` # 0.6919643 (~68%)  
+> >    `y %>%`   
+> >           `filter(Bodyweight > mu - 2*sigma & Bodyweight < mu + 2*sigma) %>%`  
+> >           `count()/nrow(y)` # 0.9419643 (~95%)   
+> >           `filter(Bodyweight > mu - 3*sigma & Bodyweight < mu + 3*sigma) %>%`  
+> >           `count()/nrow(y)` # 0.9866071 (~99%)     
 > {: .solution}
 {: .challenge}
 
