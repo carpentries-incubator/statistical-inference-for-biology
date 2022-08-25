@@ -1,4 +1,6 @@
 library(tidyverse)
+library(rafalib)
+library(downloader)
 
 ## read "population" and split it into control and treatment
 pheno <- read.csv("../data/mice_pheno.csv") #Previously downloaded 
@@ -40,12 +42,15 @@ length(which(rejections==TRUE))/B # this is our power with N=12 for this effect 
 
 ## Calculate power for 10 different N values; alpha =0.05
 Ns <- seq(5, 50, 5)
+Ns
 
 power <- sapply(Ns,function(N){
   rejections <- replicate(B, reject(N))
   length(which(rejections==TRUE))/B
 })
 
+power
+tibble(Ns, power)
 plot(Ns, power, type="b")
 
 ## Calculate power for different alpha values; N=30
@@ -55,6 +60,9 @@ power <- sapply(alphas, function(alpha){
   rejections <- replicate(B, reject(N, alpha=alpha))
   length(which(rejections==TRUE))/B
 })
+
+tibble(alphas, power)
+plot(alphas, power, xlab="alpha", type="b")
 plot(alphas, power, xlab="alpha", type="b", log="x")
 
 # write a function that returns a p-value for a given sample size N:
@@ -68,9 +76,11 @@ calculatePvalue <- function(N) {
 # the effect well before we get to 200. For each sample size, we will calculate 
 # a few p-values. We can do this by repeating each value of N a few times.
 Ns <- seq(10,200,by=10)
+Ns
 Ns_rep <- rep(Ns, each=10)
+Ns_rep
 
-# use sapply to run our simulations:
+# use sapply to run simulations:
 pvalues <- sapply(Ns_rep, calculatePvalue)
 
 # plot the 10 p-values generated for each sample size:
@@ -86,4 +96,12 @@ N <- 12
 hf <- sample(hfPopulation, N)
 control <- sample(controlPopulation, N)
 diff <- mean(hf) - mean(control)
+diff
 diff / mean(control) * 100
+t.test(hf, control)$conf.int / mean(control) * 100
+
+# report a statistic called Cohen’s d, which is the difference between the 
+# groups divided by the pooled standard deviation of the two groups.
+sd_pool <- sqrt(((N-1) * var(hf) + (N-1) * var(control))/(2 * N - 2))
+diff / sd_pool
+

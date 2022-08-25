@@ -97,6 +97,12 @@ for (i in 1:B) {
   lines(interval, c(i,i),col=color)
 }
 
+# Now the intervals are made bigger. This is because the t-distribution has 
+# fatter tails and therefore:
+qt(1 - 0.05/2, df=4)
+# is bigger than…
+qnorm(1 - 0.05/2)
+
 ### Connection Between Confidence Intervals and p-values
 # we specify the control and treatment vectors
 control <- pheno %>% 
@@ -112,3 +118,31 @@ treatment <- pheno %>%
 # We use the t.test function to calculate CI and p-value
 t.test(treatment, control, conf.level=0.95)
 t.test(treatment, control, conf.level=0.99)
+t.test(treatment, control)$conf.int
+t.test(treatment, control, conf.level=0.9)$conf.int
+
+library(downloader) 
+url<-"https://raw.githubusercontent.com/genomicsclass/dagdata/master/inst/extdata/babies.txt"
+filename <- basename(url)
+download(url, destfile=filename)
+babies <- read.table("babies.txt", header=TRUE)
+
+bwt.nonsmoke <- filter(babies, smoke == 0) %>% 
+  select(bwt) %>% 
+  unlist
+bwt.nonsmoke
+
+bwt.smoke <- filter(babies, smoke == 1) %>%
+  select(bwt) %>% 
+  unlist 
+bwt.smoke
+
+library(rafalib)
+mean(bwt.nonsmoke) - mean(bwt.smoke)
+popsd(bwt.nonsmoke)
+popsd(bwt.smoke)
+
+set.seed(1)
+dat.ns <- sample(bwt.nonsmoke, size = 25)
+dat.s <- sample(bwt.smoke, size = 25)
+(tval <- t.test(bwt.smoke, bwt.nonsmoke)$p.value)

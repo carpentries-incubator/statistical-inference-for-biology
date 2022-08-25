@@ -286,6 +286,5 @@ question, as well as motivate the widely used t-distribution.
 > > pop_sample_mean_diff_f
 > > ```
 > {: .solution}
-> 
 {: .challenge}
 

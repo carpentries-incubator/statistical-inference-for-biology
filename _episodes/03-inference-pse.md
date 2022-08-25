@@ -457,6 +457,5 @@ question, as well as motivate the widely used t-distribution.
 > > ~~~
 > > {: .output}
 > {: .solution}
-> 
 {: .challenge}
 
