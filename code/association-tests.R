@@ -1,11 +1,3 @@
-# how many correct?
-choose(4, 3)
-# how many incorrect?
-choose(4, 1)
-
-choose(8, 4)
-
-
 tab <- matrix(data=c(3,1,1,3), nrow=2, ncol=2)
 rownames(tab) <- c("Poured Before", "Poured After")
 colnames(tab) <- c("Guessed before", "Guessed after")
