@@ -20,26 +20,26 @@ carpentry: 'incubator'
 title: 'Statistical Inference for Biology'
 
 # Date the lesson was created (YYYY-MM-DD, this is empty by default)
-created: 
+created: 2020-02-25
 
 # Comma-separated list of keywords for the lesson
-keywords: 'software, data, lesson, The Carpentries'
+keywords: 'software, data, lesson, The Carpentries, statistics, inference, biology'
 
 # Life cycle stage of the lesson
 # possible values: pre-alpha, alpha, beta, stable
-life_cycle: 'alpha'
+life_cycle: 'beta'
 
 # License of the lesson materials (recommended CC-BY 4.0)
 license: 'CC-BY 4.0'
 
 # Link to the source repository for this lesson
-source: 'https://github.com/fishtree-attempt/statistical-inference-for-biology/'
+source: 'https://github.com/carpentries-incubator/statistical-inference-for-biology`
 
 # Default branch of your lesson
 branch: 'main'
 
 # Who to contact if there are any issues
-contact: 'team@carpentries.org'
+contact: 'susan.mcclatchy@jax.org'
 
 # Navigation ------------------------------------------------
 #
@@ -95,7 +95,4 @@ profiles:
 
 
 carpentry_description: Lesson Description
-url: https://preview.carpentries.org/statistical-inference-for-biology
-analytics: carpentries
-lang: en
-workbench-beta: yes
+
