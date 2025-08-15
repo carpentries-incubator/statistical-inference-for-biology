@@ -1,18 +1,21 @@
 ---
 title: Permutations
-teaching: 0
-exercises: 0
+teaching: 20
+exercises: 20
 source: Rmd
 ---
 
 ::::::::::::::::::::::::::::::::::::::: objectives
 
-- - - 
+- Generate a null distribution with permutations.
+- Evaluate the results of a permutation test.
+
 ::::::::::::::::::::::::::::::::::::::::::::::::::
 
 :::::::::::::::::::::::::::::::::::::::: questions
 
-- ?
+- What is a permutation test?
+- When is a permutation test helpful?
 
 ::::::::::::::::::::::::::::::::::::::::::::::::::
 
@@ -33,40 +36,10 @@ We are back to the scenario where we only have 10 measurements for each group.
 
 
 ``` r
-fWeights <- read.csv(file = "../data/femaleMiceWeights.csv") # we read this data in earlier
-```
-
-``` warning
-Warning in file(file, "rt"): cannot open file '../data/femaleMiceWeights.csv':
-No such file or directory
-```
-
-``` error
-Error in file(file, "rt"): cannot open the connection
-```
-
-``` r
+fWeights <- read.csv(file = "./data/femaleMiceWeights.csv") # we read this data in earlier
 control <- filter(fWeights, Diet=="chow") %>% select(Bodyweight) %>% unlist
-```
-
-``` error
-Error: object 'fWeights' not found
-```
-
-``` r
 treatment <- filter(fWeights, Diet=="hf") %>% select(Bodyweight) %>% unlist
-```
-
-``` error
-Error: object 'fWeights' not found
-```
-
-``` r
 obsdiff <- mean(treatment) - mean(control)
-```
-
-``` error
-Error: object 'treatment' not found
 ```
 
 In previous sections, we showed parametric approaches that helped determine if
@@ -85,27 +58,14 @@ avgdiff <- replicate(1000, {
     newtreatments <- all[(N+1):(2*N)]
   return(mean(newtreatments) - mean(newcontrols))
 })
-```
-
-``` error
-Error in FUN(X[[i]], ...): object 'control' not found
-```
-
-``` r
 hist(avgdiff)
-```
-
-``` error
-Error: object 'avgdiff' not found
-```
-
-``` r
 abline(v=obsdiff, col="red", lwd=2)
 ```
 
-``` error
-Error: object 'obsdiff' not found
-```
+<div class="figure" style="text-align: center">
+<img src="fig/inference-permutations-rendered-diff_hist-1.png" alt="Histogram of difference between averages from permutations. Vertical line shows the observed difference."  />
+<p class="caption">Histogram of difference between averages from permutations. Vertical line shows the observed difference.</p>
+</div>
 
 How many of the null means are bigger than the observed value? That proportion
 would be the p-value for the null. We add a 1 to the numerator and denominator
@@ -118,8 +78,8 @@ to account for misestimation of the p-value (for more details see
 (sum(abs(avgdiff) > abs(obsdiff)) + 1) / (length(avgdiff) + 1)
 ```
 
-``` error
-Error: object 'avgdiff' not found
+``` output
+[1] 0.05094905
 ```
 
 Now let's repeat this experiment for a smaller dataset. We create a smaller
@@ -128,27 +88,9 @@ dataset by sampling:
 
 ``` r
 N <- 5
-control <- sample(control,N)
-```
-
-``` error
-Error: object 'control' not found
-```
-
-``` r
-treatment <- sample(treatment,N)
-```
-
-``` error
-Error: object 'treatment' not found
-```
-
-``` r
-obsdiff <- mean(treatment)- mean(control)
-```
-
-``` error
-Error: object 'treatment' not found
+control <- sample(control, N)
+treatment <- sample(treatment, N)
+obsdiff <- mean(treatment) - mean(control)
 ```
 
 and repeat the exercise:
@@ -161,27 +103,14 @@ avgdiff <- replicate(1000, {
     newtreatments <- all[(N+1):(2*N)]
   return(mean(newtreatments) - mean(newcontrols))
 })
-```
-
-``` error
-Error in FUN(X[[i]], ...): object 'control' not found
-```
-
-``` r
 hist(avgdiff)
-```
-
-``` error
-Error: object 'avgdiff' not found
-```
-
-``` r
 abline(v=obsdiff, col="red", lwd=2)
 ```
 
-``` error
-Error: object 'obsdiff' not found
-```
+<div class="figure" style="text-align: center">
+<img src="fig/inference-permutations-rendered-diff_hist_N50-1.png" alt="Histogram of difference between averages from permutations for smaller sample size. Vertical line shows the observed difference."  />
+<p class="caption">Histogram of difference between averages from permutations for smaller sample size. Vertical line shows the observed difference.</p>
+</div>
 
 Now the observed difference is not significant using this approach. Keep in mind
 that there is no theoretical guarantee that the null distribution estimated from permutations approximates the actual null distribution. For example, if there is
@@ -235,10 +164,8 @@ existing structure in the original data.
 
 :::::::::::::::::::::::::::::::::::::::: keypoints
 
-- .
-- .
-- .
-- .
+- Permutation randomly shuffles data so that the null is true.
+- Permutation tests are useful when there is no good approximation such as that provided by the CLT.
 
 ::::::::::::::::::::::::::::::::::::::::::::::::::
 

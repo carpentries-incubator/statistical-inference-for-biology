@@ -1,13 +1,15 @@
 ---
 title: Monte Carlo simulation
-teaching: 0
-exercises: 0
+teaching: 20
+exercises: 35
 source: Rmd
 ---
 
 ::::::::::::::::::::::::::::::::::::::: objectives
 
-- - - 
+- Generate simulated data to test out hypotheses.
+- Plot distributions and determine whether they approximate the CLT or t-distribution.
+
 ::::::::::::::::::::::::::::::::::::::::::::::::::
 
 :::::::::::::::::::::::::::::::::::::::: questions
@@ -44,25 +46,9 @@ t-distribution approximation for different sample sizes.
 
 ``` r
 library(dplyr)
-pheno <- read.csv("../data/mice_pheno.csv")
-```
-
-``` warning
-Warning in file(file, "rt"): cannot open file '../data/mice_pheno.csv': No such
-file or directory
-```
-
-``` error
-Error in file(file, "rt"): cannot open the connection
-```
-
-``` r
+pheno <- read.csv("./data/mice_pheno.csv")
 controlPopulation <- filter(pheno, Sex == "F" & Diet == "chow") %>%  
   select(Bodyweight) %>% unlist
-```
-
-``` error
-Error: object 'pheno' not found
 ```
 
 We will build a function that automatically generates a t-statistic under the
@@ -83,10 +69,6 @@ ttestgenerator <- function(n) {
 ttests <- replicate(1000, ttestgenerator(10))
 ```
 
-``` error
-Error in ttestgenerator(10): object 'controlPopulation' not found
-```
-
 With 1,000 Monte Carlo simulated occurrences of this random variable, we can now
 get a glimpse of its distribution:
 
@@ -95,9 +77,10 @@ get a glimpse of its distribution:
 hist(ttests)
 ```
 
-``` error
-Error: object 'ttests' not found
-```
+<div class="figure" style="text-align: center">
+<img src="fig/inference-montecarlo-rendered-ttest_hist-1.png" alt="Histogram of 1000 Monte Carlo simulated t-statistics."  />
+<p class="caption">Histogram of 1000 Monte Carlo simulated t-statistics.</p>
+</div>
 
 So is the distribution of this t-statistic well approximated by the normal
 distribution? In the next chapter, we will formally introduce quantile-quantile
@@ -108,19 +91,13 @@ line, it means the approximation is a good one.
 
 ``` r
 qqnorm(ttests)
-```
-
-``` error
-Error: object 'ttests' not found
-```
-
-``` r
 abline(0,1)
 ```
 
-``` error
-Error in int_abline(a = a, b = b, h = h, v = v, untf = untf, ...): plot.new has not been called yet
-```
+<div class="figure" style="text-align: center">
+<img src="fig/inference-montecarlo-rendered-ttest_qqplot-1.png" alt="Quantile-quantile plot comparing 1000 Monte Carlo simulated t-statistics to theoretical normal distribution."  />
+<p class="caption">Quantile-quantile plot comparing 1000 Monte Carlo simulated t-statistics to theoretical normal distribution.</p>
+</div>
 
 This looks like a very good approximation. For this particular population, a
 sample size of 10 was large enough to use the CLT approximation. How about 3?
@@ -128,27 +105,14 @@ sample size of 10 was large enough to use the CLT approximation. How about 3?
 
 ``` r
 ttests <- replicate(1000, ttestgenerator(3))
-```
-
-``` error
-Error in ttestgenerator(3): object 'controlPopulation' not found
-```
-
-``` r
 qqnorm(ttests)
-```
-
-``` error
-Error: object 'ttests' not found
-```
-
-``` r
 abline(0,1)
 ```
 
-``` error
-Error in int_abline(a = a, b = b, h = h, v = v, untf = untf, ...): plot.new has not been called yet
-```
+<div class="figure" style="text-align: center">
+<img src="fig/inference-montecarlo-rendered-unnamed-chunk-6-1.png" alt="Quantile-quantile plot comparing 1000 Monte Carlo simulated t-statistics with three degrees of freedom to theoretical normal distribution."  />
+<p class="caption">Quantile-quantile plot comparing 1000 Monte Carlo simulated t-statistics with three degrees of freedom to theoretical normal distribution.</p>
+</div>
 
 Now we see that the large quantiles, referred to by statisticians as the
 *tails*, are larger than expected (below the line on the left side of the plot
@@ -161,19 +125,13 @@ better approximation. Our simulation results seem to confirm this:
 ``` r
 ps <- (seq(0, 999) + 0.5)/1000
 qqplot(qt(ps, df = 2 * 3 - 2), ttests, xlim=c(-6,6), ylim=c(-6,6))
-```
-
-``` error
-Error: object 'ttests' not found
-```
-
-``` r
 abline(0,1)
 ```
 
-``` error
-Error in int_abline(a = a, b = b, h = h, v = v, untf = untf, ...): plot.new has not been called yet
-```
+<div class="figure" style="text-align: center">
+<img src="fig/inference-montecarlo-rendered-unnamed-chunk-7-1.png" alt="Quantile-quantile plot comparing 1000 Monte Carlo simulated t-statistics with three degrees of freedom to theoretical t-distribution."  />
+<p class="caption">Quantile-quantile plot comparing 1000 Monte Carlo simulated t-statistics with three degrees of freedom to theoretical t-distribution.</p>
+</div>
 
 The t-distribution is a much better approximation in this case, but it is still
 not perfect. This is due to the fact that the original data is not that well
@@ -182,19 +140,13 @@ approximated by the normal distribution.
 
 ``` r
 qqnorm(controlPopulation)
-```
-
-``` error
-Error: object 'controlPopulation' not found
-```
-
-``` r
 qqline(controlPopulation)
 ```
 
-``` error
-Error: object 'controlPopulation' not found
-```
+<div class="figure" style="text-align: center">
+<img src="fig/inference-montecarlo-rendered-unnamed-chunk-8-1.png" alt="Quantile-quantile of original data compared to theoretical quantile distribution."  />
+<p class="caption">Quantile-quantile of original data compared to theoretical quantile distribution.</p>
+</div>
 
 ## Parametric Simulations for the Observations
 
@@ -309,10 +261,10 @@ ttestgenerator <- function(n, mean=24, sd=3.5) {
 
 :::::::::::::::::::::::::::::::::::::::: keypoints
 
-- .
-- .
-- .
-- .
+- Random number generators can simulate imitate random variables from the
+real world. 
+- Simulated data lets us examine properties of random variables and test out 
+ideas or competing methods computationally.
 
 ::::::::::::::::::::::::::::::::::::::::::::::::::
 

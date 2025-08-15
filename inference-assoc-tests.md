@@ -1,18 +1,22 @@
 ---
 title: Association tests
-teaching: 0
-exercises: 0
+teaching: 20
+exercises: 20
 source: Rmd
 ---
 
 ::::::::::::::::::::::::::::::::::::::: objectives
 
-- - - 
+- Describe and execute the Chi-squared test.
+- Compute Fisher's exact test.
+
 ::::::::::::::::::::::::::::::::::::::::::::::::::
 
 :::::::::::::::::::::::::::::::::::::::: questions
 
-- ?
+- What is the Chi-squared test?
+- What is Fisher's exact test?
+- When would these tests be used?
 
 ::::::::::::::::::::::::::::::::::::::::::::::::::
 
@@ -48,7 +52,8 @@ was randomized. Say she picked 3 out of 4 correctly, do we believe
 she has a special ability? Hypothesis testing helps answer this
 question by quantifying what happens by chance. This example is called
 the "Lady Tasting Tea" experiment (and, as it turns out, Fisher's friend
-was a scientist herself, [Muriel Bristol](https://en.wikipedia.org/wiki/Muriel_Bristol)).
+was a scientist herself, 
+[Muriel Bristol](https://en.wikipedia.org/wiki/Muriel_Bristol)).
 
 The basic question we ask is: if the tester is actually guessing, what
 are the chances that she gets 3 or more correct? Just as we have done
@@ -75,8 +80,8 @@ The data from the experiment above can be summarized by a two by two table:
 
 ``` r
 tab <- matrix(c(3,1,1,3),2,2)
-rownames(tab)<-c("Poured Before","Poured After")
-colnames(tab)<-c("Guessed before","Guessed after")
+rownames(tab) <- c("Poured Before","Poured After")
+colnames(tab) <- c("Guessed before","Guessed after")
 tab
 ```
 
@@ -86,11 +91,12 @@ Poured Before              3             1
 Poured After               1             3
 ```
 
-The function `fisher.test` performs the calculations above and can be obtained like this:
+The function `fisher.test` performs the calculations above and can be obtained 
+like this:
 
 
 ``` r
-fisher.test(tab,alternative="greater")
+fisher.test(tab, alternative="greater")
 ```
 
 ``` output
@@ -197,7 +203,10 @@ genotype control cases
 
 Note that you can feed `table` $n$ factors and it will tabulate all $n$\-tables.
 
-The typical statistics we use to summarize these results is the odds ratio (OR). We compute the odds of having the disease if you are an "aa": 10/40, the odds of having the disease if you are an "AA/Aa": 20/180, and take the ratio: $(10/40) / (20/180)$
+The typical statistics we use to summarize these results is the odds ratio (OR). 
+We compute the odds of having the disease if you are an "aa": 10/40, the odds of 
+having the disease if you are an "AA/Aa": 20/180, and take the ratio: 
+$(10/40) / (20/180)$
 
 
 ``` r
@@ -211,16 +220,15 @@ The typical statistics we use to summarize these results is the odds ratio (OR).
 To compute a p-value, we don't use the OR directly. We instead assume
 that there is no association between genotype and disease, and then
 compute what we expect to see in each *cell* of the table (note: this use of
-the word "cell" refers to elements in a matrix or table and has
-nothing to do with biological cells).
-Under the null hypothesis,
-the group with 200 individuals and the group with 50 individuals were
-each randomly assigned the disease with the same probability. If this
-is the case, then the probability of disease is:
+the word "cell" refers to elements in a matrix or table and has nothing to do 
+with biological cells). Under the null hypothesis, the group with 200 
+individuals and the group with 50 individuals were each randomly assigned the 
+disease with the same probability. If this is the case, then the probability of 
+disease is:
 
 
 ``` r
-p=mean(disease=="cases")
+p=mean(disease == "cases")
 p
 ```
 
@@ -232,9 +240,9 @@ The expected table is therefore:
 
 
 ``` r
-expected <- rbind(c(1-p,p)*sum(genotype=="AA/Aa"),
-                  c(1-p,p)*sum(genotype=="aa"))
-dimnames(expected)<-dimnames(tab)
+expected <- rbind(c(1-p,p) * sum(genotype=="AA/Aa"),
+                  c(1-p,p) * sum(genotype=="aa"))
+dimnames(expected) <- dimnames(tab)
 expected
 ```
 
@@ -306,8 +314,8 @@ see a reference on generalized linear models such as
 
 
 ``` r
-fit <- glm(disease~genotype,family="binomial",data=dat)
-coeftab<- summary(fit)$coef
+fit <- glm(disease ~ genotype, family="binomial", data=dat)
+coeftab <- summary(fit)$coef
 coeftab
 ```
 
@@ -317,11 +325,14 @@ coeftab
 genotypeaa   0.8109302  0.4249074  1.908487 5.632834e-02
 ```
 
-The second row of the table shown above gives you the estimate and SE of the log odds ratio. Mathematical theory tells us that this estimate is approximately normally distributed. We can therefore form a confidence interval and then exponentiate to provide a confidence interval for the OR.
+The second row of the table shown above gives you the estimate and SE of the log 
+odds ratio. Mathematical theory tells us that this estimate is approximately 
+normally distributed. We can therefore form a confidence interval and then 
+exponentiate to provide a confidence interval for the OR.
 
 
 ``` r
-ci <- coeftab[2,1] + c(-2,2)*coeftab[2,2]
+ci <- coeftab[2,1] + c(-2,2) * coeftab[2,2]
 exp(ci)
 ```
 
@@ -329,16 +340,29 @@ exp(ci)
 [1] 0.9618616 5.2632310
 ```
 
-The confidence includes 1, which is consistent with the p-value being bigger than 0.05. Note that the p-value shown here is based on a different approximation to the one used by the Chi-square test, which is why they differ.
+The confidence includes 1, which is consistent with the p-value being bigger 
+than 0.05. Note that the p-value shown here is based on a different 
+approximation to the one used by the Chi-square test, which is why they differ.
 
-ExercisesWe showed how to calculate a Chi-square test from a table. Here we will show how to generate thetable from data which is in the form of a dataframe, so that you can then perform an associationtest to see if two columns have an enrichment (or depletion) of shared occurrences.Download thehttps://studio.edx.org/c4x/HarvardX/PH525.1x/asset/assoctest.csvfile into your Rworking directory, and then read it into R:d = read.csv("assoctest.csv")1.This dataframe reflects the allele status (either AA/Aa or aa) and the case/control statusfor 72 individuals. Compute the Chi-square test for the association of genotype withcase/control status (using thetablefunction and thechisq.testfunction). Examine thetable to see if there appears to be an association. What is the X-squared statistic?2.Compute Fisher's exact testfisher.testfor the same table. What is the p-value?
+Exercises
+We showed how to calculate a Chi-square test from a table. Here we will show how 
+to generate the table from data which is in the form of a dataframe, so that you 
+can then perform an association test to see if two columns have an enrichment 
+(or depletion) of shared occurrences. Download the
+[file](https://studio.edx.org/c4x/HarvardX/PH525.1x/asset/assoctest.csv) into 
+your working directory, and then read it into R: `d = read.csv("assoctest.csv")`.  
+1. This dataframe reflects the allele status (either AA/Aa or aa) and the 
+case/control status for 72 individuals. Compute the Chi-square test for the 
+association of genotype with case/control status (using the `table` function and 
+the `chisq.test` function). Examine the table to see if there appears to be an
+association. What is the X-squared statistic?  
+2.Compute Fisher's exact test `fisher.test` for the same table. What is the 
+p-value?
 
 :::::::::::::::::::::::::::::::::::::::: keypoints
 
-- .
-- .
-- .
-- .
+- Binary, categorical and ordinal data require different tests.
+- Chi-squared and Fisher's exact tests are useful in these cases.
 
 ::::::::::::::::::::::::::::::::::::::::::::::::::
 
