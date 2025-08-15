@@ -1,7 +1,7 @@
 ---
 title: Power Calculations
-teaching: 0
-exercises: 0
+teaching: 20
+exercises: 20
 source: Rmd
 ---
 
@@ -27,11 +27,14 @@ library(rafalib)
 
 #### Introduction
 
-We have used the example of the effects of two different diets on the weight of mice. Since in this illustrative example we have access to the population, we know that in fact there is a substantial (about 10%) difference between the average weights of the two populations:
+We have used the example of the effects of two different diets on the weight of 
+mice. Since in this illustrative example we have access to the population, we 
+know that in fact there is a substantial (about 10%) difference between the 
+average weights of the two populations:
 
 ```{r, message=FALSE}
 library(dplyr)
-pheno <- read.csv("../data/mice_pheno.csv") #Previously downloaded 
+pheno <- read.csv("./data/mice_pheno.csv") # Previously downloaded 
 
 controlPopulation <- filter(pheno, Sex == "F" & Diet == "chow") %>%  
   select(Bodyweight) %>% unlist
@@ -80,7 +83,7 @@ it is true. If the p-value is 0.05, it will happen 1 out of 20 times. This
 
 A type I error is defined as rejecting the null when we should not. This is also
 referred to as a false positive. So why do we then use 0.05? Shouldn't we use
-0\.000001 to be really sure? The reason we don't use infinitesimal cut-offs to
+0.000001 to be really sure? The reason we don't use infinitesimal cut-offs to
 avoid type I errors at all cost is that there is another error we can commit: to
 not reject the null when we should. This is called a *type II error* or a false
 negative.
@@ -519,10 +522,8 @@ weights of babies born to smoking mothers.
 
 :::::::::::::::::::::::::::::::::::::::: keypoints
 
-- .
-- .
-- .
-- .
+- Power is the probability of detecting a real effect.
+- Effect size with a confidence interval is a more meaningful measure than a p-value.
 
 ::::::::::::::::::::::::::::::::::::::::::::::::::
 
