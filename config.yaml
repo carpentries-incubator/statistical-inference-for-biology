@@ -65,19 +65,19 @@ contact: 'susan.mcclatchy@jax.org'
 
 # Order of episodes in your lesson
 episodes: 
-- 01-introduction.md
-- 02-inference-rv-dists.Rmd
-- 03-inference-pse.Rmd
-- 04-inference-clt.Rmd
-- 05-inference-clt-practice.Rmd
-- 06-inference-ttests-practice.Rmd
-- 07-inference-ci.Rmd
-- 08-inference-power-calc.Rmd
-- 09-inference-montecarlo.Rmd
-- 10-inference-permutations.Rmd
-- 11-inference-assoc-tests.Rmd
-- 12-eda-intro.Rmd
-- 13-eda-avoid-plots.Rmd
+- introduction.md
+- inference-rv-dists.Rmd
+- inference-pse.Rmd
+- inference-clt.Rmd
+- inference-clt-practice.Rmd
+- inference-ttests-practice.Rmd
+- inference-ci.Rmd
+- inference-power-calc.Rmd
+- inference-montecarlo.Rmd
+- inference-permutations.Rmd
+- inference-assoc-tests.Rmd
+- eda-intro.Rmd
+- eda-avoid-plots.Rmd
 
 # Information for Learners
 learners: 
