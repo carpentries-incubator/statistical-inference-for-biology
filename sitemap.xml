@@ -13,6 +13,9 @@
     <loc>https://carpentries-incubator.github.io/statistical-inference-for-biology/about.html</loc>
   </url>
   <url>
+    <loc>https://carpentries-incubator.github.io/statistical-inference-for-biology/aio.html</loc>
+  </url>
+  <url>
     <loc>https://carpentries-incubator.github.io/statistical-inference-for-biology/discuss.html</loc>
   </url>
   <url>
@@ -20,6 +23,9 @@
   </url>
   <url>
     <loc>https://carpentries-incubator.github.io/statistical-inference-for-biology/eda-intro.html</loc>
+  </url>
+  <url>
+    <loc>https://carpentries-incubator.github.io/statistical-inference-for-biology/images.html</loc>
   </url>
   <url>
     <loc>https://carpentries-incubator.github.io/statistical-inference-for-biology/index.html</loc>
@@ -67,6 +73,9 @@
     <loc>https://carpentries-incubator.github.io/statistical-inference-for-biology/instructor/about.html</loc>
   </url>
   <url>
+    <loc>https://carpentries-incubator.github.io/statistical-inference-for-biology/instructor/aio.html</loc>
+  </url>
+  <url>
     <loc>https://carpentries-incubator.github.io/statistical-inference-for-biology/instructor/discuss.html</loc>
   </url>
   <url>
@@ -74,6 +83,9 @@
   </url>
   <url>
     <loc>https://carpentries-incubator.github.io/statistical-inference-for-biology/instructor/eda-intro.html</loc>
+  </url>
+  <url>
+    <loc>https://carpentries-incubator.github.io/statistical-inference-for-biology/instructor/images.html</loc>
   </url>
   <url>
     <loc>https://carpentries-incubator.github.io/statistical-inference-for-biology/instructor/index.html</loc>
@@ -109,7 +121,13 @@
     <loc>https://carpentries-incubator.github.io/statistical-inference-for-biology/instructor/inference-ttests-practice.html</loc>
   </url>
   <url>
+    <loc>https://carpentries-incubator.github.io/statistical-inference-for-biology/instructor/instructor-notes.html</loc>
+  </url>
+  <url>
     <loc>https://carpentries-incubator.github.io/statistical-inference-for-biology/instructor/introduction.html</loc>
+  </url>
+  <url>
+    <loc>https://carpentries-incubator.github.io/statistical-inference-for-biology/instructor/key-points.html</loc>
   </url>
   <url>
     <loc>https://carpentries-incubator.github.io/statistical-inference-for-biology/instructor/profiles.html</loc>
@@ -118,7 +136,13 @@
     <loc>https://carpentries-incubator.github.io/statistical-inference-for-biology/instructor/reference.html</loc>
   </url>
   <url>
+    <loc>https://carpentries-incubator.github.io/statistical-inference-for-biology/instructor-notes.html</loc>
+  </url>
+  <url>
     <loc>https://carpentries-incubator.github.io/statistical-inference-for-biology/introduction.html</loc>
+  </url>
+  <url>
+    <loc>https://carpentries-incubator.github.io/statistical-inference-for-biology/key-points.html</loc>
   </url>
   <url>
     <loc>https://carpentries-incubator.github.io/statistical-inference-for-biology/profiles.html</loc>

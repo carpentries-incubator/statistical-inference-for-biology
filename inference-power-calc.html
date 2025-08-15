@@ -118,11 +118,11 @@
   Statistical Inference for Biology
 </div>
 
-<aside class="col-md-12 lesson-progress"><div style="width: 90%" class="percentage">
-    90%
+<aside class="col-md-12 lesson-progress"><div style="width: 76%" class="percentage">
+    76%
   </div>
   <div class="progress incubator">
-    <div class="progress-bar incubator" role="progressbar" style="width: 90%" aria-valuenow="90" aria-label="Lesson Progress" aria-valuemin="0" aria-valuemax="100">
+    <div class="progress-bar incubator" role="progressbar" style="width: 76%" aria-valuenow="76" aria-label="Lesson Progress" aria-valuemin="0" aria-valuemax="100">
     </div>
   </div>
 </aside><div class="container">
@@ -436,125 +436,52 @@ difference between the average weights of the two populations:</p>
 </h3>
 <pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw">library</span><span class="op">(</span><span class="va">dplyr</span><span class="op">)</span></span>
-<span><span class="va">pheno</span> <span class="op">&lt;-</span> <span class="fu">read.csv</span><span class="op">(</span><span class="st">"../data/mice_pheno.csv"</span><span class="op">)</span> <span class="co">#Previously downloaded </span></span></code></pre>
+<span><span class="va">pheno</span> <span class="op">&lt;-</span> <span class="fu">read.csv</span><span class="op">(</span><span class="st">"./data/mice_pheno.csv"</span><span class="op">)</span> <span class="co"># Previously downloaded </span></span>
+<span></span>
+<span><span class="va">controlPopulation</span> <span class="op">&lt;-</span> <span class="fu">filter</span><span class="op">(</span><span class="va">pheno</span>, <span class="va">Sex</span> <span class="op">==</span> <span class="st">"F"</span> <span class="op">&amp;</span> <span class="va">Diet</span> <span class="op">==</span> <span class="st">"chow"</span><span class="op">)</span> <span class="op">%&gt;%</span>  </span>
+<span>  <span class="fu">select</span><span class="op">(</span><span class="va">Bodyweight</span><span class="op">)</span> <span class="op">%&gt;%</span> <span class="va">unlist</span></span>
+<span></span>
+<span><span class="va">hfPopulation</span> <span class="op">&lt;-</span> <span class="fu">filter</span><span class="op">(</span><span class="va">pheno</span>, <span class="va">Sex</span> <span class="op">==</span> <span class="st">"F"</span> <span class="op">&amp;</span> <span class="va">Diet</span> <span class="op">==</span> <span class="st">"hf"</span><span class="op">)</span> <span class="op">%&gt;%</span>  </span>
+<span>  <span class="fu">select</span><span class="op">(</span><span class="va">Bodyweight</span><span class="op">)</span> <span class="op">%&gt;%</span> <span class="va">unlist</span></span>
+<span></span>
+<span><span class="va">mu_hf</span> <span class="op">&lt;-</span> <span class="fu">mean</span><span class="op">(</span><span class="va">hfPopulation</span><span class="op">)</span></span>
+<span><span class="va">mu_control</span> <span class="op">&lt;-</span> <span class="fu">mean</span><span class="op">(</span><span class="va">controlPopulation</span><span class="op">)</span></span>
+<span><span class="fu">print</span><span class="op">(</span><span class="va">mu_hf</span> <span class="op">-</span> <span class="va">mu_control</span><span class="op">)</span></span></code></pre>
 </div>
 <div class="codewrapper">
-<h3 class="code-label">WARNING<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="warning" tabindex="0"><code>Warning in file(file, "rt"): cannot open file '../data/mice_pheno.csv': No such
-file or directory</code></pre>
+<pre class="output" tabindex="0"><code>[1] 2.375517</code></pre>
 </div>
-<div class="codewrapper">
-<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="error" tabindex="0"><code>Error in file(file, "rt"): cannot open the connection</code></pre>
-</div>
-<div class="codewrapper sourceCode" id="cb4">
-<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">controlPopulation</span> <span class="op">&lt;-</span> <span class="fu">filter</span><span class="op">(</span><span class="va">pheno</span>, <span class="va">Sex</span> <span class="op">==</span> <span class="st">"F"</span> <span class="op">&amp;</span> <span class="va">Diet</span> <span class="op">==</span> <span class="st">"chow"</span><span class="op">)</span> <span class="op">%&gt;%</span>  </span>
-<span>  <span class="fu">select</span><span class="op">(</span><span class="va">Bodyweight</span><span class="op">)</span> <span class="op">%&gt;%</span> <span class="va">unlist</span></span></code></pre>
-</div>
-<div class="codewrapper">
-<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="error" tabindex="0"><code>Error: object 'pheno' not found</code></pre>
-</div>
-<div class="codewrapper sourceCode" id="cb6">
-<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">hfPopulation</span> <span class="op">&lt;-</span> <span class="fu">filter</span><span class="op">(</span><span class="va">pheno</span>, <span class="va">Sex</span> <span class="op">==</span> <span class="st">"F"</span> <span class="op">&amp;</span> <span class="va">Diet</span> <span class="op">==</span> <span class="st">"hf"</span><span class="op">)</span> <span class="op">%&gt;%</span>  </span>
-<span>  <span class="fu">select</span><span class="op">(</span><span class="va">Bodyweight</span><span class="op">)</span> <span class="op">%&gt;%</span> <span class="va">unlist</span></span></code></pre>
-</div>
-<div class="codewrapper">
-<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="error" tabindex="0"><code>Error: object 'pheno' not found</code></pre>
-</div>
-<div class="codewrapper sourceCode" id="cb8">
-<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">mu_hf</span> <span class="op">&lt;-</span> <span class="fu">mean</span><span class="op">(</span><span class="va">hfPopulation</span><span class="op">)</span></span></code></pre>
-</div>
-<div class="codewrapper">
-<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="error" tabindex="0"><code>Error: object 'hfPopulation' not found</code></pre>
-</div>
-<div class="codewrapper sourceCode" id="cb10">
-<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">mu_control</span> <span class="op">&lt;-</span> <span class="fu">mean</span><span class="op">(</span><span class="va">controlPopulation</span><span class="op">)</span></span></code></pre>
-</div>
-<div class="codewrapper">
-<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="error" tabindex="0"><code>Error: object 'controlPopulation' not found</code></pre>
-</div>
-<div class="codewrapper sourceCode" id="cb12">
-<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">print</span><span class="op">(</span><span class="va">mu_hf</span> <span class="op">-</span> <span class="va">mu_control</span><span class="op">)</span></span></code></pre>
-</div>
-<div class="codewrapper">
-<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="error" tabindex="0"><code>Error: object 'mu_hf' not found</code></pre>
-</div>
-<div class="codewrapper sourceCode" id="cb14">
+<div class="codewrapper sourceCode" id="cb3">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">print</span><span class="op">(</span><span class="op">(</span><span class="va">mu_hf</span> <span class="op">-</span> <span class="va">mu_control</span><span class="op">)</span><span class="op">/</span><span class="va">mu_control</span> <span class="op">*</span> <span class="fl">100</span><span class="op">)</span> <span class="co">#percent increase</span></span></code></pre>
 </div>
 <div class="codewrapper">
-<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="error" tabindex="0"><code>Error: object 'mu_hf' not found</code></pre>
+<pre class="output" tabindex="0"><code>[1] 9.942157</code></pre>
 </div>
 <p>We have also seen that, in some cases, when we take a sample and
 perform a t-test, we don’t always get a p-value smaller than 0.05. For
 example, here is a case where we take a sample of 5 mice and don’t
 achieve statistical significance at the 0.05 level:</p>
-<div class="codewrapper sourceCode" id="cb16">
+<div class="codewrapper sourceCode" id="cb5">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">set.seed</span><span class="op">(</span><span class="fl">1</span><span class="op">)</span></span>
 <span><span class="va">N</span> <span class="op">&lt;-</span> <span class="fl">5</span></span>
-<span><span class="va">hf</span> <span class="op">&lt;-</span> <span class="fu">sample</span><span class="op">(</span><span class="va">hfPopulation</span>, <span class="va">N</span><span class="op">)</span></span></code></pre>
+<span><span class="va">hf</span> <span class="op">&lt;-</span> <span class="fu">sample</span><span class="op">(</span><span class="va">hfPopulation</span>, <span class="va">N</span><span class="op">)</span></span>
+<span><span class="va">control</span> <span class="op">&lt;-</span> <span class="fu">sample</span><span class="op">(</span><span class="va">controlPopulation</span>, <span class="va">N</span><span class="op">)</span></span>
+<span><span class="fu">t.test</span><span class="op">(</span><span class="va">hf</span>, <span class="va">control</span><span class="op">)</span><span class="op">$</span><span class="va">p.value</span></span></code></pre>
 </div>
 <div class="codewrapper">
-<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="error" tabindex="0"><code>Error: object 'hfPopulation' not found</code></pre>
-</div>
-<div class="codewrapper sourceCode" id="cb18">
-<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">control</span> <span class="op">&lt;-</span> <span class="fu">sample</span><span class="op">(</span><span class="va">controlPopulation</span>, <span class="va">N</span><span class="op">)</span></span></code></pre>
-</div>
-<div class="codewrapper">
-<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="error" tabindex="0"><code>Error: object 'controlPopulation' not found</code></pre>
-</div>
-<div class="codewrapper sourceCode" id="cb20">
-<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">t.test</span><span class="op">(</span><span class="va">hf</span>, <span class="va">control</span><span class="op">)</span><span class="op">$</span><span class="va">p.value</span></span></code></pre>
-</div>
-<div class="codewrapper">
-<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="error" tabindex="0"><code>Error: object 'hf' not found</code></pre>
+<pre class="output" tabindex="0"><code>[1] 0.5806661</code></pre>
 </div>
 <p>Did we make a mistake? By not rejecting the null hypothesis, are we
 saying the diet has no effect? The answer to this question is no. All we
@@ -615,14 +542,14 @@ The <code>pwr</code> package performs these calculations for you. Here
 we will illustrate the concepts behind power by coding up simulations in
 R.</p>
 <p>Suppose our sample size is:</p>
-<div class="codewrapper sourceCode" id="cb22">
+<div class="codewrapper sourceCode" id="cb7">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">N</span> <span class="op">&lt;-</span> <span class="fl">12</span></span></code></pre>
 </div>
 <p>and we will reject the null hypothesis at:</p>
-<div class="codewrapper sourceCode" id="cb23">
+<div class="codewrapper sourceCode" id="cb8">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -632,7 +559,7 @@ R.</p>
 probability by re-running the exercise many times and calculating the
 proportion of times the null hypothesis is rejected. Specifically, we
 will run:</p>
-<div class="codewrapper sourceCode" id="cb24">
+<div class="codewrapper sourceCode" id="cb9">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -642,7 +569,7 @@ will run:</p>
 <em>N</em> from both control and treatment groups, we perform a t-test
 comparing these two, and report if the p-value is less than
 <code>alpha</code> or not. We write a function that does this:</p>
-<div class="codewrapper sourceCode" id="cb25">
+<div class="codewrapper sourceCode" id="cb10">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -655,42 +582,37 @@ comparing these two, and report if the p-value is less than
 </div>
 <p>Here is an example of one simulation for a sample size of 12. The
 call to <code>reject</code> answers the question “Did we reject?”</p>
-<div class="codewrapper sourceCode" id="cb26">
+<div class="codewrapper sourceCode" id="cb11">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">reject</span><span class="op">(</span><span class="fl">12</span><span class="op">)</span></span></code></pre>
 </div>
 <div class="codewrapper">
-<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="error" tabindex="0"><code>Error in reject(12): object 'hfPopulation' not found</code></pre>
+<pre class="output" tabindex="0"><code>[1] TRUE</code></pre>
 </div>
 <p>Now we can use the <code>replicate</code> function to do this
 <code>B</code> times.</p>
-<div class="codewrapper sourceCode" id="cb28">
+<div class="codewrapper sourceCode" id="cb13">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">rejections</span> <span class="op">&lt;-</span> <span class="fu">replicate</span><span class="op">(</span><span class="va">B</span>, <span class="fu">reject</span><span class="op">(</span><span class="va">N</span><span class="op">)</span><span class="op">)</span></span></code></pre>
 </div>
-<div class="codewrapper">
-<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="error" tabindex="0"><code>Error in reject(N): object 'hfPopulation' not found</code></pre>
-</div>
 <p>Our power is just the proportion of times we correctly reject. So
 with <em>N = 12</em> our power is only:</p>
-<div class="codewrapper sourceCode" id="cb30">
+<div class="codewrapper sourceCode" id="cb14">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">mean</span><span class="op">(</span><span class="va">rejections</span><span class="op">)</span></span></code></pre>
 </div>
 <div class="codewrapper">
-<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="error" tabindex="0"><code>Error: object 'rejections' not found</code></pre>
+<pre class="output" tabindex="0"><code>[1] 0.2155</code></pre>
 </div>
 <p>This explains why the t-test was not rejecting when we knew the null
 was false. With a sample size of just 12, our power is about 23%. To
@@ -700,14 +622,14 @@ errors.</p>
 <p>Let’s see how power improves with N. We will use the function
 <code>sapply</code>, which applies a function to each of the elements of
 a vector. We want to repeat the above for the following sample size:</p>
-<div class="codewrapper sourceCode" id="cb32">
+<div class="codewrapper sourceCode" id="cb16">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">Ns</span> <span class="op">&lt;-</span> <span class="fu">seq</span><span class="op">(</span><span class="fl">5</span>, <span class="fl">50</span>, <span class="fl">5</span><span class="op">)</span></span></code></pre>
 </div>
 <p>So we use <code>apply</code> like this:</p>
-<div class="codewrapper sourceCode" id="cb33">
+<div class="codewrapper sourceCode" id="cb17">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -716,32 +638,24 @@ a vector. We want to repeat the above for the following sample size:</p>
 <span>  <span class="fu">mean</span><span class="op">(</span><span class="va">rejections</span><span class="op">)</span></span>
 <span>  <span class="op">}</span><span class="op">)</span></span></code></pre>
 </div>
-<div class="codewrapper">
-<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="error" tabindex="0"><code>Error in reject(N): object 'hfPopulation' not found</code></pre>
-</div>
 <p>For each of the three simulations, the above code returns the
 proportion of times we reject. Not surprisingly power increases with
 N:</p>
-<div class="codewrapper sourceCode" id="cb35">
+<div class="codewrapper sourceCode" id="cb18">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">plot</span><span class="op">(</span><span class="va">Ns</span>, <span class="va">power</span>, type<span class="op">=</span><span class="st">"b"</span><span class="op">)</span></span></code></pre>
 </div>
-<div class="codewrapper">
-<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="error" tabindex="0"><code>Error in xy.coords(x, y, xlabel, ylabel, log): 'x' and 'y' lengths differ</code></pre>
-</div>
-<p>Similarly, if we change the level <code>alpha</code> at which we
+<figure style="text-align: center"><img src="fig/inference-power-calc-rendered-power_versus_sample_size-1.png" alt="Power plotted against sample size." class="figure mx-auto d-block"><figcaption>
+Power plotted against sample size.
+</figcaption></figure><p>Similarly, if we change the level <code>alpha</code> at which we
 reject, power changes. The smaller I want the chance of type I error to
 be, the less power I will have. Another way of saying this is that we
 trade off between the two types of error. We can see this by writing
 similar code, but keeping <em>N</em> fixed and considering several
 values of <code>alpha</code>:</p>
-<div class="codewrapper sourceCode" id="cb37">
+<div class="codewrapper sourceCode" id="cb19">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -750,25 +664,12 @@ values of <code>alpha</code>:</p>
 <span><span class="va">power</span> <span class="op">&lt;-</span> <span class="fu">sapply</span><span class="op">(</span><span class="va">alphas</span>, <span class="kw">function</span><span class="op">(</span><span class="va">alpha</span><span class="op">)</span><span class="op">{</span></span>
 <span>  <span class="va">rejections</span> <span class="op">&lt;-</span> <span class="fu">replicate</span><span class="op">(</span><span class="va">B</span>, <span class="fu">reject</span><span class="op">(</span><span class="va">N</span>, alpha<span class="op">=</span><span class="va">alpha</span><span class="op">)</span><span class="op">)</span></span>
 <span>  <span class="fu">mean</span><span class="op">(</span><span class="va">rejections</span><span class="op">)</span></span>
-<span><span class="op">}</span><span class="op">)</span></span></code></pre>
+<span><span class="op">}</span><span class="op">)</span></span>
+<span><span class="fu">plot</span><span class="op">(</span><span class="va">alphas</span>, <span class="va">power</span>, xlab<span class="op">=</span><span class="st">"alpha"</span>, type<span class="op">=</span><span class="st">"b"</span>, log<span class="op">=</span><span class="st">"x"</span><span class="op">)</span></span></code></pre>
 </div>
-<div class="codewrapper">
-<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="error" tabindex="0"><code>Error in reject(N, alpha = alpha): object 'hfPopulation' not found</code></pre>
-</div>
-<div class="codewrapper sourceCode" id="cb39">
-<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">plot</span><span class="op">(</span><span class="va">alphas</span>, <span class="va">power</span>, xlab<span class="op">=</span><span class="st">"alpha"</span>, type<span class="op">=</span><span class="st">"b"</span>, log<span class="op">=</span><span class="st">"x"</span><span class="op">)</span></span></code></pre>
-</div>
-<div class="codewrapper">
-<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="error" tabindex="0"><code>Error in xy.coords(x, y, xlabel, ylabel, log): 'x' and 'y' lengths differ</code></pre>
-</div>
-<p>Note that the x-axis in this last plot is in the log scale.</p>
+<figure style="text-align: center"><img src="fig/inference-power-calc-rendered-power_versus_alpha-1.png" alt="Power plotted against cut-off." class="figure mx-auto d-block"><figcaption>
+Power plotted against cut-off.
+</figcaption></figure><p>Note that the x-axis in this last plot is in the log scale.</p>
 <p>There is no “right” power or “right” alpha level, but it is important
 that you understand what each means.</p>
 <p>To see this clearly, you could create a plot with curves of power
@@ -790,7 +691,7 @@ hypothesis is true, since we have access to the populations and can
 calculate the difference in their means.</p>
 <p>First write a function that returns a p-value for a given sample size
 <em>N</em>:</p>
-<div class="codewrapper sourceCode" id="cb41">
+<div class="codewrapper sourceCode" id="cb20">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -804,7 +705,7 @@ calculate the difference in their means.</p>
 can see the effect well before we get to 200. For each sample size, we
 will calculate a few p-values. We can do this by repeating each value of
 <em>N</em> a few times.</p>
-<div class="codewrapper sourceCode" id="cb42">
+<div class="codewrapper sourceCode" id="cb21">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -812,43 +713,27 @@ will calculate a few p-values. We can do this by repeating each value of
 <span><span class="va">Ns_rep</span> <span class="op">&lt;-</span> <span class="fu">rep</span><span class="op">(</span><span class="va">Ns</span>, each<span class="op">=</span><span class="fl">10</span><span class="op">)</span></span></code></pre>
 </div>
 <p>Again we use <code>sapply</code> to run our simulations:</p>
-<div class="codewrapper sourceCode" id="cb43">
+<div class="codewrapper sourceCode" id="cb22">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">pvalues</span> <span class="op">&lt;-</span> <span class="fu">sapply</span><span class="op">(</span><span class="va">Ns_rep</span>, <span class="va">calculatePvalue</span><span class="op">)</span></span></code></pre>
 </div>
-<div class="codewrapper">
-<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="error" tabindex="0"><code>Error in FUN(X[[i]], ...): object 'hfPopulation' not found</code></pre>
-</div>
 <p>Now we can plot the 10 p-values we generated for each sample
 size:</p>
-<div class="codewrapper sourceCode" id="cb45">
+<div class="codewrapper sourceCode" id="cb23">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">plot</span><span class="op">(</span><span class="va">Ns_rep</span>, <span class="va">pvalues</span>, log<span class="op">=</span><span class="st">"y"</span>, xlab<span class="op">=</span><span class="st">"sample size"</span>,</span>
-<span>     ylab<span class="op">=</span><span class="st">"p-values"</span><span class="op">)</span></span></code></pre>
+<span>     ylab<span class="op">=</span><span class="st">"p-values"</span><span class="op">)</span></span>
+<span><span class="fu">abline</span><span class="op">(</span>h<span class="op">=</span><span class="fu">c</span><span class="op">(</span><span class="fl">.01</span>, <span class="fl">.05</span><span class="op">)</span>, col<span class="op">=</span><span class="st">"red"</span>, lwd<span class="op">=</span><span class="fl">2</span><span class="op">)</span></span></code></pre>
 </div>
-<div class="codewrapper">
-<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="error" tabindex="0"><code>Error: object 'pvalues' not found</code></pre>
-</div>
-<div class="codewrapper sourceCode" id="cb47">
-<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">abline</span><span class="op">(</span>h<span class="op">=</span><span class="fu">c</span><span class="op">(</span><span class="fl">.01</span>, <span class="fl">.05</span><span class="op">)</span>, col<span class="op">=</span><span class="st">"red"</span>, lwd<span class="op">=</span><span class="fl">2</span><span class="op">)</span></span></code></pre>
-</div>
-<div class="codewrapper">
-<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="error" tabindex="0"><code>Error in int_abline(a = a, b = b, h = h, v = v, untf = untf, ...): plot.new has not been called yet</code></pre>
-</div>
-<p>Note that the y-axis is log scale and that the p-values show a
+<figure style="text-align: center"><img src="fig/inference-power-calc-rendered-pvals_decrease-1.png" alt="p-values from random samples at varying sample size. The actual value of the p-values decreases as we increase sample size whenever the alternative hypothesis is true." class="figure mx-auto d-block"><figcaption>
+p-values from random samples at varying sample size. The actual value of
+the p-values decreases as we increase sample size whenever the
+alternative hypothesis is true.
+</figcaption></figure><p>Note that the y-axis is log scale and that the p-values show a
 decreasing trend all the way to 10<sup>-8</sup> as the sample size gets
 larger. The standard cutoffs of 0.01 and 0.05 are indicated with
 horizontal red lines.</p>
@@ -869,86 +754,48 @@ confidence interval or some statistic which gives the reader a sense of
 the change in a meaningful scale. We can report the effect size as a
 percent by dividing the difference and the confidence interval by the
 control population mean:</p>
-<div class="codewrapper sourceCode" id="cb49">
+<div class="codewrapper sourceCode" id="cb24">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">N</span> <span class="op">&lt;-</span> <span class="fl">12</span></span>
-<span><span class="va">hf</span> <span class="op">&lt;-</span> <span class="fu">sample</span><span class="op">(</span><span class="va">hfPopulation</span>, <span class="va">N</span><span class="op">)</span></span></code></pre>
+<span><span class="va">hf</span> <span class="op">&lt;-</span> <span class="fu">sample</span><span class="op">(</span><span class="va">hfPopulation</span>, <span class="va">N</span><span class="op">)</span></span>
+<span><span class="va">control</span> <span class="op">&lt;-</span> <span class="fu">sample</span><span class="op">(</span><span class="va">controlPopulation</span>, <span class="va">N</span><span class="op">)</span></span>
+<span><span class="va">diff</span> <span class="op">&lt;-</span> <span class="fu">mean</span><span class="op">(</span><span class="va">hf</span><span class="op">)</span> <span class="op">-</span> <span class="fu">mean</span><span class="op">(</span><span class="va">control</span><span class="op">)</span></span>
+<span><span class="va">diff</span> <span class="op">/</span> <span class="fu">mean</span><span class="op">(</span><span class="va">control</span><span class="op">)</span> <span class="op">*</span> <span class="fl">100</span></span></code></pre>
 </div>
 <div class="codewrapper">
-<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="error" tabindex="0"><code>Error: object 'hfPopulation' not found</code></pre>
+<pre class="output" tabindex="0"><code>[1] 5.196293</code></pre>
 </div>
-<div class="codewrapper sourceCode" id="cb51">
-<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">control</span> <span class="op">&lt;-</span> <span class="fu">sample</span><span class="op">(</span><span class="va">controlPopulation</span>, <span class="va">N</span><span class="op">)</span></span></code></pre>
-</div>
-<div class="codewrapper">
-<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="error" tabindex="0"><code>Error: object 'controlPopulation' not found</code></pre>
-</div>
-<div class="codewrapper sourceCode" id="cb53">
-<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">diff</span> <span class="op">&lt;-</span> <span class="fu">mean</span><span class="op">(</span><span class="va">hf</span><span class="op">)</span> <span class="op">-</span> <span class="fu">mean</span><span class="op">(</span><span class="va">control</span><span class="op">)</span></span></code></pre>
-</div>
-<div class="codewrapper">
-<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="error" tabindex="0"><code>Error: object 'hf' not found</code></pre>
-</div>
-<div class="codewrapper sourceCode" id="cb55">
-<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">diff</span> <span class="op">/</span> <span class="fu">mean</span><span class="op">(</span><span class="va">control</span><span class="op">)</span> <span class="op">*</span> <span class="fl">100</span></span></code></pre>
-</div>
-<div class="codewrapper">
-<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="error" tabindex="0"><code>Error: object 'control' not found</code></pre>
-</div>
-<div class="codewrapper sourceCode" id="cb57">
+<div class="codewrapper sourceCode" id="cb26">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">t.test</span><span class="op">(</span><span class="va">hf</span>, <span class="va">control</span><span class="op">)</span><span class="op">$</span><span class="va">conf.int</span> <span class="op">/</span> <span class="fu">mean</span><span class="op">(</span><span class="va">control</span><span class="op">)</span> <span class="op">*</span> <span class="fl">100</span></span></code></pre>
 </div>
 <div class="codewrapper">
-<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="error" tabindex="0"><code>Error: object 'hf' not found</code></pre>
+<pre class="output" tabindex="0"><code>[1] -7.775307 18.167892
+attr(,"conf.level")
+[1] 0.95</code></pre>
 </div>
 <p>In addition, we can report a statistic called <a href="https://en.wikipedia.org/wiki/Effect_size#Cohen.27s_d" class="external-link">Cohen’s
 d</a>, which is the difference between the groups divided by the pooled
 standard deviation of the two groups.</p>
-<div class="codewrapper sourceCode" id="cb59">
+<div class="codewrapper sourceCode" id="cb28">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">sd_pool</span> <span class="op">&lt;-</span> <span class="fu">sqrt</span><span class="op">(</span><span class="op">(</span><span class="op">(</span><span class="va">N</span><span class="op">-</span><span class="fl">1</span><span class="op">)</span> <span class="op">*</span> <span class="fu">var</span><span class="op">(</span><span class="va">hf</span><span class="op">)</span> <span class="op">+</span> <span class="op">(</span><span class="va">N</span><span class="op">-</span><span class="fl">1</span><span class="op">)</span> <span class="op">*</span> <span class="fu">var</span><span class="op">(</span><span class="va">control</span><span class="op">)</span><span class="op">)</span><span class="op">/</span><span class="op">(</span><span class="fl">2</span> <span class="op">*</span> <span class="va">N</span> <span class="op">-</span> <span class="fl">2</span><span class="op">)</span><span class="op">)</span></span></code></pre>
+<code class="sourceCode R"><span><span class="va">sd_pool</span> <span class="op">&lt;-</span> <span class="fu">sqrt</span><span class="op">(</span><span class="op">(</span><span class="op">(</span><span class="va">N</span><span class="op">-</span><span class="fl">1</span><span class="op">)</span> <span class="op">*</span> <span class="fu">var</span><span class="op">(</span><span class="va">hf</span><span class="op">)</span> <span class="op">+</span> <span class="op">(</span><span class="va">N</span><span class="op">-</span><span class="fl">1</span><span class="op">)</span> <span class="op">*</span> <span class="fu">var</span><span class="op">(</span><span class="va">control</span><span class="op">)</span><span class="op">)</span><span class="op">/</span><span class="op">(</span><span class="fl">2</span> <span class="op">*</span> <span class="va">N</span> <span class="op">-</span> <span class="fl">2</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="va">diff</span> <span class="op">/</span> <span class="va">sd_pool</span></span></code></pre>
 </div>
 <div class="codewrapper">
-<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="error" tabindex="0"><code>Error: object 'hf' not found</code></pre>
-</div>
-<div class="codewrapper sourceCode" id="cb61">
-<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">diff</span> <span class="op">/</span> <span class="va">sd_pool</span></span></code></pre>
-</div>
-<div class="codewrapper">
-<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="error" tabindex="0"><code>Error: object 'sd_pool' not found</code></pre>
+<pre class="output" tabindex="0"><code>[1] 0.3397886</code></pre>
 </div>
 <p>This tells us how many standard deviations of the data the mean of
 the high-fat diet group is from the control group. Under the alternative
@@ -1152,10 +999,9 @@ of those four gives you power of about 80%?</li>
 <span class="callout-header">Key Points</span>
 <div class="callout-inner">
 <div class="callout-content">
-<ul><li>.</li>
-<li>.</li>
-<li>.</li>
-<li>.</li>
+<ul><li>Power is the probability of detecting a real effect.</li>
+<li>Effect size with a confidence interval is a more meaningful measure
+than a p-value.</li>
 </ul></div>
 </div>
 </div>
