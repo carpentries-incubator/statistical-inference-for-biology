@@ -1,18 +1,21 @@
 ---
 title: Permutations
-teaching: 0
-exercises: 0
+teaching: 20
+exercises: 20
 source: Rmd
 ---
 
 ::::::::::::::::::::::::::::::::::::::: objectives
 
-- - - 
+- Generate a null distribution with permutations.
+- Evaluate the results of a permutation test.
+
 ::::::::::::::::::::::::::::::::::::::::::::::::::
 
 :::::::::::::::::::::::::::::::::::::::: questions
 
-- ?
+- What is a permutation test?
+- When is a permutation test helpful?
 
 ::::::::::::::::::::::::::::::::::::::::::::::::::
 
@@ -36,7 +39,7 @@ be useful in these scenarios.
 We are back to the scenario where we only have 10 measurements for each group.
 
 ```{r, message=FALSE}
-fWeights <- read.csv(file = "../data/femaleMiceWeights.csv") # we read this data in earlier
+fWeights <- read.csv(file = "./data/femaleMiceWeights.csv") # we read this data in earlier
 control <- filter(fWeights, Diet=="chow") %>% select(Bodyweight) %>% unlist
 treatment <- filter(fWeights, Diet=="hf") %>% select(Bodyweight) %>% unlist
 obsdiff <- mean(treatment) - mean(control)
@@ -76,9 +79,9 @@ dataset by sampling:
 
 ```{r}
 N <- 5
-control <- sample(control,N)
-treatment <- sample(treatment,N)
-obsdiff <- mean(treatment)- mean(control)
+control <- sample(control, N)
+treatment <- sample(treatment, N)
+obsdiff <- mean(treatment) - mean(control)
 ```
 
 and repeat the exercise:
@@ -146,10 +149,8 @@ existing structure in the original data.
 
 :::::::::::::::::::::::::::::::::::::::: keypoints
 
-- .
-- .
-- .
-- .
+- Permutation randomly shuffles data so that the null is true.
+- Permutation tests are useful when there is no good approximation such as that provided by the CLT.
 
 ::::::::::::::::::::::::::::::::::::::::::::::::::
 

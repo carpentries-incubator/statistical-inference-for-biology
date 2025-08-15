@@ -1,13 +1,15 @@
 ---
 title: Monte Carlo simulation
-teaching: 0
-exercises: 0
+teaching: 20
+exercises: 35
 source: Rmd
 ---
 
 ::::::::::::::::::::::::::::::::::::::: objectives
 
-- - - 
+- Generate simulated data to test out hypotheses.
+- Plot distributions and determine whether they approximate the CLT or t-distribution.
+
 ::::::::::::::::::::::::::::::::::::::::::::::::::
 
 :::::::::::::::::::::::::::::::::::::::: questions
@@ -48,7 +50,7 @@ library(rafalib)
 
 ```{r, message=FALSE}
 library(dplyr)
-pheno <- read.csv("../data/mice_pheno.csv")
+pheno <- read.csv("./data/mice_pheno.csv")
 controlPopulation <- filter(pheno, Sex == "F" & Diet == "chow") %>%  
   select(Bodyweight) %>% unlist
 ```
@@ -230,10 +232,10 @@ ttestgenerator <- function(n, mean=24, sd=3.5) {
 
 :::::::::::::::::::::::::::::::::::::::: keypoints
 
-- .
-- .
-- .
-- .
+- Random number generators can simulate imitate random variables from the
+real world. 
+- Simulated data lets us examine properties of random variables and test out 
+ideas or competing methods computationally.
 
 ::::::::::::::::::::::::::::::::::::::::::::::::::
 

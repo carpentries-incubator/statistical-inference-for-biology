@@ -1,18 +1,21 @@
 ---
 title: Exploratory Data Analysis
-teaching: 0
-exercises: 0
+teaching: 20
+exercises: 20
 source: Rmd
 ---
 
 ::::::::::::::::::::::::::::::::::::::: objectives
 
-- - - 
+- Use a quantile-quantile plot to evaluate normality.
+- Evaluate data distribution with a boxplot.
+
 ::::::::::::::::::::::::::::::::::::::::::::::::::
 
 :::::::::::::::::::::::::::::::::::::::: questions
 
-- ?
+- How can data be visualized to reveal important relationships?
+- What is exploratory data analysis?
 
 ::::::::::::::::::::::::::::::::::::::::::::::::::
 
@@ -48,8 +51,8 @@ to motivate the analyses we choose. Here we present a general introduction to
 EDA using height data.
 
 We have already introduced some EDA approaches for *univariate* data,
-namely the histograms and qq-plot. Here we describe the qq-plot in more detail and
-some EDA and summary statistics for paired data. We also give a
+namely the histograms and qq-plot. Here we describe the qq-plot in more detail 
+and some EDA and summary statistics for paired data. We also give a
 demonstration of commonly used figures that we recommend against.
 
 ## Quantile Quantile Plots
@@ -75,7 +78,7 @@ and for the normal distribution:
 ps <- ( seq(0,99) + 0.5 )/100 
 qs <- quantile(x, ps)
 normalqs <- qnorm(ps, mean(x), popsd(x))
-plot(normalqs,qs,xlab="Normal percentiles",ylab="Height percentiles")
+plot(normalqs, qs, xlab="Normal percentiles", ylab="Height percentiles")
 abline(0,1) ##identity line
 ```
 
@@ -114,11 +117,11 @@ extreme values than predicted by the theoretical density plotted on
 the x-axis.
 
 ```{r qqnorm_of_t, fig.cap="We generate t-distributed data for four degrees of freedom and make qqplots against normal theoretical quantiles.", fig.width=7.5, fig.height=7.5}
-dfs <- c(3,6,12,30)
+dfs <- c(3, 6, 12, 30)
 mypar(2,2)
 for(df in dfs){
-  x <- rt(1000,df)
-  qqnorm(x, xlab="t quantiles", main=paste0("d.f=",df),ylim=c(-6,6))
+  x <- rt(1000, df)
+  qqnorm(x, xlab="t quantiles", main=paste0("d.f=",df), ylim=c(-6,6))
   qqline(x)
 }
 ```
@@ -212,7 +215,9 @@ below.
 
 ## Bivariate Normal Distribution
 
-Correlation is a widely used summary statistic in the life sciences. However, it is often misused or misinterpreted. To properly interpret correlation we actually have to understand the bivariate normal distribution.
+Correlation is a widely used summary statistic in the life sciences. However, it 
+is often misused or misinterpreted. To properly interpret correlation we 
+actually have to understand the bivariate normal distribution.
 
 A pair of random variables <i>(X,Y)</i> is considered to be approximated by
 bivariate normal when the proportion of values below, for example <i>a</i>
@@ -222,13 +227,15 @@ and <i>b</i>, is approximated by this expression:
 
 ![](fig/12-integralsMinusInfab.png)
 
-This may seem like a rather complicated equation, but the concept behind it is rather intuitive. An alternative definition is the following: fix a value <i>x</i>
-and look at all the pairs <i>(X,Y)</i> for which <i>X=x</i>. Generally, in
-statistics we call this exercise *conditioning*. We are conditioning
+This may seem like a rather complicated equation, but the concept behind it is 
+rather intuitive. An alternative definition is the following: fix a value 
+<i>x</i> and look at all the pairs <i>(X,Y)</i> for which <i>X=x</i>. Generally, 
+in statistics we call this exercise *conditioning*. We are conditioning
 <i>Y</i> on <i>X</i>. If a pair of random variables is approximated by a
 bivariate normal distribution, then the distribution of <i>Y</i> conditioned
-on <i>X=x</i> is approximated with a normal distribution, no matter what <i>x</i> we choose. Let's
-see if this holds with our height data. We show 4 different strata:
+on <i>X=x</i> is approximated with a normal distribution, no matter what 
+<i>x</i> we choose. Let's see if this holds with our height data. We show 4 
+different strata:
 
 ```{r qqnorm_of_strata, fig.cap="qqplots of son heights for four strata defined by father heights.", fig.width=7.5, fig.height=7.5}
 groups <- split(y,round(x)) 
@@ -240,7 +247,9 @@ for(i in c(5,8,11,14)){
 }
 ```
 
-Now we come back to defining correlation. Mathematical statistics tells us that when two variables follow a bivariate normal distribution, then for any given value of <i>x</i>, the average of the <i>Y</i> in pairs for which <i>X=x</i> is:
+Now we come back to defining correlation. Mathematical statistics tells us that 
+when two variables follow a bivariate normal distribution, then for any given 
+value of <i>x</i>, the average of the <i>Y</i> in pairs for which <i>X=x</i> is:
 
 ![](fig/12-muYplusRho.png)
 
@@ -248,15 +257,22 @@ Note that this is a line with slope
 
 ![](fig/12-rhoSigmaYX.png)
 
-This is referred to as the *regression line*. If the SDs are the same, then the slope of the regression line is the correlation ρ. Therefore, if we standardize <i>X</i> and <i>Y</i>, the correlation is the slope of the regression line.
+This is referred to as the *regression line*. If the SDs are the same, then the 
+slope of the regression line is the correlation ρ. Therefore, if we standardize 
+<i>X</i> and <i>Y</i>, the correlation is the slope of the regression line.
 
-Another way to see this is to form a prediction Ŷ: for every SD away from the mean in <i>x</i>, we predict ρ SDs away for <i>Y</i>:
+Another way to see this is to form a prediction Ŷ: for every SD away from the
+mean in <i>x</i>, we predict ρ SDs away for <i>Y</i>:
 
 ![](fig/12-YhatfracEqRhofrac.png)
 
-If there is perfect correlation, we predict the same number of SDs. If there is 0 correlation, then we don't use <i>x</i> at all.  For values between 0 and 1, the prediction is somewhere in between. For negative values, we simply predict in the opposite direction.
+If there is perfect correlation, we predict the same number of SDs. If there is
+0 correlation, then we don't use <i>x</i> at all.  For values between 0 and 1, 
+the prediction is somewhere in between. For negative values, we simply predict 
+in the opposite direction.
 
-To confirm that the above approximations hold in this case, let's compare the mean of each strata to the identity line and the regression line:
+To confirm that the above approximations hold in this case, let's compare the 
+mean of each strata to the identity line and the regression line:
 
 ```{r scatterplot2, fig.cap="Average son height of each strata plotted against father heights defining the strata"}
 x=( x-mean(x) )/sd(x)
@@ -274,7 +290,11 @@ The standard deviation of the *conditional* distribution described above is:
 
 ![](fig/12-sqrt1minusRhoSq.png)
 
-This is where statements like <i>X</i> explains ρ<sup>2</sup> × 100% of the variation in <i>Y</i>: the variance of <i>Y</i> is σ<sup>2</sup> and, once we condition, it goes down to (1-ρ<sup>2\</sup) σ<sup>2\_Y</sup>. It is important to remember that the "variance explained" statement only makes sense when the data is approximated by a bivariate normal distribution.
+This is where statements like <i>X</i> explains ρ<sup>2</sup> × 100% of the 
+variation in <i>Y</i>: the variance of <i>Y</i> is σ<sup>2</sup> and, once we 
+condition, it goes down to (1-ρ<sup>2\</sup) σ<sup>2\_Y</sup>. It is important 
+to remember that the "variance explained" statement only makes sense when the 
+data is approximated by a bivariate normal distribution.
 
 :::::::::::::::::::::::::::::::::::::::  challenge
 
@@ -349,7 +369,8 @@ then load the `nym.2002` dataset.
   For males, what is the Pearson correlation between age and time to finish?
   For females, what is the Pearson correlation between age and time to finish?
 3. If we interpret these correlations without visualizing the data, we would
-  conclude that the older we get, the slower we run marathons, regardless of gender. > Look at scatterplots and boxplots of times stratified by age groups
+  conclude that the older we get, the slower we run marathons, regardless of 
+  gender. Look at scatterplots and boxplots of times stratified by age groups
   (20-25, 25-30, etc..). After examining the data, what is a more reasonable
   conclusion?
   A) Finish times are constant up until about our 40s, then we get slower.
@@ -368,10 +389,7 @@ then load the `nym.2002` dataset.
 
 :::::::::::::::::::::::::::::::::::::::: keypoints
 
-- .
-- .
-- .
-- .
+- Plot data to evaluate relationships between variables.
 
 ::::::::::::::::::::::::::::::::::::::::::::::::::
 
