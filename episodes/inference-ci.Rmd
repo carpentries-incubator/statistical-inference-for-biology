@@ -1,25 +1,29 @@
 ---
 title: Confidence Intervals
-teaching: 0
+teaching: 20
 exercises: 0
 source: Rmd
 ---
 
 ::::::::::::::::::::::::::::::::::::::: objectives
 
-- - - 
+- Define a confidence interval.
+- Explain why confidence intervals offer more information than p-values alone.
+- Calculate a confidence interval.
+
 ::::::::::::::::::::::::::::::::::::::::::::::::::
 
 :::::::::::::::::::::::::::::::::::::::: questions
 
 - What is a confidence interval?
+- When is it best to use a confidence interval?
 
 ::::::::::::::::::::::::::::::::::::::::::::::::::
 
 ```{r load_libraries, include=FALSE}
 library(UsingR)
 library(tidyverse)
-pheno <- read.csv(file = "../data/mice_pheno.csv")
+pheno <- read.csv(file = "./data/mice_pheno.csv")
 ```
 
 ```{r, results=FALSE, echo=FALSE}
@@ -94,8 +98,6 @@ se <- sd(chow)/sqrt(N)
 print(se)
 ```
 
-<a name="interval"></a>
-
 #### Defining the Interval
 
 A 95% confidence interval (we can use percentages other than 95%) is a random
@@ -166,8 +168,6 @@ for (i in 1:B) {
 
 You can run this repeatedly to see what happens. You will see that in about 5%
 of the cases, we fail to cover <i>μ<sub>X</sub></i>.
-
-<a name="smallsample"></a>
 
 #### Small Sample Size and the CLT
 
@@ -304,10 +304,8 @@ the p-value is smaller than 0.10).
 
 :::::::::::::::::::::::::::::::::::::::: keypoints
 
-- .
-- .
-- .
-- .
+- A confidence intervals is a better alternative to reporting p-values alone. 
+- A confidence interval estimates effect size and the uncertainty associated with this estimate. 
 
 ::::::::::::::::::::::::::::::::::::::::::::::::::
 

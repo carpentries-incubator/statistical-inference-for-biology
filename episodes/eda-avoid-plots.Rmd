@@ -1,6 +1,6 @@
 ---
 title: Plots to avoid
-teaching: 0
+teaching: 20
 exercises: 0
 source: Rmd
 ---
