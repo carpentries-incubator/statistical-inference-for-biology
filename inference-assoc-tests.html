@@ -118,11 +118,11 @@
   Statistical Inference for Biology
 </div>
 
-<aside class="col-md-12 lesson-progress"><div style="width: 92%" class="percentage">
-    92%
+<aside class="col-md-12 lesson-progress"><div style="width: 76%" class="percentage">
+    76%
   </div>
   <div class="progress incubator">
-    <div class="progress-bar incubator" role="progressbar" style="width: 92%" aria-valuenow="92" aria-label="Lesson Progress" aria-valuemin="0" aria-valuemax="100">
+    <div class="progress-bar incubator" role="progressbar" style="width: 76%" aria-valuenow="76" aria-label="Lesson Progress" aria-valuemin="0" aria-valuemax="100">
     </div>
   </div>
 </aside><div class="container">
@@ -408,7 +408,9 @@
 <div class="card-body">
 <div class="inner">
 <h3 class="card-title">Questions</h3>
-<ul><li>?</li>
+<ul><li>What is the Chi-squared test?</li>
+<li>What is Fisher’s exact test?</li>
+<li>When would these tests be used?</li>
 </ul></div>
 </div>
 </div>
@@ -416,7 +418,9 @@
 <div class="card-body">
 <div class="inner bordered">
 <h3 class="card-title">Objectives</h3>
-<hr></div>
+<ul><li>Describe and execute the Chi-squared test.</li>
+<li>Compute Fisher’s exact test.</li>
+</ul></div>
 </div>
 </div>
 </div>
@@ -473,8 +477,8 @@ table:</p>
 </h3>
 <pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">tab</span> <span class="op">&lt;-</span> <span class="fu">matrix</span><span class="op">(</span><span class="fu">c</span><span class="op">(</span><span class="fl">3</span>,<span class="fl">1</span>,<span class="fl">1</span>,<span class="fl">3</span><span class="op">)</span>,<span class="fl">2</span>,<span class="fl">2</span><span class="op">)</span></span>
-<span><span class="fu">rownames</span><span class="op">(</span><span class="va">tab</span><span class="op">)</span><span class="op">&lt;-</span><span class="fu">c</span><span class="op">(</span><span class="st">"Poured Before"</span>,<span class="st">"Poured After"</span><span class="op">)</span></span>
-<span><span class="fu">colnames</span><span class="op">(</span><span class="va">tab</span><span class="op">)</span><span class="op">&lt;-</span><span class="fu">c</span><span class="op">(</span><span class="st">"Guessed before"</span>,<span class="st">"Guessed after"</span><span class="op">)</span></span>
+<span><span class="fu">rownames</span><span class="op">(</span><span class="va">tab</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu">c</span><span class="op">(</span><span class="st">"Poured Before"</span>,<span class="st">"Poured After"</span><span class="op">)</span></span>
+<span><span class="fu">colnames</span><span class="op">(</span><span class="va">tab</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu">c</span><span class="op">(</span><span class="st">"Guessed before"</span>,<span class="st">"Guessed after"</span><span class="op">)</span></span>
 <span><span class="va">tab</span></span></code></pre>
 </div>
 <div class="codewrapper">
@@ -490,7 +494,7 @@ and can be obtained like this:</p>
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">fisher.test</span><span class="op">(</span><span class="va">tab</span>,alternative<span class="op">=</span><span class="st">"greater"</span><span class="op">)</span></span></code></pre>
+<code class="sourceCode R"><span><span class="fu">fisher.test</span><span class="op">(</span><span class="va">tab</span>, alternative<span class="op">=</span><span class="st">"greater"</span><span class="op">)</span></span></code></pre>
 </div>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -629,7 +633,7 @@ case, then the probability of disease is:</p>
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">p</span><span class="op">=</span><span class="fu">mean</span><span class="op">(</span><span class="va">disease</span><span class="op">==</span><span class="st">"cases"</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="va">p</span><span class="op">=</span><span class="fu">mean</span><span class="op">(</span><span class="va">disease</span> <span class="op">==</span> <span class="st">"cases"</span><span class="op">)</span></span>
 <span><span class="va">p</span></span></code></pre>
 </div>
 <div class="codewrapper">
@@ -642,9 +646,9 @@ case, then the probability of disease is:</p>
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">expected</span> <span class="op">&lt;-</span> <span class="fu">rbind</span><span class="op">(</span><span class="fu">c</span><span class="op">(</span><span class="fl">1</span><span class="op">-</span><span class="va">p</span>,<span class="va">p</span><span class="op">)</span><span class="op">*</span><span class="fu">sum</span><span class="op">(</span><span class="va">genotype</span><span class="op">==</span><span class="st">"AA/Aa"</span><span class="op">)</span>,</span>
-<span>                  <span class="fu">c</span><span class="op">(</span><span class="fl">1</span><span class="op">-</span><span class="va">p</span>,<span class="va">p</span><span class="op">)</span><span class="op">*</span><span class="fu">sum</span><span class="op">(</span><span class="va">genotype</span><span class="op">==</span><span class="st">"aa"</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="fu">dimnames</span><span class="op">(</span><span class="va">expected</span><span class="op">)</span><span class="op">&lt;-</span><span class="fu">dimnames</span><span class="op">(</span><span class="va">tab</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="va">expected</span> <span class="op">&lt;-</span> <span class="fu">rbind</span><span class="op">(</span><span class="fu">c</span><span class="op">(</span><span class="fl">1</span><span class="op">-</span><span class="va">p</span>,<span class="va">p</span><span class="op">)</span> <span class="op">*</span> <span class="fu">sum</span><span class="op">(</span><span class="va">genotype</span><span class="op">==</span><span class="st">"AA/Aa"</span><span class="op">)</span>,</span>
+<span>                  <span class="fu">c</span><span class="op">(</span><span class="fl">1</span><span class="op">-</span><span class="va">p</span>,<span class="va">p</span><span class="op">)</span> <span class="op">*</span> <span class="fu">sum</span><span class="op">(</span><span class="va">genotype</span><span class="op">==</span><span class="st">"aa"</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="fu">dimnames</span><span class="op">(</span><span class="va">expected</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu">dimnames</span><span class="op">(</span><span class="va">tab</span><span class="op">)</span></span>
 <span><span class="va">expected</span></span></code></pre>
 </div>
 <div class="codewrapper">
@@ -719,8 +723,8 @@ and Nelder, 1989</a>):</p>
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">fit</span> <span class="op">&lt;-</span> <span class="fu">glm</span><span class="op">(</span><span class="va">disease</span><span class="op">~</span><span class="va">genotype</span>,family<span class="op">=</span><span class="st">"binomial"</span>,data<span class="op">=</span><span class="va">dat</span><span class="op">)</span></span>
-<span><span class="va">coeftab</span><span class="op">&lt;-</span> <span class="fu">summary</span><span class="op">(</span><span class="va">fit</span><span class="op">)</span><span class="op">$</span><span class="va">coef</span></span>
+<code class="sourceCode R"><span><span class="va">fit</span> <span class="op">&lt;-</span> <span class="fu">glm</span><span class="op">(</span><span class="va">disease</span> <span class="op">~</span> <span class="va">genotype</span>, family<span class="op">=</span><span class="st">"binomial"</span>, data<span class="op">=</span><span class="va">dat</span><span class="op">)</span></span>
+<span><span class="va">coeftab</span> <span class="op">&lt;-</span> <span class="fu">summary</span><span class="op">(</span><span class="va">fit</span><span class="op">)</span><span class="op">$</span><span class="va">coef</span></span>
 <span><span class="va">coeftab</span></span></code></pre>
 </div>
 <div class="codewrapper">
@@ -739,7 +743,7 @@ interval for the OR.</p>
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">ci</span> <span class="op">&lt;-</span> <span class="va">coeftab</span><span class="op">[</span><span class="fl">2</span>,<span class="fl">1</span><span class="op">]</span> <span class="op">+</span> <span class="fu">c</span><span class="op">(</span><span class="op">-</span><span class="fl">2</span>,<span class="fl">2</span><span class="op">)</span><span class="op">*</span><span class="va">coeftab</span><span class="op">[</span><span class="fl">2</span>,<span class="fl">2</span><span class="op">]</span></span>
+<code class="sourceCode R"><span><span class="va">ci</span> <span class="op">&lt;-</span> <span class="va">coeftab</span><span class="op">[</span><span class="fl">2</span>,<span class="fl">1</span><span class="op">]</span> <span class="op">+</span> <span class="fu">c</span><span class="op">(</span><span class="op">-</span><span class="fl">2</span>,<span class="fl">2</span><span class="op">)</span> <span class="op">*</span> <span class="va">coeftab</span><span class="op">[</span><span class="fl">2</span>,<span class="fl">2</span><span class="op">]</span></span>
 <span><span class="fu">exp</span><span class="op">(</span><span class="va">ci</span><span class="op">)</span></span></code></pre>
 </div>
 <div class="codewrapper">
@@ -751,20 +755,21 @@ interval for the OR.</p>
 bigger than 0.05. Note that the p-value shown here is based on a
 different approximation to the one used by the Chi-square test, which is
 why they differ.</p>
-<p>ExercisesWe showed how to calculate a Chi-square test from a table.
-Here we will show how to generate thetable from data which is in the
-form of a dataframe, so that you can then perform an associationtest to
+<p>Exercises We showed how to calculate a Chi-square test from a table.
+Here we will show how to generate the table from data which is in the
+form of a dataframe, so that you can then perform an association test to
 see if two columns have an enrichment (or depletion) of shared
-occurrences.Download
-thehttps://studio.edx.org/c4x/HarvardX/PH525.1x/asset/assoctest.csvfile
-into your Rworking directory, and then read it into R:d =
-read.csv(“assoctest.csv”)1.This dataframe reflects the allele status
-(either AA/Aa or aa) and the case/control statusfor 72 individuals.
-Compute the Chi-square test for the association of genotype
-withcase/control status (using thetablefunction and
-thechisq.testfunction). Examine thetable to see if there appears to be
-an association. What is the X-squared statistic?2.Compute Fisher’s exact
-testfisher.testfor the same table. What is the p-value?</p>
+occurrences. Download the <a href="https://studio.edx.org/c4x/HarvardX/PH525.1x/asset/assoctest.csv" class="external-link">file</a>
+into your working directory, and then read it into R:
+<code>d = read.csv("assoctest.csv")</code>.<br>
+1. This dataframe reflects the allele status (either AA/Aa or aa) and
+the case/control status for 72 individuals. Compute the Chi-square test
+for the association of genotype with case/control status (using the
+<code>table</code> function and the <code>chisq.test</code> function).
+Examine the table to see if there appears to be an association. What is
+the X-squared statistic?<br>
+2.Compute Fisher’s exact test <code>fisher.test</code> for the same
+table. What is the p-value?</p>
 <div id="keypoints1" class="callout keypoints">
 <div class="callout-square">
 <i class="callout-icon" data-feather="key"></i>
@@ -772,10 +777,8 @@ testfisher.testfor the same table. What is the p-value?</p>
 <span class="callout-header">Key Points</span>
 <div class="callout-inner">
 <div class="callout-content">
-<ul><li>.</li>
-<li>.</li>
-<li>.</li>
-<li>.</li>
+<ul><li>Binary, categorical and ordinal data require different tests.</li>
+<li>Chi-squared and Fisher’s exact tests are useful in these cases.</li>
 </ul></div>
 </div>
 </div>

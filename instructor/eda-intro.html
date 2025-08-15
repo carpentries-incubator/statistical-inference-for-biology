@@ -118,11 +118,11 @@
   Statistical Inference for Biology
 </div>
 
-<aside class="col-md-12 lesson-progress"><div style="width: 92%" class="percentage">
-    92%
+<aside class="col-md-12 lesson-progress"><div style="width: 86%" class="percentage">
+    86%
   </div>
   <div class="progress incubator">
-    <div class="progress-bar incubator" role="progressbar" style="width: 92%" aria-valuenow="92" aria-label="Lesson Progress" aria-valuemin="0" aria-valuemax="100">
+    <div class="progress-bar incubator" role="progressbar" style="width: 86%" aria-valuenow="86" aria-label="Lesson Progress" aria-valuemin="0" aria-valuemax="100">
     </div>
   </div>
 </aside><div class="container">
@@ -400,7 +400,7 @@
 
 
 
-        <p>Estimated time: <i aria-hidden="true" data-feather="clock"></i> 0 minutes</p>
+        <p>Estimated time: <i aria-hidden="true" data-feather="clock"></i> 40 minutes</p>
 
         <div class="text-end">
           <button role="button" aria-pressed="false" tabindex="0" id="expand-code" class="pull-right" data-expand="Expand All Solutions " data-collapse="Collapse All Solutions "> Expand All Solutions <i aria-hidden="true" data-feather="plus"></i></button>
@@ -415,7 +415,8 @@
 <div class="card-body">
 <div class="inner">
 <h3 class="card-title">Questions</h3>
-<ul><li>?</li>
+<ul><li>How can data be visualized to reveal important relationships?</li>
+<li>What is exploratory data analysis?</li>
 </ul></div>
 </div>
 </div>
@@ -423,7 +424,9 @@
 <div class="card-body">
 <div class="inner bordered">
 <h3 class="card-title">Objectives</h3>
-<hr></div>
+<ul><li>Use a quantile-quantile plot to evaluate normality.</li>
+<li>Evaluate data distribution with a boxplot.</li>
+</ul></div>
 </div>
 </div>
 </div>
@@ -478,7 +481,7 @@ median. We can compute the percentiles for our list of heights:</p>
 <code class="sourceCode R"><span><span class="va">ps</span> <span class="op">&lt;-</span> <span class="op">(</span> <span class="fu">seq</span><span class="op">(</span><span class="fl">0</span>,<span class="fl">99</span><span class="op">)</span> <span class="op">+</span> <span class="fl">0.5</span> <span class="op">)</span><span class="op">/</span><span class="fl">100</span> </span>
 <span><span class="va">qs</span> <span class="op">&lt;-</span> <span class="fu">quantile</span><span class="op">(</span><span class="va">x</span>, <span class="va">ps</span><span class="op">)</span></span>
 <span><span class="va">normalqs</span> <span class="op">&lt;-</span> <span class="fu">qnorm</span><span class="op">(</span><span class="va">ps</span>, <span class="fu">mean</span><span class="op">(</span><span class="va">x</span><span class="op">)</span>, <span class="fu">popsd</span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="fu">plot</span><span class="op">(</span><span class="va">normalqs</span>,<span class="va">qs</span>,xlab<span class="op">=</span><span class="st">"Normal percentiles"</span>,ylab<span class="op">=</span><span class="st">"Height percentiles"</span><span class="op">)</span></span>
+<span><span class="fu">plot</span><span class="op">(</span><span class="va">normalqs</span>, <span class="va">qs</span>, xlab<span class="op">=</span><span class="st">"Normal percentiles"</span>, ylab<span class="op">=</span><span class="st">"Height percentiles"</span><span class="op">)</span></span>
 <span><span class="fu">abline</span><span class="op">(</span><span class="fl">0</span>,<span class="fl">1</span><span class="op">)</span> <span class="co">##identity line</span></span></code></pre>
 </div>
 <figure style="text-align: center"><img src="../fig/eda-intro-rendered-qqplot_example1-1.png" alt="First example of qqplot. Here we compute the theoretical quantiles ourselves." class="figure mx-auto d-block"><figcaption>
@@ -530,11 +533,11 @@ x-axis.</p>
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">dfs</span> <span class="op">&lt;-</span> <span class="fu">c</span><span class="op">(</span><span class="fl">3</span>,<span class="fl">6</span>,<span class="fl">12</span>,<span class="fl">30</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="va">dfs</span> <span class="op">&lt;-</span> <span class="fu">c</span><span class="op">(</span><span class="fl">3</span>, <span class="fl">6</span>, <span class="fl">12</span>, <span class="fl">30</span><span class="op">)</span></span>
 <span><span class="fu">mypar</span><span class="op">(</span><span class="fl">2</span>,<span class="fl">2</span><span class="op">)</span></span>
 <span><span class="kw">for</span><span class="op">(</span><span class="va">df</span> <span class="kw">in</span> <span class="va">dfs</span><span class="op">)</span><span class="op">{</span></span>
-<span>  <span class="va">x</span> <span class="op">&lt;-</span> <span class="fu">rt</span><span class="op">(</span><span class="fl">1000</span>,<span class="va">df</span><span class="op">)</span></span>
-<span>  <span class="fu">qqnorm</span><span class="op">(</span><span class="va">x</span>, xlab<span class="op">=</span><span class="st">"t quantiles"</span>, main<span class="op">=</span><span class="fu">paste0</span><span class="op">(</span><span class="st">"d.f="</span>,<span class="va">df</span><span class="op">)</span>,ylim<span class="op">=</span><span class="fu">c</span><span class="op">(</span><span class="op">-</span><span class="fl">6</span>,<span class="fl">6</span><span class="op">)</span><span class="op">)</span></span>
+<span>  <span class="va">x</span> <span class="op">&lt;-</span> <span class="fu">rt</span><span class="op">(</span><span class="fl">1000</span>, <span class="va">df</span><span class="op">)</span></span>
+<span>  <span class="fu">qqnorm</span><span class="op">(</span><span class="va">x</span>, xlab<span class="op">=</span><span class="st">"t quantiles"</span>, main<span class="op">=</span><span class="fu">paste0</span><span class="op">(</span><span class="st">"d.f="</span>,<span class="va">df</span><span class="op">)</span>, ylim<span class="op">=</span><span class="fu">c</span><span class="op">(</span><span class="op">-</span><span class="fl">6</span>,<span class="fl">6</span><span class="op">)</span><span class="op">)</span></span>
 <span>  <span class="fu">qqline</span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span>
 <span><span class="op">}</span></span></code></pre>
 </div>
@@ -831,7 +834,7 @@ to finish? For females, what is the Pearson correlation between age and
 time to finish?</li>
 <li>If we interpret these correlations without visualizing the data, we
 would conclude that the older we get, the slower we run marathons,
-regardless of gender. &gt; Look at scatterplots and boxplots of times
+regardless of gender. Look at scatterplots and boxplots of times
 stratified by age groups (20-25, 25-30, etc..). After examining the
 data, what is a more reasonable conclusion?</li>
 </ol><ol style="list-style-type: upper-alpha"><li>Finish times are constant up until about our 40s, then we get
@@ -865,10 +868,7 @@ NY city marathon.</li>
 <span class="callout-header">Key Points</span>
 <div class="callout-inner">
 <div class="callout-content">
-<ul><li>.</li>
-<li>.</li>
-<li>.</li>
-<li>.</li>
+<ul><li>Plot data to evaluate relationships between variables.</li>
 </ul></div>
 </div>
 </div>
