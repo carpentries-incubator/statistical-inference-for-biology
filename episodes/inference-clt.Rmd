@@ -1,7 +1,7 @@
 ---
 title: 'Central Limit Theorem and the t-distribution '
-teaching: 0
-exercises: 0
+teaching: 20
+exercises: 30
 source: Rmd
 ---
 
@@ -19,7 +19,7 @@ source: Rmd
 ```{r, include=FALSE}
 library(tidyverse)
 library(rafalib)
-pheno <- read.csv(file = "../data/mice_pheno.csv")
+pheno <- read.csv(file = "./data/mice_pheno.csv")
 ```
 
 ## Central Limit Theorem and t-distribution
@@ -343,10 +343,9 @@ diet. The average of this sample is our random variable. We will use
 
 :::::::::::::::::::::::::::::::::::::::: keypoints
 
-- .
-- .
-- .
-- .
+- We can calculate the exact probabilities of events through using mathematical formulas.
+- The Central Limit Theorem and t-distribution have different assumptions.
+- Both can be used to calculate probabilities.
 
 ::::::::::::::::::::::::::::::::::::::::::::::::::
 
