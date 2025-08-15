@@ -1,7 +1,7 @@
 ---
 title: Power Calculations
-teaching: 0
-exercises: 0
+teaching: 20
+exercises: 20
 source: Rmd
 ---
 
@@ -23,71 +23,37 @@ source: Rmd
 
 #### Introduction
 
-We have used the example of the effects of two different diets on the weight of mice. Since in this illustrative example we have access to the population, we know that in fact there is a substantial (about 10%) difference between the average weights of the two populations:
+We have used the example of the effects of two different diets on the weight of 
+mice. Since in this illustrative example we have access to the population, we 
+know that in fact there is a substantial (about 10%) difference between the 
+average weights of the two populations:
 
 
 ``` r
 library(dplyr)
-pheno <- read.csv("../data/mice_pheno.csv") #Previously downloaded 
-```
+pheno <- read.csv("./data/mice_pheno.csv") # Previously downloaded 
 
-``` warning
-Warning in file(file, "rt"): cannot open file '../data/mice_pheno.csv': No such
-file or directory
-```
-
-``` error
-Error in file(file, "rt"): cannot open the connection
-```
-
-``` r
 controlPopulation <- filter(pheno, Sex == "F" & Diet == "chow") %>%  
   select(Bodyweight) %>% unlist
-```
 
-``` error
-Error: object 'pheno' not found
-```
-
-``` r
 hfPopulation <- filter(pheno, Sex == "F" & Diet == "hf") %>%  
   select(Bodyweight) %>% unlist
-```
 
-``` error
-Error: object 'pheno' not found
-```
-
-``` r
 mu_hf <- mean(hfPopulation)
-```
-
-``` error
-Error: object 'hfPopulation' not found
-```
-
-``` r
 mu_control <- mean(controlPopulation)
-```
-
-``` error
-Error: object 'controlPopulation' not found
-```
-
-``` r
 print(mu_hf - mu_control)
 ```
 
-``` error
-Error: object 'mu_hf' not found
+``` output
+[1] 2.375517
 ```
 
 ``` r
 print((mu_hf - mu_control)/mu_control * 100) #percent increase
 ```
 
-``` error
-Error: object 'mu_hf' not found
+``` output
+[1] 9.942157
 ```
 
 We have also seen that, in some cases, when we take a sample and perform a
@@ -100,26 +66,12 @@ at the 0.05 level:
 set.seed(1)
 N <- 5
 hf <- sample(hfPopulation, N)
-```
-
-``` error
-Error: object 'hfPopulation' not found
-```
-
-``` r
 control <- sample(controlPopulation, N)
-```
-
-``` error
-Error: object 'controlPopulation' not found
-```
-
-``` r
 t.test(hf, control)$p.value
 ```
 
-``` error
-Error: object 'hf' not found
+``` output
+[1] 0.5806661
 ```
 
 Did we make a mistake? By not rejecting the null hypothesis, are we saying the
@@ -144,7 +96,7 @@ it is true. If the p-value is 0.05, it will happen 1 out of 20 times. This
 
 A type I error is defined as rejecting the null when we should not. This is also
 referred to as a false positive. So why do we then use 0.05? Shouldn't we use
-0\.000001 to be really sure? The reason we don't use infinitesimal cut-offs to
+0.000001 to be really sure? The reason we don't use infinitesimal cut-offs to
 avoid type I errors at all cost is that there is another error we can commit: to
 not reject the null when we should. This is called a *type II error* or a false
 negative.
@@ -232,8 +184,8 @@ Here is an example of one simulation for a sample size of 12. The call to
 reject(12)
 ```
 
-``` error
-Error in reject(12): object 'hfPopulation' not found
+``` output
+[1] TRUE
 ```
 
 Now we can use the `replicate` function to do this `B` times.
@@ -241,10 +193,6 @@ Now we can use the `replicate` function to do this `B` times.
 
 ``` r
 rejections <- replicate(B, reject(N))
-```
-
-``` error
-Error in reject(N): object 'hfPopulation' not found
 ```
 
 Our power is just the proportion of times we correctly reject. So with  *N = 12*
@@ -255,8 +203,8 @@ our power is only:
 mean(rejections)
 ```
 
-``` error
-Error: object 'rejections' not found
+``` output
+[1] 0.2155
 ```
 
 This explains why the t-test was not rejecting when we knew the null was false.
@@ -283,10 +231,6 @@ power <- sapply(Ns,function(N){
   })
 ```
 
-``` error
-Error in reject(N): object 'hfPopulation' not found
-```
-
 For each of the three simulations, the above code returns the proportion of
 times we reject. Not surprisingly power increases with N:
 
@@ -295,9 +239,10 @@ times we reject. Not surprisingly power increases with N:
 plot(Ns, power, type="b")
 ```
 
-``` error
-Error in xy.coords(x, y, xlabel, ylabel, log): 'x' and 'y' lengths differ
-```
+<div class="figure" style="text-align: center">
+<img src="fig/inference-power-calc-rendered-power_versus_sample_size-1.png" alt="Power plotted against sample size."  />
+<p class="caption">Power plotted against sample size.</p>
+</div>
 
 Similarly, if we change the level `alpha` at which we reject, power changes. The
 smaller I want the chance of type I error to be, the less power I will have.
@@ -313,19 +258,13 @@ power <- sapply(alphas, function(alpha){
   rejections <- replicate(B, reject(N, alpha=alpha))
   mean(rejections)
 })
-```
-
-``` error
-Error in reject(N, alpha = alpha): object 'hfPopulation' not found
-```
-
-``` r
 plot(alphas, power, xlab="alpha", type="b", log="x")
 ```
 
-``` error
-Error in xy.coords(x, y, xlabel, ylabel, log): 'x' and 'y' lengths differ
-```
+<div class="figure" style="text-align: center">
+<img src="fig/inference-power-calc-rendered-power_versus_alpha-1.png" alt="Power plotted against cut-off."  />
+<p class="caption">Power plotted against cut-off.</p>
+</div>
 
 Note that the x-axis in this last plot is in the log scale.
 
@@ -376,29 +315,19 @@ Again we use `sapply` to run our simulations:
 pvalues <- sapply(Ns_rep, calculatePvalue)
 ```
 
-``` error
-Error in FUN(X[[i]], ...): object 'hfPopulation' not found
-```
-
 Now we can plot the 10 p-values we generated for each sample size:
 
 
 ``` r
 plot(Ns_rep, pvalues, log="y", xlab="sample size",
      ylab="p-values")
-```
-
-``` error
-Error: object 'pvalues' not found
-```
-
-``` r
 abline(h=c(.01, .05), col="red", lwd=2)
 ```
 
-``` error
-Error in int_abline(a = a, b = b, h = h, v = v, untf = untf, ...): plot.new has not been called yet
-```
+<div class="figure" style="text-align: center">
+<img src="fig/inference-power-calc-rendered-pvals_decrease-1.png" alt="p-values from random samples at varying sample size. The actual value of the p-values decreases as we increase sample size whenever the alternative hypothesis is true."  />
+<p class="caption">p-values from random samples at varying sample size. The actual value of the p-values decreases as we increase sample size whenever the alternative hypothesis is true.</p>
+</div>
 
 Note that the y-axis is log scale and that the p-values show a decreasing trend
 all the way to 10<sup>\-8</sup> as the sample size gets larger. The standard
@@ -425,42 +354,23 @@ difference and the confidence interval by the control population mean:
 ``` r
 N <- 12
 hf <- sample(hfPopulation, N)
-```
-
-``` error
-Error: object 'hfPopulation' not found
-```
-
-``` r
 control <- sample(controlPopulation, N)
-```
-
-``` error
-Error: object 'controlPopulation' not found
-```
-
-``` r
 diff <- mean(hf) - mean(control)
-```
-
-``` error
-Error: object 'hf' not found
-```
-
-``` r
 diff / mean(control) * 100
 ```
 
-``` error
-Error: object 'control' not found
+``` output
+[1] 5.196293
 ```
 
 ``` r
 t.test(hf, control)$conf.int / mean(control) * 100
 ```
 
-``` error
-Error: object 'hf' not found
+``` output
+[1] -7.775307 18.167892
+attr(,"conf.level")
+[1] 0.95
 ```
 
 In addition, we can report a statistic called
@@ -471,18 +381,11 @@ deviation of the two groups.
 
 ``` r
 sd_pool <- sqrt(((N-1) * var(hf) + (N-1) * var(control))/(2 * N - 2))
-```
-
-``` error
-Error: object 'hf' not found
-```
-
-``` r
 diff / sd_pool
 ```
 
-``` error
-Error: object 'sd_pool' not found
+``` output
+[1] 0.3397886
 ```
 
 This tells us how many standard deviations of the data the mean of the high-fat
@@ -689,10 +592,8 @@ weights of babies born to smoking mothers.
 
 :::::::::::::::::::::::::::::::::::::::: keypoints
 
-- .
-- .
-- .
-- .
+- Power is the probability of detecting a real effect.
+- Effect size with a confidence interval is a more meaningful measure than a p-value.
 
 ::::::::::::::::::::::::::::::::::::::::::::::::::
 
