@@ -535,7 +535,7 @@ requiring more sophisticated understanding of statistics.</li>
 </div>
 </div></section><section id="aio-inference-rv-dists"><p>Content from <a href="inference-rv-dists.html">Inference</a></p>
 <hr>
-<p>Last updated on 2025-08-15 |
+<p>Last updated on 2025-08-17 |
 
         <a href="https://github.com/carpentries-incubator/statistical-inference-for-biology/edit/main/episodes/inference-rv-dists.Rmd" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 <p>Estimated time: <i aria-hidden="true" data-feather="clock"></i> 115 minutes</p>
@@ -616,32 +616,22 @@ rows):</p>
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">fWeights</span> <span class="op">&lt;-</span> <span class="fu">read.csv</span><span class="op">(</span><span class="st">"../data/femaleMiceWeights.csv"</span><span class="op">)</span></span></code></pre>
+<code class="sourceCode R"><span><span class="va">fWeights</span> <span class="op">&lt;-</span> <span class="fu">read.csv</span><span class="op">(</span><span class="st">"./data/femaleMiceWeights.csv"</span><span class="op">)</span></span>
+<span><span class="fu">head</span><span class="op">(</span><span class="va">fWeights</span><span class="op">)</span> </span></code></pre>
 </div>
 <div class="codewrapper">
-<h3 class="code-label">WARNING<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="warning" tabindex="0"><code>Warning in file(file, "rt"): cannot open file '../data/femaleMiceWeights.csv':
-No such file or directory</code></pre>
-</div>
-<div class="codewrapper">
-<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="error" tabindex="0"><code>Error in file(file, "rt"): cannot open the connection</code></pre>
-</div>
-<div class="codewrapper sourceCode" id="cb4">
-<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">head</span><span class="op">(</span><span class="va">fWeights</span><span class="op">)</span> </span></code></pre>
-</div>
-<div class="codewrapper">
-<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="error" tabindex="0"><code>Error: object 'fWeights' not found</code></pre>
+<pre class="output" tabindex="0"><code>  Diet Bodyweight
+1 chow      21.51
+2 chow      28.14
+3 chow      24.04
+4 chow      23.45
+5 chow      23.68
+6 chow      19.79</code></pre>
 </div>
 <p>If you would like to view the entire data set with RStudio:</p>
-<div class="codewrapper sourceCode" id="cb6">
+<div class="codewrapper sourceCode" id="cb3">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -653,75 +643,45 @@ Both are on the hf diet. Just from looking at the data, we see there is
 <em>variability</em>. Claims such as the previous (that body weight
 increased significantly in high-fat diet-fed mice) usually refer to the
 averages. So let’s look at the average of each group:</p>
-<div class="codewrapper sourceCode" id="cb7">
+<div class="codewrapper sourceCode" id="cb4">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">control</span> <span class="op">&lt;-</span> <span class="fu">filter</span><span class="op">(</span><span class="va">fWeights</span>, <span class="va">Diet</span><span class="op">==</span><span class="st">"chow"</span><span class="op">)</span> <span class="op">%&gt;%</span></span>
 <span>  <span class="fu">select</span><span class="op">(</span><span class="va">Bodyweight</span><span class="op">)</span> <span class="op">%&gt;%</span> </span>
-<span>  <span class="va">unlist</span></span></code></pre>
-</div>
-<div class="codewrapper">
-<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="error" tabindex="0"><code>Error: object 'fWeights' not found</code></pre>
-</div>
-<div class="codewrapper sourceCode" id="cb9">
-<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">treatment</span> <span class="op">&lt;-</span> <span class="fu">filter</span><span class="op">(</span><span class="va">fWeights</span>, <span class="va">Diet</span><span class="op">==</span><span class="st">"hf"</span><span class="op">)</span> <span class="op">%&gt;%</span></span>
+<span>  <span class="va">unlist</span></span>
+<span><span class="va">treatment</span> <span class="op">&lt;-</span> <span class="fu">filter</span><span class="op">(</span><span class="va">fWeights</span>, <span class="va">Diet</span><span class="op">==</span><span class="st">"hf"</span><span class="op">)</span> <span class="op">%&gt;%</span></span>
 <span>  <span class="fu">select</span><span class="op">(</span><span class="va">Bodyweight</span><span class="op">)</span> <span class="op">%&gt;%</span> </span>
-<span>  <span class="va">unlist</span></span></code></pre>
+<span>  <span class="va">unlist</span></span>
+<span><span class="fu">print</span><span class="op">(</span> <span class="fu">mean</span><span class="op">(</span><span class="va">treatment</span><span class="op">)</span> <span class="op">)</span></span></code></pre>
 </div>
 <div class="codewrapper">
-<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="error" tabindex="0"><code>Error: object 'fWeights' not found</code></pre>
+<pre class="output" tabindex="0"><code>[1] 26.83417</code></pre>
 </div>
-<div class="codewrapper sourceCode" id="cb11">
-<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">print</span><span class="op">(</span> <span class="fu">mean</span><span class="op">(</span><span class="va">treatment</span><span class="op">)</span> <span class="op">)</span></span></code></pre>
-</div>
-<div class="codewrapper">
-<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="error" tabindex="0"><code>Error: object 'treatment' not found</code></pre>
-</div>
-<div class="codewrapper sourceCode" id="cb13">
+<div class="codewrapper sourceCode" id="cb6">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">print</span><span class="op">(</span> <span class="fu">mean</span><span class="op">(</span><span class="va">control</span><span class="op">)</span> <span class="op">)</span></span></code></pre>
 </div>
 <div class="codewrapper">
-<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="error" tabindex="0"><code>Error: object 'control' not found</code></pre>
+<pre class="output" tabindex="0"><code>[1] 23.81333</code></pre>
 </div>
-<div class="codewrapper sourceCode" id="cb15">
+<div class="codewrapper sourceCode" id="cb8">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">obsdiff</span> <span class="op">&lt;-</span> <span class="fu">mean</span><span class="op">(</span><span class="va">treatment</span><span class="op">)</span> <span class="op">-</span> <span class="fu">mean</span><span class="op">(</span><span class="va">control</span><span class="op">)</span></span></code></pre>
+<code class="sourceCode R"><span><span class="va">obsdiff</span> <span class="op">&lt;-</span> <span class="fu">mean</span><span class="op">(</span><span class="va">treatment</span><span class="op">)</span> <span class="op">-</span> <span class="fu">mean</span><span class="op">(</span><span class="va">control</span><span class="op">)</span></span>
+<span><span class="fu">print</span><span class="op">(</span><span class="va">obsdiff</span><span class="op">)</span></span></code></pre>
 </div>
 <div class="codewrapper">
-<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="error" tabindex="0"><code>Error: object 'treatment' not found</code></pre>
-</div>
-<div class="codewrapper sourceCode" id="cb17">
-<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">print</span><span class="op">(</span><span class="va">obsdiff</span><span class="op">)</span></span></code></pre>
-</div>
-<div class="codewrapper">
-<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="error" tabindex="0"><code>Error: object 'obsdiff' not found</code></pre>
+<pre class="output" tabindex="0"><code>[1] 3.020833</code></pre>
 </div>
 <p>So the hf diet mice are about 10% heavier. Are we done? Why do we
 need p-values and confidence intervals? The reason is that these
@@ -743,103 +703,43 @@ practice we do not have access to the population. We have a special
 dataset that we are using here to illustrate concepts.</p>
 <p>Now let’s sample 12 mice three times and see how the average
 changes.</p>
-<div class="codewrapper sourceCode" id="cb19">
+<div class="codewrapper sourceCode" id="cb10">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">population</span> <span class="op">&lt;-</span> <span class="fu">read.csv</span><span class="op">(</span>file <span class="op">=</span> <span class="st">"../data/femaleControlsPopulation.csv"</span><span class="op">)</span></span></code></pre>
+<code class="sourceCode R"><span><span class="va">population</span> <span class="op">&lt;-</span> <span class="fu">read.csv</span><span class="op">(</span>file <span class="op">=</span> <span class="st">"./data/femaleControlsPopulation.csv"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">control</span> <span class="op">&lt;-</span> <span class="fu">sample</span><span class="op">(</span><span class="va">population</span><span class="op">$</span><span class="va">Bodyweight</span>, <span class="fl">12</span><span class="op">)</span></span>
+<span><span class="fu">mean</span><span class="op">(</span><span class="va">control</span><span class="op">)</span></span></code></pre>
 </div>
 <div class="codewrapper">
-<h3 class="code-label">WARNING<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="warning" tabindex="0"><code>Warning in file(file, "rt"): cannot open file
-'../data/femaleControlsPopulation.csv': No such file or directory</code></pre>
+<pre class="output" tabindex="0"><code>[1] 23.47667</code></pre>
 </div>
-<div class="codewrapper">
-<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="error" tabindex="0"><code>Error in file(file, "rt"): cannot open the connection</code></pre>
-</div>
-<div class="codewrapper sourceCode" id="cb22">
+<div class="codewrapper sourceCode" id="cb12">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">control</span> <span class="op">&lt;-</span> <span class="fu">sample</span><span class="op">(</span><span class="va">population</span><span class="op">$</span><span class="va">Bodyweight</span>, <span class="fl">12</span><span class="op">)</span></span></code></pre>
+<code class="sourceCode R"><span><span class="va">control</span> <span class="op">&lt;-</span> <span class="fu">sample</span><span class="op">(</span><span class="va">population</span><span class="op">$</span><span class="va">Bodyweight</span>, <span class="fl">12</span><span class="op">)</span></span>
+<span><span class="fu">mean</span><span class="op">(</span><span class="va">control</span><span class="op">)</span></span></code></pre>
 </div>
 <div class="codewrapper">
-<h3 class="code-label">WARNING<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="warning" tabindex="0"><code>Warning: Unknown or uninitialised column: `Bodyweight`.</code></pre>
+<pre class="output" tabindex="0"><code>[1] 25.12583</code></pre>
 </div>
-<div class="codewrapper">
-<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="error" tabindex="0"><code>Error in sample.int(length(x), size, replace, prob): invalid first argument</code></pre>
-</div>
-<div class="codewrapper sourceCode" id="cb25">
+<div class="codewrapper sourceCode" id="cb14">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">mean</span><span class="op">(</span><span class="va">control</span><span class="op">)</span></span></code></pre>
+<code class="sourceCode R"><span><span class="va">control</span> <span class="op">&lt;-</span> <span class="fu">sample</span><span class="op">(</span><span class="va">population</span><span class="op">$</span><span class="va">Bodyweight</span>, <span class="fl">12</span><span class="op">)</span></span>
+<span><span class="fu">mean</span><span class="op">(</span><span class="va">control</span><span class="op">)</span></span></code></pre>
 </div>
 <div class="codewrapper">
-<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="error" tabindex="0"><code>Error: object 'control' not found</code></pre>
-</div>
-<div class="codewrapper sourceCode" id="cb27">
-<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">control</span> <span class="op">&lt;-</span> <span class="fu">sample</span><span class="op">(</span><span class="va">population</span><span class="op">$</span><span class="va">Bodyweight</span>, <span class="fl">12</span><span class="op">)</span></span></code></pre>
-</div>
-<div class="codewrapper">
-<h3 class="code-label">WARNING<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="warning" tabindex="0"><code>Warning: Unknown or uninitialised column: `Bodyweight`.</code></pre>
-</div>
-<div class="codewrapper">
-<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="error" tabindex="0"><code>Error in sample.int(length(x), size, replace, prob): invalid first argument</code></pre>
-</div>
-<div class="codewrapper sourceCode" id="cb30">
-<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">mean</span><span class="op">(</span><span class="va">control</span><span class="op">)</span></span></code></pre>
-</div>
-<div class="codewrapper">
-<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="error" tabindex="0"><code>Error: object 'control' not found</code></pre>
-</div>
-<div class="codewrapper sourceCode" id="cb32">
-<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">control</span> <span class="op">&lt;-</span> <span class="fu">sample</span><span class="op">(</span><span class="va">population</span><span class="op">$</span><span class="va">Bodyweight</span>, <span class="fl">12</span><span class="op">)</span></span></code></pre>
-</div>
-<div class="codewrapper">
-<h3 class="code-label">WARNING<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="warning" tabindex="0"><code>Warning: Unknown or uninitialised column: `Bodyweight`.</code></pre>
-</div>
-<div class="codewrapper">
-<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="error" tabindex="0"><code>Error in sample.int(length(x), size, replace, prob): invalid first argument</code></pre>
-</div>
-<div class="codewrapper sourceCode" id="cb35">
-<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">mean</span><span class="op">(</span><span class="va">control</span><span class="op">)</span></span></code></pre>
-</div>
-<div class="codewrapper">
-<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="error" tabindex="0"><code>Error: object 'control' not found</code></pre>
+<pre class="output" tabindex="0"><code>[1] 23.72333</code></pre>
 </div>
 <p>Note how the average varies. We can continue to do this repeatedly
 and start learning something about the distribution of this random
@@ -861,55 +761,25 @@ has no effect. We can do this by randomly sampling 24 control mice,
 giving them the same diet, and then recording the difference in mean
 between two randomly split groups of 12 and 12. Here is this process
 written in R code:</p>
-<div class="codewrapper sourceCode" id="cb37">
+<div class="codewrapper sourceCode" id="cb16">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">## 12 control mice</span></span>
-<span><span class="va">control</span> <span class="op">&lt;-</span> <span class="fu">sample</span><span class="op">(</span><span class="va">population</span><span class="op">$</span><span class="va">Bodyweight</span>, <span class="fl">12</span><span class="op">)</span></span></code></pre>
+<span><span class="va">control</span> <span class="op">&lt;-</span> <span class="fu">sample</span><span class="op">(</span><span class="va">population</span><span class="op">$</span><span class="va">Bodyweight</span>, <span class="fl">12</span><span class="op">)</span></span>
+<span><span class="co">## another 12 control mice that we act as if they were not</span></span>
+<span><span class="va">treatment</span> <span class="op">&lt;-</span> <span class="fu">sample</span><span class="op">(</span><span class="va">population</span><span class="op">$</span><span class="va">Bodyweight</span>, <span class="fl">12</span><span class="op">)</span></span>
+<span><span class="fu">print</span><span class="op">(</span><span class="fu">mean</span><span class="op">(</span><span class="va">treatment</span><span class="op">)</span> <span class="op">-</span> <span class="fu">mean</span><span class="op">(</span><span class="va">control</span><span class="op">)</span><span class="op">)</span></span></code></pre>
 </div>
 <div class="codewrapper">
-<h3 class="code-label">WARNING<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="warning" tabindex="0"><code>Warning: Unknown or uninitialised column: `Bodyweight`.</code></pre>
-</div>
-<div class="codewrapper">
-<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="error" tabindex="0"><code>Error in sample.int(length(x), size, replace, prob): invalid first argument</code></pre>
-</div>
-<div class="codewrapper sourceCode" id="cb40">
-<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co">## another 12 control mice that we act as if they were not</span></span>
-<span><span class="va">treatment</span> <span class="op">&lt;-</span> <span class="fu">sample</span><span class="op">(</span><span class="va">population</span><span class="op">$</span><span class="va">Bodyweight</span>, <span class="fl">12</span><span class="op">)</span></span></code></pre>
-</div>
-<div class="codewrapper">
-<h3 class="code-label">WARNING<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="warning" tabindex="0"><code>Warning: Unknown or uninitialised column: `Bodyweight`.</code></pre>
-</div>
-<div class="codewrapper">
-<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="error" tabindex="0"><code>Error in sample.int(length(x), size, replace, prob): invalid first argument</code></pre>
-</div>
-<div class="codewrapper sourceCode" id="cb43">
-<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">print</span><span class="op">(</span><span class="fu">mean</span><span class="op">(</span><span class="va">treatment</span><span class="op">)</span> <span class="op">-</span> <span class="fu">mean</span><span class="op">(</span><span class="va">control</span><span class="op">)</span><span class="op">)</span></span></code></pre>
-</div>
-<div class="codewrapper">
-<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="error" tabindex="0"><code>Error: object 'treatment' not found</code></pre>
+<pre class="output" tabindex="0"><code>[1] -0.2391667</code></pre>
 </div>
 <p>Now let’s do it 10,000 times. We will use a “for-loop”, an operation
 that lets us automate this (a simpler approach that, we will learn
 later, is to use <code>replicate</code>).</p>
-<div class="codewrapper sourceCode" id="cb45">
+<div class="codewrapper sourceCode" id="cb18">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -921,16 +791,6 @@ later, is to use <code>replicate</code>).</p>
 <span>  <span class="va">null</span><span class="op">[</span><span class="va">i</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="fu">mean</span><span class="op">(</span><span class="va">treatment</span><span class="op">)</span> <span class="op">-</span> <span class="fu">mean</span><span class="op">(</span><span class="va">control</span><span class="op">)</span></span>
 <span><span class="op">}</span></span></code></pre>
 </div>
-<div class="codewrapper">
-<h3 class="code-label">WARNING<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="warning" tabindex="0"><code>Warning: Unknown or uninitialised column: `Bodyweight`.</code></pre>
-</div>
-<div class="codewrapper">
-<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="error" tabindex="0"><code>Error in sample.int(length(x), size, replace, prob): invalid first argument</code></pre>
-</div>
 <p>The values in <code>null</code> form what we call the <em>null
 distribution</em>. We will define this more formally below. By the way,
 the loop above is a <em>Monte Carlo</em> simulation to obtain 10,000
@@ -940,16 +800,16 @@ information about Monte Carlo simulations, visit <a href="https://leanpub.com/da
 for the Life Sciences</a>.</p>
 <p>So what percent of the 10,000 are bigger than
 <code>obsdiff</code>?</p>
-<div class="codewrapper sourceCode" id="cb48">
+<div class="codewrapper sourceCode" id="cb19">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">mean</span><span class="op">(</span><span class="va">null</span> <span class="op">&gt;=</span> <span class="va">obsdiff</span><span class="op">)</span></span></code></pre>
 </div>
 <div class="codewrapper">
-<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="error" tabindex="0"><code>Error: object 'obsdiff' not found</code></pre>
+<pre class="output" tabindex="0"><code>[1] 0.0123</code></pre>
 </div>
 <p>Only a small percent of the 10,000 simulations. As skeptics what do
 we conclude? When there is no diet effect, we see a difference as big as
@@ -967,7 +827,7 @@ heights of all men in a population. Imagine you need to describe these
 numbers to someone that has no idea what these heights are, such as an
 alien that has never visited Earth. Suppose all these heights are
 contained in the following dataset:</p>
-<div class="codewrapper sourceCode" id="cb50">
+<div class="codewrapper sourceCode" id="cb21">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -977,7 +837,7 @@ contained in the following dataset:</p>
 <p>One approach to summarizing these numbers is to simply list them all
 out for the alien to see. Here are 10 randomly selected heights of
 1,078:</p>
-<div class="codewrapper sourceCode" id="cb51">
+<div class="codewrapper sourceCode" id="cb22">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -986,7 +846,7 @@ out for the alien to see. Here are 10 randomly selected heights of
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="output" tabindex="0"><code> [1] 70.6 67.4 70.1 68.5 62.7 67.1 66.5 67.6 67.2 68.5</code></pre>
+<pre class="output" tabindex="0"><code> [1] 67.7 72.5 64.7 62.7 66.1 67.5 68.2 61.8 69.7 71.2</code></pre>
 </div>
 <div class="section level5">
 <h5 id="cumulative-distribution-function">Cumulative Distribution Function<a class="anchor" aria-label="anchor" href="#cumulative-distribution-function"></a>
@@ -1018,7 +878,7 @@ because we are usually more interested in intervals, such and such
 percent are between 70 inches and 71 inches, etc., rather than the
 percent less than a particular height. Here is a histogram of
 heights:</p>
-<div class="codewrapper sourceCode" id="cb53">
+<div class="codewrapper sourceCode" id="cb24">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -1057,27 +917,17 @@ the random variable under the null hypothesis.</p>
 <p>The observed values will amount to a histogram. From a histogram of
 the <code>null</code> vector we calculated earlier, we can see that
 values as large as <code>obsdiff</code> are relatively rare:</p>
-<div class="codewrapper sourceCode" id="cb54">
+<div class="codewrapper sourceCode" id="cb25">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">hist</span><span class="op">(</span><span class="va">null</span>, freq<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span></code></pre>
+<code class="sourceCode R"><span><span class="fu">hist</span><span class="op">(</span><span class="va">null</span>, freq<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span>
+<span><span class="fu">abline</span><span class="op">(</span>v<span class="op">=</span><span class="va">obsdiff</span>, col<span class="op">=</span><span class="st">"red"</span>, lwd<span class="op">=</span><span class="fl">2</span><span class="op">)</span></span></code></pre>
 </div>
 <figure style="text-align: center"><img src="../fig/inference-rv-dists-rendered-null_and_obs-1.png" alt="Null distribution with observed difference marked with vertical red line." class="figure mx-auto d-block"><figcaption>
 Null distribution with observed difference marked with vertical red
 line.
-</figcaption></figure><div class="codewrapper sourceCode" id="cb55">
-<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">abline</span><span class="op">(</span>v<span class="op">=</span><span class="va">obsdiff</span>, col<span class="op">=</span><span class="st">"red"</span>, lwd<span class="op">=</span><span class="fl">2</span><span class="op">)</span></span></code></pre>
-</div>
-<div class="codewrapper">
-<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="error" tabindex="0"><code>Error: object 'obsdiff' not found</code></pre>
-</div>
-<p>An important point to keep in mind here is that while we defined
+</figcaption></figure><p>An important point to keep in mind here is that while we defined
 Pr<i>(a)</i> by counting cases, we will learn that, in some
 circumstances, mathematics gives us formulas for Pr<i>(a)</i> that save
 us the trouble of computing them as we did here. One example of this
@@ -1105,16 +955,16 @@ values on the null distribution were above <code>obsdiff</code>. We can
 compute the proportion of values below a value <code>x</code> with
 <code>pnorm(x, mu, sigma)</code> without knowing all the values. The
 normal approximation works very well here:</p>
-<div class="codewrapper sourceCode" id="cb57">
+<div class="codewrapper sourceCode" id="cb26">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fl">1</span> <span class="op">-</span> <span class="fu">pnorm</span><span class="op">(</span><span class="va">obsdiff</span>, <span class="fu">mean</span><span class="op">(</span><span class="va">null</span><span class="op">)</span>, <span class="fu">sd</span><span class="op">(</span><span class="va">null</span><span class="op">)</span><span class="op">)</span> </span></code></pre>
 </div>
 <div class="codewrapper">
-<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="error" tabindex="0"><code>Error: object 'obsdiff' not found</code></pre>
+<pre class="output" tabindex="0"><code>[1] 0.01311009</code></pre>
 </div>
 <p>Later, we will learn that there is a mathematical explanation for
 this. A very useful characteristic of this approximation is that one
@@ -1124,16 +974,16 @@ this, we can compute the proportion of values in any interval.</p>
 represents everything to the right of the vertical red line, or 1 minus
 everything to the left. Try running this code without the
 <code>1 -</code> to understand this better.</p>
-<div class="codewrapper sourceCode" id="cb59">
+<div class="codewrapper sourceCode" id="cb28">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">pnorm</span><span class="op">(</span><span class="va">obsdiff</span>, <span class="fu">mean</span><span class="op">(</span><span class="va">null</span><span class="op">)</span>, <span class="fu">sd</span><span class="op">(</span><span class="va">null</span><span class="op">)</span><span class="op">)</span> </span></code></pre>
 </div>
 <div class="codewrapper">
-<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="error" tabindex="0"><code>Error: object 'obsdiff' not found</code></pre>
+<pre class="output" tabindex="0"><code>[1] 0.9868899</code></pre>
 </div>
 <p>This value represents everything to the left of the vertical red line
 in the null histogram above.</p>
@@ -1154,7 +1004,7 @@ approximate this with only the data from your sample, i.e. the original
 </h5>
 <p>Before we continue, we briefly explain the following important line
 of code:</p>
-<div class="codewrapper sourceCode" id="cb61">
+<div class="codewrapper sourceCode" id="cb30">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -1165,7 +1015,7 @@ that many of the results presented can actually change by chance,
 including the correct answer to problems. One way to ensure that results
 do not change is by setting R’s random number generation seed. For more
 on the topic please read the help file:</p>
-<div class="codewrapper sourceCode" id="cb62">
+<div class="codewrapper sourceCode" id="cb31">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -1176,7 +1026,7 @@ characters called <code>LETTERS</code> that contains upper case letters
 of the Roman alphabet. We can take a sample of 5 letters with the
 following code, which when repeated will give a different set of 5
 letters each times.</p>
-<div class="codewrapper sourceCode" id="cb63">
+<div class="codewrapper sourceCode" id="cb32">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -1188,7 +1038,7 @@ letters each times.</p>
 <pre class="output" tabindex="0"><code> [1] "A" "B" "C" "D" "E" "F" "G" "H" "I" "J" "K" "L" "M" "N" "O" "P" "Q" "R" "S"
 [20] "T" "U" "V" "W" "X" "Y" "Z"</code></pre>
 </div>
-<div class="codewrapper sourceCode" id="cb65">
+<div class="codewrapper sourceCode" id="cb34">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -1199,7 +1049,7 @@ letters each times.</p>
 </h3>
 <pre class="output" tabindex="0"><code>[1] "Y" "D" "G" "A" "B"</code></pre>
 </div>
-<div class="codewrapper sourceCode" id="cb67">
+<div class="codewrapper sourceCode" id="cb36">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -1210,7 +1060,7 @@ letters each times.</p>
 </h3>
 <pre class="output" tabindex="0"><code>[1] "W" "K" "N" "R" "S"</code></pre>
 </div>
-<div class="codewrapper sourceCode" id="cb69">
+<div class="codewrapper sourceCode" id="cb38">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -1223,7 +1073,7 @@ letters each times.</p>
 </div>
 <p>If we set a seed, we will get the same sample of letters each
 time.</p>
-<div class="codewrapper sourceCode" id="cb71">
+<div class="codewrapper sourceCode" id="cb40">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -1235,7 +1085,7 @@ time.</p>
 </h3>
 <pre class="output" tabindex="0"><code>[1] "Y" "D" "G" "A" "B"</code></pre>
 </div>
-<div class="codewrapper sourceCode" id="cb73">
+<div class="codewrapper sourceCode" id="cb42">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -1247,7 +1097,7 @@ time.</p>
 </h3>
 <pre class="output" tabindex="0"><code>[1] "Y" "D" "G" "A" "B"</code></pre>
 </div>
-<div class="codewrapper sourceCode" id="cb75">
+<div class="codewrapper sourceCode" id="cb44">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -1267,7 +1117,7 @@ population dataset that we read into a variable called
 <code>population</code>. Here <code>population</code> represents the
 weights for the entire population of female mice. To remind ourselves
 about this data set, run the following:</p>
-<div class="codewrapper sourceCode" id="cb77">
+<div class="codewrapper sourceCode" id="cb46">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -1276,12 +1126,10 @@ about this data set, run the following:</p>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="output" tabindex="0"><code>tibble [4,060 × 3] (S3: tbl_df/tbl/data.frame)
- $ country   : chr [1:4060] "Afghanistan" "Afghanistan" "Afghanistan" "Afghanistan" ...
- $ year      : num [1:4060] 1995 1996 1997 1998 1999 ...
- $ population: num [1:4060] 17586073 18415307 19021226 19496836 19987071 ...</code></pre>
+<pre class="output" tabindex="0"><code>'data.frame':	225 obs. of  1 variable:
+ $ Bodyweight: num  27 24.8 27 28.1 23.6 ...</code></pre>
 </div>
-<div class="codewrapper sourceCode" id="cb79">
+<div class="codewrapper sourceCode" id="cb48">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -1290,17 +1138,15 @@ about this data set, run the following:</p>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="output" tabindex="0"><code># A tibble: 6 × 3
-  country      year population
-  &lt;chr&gt;       &lt;dbl&gt;      &lt;dbl&gt;
-1 Afghanistan  1995   17586073
-2 Afghanistan  1996   18415307
-3 Afghanistan  1997   19021226
-4 Afghanistan  1998   19496836
-5 Afghanistan  1999   19987071
-6 Afghanistan  2000   20595360</code></pre>
+<pre class="output" tabindex="0"><code>  Bodyweight
+1      27.03
+2      24.80
+3      27.02
+4      28.07
+5      23.55
+6      22.72</code></pre>
 </div>
-<div class="codewrapper sourceCode" id="cb81">
+<div class="codewrapper sourceCode" id="cb50">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -1309,13 +1155,13 @@ about this data set, run the following:</p>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="output" tabindex="0"><code>   country               year        population
- Length:4060        Min.   :1995   Min.   :1.129e+03
- Class :character   1st Qu.:1999   1st Qu.:6.029e+05
- Mode  :character   Median :2004   Median :5.319e+06
-                    Mean   :2004   Mean   :3.003e+07
-                    3rd Qu.:2009   3rd Qu.:1.855e+07
-                    Max.   :2013   Max.   :1.386e+09  </code></pre>
+<pre class="output" tabindex="0"><code>   Bodyweight
+ Min.   :15.51
+ 1st Qu.:21.51
+ Median :23.54
+ Mean   :23.89
+ 3rd Qu.:26.08
+ Max.   :36.84  </code></pre>
 </div>
 <div id="exercise-1" class="callout challenge">
 <div class="callout-square">
@@ -1596,7 +1442,7 @@ value.</li>
 </div>
 </div></section><section id="aio-inference-pse"><p>Content from <a href="inference-pse.html">Populations, Samples and Estimates</a></p>
 <hr>
-<p>Last updated on 2025-08-15 |
+<p>Last updated on 2025-08-17 |
 
         <a href="https://github.com/carpentries-incubator/statistical-inference-for-biology/edit/main/episodes/inference-pse.Rmd" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 <p>Estimated time: <i aria-hidden="true" data-feather="clock"></i> 0 minutes</p>
@@ -1678,23 +1524,12 @@ file to our working directory and read in to R:</p>
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">pheno</span> <span class="op">&lt;-</span> <span class="fu">read.csv</span><span class="op">(</span>file <span class="op">=</span> <span class="st">"../data/mice_pheno.csv"</span><span class="op">)</span></span></code></pre>
-</div>
-<div class="codewrapper">
-<h3 class="code-label">WARNING<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="warning" tabindex="0"><code>Warning in file(file, "rt"): cannot open file '../data/mice_pheno.csv': No such
-file or directory</code></pre>
-</div>
-<div class="codewrapper">
-<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="error" tabindex="0"><code>Error in file(file, "rt"): cannot open the connection</code></pre>
+<code class="sourceCode R"><span><span class="va">pheno</span> <span class="op">&lt;-</span> <span class="fu">read.csv</span><span class="op">(</span>file <span class="op">=</span> <span class="st">"./data/mice_pheno.csv"</span><span class="op">)</span></span></code></pre>
 </div>
 <p>We can then access the population values and determine, for example,
 how many we have. Here we compute the size of the control
 population:</p>
-<div class="codewrapper sourceCode" id="cb4">
+<div class="codewrapper sourceCode" id="cb2">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -1710,7 +1545,7 @@ population:</p>
 <p>We usually denote these values as <i>x<sub>
 1</sub>,…,x<sub>m</sub></i>. In this case, <em>m</em> is the number
 computed above. We can do the same for the high fat diet population:</p>
-<div class="codewrapper sourceCode" id="cb6">
+<div class="codewrapper sourceCode" id="cb4">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -1727,7 +1562,7 @@ computed above. We can do the same for the high fat diet population:</p>
 <p>We can then define summaries of interest for these populations, such
 as the mean and variance.</p>
 <p>The mean:</p>
-<figure><img src="../fig/02-mux-and-muy.png" class="figure mx-auto d-block"></figure><div class="codewrapper sourceCode" id="cb8">
+<figure><img src="../fig/02-mux-and-muy.png" class="figure mx-auto d-block"></figure><div class="codewrapper sourceCode" id="cb6">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -1739,7 +1574,7 @@ as the mean and variance.</p>
 </h3>
 <pre class="output" tabindex="0"><code>[1] 5376.01</code></pre>
 </div>
-<div class="codewrapper sourceCode" id="cb10">
+<div class="codewrapper sourceCode" id="cb8">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -1750,7 +1585,7 @@ as the mean and variance.</p>
 </h3>
 <pre class="output" tabindex="0"><code>[1] 225</code></pre>
 </div>
-<div class="codewrapper sourceCode" id="cb12">
+<div class="codewrapper sourceCode" id="cb10">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -1761,7 +1596,7 @@ as the mean and variance.</p>
 </h3>
 <pre class="output" tabindex="0"><code>[1] 23.89338</code></pre>
 </div>
-<div class="codewrapper sourceCode" id="cb14">
+<div class="codewrapper sourceCode" id="cb12">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -1773,7 +1608,7 @@ as the mean and variance.</p>
 </h3>
 <pre class="output" tabindex="0"><code>[1] 5253.779</code></pre>
 </div>
-<div class="codewrapper sourceCode" id="cb16">
+<div class="codewrapper sourceCode" id="cb14">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -1847,7 +1682,7 @@ What is this population’s average body weight?</p>
 </button>
 <div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
 <div class="accordion-body">
-<div class="codewrapper sourceCode" id="cb18">
+<div class="codewrapper sourceCode" id="cb16">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -1893,7 +1728,7 @@ from <code>x</code>. What is the sample average?</p>
 </button>
 <div id="collapseSolution2" class="accordion-collapse collapse" aria-labelledby="headingSolution2" data-bs-parent="#accordionSolution2">
 <div class="accordion-body">
-<div class="codewrapper sourceCode" id="cb20">
+<div class="codewrapper sourceCode" id="cb18">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -1932,7 +1767,7 @@ What is this population’s average?</p>
 </button>
 <div id="collapseSolution3" class="accordion-collapse collapse" aria-labelledby="headingSolution3" data-bs-parent="#accordionSolution3">
 <div class="accordion-body">
-<div class="codewrapper sourceCode" id="cb22">
+<div class="codewrapper sourceCode" id="cb20">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -1975,7 +1810,7 @@ from <code>y</code>. What is the sample average?</p>
 </button>
 <div id="collapseSolution4" class="accordion-collapse collapse" aria-labelledby="headingSolution4" data-bs-parent="#accordionSolution4">
 <div class="accordion-body">
-<div class="codewrapper sourceCode" id="cb24">
+<div class="codewrapper sourceCode" id="cb22">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -2013,7 +1848,7 @@ X̄-Ȳ?</p>
 </button>
 <div id="collapseSolution5" class="accordion-collapse collapse" aria-labelledby="headingSolution5" data-bs-parent="#accordionSolution5">
 <div class="accordion-body">
-<div class="codewrapper sourceCode" id="cb26">
+<div class="codewrapper sourceCode" id="cb24">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -2057,7 +1892,7 @@ each sample call. What is the difference in absolute value between
 </button>
 <div id="collapseSolution6" class="accordion-collapse collapse" aria-labelledby="headingSolution6" data-bs-parent="#accordionSolution6">
 <div class="accordion-body">
-<div class="codewrapper sourceCode" id="cb28">
+<div class="codewrapper sourceCode" id="cb26">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -2072,7 +1907,7 @@ each sample call. What is the difference in absolute value between
 </h3>
 <pre class="output" tabindex="0"><code>[1] 23.89338</code></pre>
 </div>
-<div class="codewrapper sourceCode" id="cb30">
+<div class="codewrapper sourceCode" id="cb28">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -2085,7 +1920,7 @@ each sample call. What is the difference in absolute value between
 </h3>
 <pre class="output" tabindex="0"><code>[1] 24.2528</code></pre>
 </div>
-<div class="codewrapper sourceCode" id="cb32">
+<div class="codewrapper sourceCode" id="cb30">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -2100,7 +1935,7 @@ each sample call. What is the difference in absolute value between
 </h3>
 <pre class="output" tabindex="0"><code>[1] 26.2689</code></pre>
 </div>
-<div class="codewrapper sourceCode" id="cb34">
+<div class="codewrapper sourceCode" id="cb32">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -2113,7 +1948,7 @@ each sample call. What is the difference in absolute value between
 </h3>
 <pre class="output" tabindex="0"><code>[1] 28.3828</code></pre>
 </div>
-<div class="codewrapper sourceCode" id="cb36">
+<div class="codewrapper sourceCode" id="cb34">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -2331,7 +2166,7 @@ many biological factors averaging out.<br>
   Solutions to Exercise 1
   </h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
 <div class="accordion-body">
 <ol style="list-style-type: decimal">
 <li>
@@ -2410,7 +2245,7 @@ answer to this exercise?<br>
   Solution to Exercise 2
   </h4>
 </button>
-<div id="collapseSolution2" class="accordion-collapse collapse" aria-labelledby="headingSolution2" data-bs-parent="#accordionSolution2">
+<div id="collapseSolution2" class="accordion-collapse collapse" data-bs-parent="#accordionSolution2" aria-labelledby="headingSolution2">
 <div class="accordion-body">
 
 </div>
@@ -2570,7 +2405,7 @@ grow.</li>
   Solution to Exercise 3
   </h4>
 </button>
-<div id="collapseSolution3" class="accordion-collapse collapse" aria-labelledby="headingSolution3" data-bs-parent="#accordionSolution3">
+<div id="collapseSolution3" class="accordion-collapse collapse" data-bs-parent="#accordionSolution3" aria-labelledby="headingSolution3">
 <div class="accordion-body">
 
 </div>
@@ -3061,7 +2896,7 @@ t-distribution approximation is wrong.<br>
 </div>
 </section></section><section id="aio-inference-ttests-practice"><p>Content from <a href="inference-ttests-practice.html">t-tests in practice</a></p>
 <hr>
-<p>Last updated on 2025-08-15 |
+<p>Last updated on 2025-08-17 |
 
         <a href="https://github.com/carpentries-incubator/statistical-inference-for-biology/edit/main/episodes/inference-ttests-practice.Rmd" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 <p>Estimated time: <i aria-hidden="true" data-feather="clock"></i> 0 minutes</p>
@@ -3114,69 +2949,20 @@ compute the difference in mean.</p>
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">fWeights</span> <span class="op">&lt;-</span> <span class="fu">read.csv</span><span class="op">(</span>file <span class="op">=</span> <span class="st">"../data/femaleMiceWeights.csv"</span><span class="op">)</span> <span class="co"># we read this data in earlier</span></span></code></pre>
-</div>
-<div class="codewrapper">
-<h3 class="code-label">WARNING<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="warning" tabindex="0"><code>Warning in file(file, "rt"): cannot open file '../data/femaleMiceWeights.csv':
-No such file or directory</code></pre>
-</div>
-<div class="codewrapper">
-<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="error" tabindex="0"><code>Error in file(file, "rt"): cannot open the connection</code></pre>
-</div>
-<div class="codewrapper sourceCode" id="cb4">
-<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">control</span> <span class="op">&lt;-</span> <span class="fu">filter</span><span class="op">(</span><span class="va">fWeights</span>, <span class="va">Diet</span><span class="op">==</span><span class="st">"chow"</span><span class="op">)</span> <span class="op">%&gt;%</span></span>
+<code class="sourceCode R"><span><span class="va">fWeights</span> <span class="op">&lt;-</span> <span class="fu">read.csv</span><span class="op">(</span>file <span class="op">=</span> <span class="st">"./data/femaleMiceWeights.csv"</span><span class="op">)</span> <span class="co"># we read this data in earlier</span></span>
+<span><span class="va">control</span> <span class="op">&lt;-</span> <span class="fu">filter</span><span class="op">(</span><span class="va">fWeights</span>, <span class="va">Diet</span><span class="op">==</span><span class="st">"chow"</span><span class="op">)</span> <span class="op">%&gt;%</span></span>
 <span>  <span class="fu">select</span><span class="op">(</span><span class="va">Bodyweight</span><span class="op">)</span> <span class="op">%&gt;%</span> </span>
-<span>  <span class="va">unlist</span></span></code></pre>
-</div>
-<div class="codewrapper">
-<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="error" tabindex="0"><code>Error: object 'fWeights' not found</code></pre>
-</div>
-<div class="codewrapper sourceCode" id="cb6">
-<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">treatment</span> <span class="op">&lt;-</span> <span class="fu">filter</span><span class="op">(</span><span class="va">fWeights</span>, <span class="va">Diet</span><span class="op">==</span><span class="st">"hf"</span><span class="op">)</span> <span class="op">%&gt;%</span></span>
+<span>  <span class="va">unlist</span></span>
+<span><span class="va">treatment</span> <span class="op">&lt;-</span> <span class="fu">filter</span><span class="op">(</span><span class="va">fWeights</span>, <span class="va">Diet</span><span class="op">==</span><span class="st">"hf"</span><span class="op">)</span> <span class="op">%&gt;%</span></span>
 <span>  <span class="fu">select</span><span class="op">(</span><span class="va">Bodyweight</span><span class="op">)</span> <span class="op">%&gt;%</span> </span>
-<span>  <span class="va">unlist</span></span></code></pre>
-</div>
-<div class="codewrapper">
-<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="error" tabindex="0"><code>Error: object 'fWeights' not found</code></pre>
-</div>
-<div class="codewrapper sourceCode" id="cb8">
-<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">diff</span> <span class="op">&lt;-</span> <span class="fu">mean</span><span class="op">(</span><span class="va">treatment</span><span class="op">)</span> <span class="op">-</span> <span class="fu">mean</span><span class="op">(</span><span class="va">control</span><span class="op">)</span></span></code></pre>
-</div>
-<div class="codewrapper">
-<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="error" tabindex="0"><code>Error: object 'treatment' not found</code></pre>
-</div>
-<div class="codewrapper sourceCode" id="cb10">
-<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">print</span><span class="op">(</span><span class="va">diff</span><span class="op">)</span></span></code></pre>
+<span>  <span class="va">unlist</span></span>
+<span><span class="va">diff</span> <span class="op">&lt;-</span> <span class="fu">mean</span><span class="op">(</span><span class="va">treatment</span><span class="op">)</span> <span class="op">-</span> <span class="fu">mean</span><span class="op">(</span><span class="va">control</span><span class="op">)</span></span>
+<span><span class="fu">print</span><span class="op">(</span><span class="va">diff</span><span class="op">)</span></span></code></pre>
 </div>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="output" tabindex="0"><code>function (x, ...)
-UseMethod("diff")
-&lt;bytecode: 0x55be15234ce8&gt;
-&lt;environment: namespace:base&gt;</code></pre>
+<pre class="output" tabindex="0"><code>[1] 3.020833</code></pre>
 </div>
 <p>We are asked to report a p-value. What do we do? We learned that
 <code>diff</code>, referred to as the <em>observed effect size</em>, is
@@ -3188,22 +2974,22 @@ of the sample size:</p>
 <figure><img src="../fig/02-stderr.png" class="figure mx-auto d-block"></figure><p>We use the sample standard deviation as an estimate of the population
 standard deviation. In R, we simply use the <code>sd</code> function and
 the SE is:</p>
-<div class="codewrapper sourceCode" id="cb12">
+<div class="codewrapper sourceCode" id="cb3">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">sd</span><span class="op">(</span><span class="va">control</span><span class="op">)</span><span class="op">/</span><span class="fu">sqrt</span><span class="op">(</span><span class="fu">length</span><span class="op">(</span><span class="va">control</span><span class="op">)</span><span class="op">)</span></span></code></pre>
 </div>
 <div class="codewrapper">
-<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="error" tabindex="0"><code>Error: object 'control' not found</code></pre>
+<pre class="output" tabindex="0"><code>[1] 0.8725323</code></pre>
 </div>
 <p>This is the SE of the sample average, but we actually want the SE of
 <code>diff</code>. We saw how statistical theory tells us that the
 variance of the difference of two random variables is the sum of its
 variances, so we compute the variance and take the square root:</p>
-<div class="codewrapper sourceCode" id="cb14">
+<div class="codewrapper sourceCode" id="cb5">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -3212,23 +2998,13 @@ variances, so we compute the variance and take the square root:</p>
 <span>  <span class="fu">var</span><span class="op">(</span><span class="va">control</span><span class="op">)</span><span class="op">/</span><span class="fu">length</span><span class="op">(</span><span class="va">control</span><span class="op">)</span> </span>
 <span>  <span class="op">)</span></span></code></pre>
 </div>
-<div class="codewrapper">
-<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="error" tabindex="0"><code>Error: object 'treatment' not found</code></pre>
-</div>
 <p>Statistical theory tells us that if we divide a random variable by
 its SE, we get a new random variable with an SE of 1.</p>
-<div class="codewrapper sourceCode" id="cb16">
+<div class="codewrapper sourceCode" id="cb6">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">tstat</span> <span class="op">&lt;-</span> <span class="va">diff</span><span class="op">/</span><span class="va">se</span> </span></code></pre>
-</div>
-<div class="codewrapper">
-<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="error" tabindex="0"><code>Error: object 'se' not found</code></pre>
 </div>
 <p>This ratio is what we call the t-statistic. It’s the ratio of two
 random variables and thus a random variable. Once we know the
@@ -3251,49 +3027,19 @@ the probability of seeing something as extreme as <code>diff</code>:
 either smaller (more negative) than <code>-abs(diff)</code> or larger
 than <code>abs(diff)</code>. We call these two regions “tails” and
 calculate their size:</p>
-<div class="codewrapper sourceCode" id="cb18">
+<div class="codewrapper sourceCode" id="cb7">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">righttail</span> <span class="op">&lt;-</span> <span class="fl">1</span> <span class="op">-</span> <span class="fu">pnorm</span><span class="op">(</span><span class="fu">abs</span><span class="op">(</span><span class="va">tstat</span><span class="op">)</span><span class="op">)</span> </span></code></pre>
+<code class="sourceCode R"><span><span class="va">righttail</span> <span class="op">&lt;-</span> <span class="fl">1</span> <span class="op">-</span> <span class="fu">pnorm</span><span class="op">(</span><span class="fu">abs</span><span class="op">(</span><span class="va">tstat</span><span class="op">)</span><span class="op">)</span> </span>
+<span><span class="va">lefttail</span> <span class="op">&lt;-</span> <span class="fu">pnorm</span><span class="op">(</span><span class="op">-</span><span class="fu">abs</span><span class="op">(</span><span class="va">tstat</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="va">pval</span> <span class="op">&lt;-</span> <span class="va">lefttail</span> <span class="op">+</span> <span class="va">righttail</span></span>
+<span><span class="fu">print</span><span class="op">(</span><span class="va">pval</span><span class="op">)</span></span></code></pre>
 </div>
 <div class="codewrapper">
-<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="error" tabindex="0"><code>Error: object 'tstat' not found</code></pre>
-</div>
-<div class="codewrapper sourceCode" id="cb20">
-<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">lefttail</span> <span class="op">&lt;-</span> <span class="fu">pnorm</span><span class="op">(</span><span class="op">-</span><span class="fu">abs</span><span class="op">(</span><span class="va">tstat</span><span class="op">)</span><span class="op">)</span></span></code></pre>
-</div>
-<div class="codewrapper">
-<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="error" tabindex="0"><code>Error: object 'tstat' not found</code></pre>
-</div>
-<div class="codewrapper sourceCode" id="cb22">
-<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">pval</span> <span class="op">&lt;-</span> <span class="va">lefttail</span> <span class="op">+</span> <span class="va">righttail</span></span></code></pre>
-</div>
-<div class="codewrapper">
-<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="error" tabindex="0"><code>Error: object 'lefttail' not found</code></pre>
-</div>
-<div class="codewrapper sourceCode" id="cb24">
-<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">print</span><span class="op">(</span><span class="va">pval</span><span class="op">)</span></span></code></pre>
-</div>
-<div class="codewrapper">
-<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="error" tabindex="0"><code>Error: object 'pval' not found</code></pre>
+<pre class="output" tabindex="0"><code>[1] 0.0398622</code></pre>
 </div>
 <p>In this case, the p-value is smaller than 0.05 and using the
 conventional cutoff of 0.05, we would call the difference
@@ -3317,91 +3063,59 @@ suspect that the population distribution is likely well approximated by
 normal and that we can use this approximation. Furthermore, we can look
 at a qq-plot for the samples. This shows that the approximation is at
 least close:</p>
-<div class="codewrapper sourceCode" id="cb26">
+<div class="codewrapper sourceCode" id="cb9">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw">library</span><span class="op">(</span><span class="va">rafalib</span><span class="op">)</span></span>
 <span><span class="fu">mypar</span><span class="op">(</span><span class="fl">1</span>,<span class="fl">2</span><span class="op">)</span></span>
-<span><span class="fu">qqnorm</span><span class="op">(</span><span class="va">treatment</span><span class="op">)</span></span></code></pre>
+<span><span class="fu">qqnorm</span><span class="op">(</span><span class="va">treatment</span><span class="op">)</span></span>
+<span><span class="fu">qqline</span><span class="op">(</span><span class="va">treatment</span>, col<span class="op">=</span><span class="fl">2</span><span class="op">)</span></span>
+<span><span class="fu">qqnorm</span><span class="op">(</span><span class="va">control</span><span class="op">)</span></span>
+<span><span class="fu">qqline</span><span class="op">(</span><span class="va">control</span>, col<span class="op">=</span><span class="fl">2</span><span class="op">)</span></span></code></pre>
 </div>
-<div class="codewrapper">
-<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="error" tabindex="0"><code>Error: object 'treatment' not found</code></pre>
-</div>
-<div class="codewrapper sourceCode" id="cb28">
-<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">qqline</span><span class="op">(</span><span class="va">treatment</span>, col<span class="op">=</span><span class="fl">2</span><span class="op">)</span></span></code></pre>
-</div>
-<div class="codewrapper">
-<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="error" tabindex="0"><code>Error: object 'treatment' not found</code></pre>
-</div>
-<div class="codewrapper sourceCode" id="cb30">
-<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">qqnorm</span><span class="op">(</span><span class="va">control</span><span class="op">)</span></span></code></pre>
-</div>
-<div class="codewrapper">
-<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="error" tabindex="0"><code>Error: object 'control' not found</code></pre>
-</div>
-<div class="codewrapper sourceCode" id="cb32">
-<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">qqline</span><span class="op">(</span><span class="va">control</span>, col<span class="op">=</span><span class="fl">2</span><span class="op">)</span></span></code></pre>
-</div>
-<div class="codewrapper">
-<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="error" tabindex="0"><code>Error: object 'control' not found</code></pre>
-</div>
-<p>If we use this approximation, then statistical theory tells us that
+<figure style="text-align: center"><img src="../fig/inference-ttests-practice-rendered-data_qqplot-1.png" alt="Quantile-quantile plots for sample against theoretical normal distribution." class="figure mx-auto d-block"><figcaption>
+Quantile-quantile plots for sample against theoretical normal
+distribution.
+</figcaption></figure><p>If we use this approximation, then statistical theory tells us that
 the distribution of the random variable <code>tstat</code> follows a
 t-distribution. This is a much more complicated distribution than the
 normal. The t-distribution has a location parameter like the normal and
 another parameter called <em>degrees of freedom</em>. R has a nice
 function that actually computes everything for us.</p>
-<div class="codewrapper sourceCode" id="cb34">
+<div class="codewrapper sourceCode" id="cb10">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">t.test</span><span class="op">(</span><span class="va">treatment</span>, <span class="va">control</span><span class="op">)</span></span></code></pre>
 </div>
 <div class="codewrapper">
-<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="error" tabindex="0"><code>Error: object 'treatment' not found</code></pre>
+<pre class="output" tabindex="0"><code>
+	Welch Two Sample t-test
+
+data:  treatment and control
+t = 2.0552, df = 20.236, p-value = 0.053
+alternative hypothesis: true difference in means is not equal to 0
+95 percent confidence interval:
+ -0.04296563  6.08463229
+sample estimates:
+mean of x mean of y
+ 26.83417  23.81333 </code></pre>
 </div>
 <p>To see just the p-value, we can use the <code>$</code> extractor:</p>
-<div class="codewrapper sourceCode" id="cb36">
+<div class="codewrapper sourceCode" id="cb12">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">result</span> <span class="op">&lt;-</span> <span class="fu">t.test</span><span class="op">(</span><span class="va">treatment</span>,<span class="va">control</span><span class="op">)</span></span></code></pre>
+<code class="sourceCode R"><span><span class="va">result</span> <span class="op">&lt;-</span> <span class="fu">t.test</span><span class="op">(</span><span class="va">treatment</span>,<span class="va">control</span><span class="op">)</span></span>
+<span><span class="va">result</span><span class="op">$</span><span class="va">p.value</span></span></code></pre>
 </div>
 <div class="codewrapper">
-<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="error" tabindex="0"><code>Error: object 'treatment' not found</code></pre>
-</div>
-<div class="codewrapper sourceCode" id="cb38">
-<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">result</span><span class="op">$</span><span class="va">p.value</span></span></code></pre>
-</div>
-<div class="codewrapper">
-<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="error" tabindex="0"><code>Error: object 'result' not found</code></pre>
+<pre class="output" tabindex="0"><code>[1] 0.05299888</code></pre>
 </div>
 <p>The p-value is slightly bigger now. This is to be expected because
 our CLT approximation considered the denominator of <code>tstat</code>
@@ -3424,42 +3138,32 @@ to incorrectly accept the null hypothesis (false negative).</p>
 </h4>
 <p>Now that we have gone over the concepts, we can show the relatively
 simple code that one would use to actually compute a t-test:</p>
-<div class="codewrapper sourceCode" id="cb40">
+<div class="codewrapper sourceCode" id="cb14">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">control</span> <span class="op">&lt;-</span> <span class="fu">filter</span><span class="op">(</span><span class="va">fWeights</span>, <span class="va">Diet</span><span class="op">==</span><span class="st">"chow"</span><span class="op">)</span> <span class="op">%&gt;%</span></span>
 <span>  <span class="fu">select</span><span class="op">(</span><span class="va">Bodyweight</span><span class="op">)</span> <span class="op">%&gt;%</span> </span>
-<span>  <span class="va">unlist</span></span></code></pre>
-</div>
-<div class="codewrapper">
-<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="error" tabindex="0"><code>Error: object 'fWeights' not found</code></pre>
-</div>
-<div class="codewrapper sourceCode" id="cb42">
-<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">treatment</span> <span class="op">&lt;-</span> <span class="fu">filter</span><span class="op">(</span><span class="va">fWeights</span>, <span class="va">Diet</span><span class="op">==</span><span class="st">"hf"</span><span class="op">)</span> <span class="op">%&gt;%</span></span>
+<span>  <span class="va">unlist</span></span>
+<span><span class="va">treatment</span> <span class="op">&lt;-</span> <span class="fu">filter</span><span class="op">(</span><span class="va">fWeights</span>, <span class="va">Diet</span><span class="op">==</span><span class="st">"hf"</span><span class="op">)</span> <span class="op">%&gt;%</span></span>
 <span>  <span class="fu">select</span><span class="op">(</span><span class="va">Bodyweight</span><span class="op">)</span> <span class="op">%&gt;%</span> </span>
-<span>  <span class="va">unlist</span></span></code></pre>
+<span>  <span class="va">unlist</span></span>
+<span><span class="fu">t.test</span><span class="op">(</span><span class="va">treatment</span>, <span class="va">control</span><span class="op">)</span></span></code></pre>
 </div>
 <div class="codewrapper">
-<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="error" tabindex="0"><code>Error: object 'fWeights' not found</code></pre>
-</div>
-<div class="codewrapper sourceCode" id="cb44">
-<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">t.test</span><span class="op">(</span><span class="va">treatment</span>, <span class="va">control</span><span class="op">)</span></span></code></pre>
-</div>
-<div class="codewrapper">
-<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="error" tabindex="0"><code>Error: object 'treatment' not found</code></pre>
+<pre class="output" tabindex="0"><code>
+	Welch Two Sample t-test
+
+data:  treatment and control
+t = 2.0552, df = 20.236, p-value = 0.053
+alternative hypothesis: true difference in means is not equal to 0
+95 percent confidence interval:
+ -0.04296563  6.08463229
+sample estimates:
+mean of x mean of y
+ 26.83417  23.81333 </code></pre>
 </div>
 <p>The arguments to <code>t.test</code> can be of type
 <em>data.frame</em> and thus we do not need to unlist them into numeric
@@ -3483,7 +3187,7 @@ objects.</p>
 </div>
 </section></section><section id="aio-inference-ci"><p>Content from <a href="inference-ci.html">Confidence Intervals</a></p>
 <hr>
-<p>Last updated on 2025-08-15 |
+<p>Last updated on 2025-08-17 |
 
         <a href="https://github.com/carpentries-incubator/statistical-inference-for-biology/edit/main/episodes/inference-ci.Rmd" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 <p>Estimated time: <i aria-hidden="true" data-feather="clock"></i> 20 minutes</p>
@@ -3551,31 +3255,15 @@ and selecting the appropriate rows:</p>
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">pheno</span> <span class="op">&lt;-</span> <span class="fu">read.csv</span><span class="op">(</span><span class="st">"../data/mice_pheno.csv"</span><span class="op">)</span> <span class="co"># we read this in earlier</span></span></code></pre>
-</div>
-<div class="codewrapper">
-<h3 class="code-label">WARNING<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="warning" tabindex="0"><code>Warning in file(file, "rt"): cannot open file '../data/mice_pheno.csv': No such
-file or directory</code></pre>
-</div>
-<div class="codewrapper">
-<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="error" tabindex="0"><code>Error in file(file, "rt"): cannot open the connection</code></pre>
-</div>
-<div class="codewrapper sourceCode" id="cb4">
-<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">chowPopulation</span> <span class="op">&lt;-</span> <span class="va">pheno</span> <span class="op">%&gt;%</span> </span>
+<code class="sourceCode R"><span><span class="va">pheno</span> <span class="op">&lt;-</span> <span class="fu">read.csv</span><span class="op">(</span><span class="st">"./data/mice_pheno.csv"</span><span class="op">)</span> <span class="co"># we read this in earlier</span></span>
+<span><span class="va">chowPopulation</span> <span class="op">&lt;-</span> <span class="va">pheno</span> <span class="op">%&gt;%</span> </span>
 <span>  <span class="fu">filter</span><span class="op">(</span><span class="va">Sex</span><span class="op">==</span><span class="st">"F"</span> <span class="op">&amp;</span> <span class="va">Diet</span><span class="op">==</span><span class="st">"chow"</span><span class="op">)</span> <span class="op">%&gt;%</span> </span>
 <span>  <span class="fu">select</span><span class="op">(</span><span class="va">Bodyweight</span><span class="op">)</span> <span class="op">%&gt;%</span> </span>
 <span>  <span class="va">unlist</span></span></code></pre>
 </div>
 <p>The population average <i>μ<sub>X</sub></i> is our parameter of
 interest here:</p>
-<div class="codewrapper sourceCode" id="cb5">
+<div class="codewrapper sourceCode" id="cb2">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -3591,7 +3279,7 @@ interest here:</p>
 not get to see the entire population so, as we did for p-values, we
 demonstrate how we can use samples to do this. Let’s start with a sample
 of size 30:</p>
-<div class="codewrapper sourceCode" id="cb7">
+<div class="codewrapper sourceCode" id="cb4">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -3614,7 +3302,7 @@ variability of our random variable.</p>
 X̄ or <code>mean(chow)</code> follows a normal distribution with mean
 <i>μ<sub>X</sub></i> or <code>mean(chowPopulation)</code> and standard
 error approximately <i>s<sub>X</sub> / √N</i> or:</p>
-<div class="codewrapper sourceCode" id="cb9">
+<div class="codewrapper sourceCode" id="cb6">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -3640,7 +3328,7 @@ interval. To construct it, we note that the CLT tells us that <i>√N</i>
 with mean 0 and SD 1. This implies that the probability of this
 event:</p>
 <figure><img src="../fig/02-confint.png" class="figure mx-auto d-block"></figure><p>which written in R code is:</p>
-<div class="codewrapper sourceCode" id="cb11">
+<div class="codewrapper sourceCode" id="cb8">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -3664,7 +3352,7 @@ interval that has been calculated, the probability is either 0 or 1 that
 it contains the fixed population mean <i>μ<sub>X</sub></i>.</p>
 <p>Let’s demonstrate this logic through simulation. We can construct
 this interval with R relatively easily:</p>
-<div class="codewrapper sourceCode" id="cb13">
+<div class="codewrapper sourceCode" id="cb10">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -3677,7 +3365,7 @@ this interval with R relatively easily:</p>
 </h3>
 <pre class="output" tabindex="0"><code>[1] 22.68506 25.38027</code></pre>
 </div>
-<div class="codewrapper sourceCode" id="cb15">
+<div class="codewrapper sourceCode" id="cb12">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -3694,7 +3382,7 @@ and we might not be as lucky. In fact, the theory tells us that we will
 cover <i>μ<sub>X</sub></i> 95% of the time. Because we have access to
 the population data, we can confirm this by taking several new
 samples:</p>
-<div class="codewrapper sourceCode" id="cb17">
+<div class="codewrapper sourceCode" id="cb14">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -3727,7 +3415,7 @@ about 5% of the cases, we fail to cover <i>μ<sub>X</sub></i>.</p>
 5</em>, do these confidence intervals work as well? We used the CLT to
 create our intervals, and with <em>N = 5</em> it may not be as useful an
 approximation. We can confirm this with a simulation:</p>
-<div class="codewrapper sourceCode" id="cb18">
+<div class="codewrapper sourceCode" id="cb15">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -3762,7 +3450,7 @@ which assumes a normal distribution and uses <code>qnorm</code>. The
 t-distribution might be more appropriate. All we have to do is re-run
 the above, but change how we calculate <code>Q</code> to use
 <code>qt</code> instead of <code>qnorm</code>.</p>
-<div class="codewrapper sourceCode" id="cb19">
+<div class="codewrapper sourceCode" id="cb16">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -3789,7 +3477,7 @@ approximation. The color denotes if the interval fell on the parameter
 or not.
 </figcaption></figure><p>Now the intervals are made bigger. This is because the t-distribution
 has fatter tails and therefore:</p>
-<div class="codewrapper sourceCode" id="cb20">
+<div class="codewrapper sourceCode" id="cb17">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -3801,7 +3489,7 @@ has fatter tails and therefore:</p>
 <pre class="output" tabindex="0"><code>[1] 2.776445</code></pre>
 </div>
 <p>is bigger than…</p>
-<div class="codewrapper sourceCode" id="cb22">
+<div class="codewrapper sourceCode" id="cb19">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -3847,7 +3535,7 @@ confidence interval does not include 0, then the p-value must be smaller
 than 0.05 or 0.01 respectively.</p>
 <p>Note that the confidence interval for the difference <em>d</em> is
 provided by the <code>t.test</code> function:</p>
-<div class="codewrapper sourceCode" id="cb24">
+<div class="codewrapper sourceCode" id="cb21">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -3856,7 +3544,7 @@ provided by the <code>t.test</code> function:</p>
 <span><span class="va">control</span> <span class="op">&lt;-</span> <span class="va">pheno</span><span class="op">[</span><span class="va">controlIndex</span>, <span class="fl">3</span><span class="op">]</span></span>
 <span><span class="va">treatment</span> <span class="op">&lt;-</span> <span class="va">pheno</span><span class="op">[</span><span class="va">treatmentIndex</span>, <span class="fl">3</span><span class="op">]</span></span></code></pre>
 </div>
-<div class="codewrapper sourceCode" id="cb25">
+<div class="codewrapper sourceCode" id="cb22">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -3872,7 +3560,7 @@ attr(,"conf.level")
 <p>In this case, the 95% confidence interval does include 0 and we
 observe that the p-value is larger than 0.05 as predicted. If we change
 this to a 90% confidence interval, then:</p>
-<div class="codewrapper sourceCode" id="cb27">
+<div class="codewrapper sourceCode" id="cb24">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -6582,8 +6270,8 @@ to display data.</li>
   "url": "https://carpentries-incubator.github.io/statistical-inference-for-biology/instructor/aio.html",
   "identifier": "https://carpentries-incubator.github.io/statistical-inference-for-biology/instructor/aio.html",
   "dateCreated": "2020-02-25",
-  "dateModified": "2025-08-15",
-  "datePublished": "2025-08-15"
+  "dateModified": "2025-08-17",
+  "datePublished": "2025-08-17"
 }
 
   </script><script>
