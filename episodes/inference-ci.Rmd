@@ -58,7 +58,7 @@ difference after we've learned how to build confidence intervals in the simple
 case. We start by reading in the data and selecting the appropriate rows:
 
 ```{r chowPop}
-pheno <- read.csv("../data/mice_pheno.csv") # we read this in earlier
+pheno <- read.csv("./data/mice_pheno.csv") # we read this in earlier
 chowPopulation <- pheno %>% 
   filter(Sex=="F" & Diet=="chow") %>% 
   select(Bodyweight) %>% 

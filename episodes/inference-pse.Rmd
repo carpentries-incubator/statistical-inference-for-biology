@@ -82,7 +82,7 @@ library(dplyr)
 ```
 
 ```{r load_pheno}
-pheno <- read.csv(file = "../data/mice_pheno.csv")
+pheno <- read.csv(file = "./data/mice_pheno.csv")
 ```
 
 We can then access the population values and determine, for example, how many we

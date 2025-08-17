@@ -68,7 +68,7 @@ weeks, the scientists weighed each mouse and obtained this data (`head` just
 shows us the first 6 rows):
 
 ```{r load_weight_data}
-fWeights <- read.csv("../data/femaleMiceWeights.csv")
+fWeights <- read.csv("./data/femaleMiceWeights.csv")
 head(fWeights) 
 ```
 
@@ -117,7 +117,7 @@ have a special dataset that we are using here to illustrate concepts.
 Now let's sample 12 mice three times and see how the average changes.
 
 ```{r control_population}
-population <- read.csv(file = "../data/femaleControlsPopulation.csv")
+population <- read.csv(file = "./data/femaleControlsPopulation.csv")
 
 control <- sample(population$Bodyweight, 12)
 mean(control)

@@ -35,7 +35,7 @@ concepts, we will construct a t-statistic from "scratch".
 We start by reading in the data. A first important step is to identify which rows are associated with treatment and control, and to compute the difference in mean.
 
 ```{r chow_hf, message=FALSE}
-fWeights <- read.csv(file = "../data/femaleMiceWeights.csv") # we read this data in earlier
+fWeights <- read.csv(file = "./data/femaleMiceWeights.csv") # we read this data in earlier
 control <- filter(fWeights, Diet=="chow") %>%
   select(Bodyweight) %>% 
   unlist
