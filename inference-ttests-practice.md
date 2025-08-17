@@ -34,55 +34,19 @@ We start by reading in the data. A first important step is to identify which row
 
 
 ``` r
-fWeights <- read.csv(file = "../data/femaleMiceWeights.csv") # we read this data in earlier
-```
-
-``` warning
-Warning in file(file, "rt"): cannot open file '../data/femaleMiceWeights.csv':
-No such file or directory
-```
-
-``` error
-Error in file(file, "rt"): cannot open the connection
-```
-
-``` r
+fWeights <- read.csv(file = "./data/femaleMiceWeights.csv") # we read this data in earlier
 control <- filter(fWeights, Diet=="chow") %>%
   select(Bodyweight) %>% 
   unlist
-```
-
-``` error
-Error: object 'fWeights' not found
-```
-
-``` r
 treatment <- filter(fWeights, Diet=="hf") %>%
   select(Bodyweight) %>% 
   unlist
-```
-
-``` error
-Error: object 'fWeights' not found
-```
-
-``` r
 diff <- mean(treatment) - mean(control)
-```
-
-``` error
-Error: object 'treatment' not found
-```
-
-``` r
 print(diff)
 ```
 
 ``` output
-function (x, ...) 
-UseMethod("diff")
-<bytecode: 0x55be15234ce8>
-<environment: namespace:base>
+[1] 3.020833
 ```
 
 We are asked to report a p-value. What do we do? We learned that `diff`,
@@ -102,8 +66,8 @@ standard deviation. In R, we simply use the `sd` function and the SE is:
 sd(control)/sqrt(length(control))
 ```
 
-``` error
-Error: object 'control' not found
+``` output
+[1] 0.8725323
 ```
 
 This is the SE of the sample average, but we actually want the SE of `diff`. We
@@ -119,20 +83,12 @@ se <- sqrt(
   )
 ```
 
-``` error
-Error: object 'treatment' not found
-```
-
 Statistical theory tells us that if we divide a random variable by its SE, we
 get a new random variable with an SE of 1.
 
 
 ``` r
 tstat <- diff/se 
-```
-
-``` error
-Error: object 'se' not found
 ```
 
 This ratio is what we call the t-statistic. It's the ratio of two random variables and thus a random variable. Once we know the distribution of this random variable, we can then easily compute a p-value.
@@ -151,34 +107,13 @@ that a random variable following the standard normal distribution falls below
 
 ``` r
 righttail <- 1 - pnorm(abs(tstat)) 
-```
-
-``` error
-Error: object 'tstat' not found
-```
-
-``` r
 lefttail <- pnorm(-abs(tstat))
-```
-
-``` error
-Error: object 'tstat' not found
-```
-
-``` r
 pval <- lefttail + righttail
-```
-
-``` error
-Error: object 'lefttail' not found
-```
-
-``` r
 print(pval)
 ```
 
-``` error
-Error: object 'pval' not found
+``` output
+[1] 0.0398622
 ```
 
 In this case, the p-value is smaller than 0.05 and using the conventional cutoff
@@ -208,35 +143,15 @@ approximation is at least close:
 library(rafalib)
 mypar(1,2)
 qqnorm(treatment)
-```
-
-``` error
-Error: object 'treatment' not found
-```
-
-``` r
 qqline(treatment, col=2)
-```
-
-``` error
-Error: object 'treatment' not found
-```
-
-``` r
 qqnorm(control)
-```
-
-``` error
-Error: object 'control' not found
-```
-
-``` r
 qqline(control, col=2)
 ```
 
-``` error
-Error: object 'control' not found
-```
+<div class="figure" style="text-align: center">
+<img src="fig/inference-ttests-practice-rendered-data_qqplot-1.png" alt="Quantile-quantile plots for sample against theoretical normal distribution."  />
+<p class="caption">Quantile-quantile plots for sample against theoretical normal distribution.</p>
+</div>
 
 If we use this approximation, then statistical theory tells us that the
 distribution of the random variable `tstat` follows a t-distribution. This is a
@@ -250,8 +165,18 @@ for us.
 t.test(treatment, control)
 ```
 
-``` error
-Error: object 'treatment' not found
+``` output
+
+	Welch Two Sample t-test
+
+data:  treatment and control
+t = 2.0552, df = 20.236, p-value = 0.053
+alternative hypothesis: true difference in means is not equal to 0
+95 percent confidence interval:
+ -0.04296563  6.08463229
+sample estimates:
+mean of x mean of y 
+ 26.83417  23.81333 
 ```
 
 To see just the p-value, we can use the `$` extractor:
@@ -259,18 +184,11 @@ To see just the p-value, we can use the `$` extractor:
 
 ``` r
 result <- t.test(treatment,control)
-```
-
-``` error
-Error: object 'treatment' not found
-```
-
-``` r
 result$p.value
 ```
 
-``` error
-Error: object 'result' not found
+``` output
+[1] 0.05299888
 ```
 
 The p-value is slightly bigger now. This is to be expected because our CLT
@@ -301,28 +219,24 @@ that one would use to actually compute a t-test:
 control <- filter(fWeights, Diet=="chow") %>%
   select(Bodyweight) %>% 
   unlist
-```
-
-``` error
-Error: object 'fWeights' not found
-```
-
-``` r
 treatment <- filter(fWeights, Diet=="hf") %>%
   select(Bodyweight) %>% 
   unlist
-```
-
-``` error
-Error: object 'fWeights' not found
-```
-
-``` r
 t.test(treatment, control)
 ```
 
-``` error
-Error: object 'treatment' not found
+``` output
+
+	Welch Two Sample t-test
+
+data:  treatment and control
+t = 2.0552, df = 20.236, p-value = 0.053
+alternative hypothesis: true difference in means is not equal to 0
+95 percent confidence interval:
+ -0.04296563  6.08463229
+sample estimates:
+mean of x mean of y 
+ 26.83417  23.81333 
 ```
 
 The arguments to `t.test` can be of type *data.frame* and thus we do not need to

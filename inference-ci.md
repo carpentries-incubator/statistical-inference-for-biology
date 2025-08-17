@@ -53,19 +53,7 @@ case. We start by reading in the data and selecting the appropriate rows:
 
 
 ``` r
-pheno <- read.csv("../data/mice_pheno.csv") # we read this in earlier
-```
-
-``` warning
-Warning in file(file, "rt"): cannot open file '../data/mice_pheno.csv': No such
-file or directory
-```
-
-``` error
-Error in file(file, "rt"): cannot open the connection
-```
-
-``` r
+pheno <- read.csv("./data/mice_pheno.csv") # we read this in earlier
 chowPopulation <- pheno %>% 
   filter(Sex=="F" & Diet=="chow") %>% 
   select(Bodyweight) %>% 

@@ -64,24 +64,18 @@ shows us the first 6 rows):
 
 
 ``` r
-fWeights <- read.csv("../data/femaleMiceWeights.csv")
-```
-
-``` warning
-Warning in file(file, "rt"): cannot open file '../data/femaleMiceWeights.csv':
-No such file or directory
-```
-
-``` error
-Error in file(file, "rt"): cannot open the connection
-```
-
-``` r
+fWeights <- read.csv("./data/femaleMiceWeights.csv")
 head(fWeights) 
 ```
 
-``` error
-Error: object 'fWeights' not found
+``` output
+  Diet Bodyweight
+1 chow      21.51
+2 chow      28.14
+3 chow      24.04
+4 chow      23.45
+5 chow      23.68
+6 chow      19.79
 ```
 
 If you would like to view the entire data set with RStudio:
@@ -102,52 +96,31 @@ usually refer to the averages. So let's look at the average of each group:
 control <- filter(fWeights, Diet=="chow") %>%
   select(Bodyweight) %>% 
   unlist
-```
-
-``` error
-Error: object 'fWeights' not found
-```
-
-``` r
 treatment <- filter(fWeights, Diet=="hf") %>%
   select(Bodyweight) %>% 
   unlist
-```
-
-``` error
-Error: object 'fWeights' not found
-```
-
-``` r
 print( mean(treatment) )
 ```
 
-``` error
-Error: object 'treatment' not found
+``` output
+[1] 26.83417
 ```
 
 ``` r
 print( mean(control) )
 ```
 
-``` error
-Error: object 'control' not found
+``` output
+[1] 23.81333
 ```
 
 ``` r
 obsdiff <- mean(treatment) - mean(control)
-```
-
-``` error
-Error: object 'treatment' not found
-```
-
-``` r
 print(obsdiff)
 ```
 
-``` error
-Error: object 'obsdiff' not found
+``` output
+[1] 3.020833
 ```
 
 So the hf diet mice are about 10% heavier. Are we done? Why do we need p-values
@@ -171,76 +144,32 @@ Now let's sample 12 mice three times and see how the average changes.
 
 
 ``` r
-population <- read.csv(file = "../data/femaleControlsPopulation.csv")
+population <- read.csv(file = "./data/femaleControlsPopulation.csv")
+
+control <- sample(population$Bodyweight, 12)
+mean(control)
 ```
 
-``` warning
-Warning in file(file, "rt"): cannot open file
-'../data/femaleControlsPopulation.csv': No such file or directory
-```
-
-``` error
-Error in file(file, "rt"): cannot open the connection
+``` output
+[1] 23.47667
 ```
 
 ``` r
 control <- sample(population$Bodyweight, 12)
-```
-
-``` warning
-Warning: Unknown or uninitialised column: `Bodyweight`.
-```
-
-``` error
-Error in sample.int(length(x), size, replace, prob): invalid first argument
-```
-
-``` r
 mean(control)
 ```
 
-``` error
-Error: object 'control' not found
+``` output
+[1] 25.12583
 ```
 
 ``` r
 control <- sample(population$Bodyweight, 12)
-```
-
-``` warning
-Warning: Unknown or uninitialised column: `Bodyweight`.
-```
-
-``` error
-Error in sample.int(length(x), size, replace, prob): invalid first argument
-```
-
-``` r
 mean(control)
 ```
 
-``` error
-Error: object 'control' not found
-```
-
-``` r
-control <- sample(population$Bodyweight, 12)
-```
-
-``` warning
-Warning: Unknown or uninitialised column: `Bodyweight`.
-```
-
-``` error
-Error in sample.int(length(x), size, replace, prob): invalid first argument
-```
-
-``` r
-mean(control)
-```
-
-``` error
-Error: object 'control' not found
+``` output
+[1] 23.72333
 ```
 
 Note how the average varies. We can continue to do this repeatedly and start
@@ -265,35 +194,13 @@ and 12. Here is this process written in R code:
 ``` r
 ## 12 control mice
 control <- sample(population$Bodyweight, 12)
-```
-
-``` warning
-Warning: Unknown or uninitialised column: `Bodyweight`.
-```
-
-``` error
-Error in sample.int(length(x), size, replace, prob): invalid first argument
-```
-
-``` r
 ## another 12 control mice that we act as if they were not
 treatment <- sample(population$Bodyweight, 12)
-```
-
-``` warning
-Warning: Unknown or uninitialised column: `Bodyweight`.
-```
-
-``` error
-Error in sample.int(length(x), size, replace, prob): invalid first argument
-```
-
-``` r
 print(mean(treatment) - mean(control))
 ```
 
-``` error
-Error: object 'treatment' not found
+``` output
+[1] -0.2391667
 ```
 
 Now let's do it 10,000 times. We will use a "for-loop", an operation that lets
@@ -311,14 +218,6 @@ for (i in 1:n) {
 }
 ```
 
-``` warning
-Warning: Unknown or uninitialised column: `Bodyweight`.
-```
-
-``` error
-Error in sample.int(length(x), size, replace, prob): invalid first argument
-```
-
 The values in `null` form what we call the *null distribution*. We will define
 this more formally below. By the way, the loop above is a *Monte Carlo*
 simulation to obtain 10,000 outcomes of the random variable under the null
@@ -332,8 +231,8 @@ So what percent of the 10,000 are bigger than `obsdiff`?
 mean(null >= obsdiff)
 ```
 
-``` error
-Error: object 'obsdiff' not found
+``` output
+[1] 0.0123
 ```
 
 Only a small percent of the 10,000 simulations. As skeptics what do we conclude?
@@ -367,7 +266,7 @@ round(sample(x, 10), 1)
 ```
 
 ``` output
- [1] 70.6 67.4 70.1 68.5 62.7 67.1 66.5 67.6 67.2 68.5
+ [1] 67.7 72.5 64.7 62.7 66.1 67.5 68.2 61.8 69.7 71.2
 ```
 
 ##### Cumulative Distribution Function
@@ -444,20 +343,13 @@ relatively rare:
 
 ``` r
 hist(null, freq=TRUE)
+abline(v=obsdiff, col="red", lwd=2)
 ```
 
 <div class="figure" style="text-align: center">
 <img src="fig/inference-rv-dists-rendered-null_and_obs-1.png" alt="Null distribution with observed difference marked with vertical red line."  />
 <p class="caption">Null distribution with observed difference marked with vertical red line.</p>
 </div>
-
-``` r
-abline(v=obsdiff, col="red", lwd=2)
-```
-
-``` error
-Error: object 'obsdiff' not found
-```
 
 An important point to keep in mind here is that while we defined Pr<i>(a)</i> by
 counting cases, we will learn that, in some circumstances, mathematics gives us
@@ -493,8 +385,8 @@ works very well here:
 1 - pnorm(obsdiff, mean(null), sd(null)) 
 ```
 
-``` error
-Error: object 'obsdiff' not found
+``` output
+[1] 0.01311009
 ```
 
 Later, we will learn that there is a mathematical explanation for this. A very
@@ -511,8 +403,8 @@ left. Try running this code without the `1 - ` to understand this better.
 pnorm(obsdiff, mean(null), sd(null)) 
 ```
 
-``` error
-Error: object 'obsdiff' not found
+``` output
+[1] 0.9868899
 ```
 
 This value represents everything to the left of the vertical red line in the
@@ -631,10 +523,8 @@ str(population)
 ```
 
 ``` output
-tibble [4,060 × 3] (S3: tbl_df/tbl/data.frame)
- $ country   : chr [1:4060] "Afghanistan" "Afghanistan" "Afghanistan" "Afghanistan" ...
- $ year      : num [1:4060] 1995 1996 1997 1998 1999 ...
- $ population: num [1:4060] 17586073 18415307 19021226 19496836 19987071 ...
+'data.frame':	225 obs. of  1 variable:
+ $ Bodyweight: num  27 24.8 27 28.1 23.6 ...
 ```
 
 ``` r
@@ -642,15 +532,13 @@ head(population)
 ```
 
 ``` output
-# A tibble: 6 × 3
-  country      year population
-  <chr>       <dbl>      <dbl>
-1 Afghanistan  1995   17586073
-2 Afghanistan  1996   18415307
-3 Afghanistan  1997   19021226
-4 Afghanistan  1998   19496836
-5 Afghanistan  1999   19987071
-6 Afghanistan  2000   20595360
+  Bodyweight
+1      27.03
+2      24.80
+3      27.02
+4      28.07
+5      23.55
+6      22.72
 ```
 
 ``` r
@@ -658,13 +546,13 @@ summary(population)
 ```
 
 ``` output
-   country               year        population       
- Length:4060        Min.   :1995   Min.   :1.129e+03  
- Class :character   1st Qu.:1999   1st Qu.:6.029e+05  
- Mode  :character   Median :2004   Median :5.319e+06  
-                    Mean   :2004   Mean   :3.003e+07  
-                    3rd Qu.:2009   3rd Qu.:1.855e+07  
-                    Max.   :2013   Max.   :1.386e+09  
+   Bodyweight   
+ Min.   :15.51  
+ 1st Qu.:21.51  
+ Median :23.54  
+ Mean   :23.89  
+ 3rd Qu.:26.08  
+ Max.   :36.84  
 ```
 
 :::::::::::::::::::::::::::::::::::::::  challenge

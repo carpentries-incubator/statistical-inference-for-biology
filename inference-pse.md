@@ -73,16 +73,7 @@ file to our working directory and read in to R:
 
 
 ``` r
-pheno <- read.csv(file = "../data/mice_pheno.csv")
-```
-
-``` warning
-Warning in file(file, "rt"): cannot open file '../data/mice_pheno.csv': No such
-file or directory
-```
-
-``` error
-Error in file(file, "rt"): cannot open the connection
+pheno <- read.csv(file = "./data/mice_pheno.csv")
 ```
 
 We can then access the population values and determine, for example, how many we
