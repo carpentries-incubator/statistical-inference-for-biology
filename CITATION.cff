@@ -1,22 +1,50 @@
-# This template CITATION.cff file was generated with cffinit.
-# Visit https://bit.ly/cffinit to replace its contents
-# with information about your lesson.
-# Remember to update this file periodically, 
-# ensuring that the author list and other fields remain accurate.
+# This CITATION.cff file was generated with cffinit.
+# Visit https://bit.ly/cffinit to generate yours today!
 
 cff-version: 1.2.0
-title: FIXME
+title: Statistical Inference for Biology
 message: >-
   Please cite this lesson using the information in this file
   when you refer to it in publications, and/or if you
   re-use, adapt, or expand on the content in your own
   training material.
-type: dataset
+type: software
 authors:
-  - given-names: FIXME
-    family-names: FIXME
+  - given-names: Susan
+    family-names: McClatchy
+    email: susan.mcclatchy@jax.org
+    affiliation: The Jackson Laboratory
+    orcid: 'https://orcid.org/0000-0003-3219-2177'
+  - given-names: Georgi
+    family-names: Kolishovski
+    email: georgi.kolishovski@jax.org
+    affiliation: The Jackson Laboratory
+  - given-names: Gary
+    family-names: Churchill
+    email: gary.churchill@jax.org
+    affiliation: The Jackson Laboratory
+    orcid: 'https://orcid.org/0000-0001-9190-9284'
+identifiers:
+  - type: doi
+    value: 10.5281/zenodo.3687134
+    description: Zenodo
+repository-code: >-
+  https://github.com/carpentries-incubator/statistical-inference-for-biology
+url: >-
+  https://carpentries-incubator.github.io/statistical-inference-for-biology/
 abstract: >-
-  FIXME Replace this with a short abstract describing the
-  lesson, e.g. its target audience and main intended
-  learning objectives.
+  More data are better than less data, right? When
+  interpreted through sophisticated analytical skills the
+  answer could be yes. Absent these skills, analysts can be
+  tricked by patterns in “big data” that appear by chance.
+  This lesson presents statistical skills and knowledge to
+  help data analysts in the life sciences to avoid some of
+  the most common pitfalls of big data. Lesson material is
+  derived from the HarvardX Biomedical Data Science series,
+  part of which is published as the book Data Analysis for
+  the Life Sciences (Irizarry & Love, 2016).
+keywords:
+  - inference
+  - biology
+  - statistics
 license: CC-BY-4.0
