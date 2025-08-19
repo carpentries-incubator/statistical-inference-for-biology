@@ -980,7 +980,7 @@ of those four gives you power of about 80%?</li>
   Solution to Exercises
   </h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
 <div class="accordion-body">
 <ol style="list-style-type: decimal"><li><p><code>set.seed(1)</code><br><code>dat.ns &lt;- sample(bwt.nonsmoke, size = 25)</code><br><code>dat.s &lt;- sample(bwt.smoke, size = 25)</code><br><code>tval &lt;- t.test(bwt.smoke, bwt.nonsmoke)$p.value</code></p></li>
 <li>
