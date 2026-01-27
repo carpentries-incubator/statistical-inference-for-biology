@@ -3,6 +3,18 @@
     "Version": "4.5.2",
     "Repositories": [
       {
+        "Name": "carpentries",
+        "URL": "https://carpentries.r-universe.dev"
+      },
+      {
+        "Name": "carpentries_archive",
+        "URL": "https://carpentries.github.io/drat"
+      },
+      {
+        "Name": "CRAN",
+        "URL": "https://cran.rstudio.com"
+      },
+      {
         "Name": "BioCsoft",
         "URL": "https://bioconductor.org/packages/3.20/bioc"
       },
@@ -21,18 +33,6 @@
       {
         "Name": "BioCbooks",
         "URL": "https://bioconductor.org/packages/3.20/books"
-      },
-      {
-        "Name": "carpentries",
-        "URL": "https://carpentries.r-universe.dev"
-      },
-      {
-        "Name": "carpentries_archive",
-        "URL": "https://carpentries.github.io/drat"
-      },
-      {
-        "Name": "CRAN",
-        "URL": "https://cran.rstudio.com"
       }
     ]
   },
